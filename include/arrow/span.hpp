@@ -17,6 +17,10 @@ struct Span {
     filename(filename), begin(begin), end(begin + offset) {
   }
 
+  Span(std::string filename, Position begin, Position end) :
+    filename(filename), begin(begin), end(end) {
+  }
+
   friend std::ostream &operator<<(std::ostream &os, const Span &sp) {
     os << sp.filename << ":";
 

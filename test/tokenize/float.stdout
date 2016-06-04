@@ -1,0 +1,6 @@
+test/tokenize/float.as:1:1-7: float: 5.231
+test/tokenize/float.as:2:1-7: float: 7523
+test/tokenize/float.as:3:1-8: float: 2.14e+12
+test/tokenize/float.as:4:1-6: float: 3250
+test/tokenize/float.as:5:1-8: float: 5e-1243
+test/tokenize/float.as:6:1-10: float: 3252.35

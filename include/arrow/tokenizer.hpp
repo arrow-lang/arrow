@@ -10,6 +10,7 @@
 #include <deque>
 #include <fstream>
 #include <vector>
+#include <sstream>
 #include <functional>
 
 #include "arrow/token.hpp"
@@ -40,6 +41,7 @@ class Tokenizer {
   bool _read(unsigned offset);
 
   bool _consume_line_comment();
+  void _consume_number(std::stringstream& ss, unsigned base);
 
   std::shared_ptr<Token> _scan_numeric();
 

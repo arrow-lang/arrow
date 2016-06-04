@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "cppformat/format.h"
 #include "arrow/tokenizer.hpp"
 
 void help(char* binary_path) {
@@ -29,5 +30,7 @@ int main(int argc, char** argv) {
 
   while (!tokenizer.empty()) {
     auto token = tokenizer.pop();
+
+    fmt::print("{}: {}: {}\n", token->span, token->type, *token);
   }
 }

@@ -6,7 +6,7 @@ import os
 import webbrowser
 from itertools import chain
 import sys
-# import ws.test
+import ws.test
 
 
 WAF_TOOLS = ["compiler_cxx", "boost"]
@@ -98,10 +98,10 @@ def build(ctx):
                      "FFI", "CPPFORMAT"])
 
 
-# def test(ctx):
-#     result = ws.test.run(ctx)
-#     if not result:
-#         sys.exit(1)
+def test(ctx):
+    result = ws.test.run(ctx)
+    if not result:
+        sys.exit(1)
 
 
 # def generate(ctx):
