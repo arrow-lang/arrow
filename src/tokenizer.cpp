@@ -8,12 +8,87 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <map>
 
 #include "arrow/tokenizer.hpp"
 #include "arrow/log.hpp"
 
 using std::vector;
 using arrow::Tokenizer;
+
+// Keywords
+static std::unordered_map<std::string, arrow::token::Type> keywords = {
+  {"and",       arrow::token::Type::And         },
+  {"or",        arrow::token::Type::Or          },
+  {"not",       arrow::token::Type::Not         },
+  {"let",       arrow::token::Type::Let         },
+  {"mutable",   arrow::token::Type::Mutable     },
+  {"def",       arrow::token::Type::Def         },
+  {"extern",    arrow::token::Type::Extern      },
+  {"export",    arrow::token::Type::Export      },
+  {"import",    arrow::token::Type::Import      },
+  {"from",      arrow::token::Type::From        },
+  {"true",      arrow::token::Type::True        },
+  {"false",     arrow::token::Type::False       },
+  {"if",        arrow::token::Type::If          },
+  {"unless",    arrow::token::Type::Unless      },
+  {"else",      arrow::token::Type::Else        },
+  {"loop",      arrow::token::Type::Loop        },
+  {"while",     arrow::token::Type::While       },
+  {"until",     arrow::token::Type::Until       },
+  {"break",     arrow::token::Type::Break       },
+  {"continue",  arrow::token::Type::Continue    },
+  {"return",    arrow::token::Type::Return      },
+  {"global",    arrow::token::Type::Global      },
+  {"as",        arrow::token::Type::As          },
+  {"struct",    arrow::token::Type::Struct      },
+  {"_",         arrow::token::Type::Underscore  },
+};
+
+// Symbols
+static std::map<vector<char32_t>, arrow::token::Type> symbols = {
+  // 1-character
+  {{'+'}, arrow::token::Type::Plus             },
+  {{'-'}, arrow::token::Type::Minus            },
+  {{'/'}, arrow::token::Type::Slash            },
+  {{'*'}, arrow::token::Type::Asterisk         },
+  {{'%'}, arrow::token::Type::Percent          },
+  {{'&'}, arrow::token::Type::Ampersand        },
+  {{'|'}, arrow::token::Type::Pipe             },
+  {{'^'}, arrow::token::Type::Caret            },
+  {{'!'}, arrow::token::Type::ExclamationMark  },
+  {{'='}, arrow::token::Type::Equals           },
+  {{'<'}, arrow::token::Type::LessThan         },
+  {{'>'}, arrow::token::Type::GreaterThan      },
+  {{'.'}, arrow::token::Type::Period           },
+  {{':'}, arrow::token::Type::Colon            },
+  {{';'}, arrow::token::Type::Semicolon        },
+  {{'{'}, arrow::token::Type::LeftBrace        },
+  {{'}'}, arrow::token::Type::RightBrace       },
+  {{'('}, arrow::token::Type::LeftParenthesis  },
+  {{')'}, arrow::token::Type::RightParenthesis },
+  {{'['}, arrow::token::Type::LeftBracket      },
+  {{']'}, arrow::token::Type::RightBracket     },
+  {{','}, arrow::token::Type::Comma            },
+
+  // 2-character
+  {{'+', '='}, arrow::token::Type::Plus_Equals             },
+  {{'-', '='}, arrow::token::Type::Minus_Equals            },
+  {{'*', '='}, arrow::token::Type::Asterisk_Equals         },
+  {{'/', '='}, arrow::token::Type::Slash_Equals            },
+  {{'%', '='}, arrow::token::Type::Percent_Equals          },
+  {{'&', '='}, arrow::token::Type::Ampersand_Equals        },
+  {{'|', '='}, arrow::token::Type::Pipe_Equals             },
+  {{'^', '='}, arrow::token::Type::Caret_Equals            },
+  {{'=', '='}, arrow::token::Type::Equals_Equals           },
+  {{'!', '='}, arrow::token::Type::ExclamationMark_Equals  },
+  {{'>', '='}, arrow::token::Type::GreaterThan_Equals      },
+  {{'<', '='}, arrow::token::Type::LessThan_Equals         },
+  {{'-', '>'}, arrow::token::Type::Arrow                   },
+
+  // 3-character
+  {{'.', '.', '.'}, arrow::token::Type::Ellipsis           },
+};
 
 static bool is_whitespace(uint32_t ch) {
   switch (ch) {
@@ -53,6 +128,9 @@ Tokenizer::Tokenizer(
     _queue(), _scanners(), _file(is), _filename(filename) {
   // Initialize scanners
   _scanners.push_back(std::bind(&Tokenizer::_scan_numeric, this));
+  _scanners.push_back(std::bind(&Tokenizer::_scan_string, this));
+  _scanners.push_back(std::bind(&Tokenizer::_scan_symbol, this));
+  _scanners.push_back(std::bind(&Tokenizer::_scan_identifier, this));
 }
 
 auto Tokenizer::pop() -> std::shared_ptr<Token> {
@@ -257,4 +335,263 @@ auto Tokenizer::_scan_numeric() -> std::shared_ptr<Token> {
     long double value = std::stold(text.str());
     return std::make_shared<token::Float>(span, value);
   }
+}
+
+auto Tokenizer::_scan_symbol() -> std::shared_ptr<Token> {
+  // Fill a vector with 3 characters
+  vector<char32_t> test;
+  for (unsigned index = 0; index < 3; ++index) {
+    test.push_back(_file.peek(index));
+  }
+
+  // Iterate backwards and test in order of largest first
+  std::shared_ptr<Token> result = nullptr;
+  unsigned index;
+  for (index = 3; index > 0; --index) {
+    auto rec = symbols.find(test);
+    if (rec != symbols.end()) {
+      result = std::make_shared<token::Symbol>(
+        rec->second, Span(_filename, _file.position(), index));
+
+      break;
+    }
+
+    test.pop_back();
+  }
+
+  // If we matched a token; bump the matched characters
+  for ( ; result && index > 0; --index) _file.pop();
+
+  return result;
+}
+
+auto Tokenizer::_scan_identifier() -> std::shared_ptr<Token> {
+  // REF: http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1518.htm
+
+  // An identifier can contain ..
+  static vector<vector<uint32_t>> can_contain = {
+    {0x30, 0x39},
+    {0x41, 0x5A},
+    {0x5F, 0x5F},
+    {0x61, 0x7A},
+
+    {0x00A8, 0x00A8},
+    {0x00AA, 0x00AA},
+    {0x00AD, 0x00AD},
+    {0x00AF, 0x00AF},
+    {0x00B2, 0x00B5},
+    {0x00B7, 0x00BA},
+    {0x00BC, 0x00BE},
+    {0x00C0, 0x00D6},
+    {0x00D8, 0x00F6},
+    {0x00F8, 0x00FF},
+
+    {0x0100, 0x167F},
+    {0x1681, 0x180D},
+    {0x180F, 0x1FFF},
+    {0x200B, 0x200D},
+    {0x202A, 0x202E},
+    {0x203F, 0x2040},
+    {0x2054, 0x2054},
+    {0x2060, 0x206F},
+
+    {0x2070, 0x218F},
+    {0x2460, 0x24FF},
+    {0x2776, 0x2793},
+    {0x2C00, 0x2DFF},
+    {0x2E80, 0x2FFF},
+
+    {0x3004, 0x3007},
+    {0x3021, 0x302F},
+    {0x3031, 0x303F},
+
+    {0x3040, 0xD7FF},
+
+    {0xF900, 0xFD3D},
+    {0xFD40, 0xFDCF},
+    {0xFDF0, 0xFE44},
+    {0xFE47, 0xFFFD},
+
+    {0x10000, 0x1FFFD},
+    {0x20000, 0x2FFFD},
+    {0x30000, 0x3FFFD},
+    {0x40000, 0x4FFFD},
+    {0x50000, 0x5FFFD},
+    {0x60000, 0x6FFFD},
+    {0x70000, 0x7FFFD},
+    {0x80000, 0x8FFFD},
+    {0x90000, 0x9FFFD},
+    {0xA0000, 0xAFFFD},
+    {0xB0000, 0xBFFFD},
+    {0xC0000, 0xCFFFD},
+    {0xD0000, 0xDFFFD},
+    {0xE0000, 0xEFFFD},
+  };
+
+  // An identifier must not start with (of those sets) ..
+  static vector<vector<uint32_t>> not_start_with = {
+    {0x30, 0x39},
+    {0x0300, 0x036F},
+    {0x1DC0, 0x1DFF},
+    {0x20D0, 0x20FF},
+    {0xFE20, 0xFE2F},
+  };
+
+  // Mark our current position
+  auto begin = _file.position();
+
+  // Build our UTF8 identifier
+  vector<std::uint8_t> bytes;
+  unsigned count = 0;
+
+  for (;;) {
+    // Peek the next UTF-32 character
+    auto ch = _file.peek(count);
+    if (ch == 0) { break; }
+
+    // Is this one of our "can-contain" characters
+    if (!in_ranges(ch, can_contain)) {
+      // No.. tough luck
+      break;
+    }
+
+    // Are we at the beginning and is this one of our "must-not-start-with"
+    // characters
+    if (count == 0 && in_ranges(ch, not_start_with)) {
+      // Yep.. tough luck
+      break;
+    }
+
+    // Increment total counter and append our character
+    count += 1;
+    utf8::append(ch, std::back_inserter(bytes));
+  }
+
+  if (count == 0) {
+    // Got nothing
+    return nullptr;
+  }
+
+  // We found something.. pop the consumed bytes
+  for (unsigned i = 0; i < count; ++i) _file.pop();
+
+  // Make a string out of it
+  auto text = std::string(reinterpret_cast<char*>(bytes.data()), bytes.size());
+  auto span = Span(_filename, begin, _file.position());
+
+  // Check for a match against a keyword
+  auto kw = keywords.find(text);
+  if (kw != keywords.end()) {
+    // Found a keyword; create keyword token
+    return std::make_shared<token::Keyword>(kw->second, span);
+  }
+
+  // Couldn't match a keyword; return as identifier
+  return std::make_shared<token::Identifier>(span, text);
+}
+
+auto Tokenizer::_scan_string() -> std::shared_ptr<Token> {
+  auto begin = _file.position();
+
+  // Peek and see if we are a double-quoted string
+  auto p0 = _file.peek(0);
+  if (p0 != '\"') {
+    // Not a string
+    return nullptr;
+  }
+
+  // Drop the quote character(s)
+  _file.pop();
+
+  // Declare a buffer for bytes
+  std::vector<char> bytes;
+
+  // Iterate through the string token
+  auto in_escape = false;
+  auto in_byte_escape = false;
+
+  // TODO(mehcode): auto in_unicode_escape = false;
+  for (;;) {
+    if (in_escape) {
+      // Check if we have an extension control character.
+      auto byte = _file.pop();
+      switch (byte) {
+        case 0x58:  // `X`
+        case 0x78:  // `x`
+          in_byte_escape = true;
+          break;
+
+        case 0x5c:  // `\`
+        case 0x27:  // `'`
+        case 0x22:  // `"`
+          bytes.push_back(byte);
+          break;
+
+        case 0x61:  // `a`
+          bytes.push_back('\a');
+          break;
+
+        case 0x62:  // `b`
+          bytes.push_back('\b');
+          break;
+
+        case 0x66:  // `f`
+          bytes.push_back('\f');
+          break;
+
+        case 0x6e:  // `n`
+          bytes.push_back('\n');
+          break;
+
+        case 0x72:  // `r`
+          bytes.push_back('\r');
+          break;
+
+        case 0x74:  // `t`
+          bytes.push_back('\t');
+          break;
+
+        case 0x76:  // `v`
+          bytes.push_back('\v');
+          break;
+
+        default:
+          Log::get().error(
+            Span(_filename, _file.position() - 2, _file.position()),
+            "unknown character escape: {}", byte);
+
+          break;
+      }
+
+      // No longer in an escape sequence.
+      in_escape = false;
+    } else if (in_byte_escape) {
+      std::stringstream sstream;
+      sstream << static_cast<char>(_file.pop());
+      sstream << static_cast<char>(_file.pop());
+
+      unsigned value;
+      sstream >> std::hex >> value;
+
+      bytes.push_back(value);
+
+      // No longer in an byte escape sequence.
+      in_byte_escape = false;
+    } else {
+      auto byte = _file.pop();
+
+      if (byte == 0x5c) {
+        in_escape = true;
+      } else if (byte == 0x22) {
+        // Found the matching double-quote; we're done with the string
+        break;
+      } else {
+        bytes.push_back(byte);
+      }
+    }
+  }
+
+  auto span = Span(_filename, begin, _file.position());
+  return std::make_shared<token::String>(
+    span, std::string(bytes.data(), bytes.size()));
 }

@@ -12,6 +12,10 @@ struct Position {
     return Position{row, column + offset};
   }
 
+  Position operator -(unsigned offset) const {
+    return Position{row, column - offset};
+  }
+
   unsigned row;
   unsigned column;
 };

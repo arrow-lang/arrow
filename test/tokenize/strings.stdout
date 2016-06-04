@@ -1,0 +1,13 @@
+test/tokenize/strings.as:2:1-15: string: Hello, UTF-8
+test/tokenize/strings.as:5:1-5: string: \
+test/tokenize/strings.as:6:1-5: string: '
+test/tokenize/strings.as:7:1-5: string: "
+test/tokenize/strings.as:8:1-5: string: 
+test/tokenize/strings.as:9:1-5: string: 
+test/tokenize/strings.as:10:1-5: string: 
+test/tokenize/strings.as:11:1-5: string: 
+
+test/tokenize/strings.as:12:1-5: string: 
+test/tokenize/strings.as:13:1-5: string: 	
+test/tokenize/strings.as:14:1-5: string: 
+test/tokenize/strings.as:15:1-7: string: $

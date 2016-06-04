@@ -44,6 +44,9 @@ class Tokenizer {
   void _consume_number(std::stringstream& ss, unsigned base);
 
   std::shared_ptr<Token> _scan_numeric();
+  std::shared_ptr<Token> _scan_symbol();
+  std::shared_ptr<Token> _scan_identifier();
+  std::shared_ptr<Token> _scan_string();
 
   std::deque<std::shared_ptr<Token>> _queue;
   std::vector<std::function<std::shared_ptr<Token>()>> _scanners;

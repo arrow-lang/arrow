@@ -31,6 +31,6 @@ int main(int argc, char** argv) {
   while (!tokenizer.empty()) {
     auto token = tokenizer.pop();
 
-    fmt::print("{}: {}: {}\n", token->span, token->type, *token);
+    fmt::print("{}: {}\n", token->span, *token);
   }
 }

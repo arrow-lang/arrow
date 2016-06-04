@@ -1,0 +1,12 @@
+test/tokenize/identifier_unicode.as:1:1-8: identifier: welcome
+test/tokenize/identifier_unicode.as:2:1-9: identifier: Къеблагъ
+test/tokenize/identifier_unicode.as:3:1-7: identifier: Welkom
+test/tokenize/identifier_unicode.as:4:1-13: identifier: Mirë_se_vjen
+test/tokenize/identifier_unicode.as:5:1-10: identifier: Wellkumma
+test/tokenize/identifier_unicode.as:6:1-13: identifier: Բարի_գալուստ
+test/tokenize/identifier_unicode.as:7:1-11: identifier: Прывiтанне
+test/tokenize/identifier_unicode.as:8:1-8: identifier: স্বাগতম
+test/tokenize/identifier_unicode.as:9:1-13: identifier: ကြိုဆိုပါတယ်
+test/tokenize/identifier_unicode.as:10:1-5: identifier: 歡迎光臨
+test/tokenize/identifier_unicode.as:11:1-13: identifier: ยินดีต้อนรับ
+test/tokenize/identifier_unicode.as:12:1-5: identifier: ようこそ
