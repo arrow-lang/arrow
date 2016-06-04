@@ -8,7 +8,7 @@
 namespace arrow {
 
 struct Position {
-  Position operator +(unsigned offset) {
+  Position operator +(unsigned offset) const {
     return Position{row, column + offset};
   }
 
