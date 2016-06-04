@@ -1,5 +1,17 @@
 // String (str)
 "Hello, UTF-8"
+"welcome"
+"Къеблагъ"
+"Welkom"
+"Mirë_se_vjen"
+"Wellkumma"
+"Բարի_գալուս"
+"Прывiтанне"
+"স্বাগতম"
+"ကြိုဆိုပါတယ်"
+"歡迎光臨"
+"ยินดีต้อนรับ"
+"ようこそ"
 
 // Escape sequences
 "\\"

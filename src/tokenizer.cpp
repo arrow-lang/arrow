@@ -586,7 +586,7 @@ auto Tokenizer::_scan_string() -> std::shared_ptr<Token> {
         // Found the matching double-quote; we're done with the string
         break;
       } else {
-        bytes.push_back(byte);
+        utf8::append(byte, std::back_inserter(bytes));
       }
     }
   }
