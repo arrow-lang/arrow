@@ -64,7 +64,7 @@ struct Float : Token {
     return os << value;
   }
 
-  // Normalized integer (arbitrary-precision)
+  // Normalized float
   long double value;
 };
 
