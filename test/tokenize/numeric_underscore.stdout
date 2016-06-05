@@ -4,3 +4,4 @@ test/tokenize/numeric_underscore.as:8:1-3: integer: 34
 test/tokenize/numeric_underscore.as:8:3: symbol: .
 test/tokenize/numeric_underscore.as:8:4-7: identifier: _21
 test/tokenize/numeric_underscore.as:11:1-9: float: 432.321
+test/tokenize/numeric_underscore.as:12:1: end

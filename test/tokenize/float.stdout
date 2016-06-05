@@ -4,3 +4,4 @@ test/tokenize/float.as:3:1-8: float: 2.14e+12
 test/tokenize/float.as:4:1-6: float: 3250
 test/tokenize/float.as:5:1-8: float: 5e-1243
 test/tokenize/float.as:6:1-10: float: 3252.35
+test/tokenize/float.as:7:1: end

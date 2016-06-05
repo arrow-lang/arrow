@@ -10,3 +10,4 @@ test/tokenize/identifier_unicode.as:9:1-13: identifier: ကြိုဆိုပ
 test/tokenize/identifier_unicode.as:10:1-5: identifier: 歡迎光臨
 test/tokenize/identifier_unicode.as:11:1-13: identifier: ยินดีต้อนรับ
 test/tokenize/identifier_unicode.as:12:1-5: identifier: ようこそ
+test/tokenize/identifier_unicode.as:13:1: end

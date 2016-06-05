@@ -15,6 +15,10 @@ Log& Log::get() noexcept {
   return instance;
 }
 
+unsigned Log::count(LogLevel level) {
+  return _counters[level];
+}
+
 void Log::log(LogLevel level, const char* format, fmt::ArgList args) {
   fmt::print(stderr, "\x1b[0;37m{}", "arrow: ");
 
@@ -57,6 +61,8 @@ void Log::log(LogLevel level, const char* format, fmt::ArgList args) {
 
   fmt::print(stderr, format, args);
   fmt::print(stderr, "\x1b[0m\n");
+
+  _counters[level] += 1;
 }
 
 void Log::log(
@@ -103,4 +109,6 @@ void Log::log(
 
   fmt::print(stderr, format, args);
   fmt::print(stderr, "\x1b[0m\n");
+
+  _counters[level] += 1;
 }

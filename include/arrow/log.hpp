@@ -123,7 +123,7 @@ class Log {
  private:
   Log();
 
-  std::unordered_map<std::string, unsigned> _counters;
+  std::unordered_map<int, unsigned> _counters;
 };
 
 }  // namespace arrow

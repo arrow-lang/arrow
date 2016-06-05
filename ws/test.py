@@ -118,10 +118,6 @@ def handle_(binary_path, filename, *args, **kwargs):
 
     filename = path.relpath(filename)
 
-    # FIXME: Remove once we add proper option handling to binary
-    args = []
-    # ==========================================================
-
     process = Popen(
         [binary_path] + list(args) + [filename], stdout=PIPE, stderr=PIPE,
         cwd=path.join(path.dirname(__file__), ".."),

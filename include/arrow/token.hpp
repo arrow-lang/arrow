@@ -103,7 +103,7 @@ struct Token {
   virtual ~Token() noexcept;
 
   virtual std::ostream& print(std::ostream &os) const {
-    return os << "?";
+    return os << type;
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Token &tok) {

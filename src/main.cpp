@@ -4,11 +4,15 @@
 // See accompanying file LICENSE
 
 #include <cstdio>
+#include <deque>
 #include <iostream>
+#include <vector>
 #include <fstream>
+#include <string>
 
 #include "cppformat/format.h"
 #include "arrow/tokenizer.hpp"
+#include "arrow/command.hpp"
 
 void help(char* binary_path) {
   std::printf(
@@ -18,19 +22,54 @@ void help(char* binary_path) {
   std::printf("\n");
 }
 
-int main(int argc, char** argv) {
-  // help(argv[0]);
+int main(int argc, char** argv, char** environ) {
+    // Register available commands
+  std::deque<std::shared_ptr<arrow::Command>> commands;
+  commands.push_back(std::make_shared<arrow::command::Parse>());
+  commands.push_back(std::make_shared<arrow::command::Tokenize>());
 
-  auto stream = std::make_shared<std::fstream>(argv[1]);
-  if (!stream->is_open()) {
-    return -1;
+  // Check for a specified command
+  std::vector<char*> args(argv, argv + argc);
+  unsigned cmd_index = 0;
+  bool found = false;
+  if (args.size() >= 2) {
+    std::string a1(args[1]);
+    if (a1.size() >= 3 && a1[0] == '-' && a1[1] == '-') {
+      // The first arguments is `--[...]`
+      auto command_name = a1.substr(2);
+      for (unsigned i = 0; i < commands.size(); ++i) {
+        if (command_name == commands[i]->name()) {
+          found = true;
+          cmd_index = i;
+          break;
+        }
+      }
+
+      if (found) {
+        // Remove the command argument
+        args.erase(args.begin() + 1);
+      }
+    }
+  } else {
+    // Show help
+    // help(argv[0], commands);
+    help(argv[0]);
+    return 0;
   }
 
-  arrow::Tokenizer tokenizer(stream, argv[1]);
-
-  while (!tokenizer.empty()) {
-    auto token = tokenizer.pop();
-
-    fmt::print("{}: {}\n", token->span, *token);
+  if (!found) {
+    std::string a1(args[1]);
+    if (a1.substr(2) == "help" || a1.substr(1) == "h") {
+      // Show help
+      // help(argv[0], commands);
+      help(argv[0]);
+      return 0;
+    }
   }
+
+  // Get the requested command
+  auto cmd = commands.at(cmd_index);
+
+  // Run the received command
+  return (*cmd)(args.size(), args.data(), environ);
 }

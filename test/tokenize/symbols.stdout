@@ -45,3 +45,4 @@ test/tokenize/symbols.as:47:2-4: symbol: -=
 test/tokenize/symbols.as:48:1-3: symbol: ==
 test/tokenize/symbols.as:48:3: symbol: |
 test/tokenize/symbols.as:48:4-6: symbol: |=
+test/tokenize/symbols.as:49:1: end
