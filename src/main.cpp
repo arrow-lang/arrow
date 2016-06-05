@@ -14,10 +14,22 @@
 #include "arrow/tokenizer.hpp"
 #include "arrow/command.hpp"
 
-void help(char* binary_path) {
+void help(char* binary_path,
+          const std::deque<std::shared_ptr<arrow::Command>>& commands) {
   std::printf(
     "Usage: \x1b[0;36m%s\x1b[0m [<command>] [<options>] <input-file>\n",
     binary_path);
+
+  std::printf("Commands:\n");
+  for (auto& cmd : commands) {
+    std::printf("  \x1b[0;33m--%-10s\x1b[0m", cmd->name());
+    std::printf("%s", cmd->description());
+    std::printf("\n");
+  }
+
+  std::printf("  \x1b[0;33m--%-10s\x1b[0m", "help");
+  std::printf("Display this help information");
+  std::printf("\n");
 
   std::printf("\n");
 }
@@ -52,8 +64,7 @@ int main(int argc, char** argv, char** environ) {
     }
   } else {
     // Show help
-    // help(argv[0], commands);
-    help(argv[0]);
+    help(argv[0], commands);
     return 0;
   }
 
@@ -61,8 +72,7 @@ int main(int argc, char** argv, char** environ) {
     std::string a1(args[1]);
     if (a1.substr(2) == "help" || a1.substr(1) == "h") {
       // Show help
-      // help(argv[0], commands);
-      help(argv[0]);
+      help(argv[0], commands);
       return 0;
     }
   }
