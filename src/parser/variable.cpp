@@ -25,6 +25,16 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
 
   auto id = std::dynamic_pointer_cast<token::Identifier>(id_tok);
 
+  // Check for `=` (which would indicate an initializer)
+  std::shared_ptr<ast::Expression> initializer;
+  if (_t.peek()->type == token::Type::Equals) {
+    _t.pop();
+
+    // Expect: Expression
+    initializer = parse_expression();
+    if (!initializer) return nullptr;
+  }
+
   // Expect: `;`
   auto last_tok = _t.pop();
   if (last_tok->type != token::Type::Semicolon) {
@@ -33,5 +43,5 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   }
 
   return std::make_shared<ast::Variable>(
-    tok->span.extend(last_tok->span), id->text);
+    tok->span.extend(last_tok->span), id->text, nullptr, initializer);
 }

@@ -6,8 +6,6 @@
 #ifndef ARROW_AST_STATEMENT_H
 #define ARROW_AST_STATEMENT_H
 
-#include <string>
-
 #include "arrow/ast/nodes/node.hpp"
 
 namespace arrow {

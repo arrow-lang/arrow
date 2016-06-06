@@ -9,6 +9,8 @@
 #include <string>
 
 #include "arrow/ast/nodes/statement.hpp"
+#include "arrow/ast/nodes/type.hpp"
+#include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
 namespace ast {
@@ -17,12 +19,23 @@ namespace ast {
 struct Variable : Statement {
   virtual ~Variable() noexcept;
 
-  Variable(Span span, std::string name) :
-    Statement(span), name(name) {
+  Variable(
+    Span span,
+    std::string name,
+    std::shared_ptr<Type> type,
+    std::shared_ptr<Expression> initializer
+  )
+  : Statement(span), name(name), type(type), initializer(initializer) {
   }
 
   /// Name of the variable.
   std::string name;
+
+  /// Type annotation of the variable (optional).
+  std::shared_ptr<Type> type;
+
+  /// Initializer expression for the variable (optional).
+  std::shared_ptr<Expression> initializer;
 };
 
 }  // namespace ast

@@ -32,6 +32,9 @@ class Parser {
   std::shared_ptr<ast::Statement> parse_statement();
   std::shared_ptr<ast::Variable> parse_variable();
 
+  std::shared_ptr<ast::Expression> parse_expression();
+  std::shared_ptr<ast::Integer> parse_integer();
+
   Tokenizer _t;
 };
 

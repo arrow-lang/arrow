@@ -16,8 +16,8 @@ namespace arrow {
 namespace ast {
 
 struct Module : Statement {
-  Module(Span span, std::string name) :
-    Statement(span), name(name), statements() {
+  Module(Span span, std::string name)
+  : Statement(span), name(name), statements() {
   }
 
   virtual ~Module() noexcept;
