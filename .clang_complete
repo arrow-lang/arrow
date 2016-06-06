@@ -1,2 +1,4 @@
 -Iinclude
 -I.
+-Ivendor/mach7/code
+-Ivendor/rapidjson/include
