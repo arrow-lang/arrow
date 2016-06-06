@@ -91,7 +91,8 @@ def build(ctx):
     ctx.program(source=ctx.path.ant_glob("src/**/*.cpp"),
                 includes=[
                     "include",
-                    "vendor",
+                    "vendor/mach7/code",
+                    "vendor/rapidjson/include",
                 ],
                 target="arrow",
                 use=["BOOST", "LLVM", "PTHREAD", "DL", "TINFO", "Z", "GMP",
