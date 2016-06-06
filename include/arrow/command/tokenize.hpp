@@ -19,6 +19,7 @@ class Tokenize : public InputCommand {
 
   Tokenize(const Tokenize& other) = delete;
   Tokenize(Tokenize&& other) = delete;
+
   Tokenize& operator=(const Tokenize& other) = delete;
   Tokenize& operator=(Tokenize&& other) = delete;
 

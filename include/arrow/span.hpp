@@ -8,12 +8,17 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 #include "arrow/position.hpp"
 
 namespace arrow {
 
 struct Span {
+  explicit Span(std::string filename) :
+    filename(filename), begin(), end() {
+  }
+
   Span(std::string filename, Position begin, unsigned offset) :
     filename(filename), begin(begin), end(begin + offset) {
   }
@@ -37,6 +42,19 @@ struct Span {
     }
 
     return os;
+  }
+
+  std::string to_string() const {
+    std::stringstream stream;
+    stream << *this;
+
+    return stream.str();
+  }
+
+  /// Creates a new span that takes the begin position of `this` and the
+  /// end position of `other`.
+  inline Span extend(const Span& other) {
+    return Span(filename, begin, other.end);
   }
 
   // Source filename where the span is located

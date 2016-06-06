@@ -19,6 +19,7 @@ class Parse : public InputCommand {
 
   Parse(const Parse& other) = delete;
   Parse(Parse&& other) = delete;
+
   Parse& operator=(const Parse& other) = delete;
   Parse& operator=(Parse&& other) = delete;
 

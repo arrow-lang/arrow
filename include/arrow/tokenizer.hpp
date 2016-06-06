@@ -25,6 +25,12 @@ class Tokenizer {
  public:
   Tokenizer(std::shared_ptr<std::istream> is, const std::string& filename);
 
+  Tokenizer(const Tokenizer&) = delete;
+  Tokenizer(Tokenizer&&) = delete;
+
+  Tokenizer& operator=(const Tokenizer&) = delete;
+  Tokenizer& operator=(Tokenizer&&) = delete;
+
   /// Peek (perserve) the next token and test if we are at the end
   /// of the input stream.
   bool empty() {
@@ -39,6 +45,8 @@ class Tokenizer {
   std::shared_ptr<Token> pop();
 
  private:
+  friend class Parser;
+
   bool _read(unsigned offset);
 
   bool _consume_line_comment();

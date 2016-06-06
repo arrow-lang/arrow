@@ -1,0 +1,6 @@
+[submodule "vendor/mach7"]
+	path = vendor/mach7
+	url = https://github.com/solodon4/Mach7.git
+[submodule "vendor/rapidjson"]
+	path = vendor/rapidjson
+	url = https://github.com/miloyip/rapidjson.git
