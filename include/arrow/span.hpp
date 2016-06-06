@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_SPAN_H
+#define ARROW_SPAN_H
 
 #include <string>
 #include <iostream>
@@ -47,3 +48,5 @@ struct Span {
 };
 
 }  // namespace arrow
+
+#endif  // ARROW_SPAN_H

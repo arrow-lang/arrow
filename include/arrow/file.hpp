@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_FILE_H
+#define ARROW_FILE_H
 
 #include <string>
 #include <fstream>
@@ -54,3 +55,5 @@ class File {
 };
 
 }  // namespace arrow
+
+#endif  // ARROW_FILE_H

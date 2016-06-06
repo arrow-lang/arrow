@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_LOG_H
+#define ARROW_LOG_H
 
 #include <string>
 #include <unordered_map>
@@ -127,3 +128,5 @@ class Log {
 };
 
 }  // namespace arrow
+
+#endif  // ARROW_LOG_H

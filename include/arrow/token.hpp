@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_TOKEN_H
+#define ARROW_TOKEN_H
 
 #include <gmpxx.h>
 
@@ -189,3 +190,5 @@ struct Symbol : Token {
 
 }  // namespace token
 }  // namespace arrow
+
+#endif  // ARROW_TOKEN_H

@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_POSITION_H
+#define ARROW_POSITION_H
 
 namespace arrow {
 
@@ -21,3 +22,5 @@ struct Position {
 };
 
 }  // namespace arrow
+
+#endif  // ARROW_POSITION_H

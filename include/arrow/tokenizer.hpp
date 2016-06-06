@@ -3,7 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#pragma once
+#ifndef ARROW_TOKENIZER_H
+#define ARROW_TOKENIZER_H
 
 #include <string>
 #include <memory>
@@ -55,3 +56,5 @@ class Tokenizer {
 };
 
 }  // namespace arrow
+
+#endif  // ARROW_TOKENIZER_H
