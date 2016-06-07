@@ -31,9 +31,6 @@ auto Parser::parse() -> std::shared_ptr<ast::Node> {
     if (statement) {
       // Add it to the module
       mod->statements.push_back(statement);
-    } else {
-      auto tok = _t.pop();
-      Log::get().error("unexpected: {}", *tok);
     }
   }
 

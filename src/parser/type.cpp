@@ -8,13 +8,13 @@
 
 using arrow::Parser;
 
-auto Parser::parse_expression() -> std::shared_ptr<ast::Expression> {
+auto Parser::parse_type() -> std::shared_ptr<ast::Type> {
   switch (_t.peek()->type) {
-  case token::Type::Integer:
-    return parse_integer();
+  case token::Type::Identifier:
+    return parse_type_name();
 
   default:
-    Log::get().error(_t.pop()->span, "expected expression");
+    Log::get().error(_t.pop()->span, "expected type");
     return nullptr;
   }
 }

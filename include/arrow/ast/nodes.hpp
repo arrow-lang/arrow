@@ -13,9 +13,12 @@
 #include "arrow/ast/nodes/variable.hpp"
 
 #include "arrow/ast/nodes/expression.hpp"
+#include "arrow/ast/nodes/boolean.hpp"
 #include "arrow/ast/nodes/integer.hpp"
+#include "arrow/ast/nodes/float.hpp"
+#include "arrow/ast/nodes/string.hpp"
 
 #include "arrow/ast/nodes/type.hpp"
-#include "arrow/ast/nodes/type-name.hpp"
+#include "arrow/ast/nodes/type_name.hpp"
 
 #endif  // ARROW_AST_NODES_H

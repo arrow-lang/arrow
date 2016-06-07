@@ -216,7 +216,7 @@ def run(ctx):
 
     run_("tokenize", ctx, binary_path)
     # run_("tokenize-fail", ctx, binary_path)
-    # run_("parse", ctx, binary_path)
+    run_("parse", ctx, binary_path)
     # run_("parse-fail", ctx, binary_path)
     # run_("compile", ctx, binary_path)
     # run_("compile-fail", ctx, binary_path)

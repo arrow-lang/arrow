@@ -17,7 +17,17 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   auto id = expect<token::Identifier>(token::Type::Identifier);
   if (!id) return nullptr;
 
-  // Check for `=` (which would indicate an initializer)
+  // Check for `:` (type annotation)
+  std::shared_ptr<ast::Type> type;
+  if (_t.peek()->type == token::Type::Colon) {
+    _t.pop();
+
+    // Expect: Type
+    type = parse_type();
+    if (!type) return nullptr;
+  }
+
+  // Check for `=` (initializer)
   std::shared_ptr<ast::Expression> initializer;
   if (_t.peek()->type == token::Type::Equals) {
     _t.pop();
@@ -32,5 +42,5 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   if (!last_tok) return nullptr;
 
   return std::make_shared<ast::Variable>(
-    initial_tok->span.extend(last_tok->span), id->text, nullptr, initializer);
+    initial_tok->span.extend(last_tok->span), id->text, type, initializer);
 }

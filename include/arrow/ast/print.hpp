@@ -34,6 +34,7 @@ class Print {
   void print_module(std::shared_ptr<Module>);
   void print_variable(std::shared_ptr<Variable>);
   void print_integer(std::shared_ptr<Integer>);
+  void print_type_name(std::shared_ptr<TypeName>);
 
   void handle(
     const char* name, std::shared_ptr<Node> n, std::function<void()> handle);

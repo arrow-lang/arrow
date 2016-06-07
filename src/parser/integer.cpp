@@ -11,7 +11,7 @@ using arrow::Parser;
 auto Parser::parse_integer() -> std::shared_ptr<ast::Integer> {
   // Expect: integer
   auto tok = expect<token::Integer>(token::Type::Integer);
-  if (tok == nullptr) return nullptr;
+  if (!tok) return nullptr;
 
   return std::make_shared<ast::Integer>(tok->span, tok->value);
 }

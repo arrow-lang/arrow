@@ -8,15 +8,9 @@
 
 using arrow::ast::Print;
 
-void Print::print_variable(std::shared_ptr<Variable> n) {
-  handle("Variable", n, [&, this] {
+void Print::print_type_name(std::shared_ptr<TypeName> n) {
+  handle("TypeName", n, [&, this] {
     _w.Key("name");
     _w.String(n->name.c_str());
-
-    _w.Key("type");
-    print(n->type);
-
-    _w.Key("initializer");
-    print(n->initializer);
   });
 }

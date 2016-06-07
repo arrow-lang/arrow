@@ -1,0 +1,39 @@
+{
+  "tag": "Module",
+  "span": "test/parse/variable.as:1:1-1",
+  "statements": [
+    {
+      "tag": "Variable",
+      "span": "test/parse/variable.as:2:1-22",
+      "name": "value",
+      "type": {
+        "tag": "TypeName",
+        "span": "test/parse/variable.as:2:12-16",
+        "name": "int8"
+      },
+      "initializer": {
+        "tag": "Integer",
+        "span": "test/parse/variable.as:2:19-21",
+        "value": "10"
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/variable.as:3:1-18",
+      "name": "value",
+      "type": null,
+      "initializer": {
+        "tag": "Integer",
+        "span": "test/parse/variable.as:3:13-17",
+        "value": "2340"
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/variable.as:4:1-11",
+      "name": "value",
+      "type": null,
+      "initializer": null
+    }
+  ]
+}

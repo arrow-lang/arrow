@@ -3,27 +3,27 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_AST_INTEGER_H
-#define ARROW_AST_INTEGER_H
+#ifndef ARROW_AST_STRING_H
+#define ARROW_AST_STRING_H
 
-#include <gmpxx.h>
+#include <string>
 
 #include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
 namespace ast {
 
-struct Integer : Expression {
-  Integer(Span span, mpz_class value)
+struct String : Expression {
+  String(Span span, std::string value)
   : Expression(span), value(value) {
   }
 
-  virtual ~Integer() noexcept;
+  virtual ~String() noexcept;
 
-  mpz_class value;
+  std::string value;
 };
 
 }  // namespace ast
 }  // namespace arrow
 
-#endif  // ARROW_AST_INTEGER_H
+#endif  // ARROW_AST_STRING_H

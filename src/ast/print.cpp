@@ -48,10 +48,17 @@ void Print::handle(
     return print_##name(std::dynamic_pointer_cast<type>(node))
 
 void Print::print(std::shared_ptr<Node> node) {
+  if (!node) {
+    // Null
+    _w.Null();
+    return;
+  }
+
   Match(*node) {
     ACCEPT(Module, module);
     ACCEPT(Variable, variable);
     ACCEPT(Integer, integer);
+    ACCEPT(TypeName, type_name);
 
     Otherwise() {
       Log::get().error("print not implemented for node: {}",

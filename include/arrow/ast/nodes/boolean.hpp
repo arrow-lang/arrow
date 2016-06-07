@@ -3,27 +3,25 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_AST_INTEGER_H
-#define ARROW_AST_INTEGER_H
-
-#include <gmpxx.h>
+#ifndef ARROW_AST_BOOL_H
+#define ARROW_AST_BOOL_H
 
 #include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
 namespace ast {
 
-struct Integer : Expression {
-  Integer(Span span, mpz_class value)
+struct Boolean : Expression {
+  Boolean(Span span, bool value)
   : Expression(span), value(value) {
   }
 
-  virtual ~Integer() noexcept;
+  virtual ~Boolean() noexcept;
 
-  mpz_class value;
+  bool value;
 };
 
 }  // namespace ast
 }  // namespace arrow
 
-#endif  // ARROW_AST_INTEGER_H
+#endif  // ARROW_AST_BOOL_H
