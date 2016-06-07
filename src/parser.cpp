@@ -39,3 +39,13 @@ auto Parser::parse() -> std::shared_ptr<ast::Node> {
 
   return mod;
 }
+
+auto Parser::expect(token::Type type) -> std::shared_ptr<token::Token> {
+  auto tok = _t.pop();
+  if (tok->type != type) {
+    Log::get().error("expected {}, found {}", type, tok->type);
+    return nullptr;
+  }
+
+  return tok;
+}

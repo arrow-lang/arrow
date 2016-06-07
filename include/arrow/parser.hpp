@@ -29,6 +29,16 @@ class Parser {
   std::shared_ptr<ast::Node> parse();
 
  private:
+  // Expect a token of a specific type
+  // Handle the proper error message on failure
+  std::shared_ptr<token::Token> expect(token::Type type);
+
+  // Expect a token of a specific type (...)
+  template <typename T>
+  std::shared_ptr<T> expect(token::Type type) {
+    return std::dynamic_pointer_cast<T>(expect(type));
+  }
+
   std::shared_ptr<ast::Statement> parse_statement();
   std::shared_ptr<ast::Variable> parse_variable();
 

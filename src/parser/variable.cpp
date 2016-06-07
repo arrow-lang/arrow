@@ -10,20 +10,12 @@ using arrow::Parser;
 
 auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   // Expect: `let`
-  auto tok = _t.pop();
-  if (tok->type != token::Type::Let) {
-    Log::get().error(tok->span, "expected `let`");
-    return nullptr;
-  }
+  auto initial_tok = expect(token::Type::Let);
+  if (!initial_tok) return nullptr;
 
   // Expect: identifier
-  auto id_tok = _t.pop();
-  if (id_tok->type != token::Type::Identifier) {
-    Log::get().error(id_tok->span, "expected identifier");
-    return nullptr;
-  }
-
-  auto id = std::dynamic_pointer_cast<token::Identifier>(id_tok);
+  auto id = expect<token::Identifier>(token::Type::Identifier);
+  if (!id) return nullptr;
 
   // Check for `=` (which would indicate an initializer)
   std::shared_ptr<ast::Expression> initializer;
@@ -36,12 +28,9 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   }
 
   // Expect: `;`
-  auto last_tok = _t.pop();
-  if (last_tok->type != token::Type::Semicolon) {
-    Log::get().error(last_tok->span, "expected `;`");
-    return nullptr;
-  }
+  auto last_tok = expect(token::Type::Semicolon);
+  if (!last_tok) return nullptr;
 
   return std::make_shared<ast::Variable>(
-    tok->span.extend(last_tok->span), id->text, nullptr, initializer);
+    initial_tok->span.extend(last_tok->span), id->text, nullptr, initializer);
 }
