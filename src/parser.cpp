@@ -21,7 +21,7 @@ Parser::Parser(
 ) : _t(is, filename) {
 }
 
-auto Parser::parse() -> std::shared_ptr<ast::Node> {
+auto Parser::parse() -> std::shared_ptr<ast::Module> {
   // Declare the top-level, automatic module
   // The name of the module is built from the name of the given file
   auto stem = fs::path(_t._filename).stem().string();

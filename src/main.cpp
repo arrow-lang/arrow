@@ -39,6 +39,7 @@ int main(int argc, char** argv, char** environ) {
   std::deque<std::shared_ptr<arrow::Command>> commands;
   commands.push_back(std::make_shared<arrow::command::Parse>());
   commands.push_back(std::make_shared<arrow::command::Tokenize>());
+  commands.push_back(std::make_shared<arrow::command::Compile>());
 
   // Check for a specified command
   std::vector<char*> args(argv, argv + argc);

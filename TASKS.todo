@@ -1,5 +1,5 @@
 Parser:
-  ☐ ExpressionStatement (bridge between statements and expressions)
+  ✔ ExpressionStatement (bridge between statements and expressions) @done(2016-06-07 20:27) @project(Parser)
   ☐ Precedence Parser (unary / binary expression)
   ☐ If / Unless
   ☐ While / Until

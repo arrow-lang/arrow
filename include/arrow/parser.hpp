@@ -27,7 +27,7 @@ class Parser {
   Parser& operator=(const Parser&) = delete;
   Parser& operator=(Parser&&) = delete;
 
-  std::shared_ptr<ast::Node> parse();
+  std::shared_ptr<ast::Module> parse();
 
  private:
   // Expect a token of a specific type
@@ -36,8 +36,7 @@ class Parser {
 
   // Expect a token of one of the passed types
   std::shared_ptr<token::Token> expect(
-    std::initializer_list<token::Type> types
-  );
+    std::initializer_list<token::Type> types);
 
   // Expect a token of a specific type (...)
   template <typename T>

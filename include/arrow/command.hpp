@@ -76,5 +76,4 @@ class InputCommand : public Command {
 
 #include "arrow/command/tokenize.hpp"
 #include "arrow/command/parse.hpp"
-// #include "arrow/command/compile.hpp"
-// #include "arrow/command/run.hpp"
+#include "arrow/command/compile.hpp"
