@@ -83,9 +83,6 @@ std::ostream& arrow::token::operator<<(
   case Type::Mutable:                 return os << "`mutable`";
   case Type::Def:                     return os << "`def`";
   case Type::Extern:                  return os << "`extern`";
-  case Type::Export:                  return os << "`export`";
-  case Type::Import:                  return os << "`import`";
-  case Type::From:                    return os << "`from`";
   case Type::True:                    return os << "`true`";
   case Type::False:                   return os << "`false`";
   case Type::If:                      return os << "`if`";
@@ -137,9 +134,6 @@ std::ostream& arrow::token::operator<<(
   case Type::ExclamationMark_Equals:  return os << "`!=`";
   case Type::GreaterThan_Equals:      return os << "`>=`";
   case Type::LessThan_Equals:         return os << "`<=`";
-  case Type::Arrow:                   return os << "`->`";
-
-  case Type::Ellipsis:                return os << "`...`";
   }
 
   return os << "?";

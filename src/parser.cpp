@@ -6,6 +6,9 @@
 #include <boost/filesystem.hpp>
 
 #include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
 
 #include "arrow/parser.hpp"
 #include "arrow/log.hpp"
@@ -38,9 +41,37 @@ auto Parser::parse() -> std::shared_ptr<ast::Node> {
 }
 
 auto Parser::expect(token::Type type) -> std::shared_ptr<token::Token> {
+  return expect({type});
+}
+
+auto Parser::expect(
+  std::initializer_list<token::Type> types
+) -> std::shared_ptr<token::Token> {
+  std::vector<token::Type> types_v(types);
   auto tok = _t.pop();
-  if (tok->type != type) {
-    Log::get().error("expected {}, found {}", type, tok->type);
+
+  if (std::find(types_v.begin(), types_v.end(), tok->type) == types_v.end()) {
+    if (types_v.size() == 1) {
+      Log::get().error("expected {}, found {}", types_v[0], tok->type);
+    } else {
+      std::stringstream msg;
+      msg << "expected one of ";
+
+      unsigned index = 0;
+      for (auto& type : types_v) {
+        msg << type;
+        if (index != 0) {
+          msg << ", ";
+        }
+
+        index += 1;
+      }
+
+      msg << "; found " << tok->type;
+      Log::get().error(msg.str().c_str());
+    }
+
+
     return nullptr;
   }
 

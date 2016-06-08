@@ -33,7 +33,12 @@ class Print {
   void print(std::shared_ptr<Node>);
   void print_module(std::shared_ptr<Module>);
   void print_variable(std::shared_ptr<Variable>);
+
   void print_integer(std::shared_ptr<Integer>);
+  void print_float(std::shared_ptr<Float>);
+  void print_bool(std::shared_ptr<Boolean>);
+  void print_str(std::shared_ptr<String>);
+
   void print_type_name(std::shared_ptr<TypeName>);
 
   void handle(

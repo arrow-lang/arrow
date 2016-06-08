@@ -57,7 +57,12 @@ void Print::print(std::shared_ptr<Node> node) {
   Match(*node) {
     ACCEPT(Module, module);
     ACCEPT(Variable, variable);
+
     ACCEPT(Integer, integer);
+    ACCEPT(Boolean, bool);
+    ACCEPT(String, str);
+    ACCEPT(Float, float);
+
     ACCEPT(TypeName, type_name);
 
     Otherwise() {

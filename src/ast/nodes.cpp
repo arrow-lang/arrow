@@ -15,6 +15,9 @@ ast::Variable::~Variable() noexcept { }
 
 ast::Expression::~Expression() noexcept { }
 ast::Integer::~Integer() noexcept { }
+ast::Float::~Float() noexcept { }
+ast::Boolean::~Boolean() noexcept { }
+ast::String::~String() noexcept { }
 
 ast::Type::~Type() noexcept { }
 ast::TypeName::~TypeName() noexcept { }

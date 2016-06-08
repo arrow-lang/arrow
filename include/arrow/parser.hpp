@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 #include <iostream>
 
 #include "arrow/ast.hpp"
@@ -32,6 +33,11 @@ class Parser {
   // Expect a token of a specific type
   // Handle the proper error message on failure
   std::shared_ptr<token::Token> expect(token::Type type);
+
+  // Expect a token of one of the passed types
+  std::shared_ptr<token::Token> expect(
+    std::initializer_list<token::Type> types
+  );
 
   // Expect a token of a specific type (...)
   template <typename T>

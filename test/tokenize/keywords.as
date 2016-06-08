@@ -6,9 +6,6 @@ let
 mutable
 def
 extern
-export
-import
-from
 true
 false
 if
