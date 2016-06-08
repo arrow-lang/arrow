@@ -34,9 +34,6 @@ enum class Type {
   Mutable,
   Def,
   Extern,
-  Export,
-  Import,
-  From,
   True,
   False,
   If,
@@ -90,10 +87,6 @@ enum class Type {
   ExclamationMark_Equals,
   GreaterThan_Equals,
   LessThan_Equals,
-  Arrow,
-
-  // Symbols: 3-character
-  Ellipsis,
 };
 
 extern std::ostream &operator<<(std::ostream &os, const Type &type);
