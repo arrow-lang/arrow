@@ -1,0 +1,10 @@
+Parser:
+  ☐ ExpressionStatement (bridge between statements and expressions)
+  ☐ Precedence Parser (unary / binary expression)
+  ☐ If / Unless
+  ☐ While / Until
+  ☐ Variable: `mutable`
+
+Compiler:
+  ☐ Variable declarations
+  ☐ Variable definitions
