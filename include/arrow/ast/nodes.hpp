@@ -11,6 +11,7 @@
 #include "arrow/ast/nodes/statement.hpp"
 #include "arrow/ast/nodes/module.hpp"
 #include "arrow/ast/nodes/variable.hpp"
+#include "arrow/ast/nodes/expression_statement.hpp"
 
 #include "arrow/ast/nodes/expression.hpp"
 #include "arrow/ast/nodes/boolean.hpp"

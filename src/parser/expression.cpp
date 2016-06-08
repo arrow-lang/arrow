@@ -13,6 +13,16 @@ auto Parser::parse_expression() -> std::shared_ptr<ast::Expression> {
   case token::Type::Integer:
     return parse_integer();
 
+  case token::Type::True:
+  case token::Type::False:
+    return parse_bool();
+
+  case token::Type::Float:
+    return parse_float();
+
+  case token::Type::String:
+    return parse_str();
+
   default:
     Log::get().error(_t.pop()->span, "expected expression");
     return nullptr;

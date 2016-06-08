@@ -3,10 +3,13 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_AST_EXPRESSION_H
-#define ARROW_AST_EXPRESSION_H
+#ifndef ARROW_AST_EXPRESSION_STATEMENT_H
+#define ARROW_AST_EXPRESSION_STATEMENT_H
 
-#include "arrow/ast/nodes/node.hpp"
+#include <memory>
+
+#include "arrow/ast/nodes/statement.hpp"
+#include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
 namespace ast {
@@ -15,11 +18,11 @@ namespace ast {
 /// expression. This serves as a bridge to allow more than 1 expression
 /// in a construct that accepts statements.
 struct ExpressionStatement : Statement {
-  ExpressionStatement(std::shared_ptr<Expression> expression)
-    : expression(expression) {
+  explicit ExpressionStatement(std::shared_ptr<Expression> expression)
+    : Statement(expression->span), expression(expression) {
   }
 
-  virtual ~Statement() noexcept;
+  virtual ~ExpressionStatement() noexcept;
 
   std::shared_ptr<Expression> expression;
 };
@@ -27,4 +30,4 @@ struct ExpressionStatement : Statement {
 }  // namespace ast
 }  // namespace arrow
 
-#endif  // ARROW_AST_EXPRESSION_H
+#endif  // ARROW_AST_EXPRESSION_STATEMENT_H

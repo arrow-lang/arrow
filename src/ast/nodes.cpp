@@ -12,6 +12,7 @@ ast::Node::~Node() noexcept { }
 ast::Statement::~Statement() noexcept { }
 ast::Module::~Module() noexcept { }
 ast::Variable::~Variable() noexcept { }
+ast::ExpressionStatement::~ExpressionStatement() noexcept { }
 
 ast::Expression::~Expression() noexcept { }
 ast::Integer::~Integer() noexcept { }

@@ -19,7 +19,10 @@ auto Parser::parse_statement() -> std::shared_ptr<ast::Statement> {
     return nullptr;
 
   default:
-    Log::get().error(_t.pop()->span, "expected statement");
-    return nullptr;
+    // Expression statement
+    auto expr = parse_expression();
+    if (!expr) return nullptr;
+
+    return std::make_shared<ast::ExpressionStatement>(expr);
   }
 }
