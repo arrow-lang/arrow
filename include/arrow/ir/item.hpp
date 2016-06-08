@@ -20,10 +20,12 @@ struct Type;
 ///  - Module
 ///  - Type
 struct Item {
-  Item() {
+  explicit Item(std::string name) : name(name) {
   }
 
   virtual ~Item() noexcept;
+
+  std::string name;
 };
 
 }  // namespace ir

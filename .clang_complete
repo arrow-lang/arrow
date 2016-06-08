@@ -2,3 +2,4 @@
 -I.
 -Ivendor/mach7/code
 -Ivendor/rapidjson/include
+-I/usr/lib/llvm-3.8/include

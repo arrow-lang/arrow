@@ -6,6 +6,8 @@
 #include "mach7.hpp"
 #include "arrow/compiler.hpp"
 #include "arrow/log.hpp"
+#include "arrow/ast.hpp"
+#include "arrow/generator.hpp"
 
 using arrow::Compiler;
 
@@ -45,12 +47,13 @@ void Compiler::compile(ptr<ast::Module> node) {
         auto type = make_type(item->type);
         if (!type) break;
 
-        module->items.emplace(item->name, make<ir::Variable>(type));
+        module->items.emplace(item->name, make<ir::Variable>(item->name, type));
       } break;
-    } EndMatch
+    } EndMatch;
   }
 
-  std::printf("found %d variables\n", module->items.size());
+  // Generator: Convert IR into CODE (LLVM IR)
+  Generator{}.run(module).print();
 }
 
 auto Compiler::make_type(ptr<ast::Type> node) -> ptr<ir::Type> {

@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <sstream>
 
 #include "arrow/ir/type.hpp"
 
@@ -16,7 +17,8 @@ namespace ir {
 
 struct TypeInteger : Type {
   TypeInteger(bool is_signed, unsigned bits)
-    : Type(), is_signed(is_signed), bits(bits) {
+    : Type(TypeInteger::_name(is_signed, bits)),
+      is_signed(is_signed), bits(bits) {
   }
 
   virtual ~TypeInteger() noexcept;
@@ -26,6 +28,15 @@ struct TypeInteger : Type {
 
   // Number of bits this integer type is constrained to.
   unsigned bits;
+
+ private:
+  static std::string _name(bool is_signed, unsigned bits) {
+    std::stringstream stream;
+    if (!is_signed) stream << "u";
+    stream << "int";
+    stream << bits;
+    return stream.str();
+  }
 };
 
 }  // namespace ir

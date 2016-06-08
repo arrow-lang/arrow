@@ -16,8 +16,8 @@ namespace arrow {
 namespace ir {
 
 struct Variable : Item {
-  explicit Variable(ptr<ir::Type> type)
-    : Item(), type(type) {
+  explicit Variable(std::string name, ptr<ir::Type> type)
+    : Item(name), type(type) {
   }
 
   virtual ~Variable() noexcept;
