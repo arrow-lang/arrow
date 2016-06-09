@@ -15,6 +15,19 @@ namespace arrow {
 // Takes IR as input and will "generate" LLVM IR
 class Generator {
  public:
+  struct Context {
+    // LLVM module context
+    LLVMModuleRef mod;
+
+    // LLVM instruction builder
+    // Simplifies IR generation with LLVM
+    LLVMBuilderRef irb;
+
+    // LLVM target machine
+    // Describes the target architecture
+    LLVMTargetMachineRef target;
+  };
+
   Generator();
 
   Generator(const Generator&) = delete;
@@ -29,27 +42,10 @@ class Generator {
   Generator& print();
 
  private:
+  // Generation context.
+  Context _ctx;
+
   void initialize();
-
-  // Declare
-  void declare(ptr<ir::Item>);
-  void declare_variable(ptr<ir::Variable>);
-
-  // Type
-  LLVMTypeRef type(ptr<ir::Type>);
-  LLVMTypeRef type_int(ptr<ir::TypeInteger>);
-  LLVMTypeRef type_bool(ptr<ir::TypeBoolean>);
-
-  // LLVM module context
-  LLVMModuleRef _mod;
-
-  // LLVM instruction builder
-  // Simplifies IR generation with LLVM
-  LLVMBuilderRef _irb;
-
-  // LLVM target machine
-  // Describes the target architecture
-  LLVMTargetMachineRef _target;
 };
 
 }  // namespace arrow
