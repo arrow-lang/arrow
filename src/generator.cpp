@@ -4,11 +4,10 @@
 // See accompanying file LICENSE
 
 #include "cppformat/format.h"
-#include "mach7.hpp"
 
 #include "arrow/generator.hpp"
 #include "arrow/back/declare.hpp"
-#include "llvm.hpp"
+#include "mach7.hpp"
 
 using arrow::Generator;
 
@@ -75,7 +74,7 @@ Generator& Generator::run(ptr<ir::Module> module) {
 
   // 1 - Iterate over each item in the IR module.
   //   * Declare the global variable/function/type/etc.
-  for (auto& item : module->items) back::Declare(_ctx).run(item.second);
+  for (auto& item : module->items) back::Declare(_ctx).run(item);
 
   return *this;
 }

@@ -6,6 +6,11 @@
 #ifndef ARROW_LLVM_H
 #define ARROW_LLVM_H
 
+// HACK: llvm.hpp must be included BEFORE mach7.hpp because of madness
+#ifdef ARROW_MACH7_H
+#error "llvm.hpp must be included BEFORE mach7.hpp (because madness)"
+#endif
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Weffc++"
 #pragma GCC diagnostic ignored "-Wnon-virtual-dtor"

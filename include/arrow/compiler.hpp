@@ -33,12 +33,6 @@ class Compiler {
   Compiler& operator=(Compiler&&) = delete;
 
   void compile(ptr<ast::Module> node);
-
- private:
-  ptr<ir::Type> make_type(ptr<ast::Type>);
-
-  // Map of built-in types
-  std::unordered_map<std::string, ptr<ir::Type>> _btypes;
 };
 
 /// Helper function to construct and use a compiler.

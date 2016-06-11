@@ -3,9 +3,6 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-// HACK: llvm.hpp must be included BEFORE mach7.hpp because of madness
-#include "llvm.hpp"
-
 #ifndef ARROW_MACH7_H
 #define ARROW_MACH7_H
 

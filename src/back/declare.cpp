@@ -3,7 +3,6 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "mach7.hpp"
 #include "arrow/back/declare.hpp"
 #include "arrow/log.hpp"
 

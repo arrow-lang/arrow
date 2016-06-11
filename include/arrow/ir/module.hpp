@@ -8,24 +8,22 @@
 
 #include <unordered_map>
 #include <string>
-#include <memory>
+#include <vector>
+
+#include "arrow/ptr.hpp"
+#include "arrow/ir/item.hpp"
 
 namespace arrow {
 namespace ir {
 
-struct Item;
-
-struct Module {
-  explicit Module(std::string name) : name(name), items() {
+struct Module : Item {
+  explicit Module(std::string name) : Item(name), items() {
   }
 
   virtual ~Module() noexcept;
 
-  // Name of the module
-  std::string name;
-
-  // Declared module items
-  std::unordered_map<std::string, std::shared_ptr<Item>> items;
+  // Items (found in the module)
+  std::vector<ptr<Item>> items;
 };
 
 }  // namespace ir
