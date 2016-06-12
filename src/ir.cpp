@@ -9,7 +9,12 @@ namespace ir = arrow::ir;
 
 ir::Item::~Item() noexcept { }
 ir::Module::~Module() noexcept { }
+ir::Variable::~Variable() noexcept { }
+
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
 ir::TypeBoolean::~TypeBoolean() noexcept { }
-ir::Variable::~Variable() noexcept { }
+
+ir::Value::~Value() noexcept { }
+ir::Integer::~Integer() noexcept { }
+ir::Boolean::~Boolean() noexcept { }

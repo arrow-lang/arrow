@@ -5,6 +5,7 @@
 
 #include "arrow/back/declare.hpp"
 #include "arrow/log.hpp"
+#include "mach7.hpp"
 
 using arrow::back::Declare;
 

@@ -5,6 +5,7 @@
 
 #include "arrow/back/type.hpp"
 #include "arrow/log.hpp"
+#include "mach7.hpp"
 
 using arrow::back::Type;
 

@@ -15,11 +15,11 @@ class Build : public Pass {
  public:
   using Pass::Pass;
 
-  void run(ptr<ast::Node>);
+  ptr<ir::Value> run(ptr<ast::Node>);
 
  private:
-  void handle_int(ptr<ast::Integer>);
-  void handle_bool(ptr<ast::Boolean>);
+  ptr<ir::Value> handle_int(ptr<ast::Integer>);
+  ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
 };
 
 }  // namespace middle
