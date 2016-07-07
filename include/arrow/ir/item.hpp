@@ -6,8 +6,10 @@
 #ifndef ARROW_IR_ITEM_H
 #define ARROW_IR_ITEM_H
 
-#include <memory>
 #include <string>
+
+#include "arrow/ptr.hpp"
+#include "arrow/ast.hpp"
 
 namespace arrow {
 namespace ir {
@@ -20,11 +22,16 @@ struct Type;
 ///  - Module
 ///  - Type
 struct Item {
-  explicit Item(std::string name) : name(name) {
+  Item(ptr<ast::Node> source, std::string name)
+    : source(source), name(name) {
   }
 
   virtual ~Item() noexcept;
 
+  /// Source (in file) of the item
+  ptr<ast::Node> source;
+
+  /// Referencable name of the item
   std::string name;
 };
 

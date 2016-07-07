@@ -7,6 +7,7 @@
 
 #include "arrow/generator.hpp"
 #include "arrow/back/declare.hpp"
+#include "arrow/back/define.hpp"
 #include "mach7.hpp"
 
 using arrow::Generator;
@@ -73,8 +74,9 @@ Generator& Generator::run(ptr<ir::Module> module) {
   LLVMDisposeMessage(data);
 
   // 1 - Iterate over each item in the IR module.
-  //   * Declare the global variable/function/type/etc.
+  //   * Declare and define the global variable/function/type/etc.
   for (auto& item : module->items) back::Declare(_ctx).run(item);
+  for (auto& item : module->items) back::Define(_ctx).run(item);
 
   return *this;
 }

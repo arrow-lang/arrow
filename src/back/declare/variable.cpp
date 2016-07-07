@@ -11,6 +11,12 @@ using arrow::back::Type;
 
 void Declare::handle_variable(ptr<ir::Variable> item) {
   // TODO(mehcode): Local variables?
+
   // Add global variable to module
-  LLVMAddGlobal(_ctx.mod, Type(_ctx).run(item->type), item->name.c_str());
+  auto type_handle = Type(_ctx).run(item->type);
+  auto handle = LLVMAddGlobal(_ctx.mod, type_handle, item->name.c_str());
+  _ctx.set_handle(item, handle);
+
+  // Initialize to nil (for globals)
+  LLVMSetInitializer(handle, LLVMConstNull(type_handle));
 }

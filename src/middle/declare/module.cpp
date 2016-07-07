@@ -8,7 +8,7 @@
 using arrow::middle::Declare;
 
 auto Declare::handle_module(ptr<ast::Module> x) -> ptr<ir::Module> {
-  auto module = make<ir::Module>(x->name);
+  auto module = make<ir::Module>(x, x->name);
 
   for (auto& statement : x->statements) {
     auto item = run(statement);

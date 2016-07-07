@@ -6,18 +6,17 @@
 #ifndef ARROW_IR_VARIABLE_H
 #define ARROW_IR_VARIABLE_H
 
-#include <memory>
 #include <string>
 
 #include "arrow/ir/item.hpp"
-#include "arrow/ptr.hpp"
+#include "arrow/ir/value.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Variable : Item {
-  explicit Variable(std::string name, ptr<ir::Type> type)
-    : Item(name), type(type) {
+  Variable(ptr<ast::Variable> source, std::string name)
+    : Item(source, name), type(nullptr), initializer(nullptr) {
   }
 
   virtual ~Variable() noexcept;
@@ -25,6 +24,9 @@ struct Variable : Item {
   // Type of the variable.
   // This _can_ be null before type inference has taken place.
   ptr<ir::Type> type;
+
+  // Initializer
+  ptr<ir::Value> initializer;
 };
 
 }  // namespace ir

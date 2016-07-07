@@ -10,14 +10,14 @@
 #include <string>
 #include <vector>
 
-#include "arrow/ptr.hpp"
 #include "arrow/ir/item.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Module : Item {
-  explicit Module(std::string name) : Item(name), items() {
+  Module(ptr<ast::Module> source, std::string name)
+    : Item(source, name), items() {
   }
 
   virtual ~Module() noexcept;

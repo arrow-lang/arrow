@@ -17,7 +17,7 @@ namespace ir {
 
 struct TypeInteger : Type {
   TypeInteger(bool is_signed, unsigned bits)
-    : Type(TypeInteger::_name(is_signed, bits)),
+    : Type(nullptr, TypeInteger::_name(is_signed, bits)),
       is_signed(is_signed), bits(bits) {
   }
 

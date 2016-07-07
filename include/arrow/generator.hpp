@@ -26,6 +26,20 @@ class Generator {
     // LLVM target machine
     // Describes the target architecture
     LLVMTargetMachineRef target;
+
+    // Simple ptr -> value-ref map
+    // Probably will need something more complex in future
+    std::unordered_map<void*, LLVMValueRef> _m;
+
+    template <typename T>
+    inline void set_handle(ptr<T> p, LLVMValueRef value) {
+      _m[p.get()] = value;
+    }
+
+    template <typename T>
+    inline LLVMValueRef get_handle(ptr<T> p) {
+      return _m[p.get()];
+    }
   };
 
   Generator();

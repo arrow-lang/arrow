@@ -23,7 +23,7 @@ void Compiler::compile(ptr<ast::Module> node) {
   auto module = cast<ir::Module>(middle::Declare().run(node));
 
   // Define
-  // middle::Define().run(module);
+  middle::Define().run(module);
 
   // Generator: Convert IR into CODE (LLVM IR)
   Generator{}.run(module).print();

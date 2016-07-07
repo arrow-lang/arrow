@@ -9,7 +9,7 @@
 using arrow::middle::Declare;
 
 auto Declare::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Variable> {
-  auto result = make<ir::Variable>(x->name, nullptr);
+  auto result = make<ir::Variable>(x, x->name);
 
   // Resolve type now if we have an explicit type annotation
   if (x->type) {

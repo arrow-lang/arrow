@@ -3,13 +3,16 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_MIDDLE_DEFINE_H
-#define ARROW_MIDDLE_DEFINE_H
+#ifndef ARROW_BACK_DEFINE_H
+#define ARROW_BACK_DEFINE_H
 
-#include "arrow/middle/pass.hpp"
+#include <memory>
+#include <string>
+
+#include "arrow/back/pass.hpp"
 
 namespace arrow {
-namespace middle {
+namespace back {
 
 class Define : public Pass {
  public:
@@ -18,11 +21,10 @@ class Define : public Pass {
   void run(ptr<ir::Item>);
 
  private:
-  void handle_module(ptr<ir::Module>);
   void handle_variable(ptr<ir::Variable>);
 };
 
-}  // namespace middle
+}  // namespace back
 }  // namespace arrow
 
-#endif  // ARROW_MIDDLE_DEFINE_H
+#endif  // ARROW_BACK_DEFINE_H
