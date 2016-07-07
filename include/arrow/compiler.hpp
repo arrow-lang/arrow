@@ -17,6 +17,7 @@
 #include "arrow/parser.hpp"
 #include "arrow/ir.hpp"
 #include "arrow/ptr.hpp"
+#include "arrow/log.hpp"
 
 namespace arrow {
 
@@ -37,7 +38,10 @@ class Compiler {
 
 /// Helper function to construct and use a compiler.
 inline void compile(ptr<std::istream> is, const std::string& filename) {
-  Compiler().compile(Parser(is, filename).parse());
+  auto node = Parser(is, filename).parse();
+  if (Log::get().count(arrow::LOG_ERROR) > 0) return;
+
+  Compiler().compile(node);
 }
 
 }  // namespace arrow

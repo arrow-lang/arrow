@@ -1,37 +1,15 @@
-// 1. Tokenize (input => tokens)
-// 2. Parse (tokens => AST)
-// 3. Compile (AST => IR)
-// 3.1 Compile: Build
-// 4. Generate (IR => CODE [LLVM IR])
-// 4.1 Generate: Declare
-// 4.2 Generate: Define
+let a: int16 = 350;
+// _ctx.scope.emplace("a", variable);
+let b: int16 = a;
+// _ctx.scope.find("a"); -> variable
 
+/**
 
-// Compile:
-let a: int16 = 10;
-let b: bool = a;
+ast::Identifier
+ir::Scope
 
-middle::Declare
- // - Add all items
+ */
 
-middle::TypeInfer
- // - Infer type via flow
-
-middle::TypeCheck
- // - Check type (prevent type mismatch)
-
-middle::Build
- // - Dive into the items and build their contents
-
-middle::TypeDeduce
-
-// Generator
-
-back::Declare
- // - Add all items to LLVM
-
-back::Build
- // - Generate each item's value
-
-back::Type
- // - Make a LLVM type out of an IR type
+// [ ] Identifier resolution and variable valuation
+// [ ] Precedence parser (for unary & binary expressions)
+// [ ] ALL unary / binary expressions
