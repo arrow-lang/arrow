@@ -19,4 +19,7 @@ void Declare::handle_variable(ptr<ir::Variable> item) {
 
   // Initialize to nil (for globals)
   LLVMSetInitializer(handle, LLVMConstNull(type_handle));
+
+  // Set linkage to private
+  LLVMSetLinkage(handle, LLVMLinkerPrivateLinkage);
 }
