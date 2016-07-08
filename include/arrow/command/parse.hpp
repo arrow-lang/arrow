@@ -33,7 +33,7 @@ class Parse : public InputCommand {
 
  private:
   virtual int run_with_input(
-    std::shared_ptr<std::istream> is,
+    ptr<std::istream> is,
     const boost::program_options::variables_map& vm);
 };
 

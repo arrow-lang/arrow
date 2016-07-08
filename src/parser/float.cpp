@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_float() -> std::shared_ptr<ast::Float> {
+auto Parser::parse_float() -> ptr<ast::Float> {
   // Expect: integer
   auto tok = expect<token::Float>(token::Type::Float);
   if (!tok) return nullptr;

@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_type() -> std::shared_ptr<ast::Type> {
+auto Parser::parse_type() -> ptr<ast::Type> {
   switch (_t.peek()->type) {
   case token::Type::Identifier:
     return parse_type_name();

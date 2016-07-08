@@ -18,13 +18,13 @@ namespace ast {
 /// expression. This serves as a bridge to allow more than 1 expression
 /// in a construct that accepts statements.
 struct ExpressionStatement : Statement {
-  explicit ExpressionStatement(std::shared_ptr<Expression> expression)
+  explicit ExpressionStatement(ptr<Expression> expression)
     : Statement(expression->span), expression(expression) {
   }
 
   virtual ~ExpressionStatement() noexcept;
 
-  std::shared_ptr<Expression> expression;
+  ptr<Expression> expression;
 };
 
 }  // namespace ast

@@ -8,7 +8,7 @@
 
 using arrow::ast::Print;
 
-void Print::print_variable(std::shared_ptr<Variable> n) {
+void Print::print_variable(ptr<Variable> n) {
   handle("Variable", n, [&, this] {
     _w.Key("name");
     _w.String(n->name.c_str());

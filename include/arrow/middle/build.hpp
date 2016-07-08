@@ -20,6 +20,7 @@ class Build : public Pass {
  private:
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
+  ptr<ir::Value> handle_id(ptr<ast::Identifier>);
 };
 
 }  // namespace middle

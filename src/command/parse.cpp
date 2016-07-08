@@ -17,7 +17,7 @@ namespace po = boost::program_options;
 Parse::~Parse() noexcept { }
 
 int Parse::run_with_input(
-  std::shared_ptr<std::istream> is, const po::variables_map& vm
+  ptr<std::istream> is, const po::variables_map& vm
 ) {
   // Parse a node from the input stream
   auto node = arrow::parse(is, vm["input-file"].as<std::string>());

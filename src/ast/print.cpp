@@ -18,7 +18,7 @@ Print::Print() : _s(), _w(_s) {
 Print::~Print() noexcept {
 }
 
-void Print::run(std::shared_ptr<Node> node) {
+void Print::run(ptr<Node> node) {
   print(node);
 
   if (arrow::Log::get().count(arrow::LOG_ERROR) == 0) {
@@ -28,7 +28,7 @@ void Print::run(std::shared_ptr<Node> node) {
 }
 
 void Print::handle(
-  const char* name, std::shared_ptr<Node> n, std::function<void()> handle
+  const char* name, ptr<Node> n, std::function<void()> handle
 ) {
   _w.StartObject();
 
@@ -47,7 +47,7 @@ void Print::handle(
   Case(mch::C<type>()) \
     return print_##name(std::dynamic_pointer_cast<type>(node))
 
-void Print::print(std::shared_ptr<Node> node) {
+void Print::print(ptr<Node> node) {
   if (!node) {
     // Null
     _w.Null();
@@ -63,6 +63,7 @@ void Print::print(std::shared_ptr<Node> node) {
     ACCEPT(Boolean, bool);
     ACCEPT(String, str);
     ACCEPT(Float, float);
+    ACCEPT(Identifier, id);
 
     ACCEPT(TypeName, type_name);
 

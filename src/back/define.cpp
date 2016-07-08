@@ -18,7 +18,7 @@ void Define::run(ptr<ir::Item> item) {
     ACCEPT(ir::Variable, variable);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*item).name());
+      Log::get().error("back::Define not implemented for {}", typeid(*item).name());
     }
   } EndMatch;
 }

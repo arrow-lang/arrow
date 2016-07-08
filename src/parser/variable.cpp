@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
+auto Parser::parse_variable() -> ptr<ast::Variable> {
   // Expect: `let`
   auto initial_tok = expect(token::Type::Let);
   if (!initial_tok) return nullptr;
@@ -18,7 +18,7 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   if (!id) return nullptr;
 
   // Check for `:` (type annotation)
-  std::shared_ptr<ast::Type> type;
+  ptr<ast::Type> type;
   if (_t.peek()->type == token::Type::Colon) {
     _t.pop();
 
@@ -28,7 +28,7 @@ auto Parser::parse_variable() -> std::shared_ptr<ast::Variable> {
   }
 
   // Check for `=` (initializer)
-  std::shared_ptr<ast::Expression> initializer;
+  ptr<ast::Expression> initializer;
   if (_t.peek()->type == token::Type::Equals) {
     _t.pop();
 

@@ -16,13 +16,16 @@ namespace middle {
 
 class Pass {
  public:
-  Pass() { }
+  explicit Pass(Compiler::Context& ctx) : _ctx(ctx) { }
 
   Pass(const Pass& other) = delete;
   Pass(Pass&& other) = delete;
 
   Pass& operator=(const Pass& other) = delete;
   Pass& operator=(Pass&& other) = delete;
+
+ protected:
+  Compiler::Context& _ctx;
 };
 
 }  // namespace middle

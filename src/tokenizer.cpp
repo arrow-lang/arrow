@@ -117,7 +117,7 @@ static bool in_ranges(uint32_t value, const vector<vector<uint32_t>>& ranges) {
 }
 
 Tokenizer::Tokenizer(
-  std::shared_ptr<std::istream> is, const std::string& filename) :
+  ptr<std::istream> is, const std::string& filename) :
     _queue(), _scanners(), _file(is), _filename(filename) {
   // Initialize scanners
   _scanners.push_back(std::bind(&Tokenizer::_scan_numeric, this));
@@ -126,7 +126,7 @@ Tokenizer::Tokenizer(
   _scanners.push_back(std::bind(&Tokenizer::_scan_identifier, this));
 }
 
-auto Tokenizer::pop() -> std::shared_ptr<Token> {
+auto Tokenizer::pop() -> ptr<Token> {
   if (!_read(1)) return nullptr;
 
   // Get (and consume) the next byte.
@@ -134,7 +134,7 @@ auto Tokenizer::pop() -> std::shared_ptr<Token> {
   return tok;
 }
 
-auto Tokenizer::peek(unsigned offset) -> std::shared_ptr<Token> {
+auto Tokenizer::peek(unsigned offset) -> ptr<Token> {
   if (!_read(offset + 1)) return nullptr;
 
   // Peek (and perserve) the `offset` token.
@@ -246,7 +246,7 @@ void Tokenizer::_consume_number(std::stringstream& ss, unsigned base) {
   }
 }
 
-auto Tokenizer::_scan_numeric() -> std::shared_ptr<Token> {
+auto Tokenizer::_scan_numeric() -> ptr<Token> {
   // Peek ahead and see if we /are/ a digit (and stop now if we aren't)
   if (!in_range(_file.peek(), '0', '9')) return nullptr;
 
@@ -330,7 +330,7 @@ auto Tokenizer::_scan_numeric() -> std::shared_ptr<Token> {
   }
 }
 
-auto Tokenizer::_scan_symbol() -> std::shared_ptr<Token> {
+auto Tokenizer::_scan_symbol() -> ptr<Token> {
   // Fill a vector with 3 characters
   vector<char32_t> test;
   for (unsigned index = 0; index < 3; ++index) {
@@ -338,7 +338,7 @@ auto Tokenizer::_scan_symbol() -> std::shared_ptr<Token> {
   }
 
   // Iterate backwards and test in order of largest first
-  std::shared_ptr<Token> result = nullptr;
+  ptr<Token> result = nullptr;
   unsigned index;
   for (index = 3; index > 0; --index) {
     auto rec = symbols.find(test);
@@ -358,7 +358,7 @@ auto Tokenizer::_scan_symbol() -> std::shared_ptr<Token> {
   return result;
 }
 
-auto Tokenizer::_scan_identifier() -> std::shared_ptr<Token> {
+auto Tokenizer::_scan_identifier() -> ptr<Token> {
   // REF: http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1518.htm
 
   // An identifier can contain ..
@@ -483,7 +483,7 @@ auto Tokenizer::_scan_identifier() -> std::shared_ptr<Token> {
   return std::make_shared<token::Identifier>(span, text);
 }
 
-auto Tokenizer::_scan_string() -> std::shared_ptr<Token> {
+auto Tokenizer::_scan_string() -> ptr<Token> {
   auto begin = _file.position();
 
   // Peek and see if we are a double-quoted string

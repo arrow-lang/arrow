@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_expression() -> std::shared_ptr<ast::Expression> {
+auto Parser::parse_expression() -> ptr<ast::Expression> {
   switch (_t.peek()->type) {
   case token::Type::Integer:
     return parse_integer();
@@ -22,6 +22,9 @@ auto Parser::parse_expression() -> std::shared_ptr<ast::Expression> {
 
   case token::Type::String:
     return parse_str();
+
+  case token::Type::Identifier:
+    return parse_id();
 
   default:
     Log::get().error(_t.pop()->span, "expected expression");

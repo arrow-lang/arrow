@@ -8,7 +8,7 @@
 
 using arrow::ast::Print;
 
-void Print::print_module(std::shared_ptr<Module> n) {
+void Print::print_module(ptr<Module> n) {
   handle("Module", n, [&, this] {
     _w.Key("statements");
     _w.StartArray();

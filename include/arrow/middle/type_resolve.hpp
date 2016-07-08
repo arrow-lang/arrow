@@ -16,7 +16,7 @@ namespace middle {
 
 class TypeResolve : public Pass {
  public:
-  TypeResolve();
+  explicit TypeResolve(Compiler::Context& ctx);
 
   ptr<ir::Type> run(ptr<ast::Type>);
 

@@ -23,6 +23,7 @@ class Build : public Pass {
  private:
   LLVMValueRef handle_bool(ptr<ir::Boolean>);
   LLVMValueRef handle_int(ptr<ir::Integer>);
+  LLVMValueRef handle_variable(ptr<ir::Variable>);
 };
 
 }  // namespace back

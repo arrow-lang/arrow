@@ -17,7 +17,7 @@ namespace po = boost::program_options;
 Compile::~Compile() noexcept { }
 
 int Compile::run_with_input(
-  std::shared_ptr<std::istream> is, const po::variables_map& vm
+  ptr<std::istream> is, const po::variables_map& vm
 ) {
   // Compile the input file
   arrow::compile(is, vm["input-file"].as<std::string>());

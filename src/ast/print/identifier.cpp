@@ -8,9 +8,9 @@
 
 using arrow::ast::Print;
 
-void Print::print_float(ptr<Float> n) {
-  handle("Float", n, [&, this] {
-    _w.Key("value");
-    _w.String(std::to_string(n->value).c_str());
+void Print::print_id(ptr<Identifier> n) {
+  handle("Identifier", n, [&, this] {
+    _w.Key("text");
+    _w.String(n->text.c_str());
   });
 }

@@ -8,7 +8,7 @@
 
 using arrow::ast::Print;
 
-void Print::print_integer(std::shared_ptr<Integer> n) {
+void Print::print_integer(ptr<Integer> n) {
   handle("Integer", n, [&, this] {
     _w.Key("value");
     _w.String(n->value.get_str(10).c_str());

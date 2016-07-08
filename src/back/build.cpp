@@ -17,9 +17,10 @@ LLVMValueRef Build::run(ptr<ir::Value> item) {
   Match(*item) {
     ACCEPT(ir::Integer, int);
     ACCEPT(ir::Boolean, bool);
+    ACCEPT(ir::Variable, variable);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*item).name());
+      Log::get().error("back::Build not implemented for {}", typeid(*item).name());
     }
   } EndMatch;
 

@@ -8,7 +8,7 @@
 
 using arrow::ast::Print;
 
-void Print::print_bool(std::shared_ptr<Boolean> n) {
+void Print::print_bool(ptr<Boolean> n) {
   handle("Boolean", n, [&, this] {
     _w.Key("value");
     _w.String(n->value ? "true" : "false");

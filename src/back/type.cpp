@@ -19,7 +19,7 @@ LLVMTypeRef Type::run(ptr<ir::Type> item) {
     ACCEPT(ir::TypeBoolean, bool);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*item).name());
+      Log::get().error("back::Type not implemented for {}", typeid(*item).name());
     }
   } EndMatch;
 

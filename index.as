@@ -10,6 +10,8 @@ ir::Scope
 
  */
 
-// [ ] Identifier resolution and variable valuation
+// [ ] Identifier resolution and variable valuationl
+//    [ ] Parse
+
 // [ ] Precedence parser (for unary & binary expressions)
 // [ ] ALL unary / binary expressions

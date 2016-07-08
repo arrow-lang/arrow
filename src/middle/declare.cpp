@@ -19,7 +19,7 @@ auto Declare::run(ptr<ast::Node> node) -> ptr<ir::Item> {
     ACCEPT(ast::Variable, variable);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*node).name());
+      Log::get().error("middle::Declare not implemented for {}", typeid(*node).name());
     }
   } EndMatch;
 

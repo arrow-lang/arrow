@@ -8,11 +8,10 @@
 
 using arrow::Parser;
 
-auto Parser::parse_bool() -> ptr<ast::Boolean> {
+auto Parser::parse_id() -> ptr<ast::Identifier> {
   // Expect: integer
-  auto tok = expect({token::Type::True, token::Type::False});
+  auto tok = expect<token::Identifier>(token::Type::Identifier);
   if (!tok) return nullptr;
 
-  return std::make_shared<ast::Boolean>(
-    tok->span, tok->type == token::Type::True);
+  return std::make_shared<ast::Identifier>(tok->span, tok->text);
 }

@@ -8,7 +8,7 @@
 using arrow::ast::Print;
 
 void Print::print_expression_statement(
-  std::shared_ptr<ExpressionStatement> n
+  ptr<ExpressionStatement> n
 ) {
   print(n->expression);
 }

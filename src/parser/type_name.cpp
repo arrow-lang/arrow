@@ -7,7 +7,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_type_name() -> std::shared_ptr<ast::TypeName> {
+auto Parser::parse_type_name() -> ptr<ast::TypeName> {
   // Expect: identifier
   auto tok = expect<token::Identifier>(token::Type::Identifier);
   if (!tok) return nullptr;

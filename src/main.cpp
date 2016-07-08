@@ -15,7 +15,7 @@
 #include "arrow/command.hpp"
 
 void help(char* binary_path,
-          const std::deque<std::shared_ptr<arrow::Command>>& commands) {
+          const std::deque<arrow::ptr<arrow::Command>>& commands) {
   std::printf(
     "Usage: \x1b[0;36m%s\x1b[0m [<command>] [<options>] <input-file>\n",
     binary_path);
@@ -36,7 +36,7 @@ void help(char* binary_path,
 
 int main(int argc, char** argv, char** environ) {
     // Register available commands
-  std::deque<std::shared_ptr<arrow::Command>> commands;
+  std::deque<arrow::ptr<arrow::Command>> commands;
   commands.push_back(std::make_shared<arrow::command::Parse>());
   commands.push_back(std::make_shared<arrow::command::Tokenize>());
   commands.push_back(std::make_shared<arrow::command::Compile>());

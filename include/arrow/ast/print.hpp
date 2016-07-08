@@ -27,30 +27,31 @@ class Print {
 
   virtual ~Print() noexcept;
 
-  void run(std::shared_ptr<Node> node);
+  void run(ptr<Node> node);
 
  private:
-  void print(std::shared_ptr<Node>);
-  void print_module(std::shared_ptr<Module>);
-  void print_variable(std::shared_ptr<Variable>);
-  void print_expression_statement(std::shared_ptr<ExpressionStatement>);
+  void print(ptr<Node>);
+  void print_module(ptr<Module>);
+  void print_variable(ptr<Variable>);
+  void print_expression_statement(ptr<ExpressionStatement>);
 
-  void print_integer(std::shared_ptr<Integer>);
-  void print_float(std::shared_ptr<Float>);
-  void print_bool(std::shared_ptr<Boolean>);
-  void print_str(std::shared_ptr<String>);
+  void print_integer(ptr<Integer>);
+  void print_float(ptr<Float>);
+  void print_bool(ptr<Boolean>);
+  void print_str(ptr<String>);
+  void print_id(ptr<Identifier>);
 
-  void print_type_name(std::shared_ptr<TypeName>);
+  void print_type_name(ptr<TypeName>);
 
   void handle(
-    const char* name, std::shared_ptr<Node> n, std::function<void()> handle);
+    const char* name, ptr<Node> n, std::function<void()> handle);
 
   rapidjson::StringBuffer _s;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> _w;
 };
 
 /// Helper function to construct and use an AST Printer.
-inline void print(std::shared_ptr<Node> node) {
+inline void print(ptr<Node> node) {
   Print().run(node);
 }
 

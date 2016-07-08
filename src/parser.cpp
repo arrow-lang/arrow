@@ -17,11 +17,11 @@ using arrow::Parser;
 namespace fs = boost::filesystem;
 
 Parser::Parser(
-  std::shared_ptr<std::istream> is, const std::string& filename
+  ptr<std::istream> is, const std::string& filename
 ) : _t(is, filename) {
 }
 
-auto Parser::parse() -> std::shared_ptr<ast::Module> {
+auto Parser::parse() -> ptr<ast::Module> {
   // Declare the top-level, automatic module
   // The name of the module is built from the name of the given file
   auto stem = fs::path(_t._filename).stem().string();
@@ -40,13 +40,13 @@ auto Parser::parse() -> std::shared_ptr<ast::Module> {
   return mod;
 }
 
-auto Parser::expect(token::Type type) -> std::shared_ptr<token::Token> {
+auto Parser::expect(token::Type type) -> ptr<token::Token> {
   return expect({type});
 }
 
 auto Parser::expect(
   std::initializer_list<token::Type> types
-) -> std::shared_ptr<token::Token> {
+) -> ptr<token::Token> {
   std::vector<token::Type> types_v(types);
   auto tok = _t.pop();
 

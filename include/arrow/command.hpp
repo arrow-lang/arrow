@@ -7,6 +7,7 @@
 #define ARROW_COMMAND_H
 
 #include "boost/program_options.hpp"
+#include "arrow/ptr.hpp"
 
 namespace arrow {
 
@@ -66,7 +67,7 @@ class InputCommand : public Command {
   virtual int run(const boost::program_options::variables_map& vm);
 
   virtual int run_with_input(
-    std::shared_ptr<std::istream> is,
+    ptr<std::istream> is,
     const boost::program_options::variables_map& vm) = 0;
 };
 

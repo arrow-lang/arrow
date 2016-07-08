@@ -18,4 +18,6 @@
 #include "arrow/ir/integer.hpp"
 #include "arrow/ir/boolean.hpp"
 
+#include "arrow/ir/scope.hpp"
+
 #endif  // ARROW_IR_H

@@ -23,7 +23,7 @@ class Tokenizer {
   using Token = token::Token;
 
  public:
-  Tokenizer(std::shared_ptr<std::istream> is, const std::string& filename);
+  Tokenizer(ptr<std::istream> is, const std::string& filename);
 
   Tokenizer(const Tokenizer&) = delete;
   Tokenizer(Tokenizer&&) = delete;
@@ -39,10 +39,10 @@ class Tokenizer {
 
   /// Peek (perserve) the token `offset` tokens away from the current position
   /// in the input stream.
-  std::shared_ptr<Token> peek(unsigned offset = 0);
+  ptr<Token> peek(unsigned offset = 0);
 
   /// Get (consume) the next token in the input stream.
-  std::shared_ptr<Token> pop();
+  ptr<Token> pop();
 
  private:
   friend class Parser;
@@ -52,13 +52,13 @@ class Tokenizer {
   bool _consume_line_comment();
   void _consume_number(std::stringstream& ss, unsigned base);
 
-  std::shared_ptr<Token> _scan_numeric();
-  std::shared_ptr<Token> _scan_symbol();
-  std::shared_ptr<Token> _scan_identifier();
-  std::shared_ptr<Token> _scan_string();
+  ptr<Token> _scan_numeric();
+  ptr<Token> _scan_symbol();
+  ptr<Token> _scan_identifier();
+  ptr<Token> _scan_string();
 
-  std::deque<std::shared_ptr<Token>> _queue;
-  std::vector<std::function<std::shared_ptr<Token>()>> _scanners;
+  std::deque<ptr<Token>> _queue;
+  std::vector<std::function<ptr<Token>()>> _scanners;
   File _file;
   std::string _filename;
 };

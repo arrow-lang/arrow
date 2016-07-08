@@ -9,7 +9,7 @@
 
 using arrow::middle::TypeResolve;
 
-TypeResolve::TypeResolve() : _types() {
+TypeResolve::TypeResolve(Compiler::Context& ctx) : Pass(ctx), _types() {
   // Register built-in types
   _types.emplace("bool", make<ir::TypeBoolean>());
 
@@ -35,7 +35,7 @@ auto TypeResolve::run(ptr<ast::Type> node) -> ptr<ir::Type> {
     ACCEPT(ast::TypeName, type_name);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*node).name());
+      Log::get().error("middle::TypeResolve not implemented for {}", typeid(*node).name());
     }
   } EndMatch;
 

@@ -19,7 +19,7 @@ namespace arrow {
 
 class Parser {
  public:
-  Parser(std::shared_ptr<std::istream> is, const std::string& filename);
+  Parser(ptr<std::istream> is, const std::string& filename);
 
   Parser(const Parser&) = delete;
   Parser(Parser&&) = delete;
@@ -27,41 +27,42 @@ class Parser {
   Parser& operator=(const Parser&) = delete;
   Parser& operator=(Parser&&) = delete;
 
-  std::shared_ptr<ast::Module> parse();
+  ptr<ast::Module> parse();
 
  private:
   // Expect a token of a specific type
   // Handle the proper error message on failure
-  std::shared_ptr<token::Token> expect(token::Type type);
+  ptr<token::Token> expect(token::Type type);
 
   // Expect a token of one of the passed types
-  std::shared_ptr<token::Token> expect(
+  ptr<token::Token> expect(
     std::initializer_list<token::Type> types);
 
   // Expect a token of a specific type (...)
   template <typename T>
-  std::shared_ptr<T> expect(token::Type type) {
+  ptr<T> expect(token::Type type) {
     return std::dynamic_pointer_cast<T>(expect(type));
   }
 
-  std::shared_ptr<ast::Statement> parse_statement();
-  std::shared_ptr<ast::Variable> parse_variable();
+  ptr<ast::Statement> parse_statement();
+  ptr<ast::Variable> parse_variable();
 
-  std::shared_ptr<ast::Expression> parse_expression();
-  std::shared_ptr<ast::Integer> parse_integer();
-  std::shared_ptr<ast::Boolean> parse_bool();
-  std::shared_ptr<ast::Float> parse_float();
-  std::shared_ptr<ast::String> parse_str();
+  ptr<ast::Expression> parse_expression();
+  ptr<ast::Integer> parse_integer();
+  ptr<ast::Boolean> parse_bool();
+  ptr<ast::Float> parse_float();
+  ptr<ast::String> parse_str();
+  ptr<ast::Identifier> parse_id();
 
-  std::shared_ptr<ast::Type> parse_type();
-  std::shared_ptr<ast::TypeName> parse_type_name();
+  ptr<ast::Type> parse_type();
+  ptr<ast::TypeName> parse_type_name();
 
   Tokenizer _t;
 };
 
 /// Helper function to construct and use an AST Parser.
-inline std::shared_ptr<ast::Node> parse(
-  std::shared_ptr<std::istream> is, const std::string& filename
+inline ptr<ast::Node> parse(
+  ptr<std::istream> is, const std::string& filename
 ) {
   return Parser(is, filename).parse();
 }

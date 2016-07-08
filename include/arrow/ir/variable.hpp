@@ -14,16 +14,12 @@
 namespace arrow {
 namespace ir {
 
-struct Variable : Item {
+struct Variable : Item, Value {
   Variable(ptr<ast::Variable> source, std::string name)
-    : Item(source, name), type(nullptr), initializer(nullptr) {
+    : Item(source, name), Value(nullptr), initializer(nullptr) {
   }
 
   virtual ~Variable() noexcept;
-
-  // Type of the variable.
-  // This _can_ be null before type inference has taken place.
-  ptr<ir::Type> type;
 
   // Initializer
   ptr<ir::Value> initializer;

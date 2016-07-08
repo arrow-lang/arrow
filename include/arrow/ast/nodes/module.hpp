@@ -8,8 +8,8 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 
+#include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/statement.hpp"
 
 namespace arrow {
@@ -29,7 +29,7 @@ struct Module : Statement {
 
   /// Sequence of statements in the module.
   /// A module is made up of 0..n statements.
-  std::vector<std::shared_ptr<Statement>> statements;
+  std::vector<ptr<Statement>> statements;
 };
 
 }  // namespace ast

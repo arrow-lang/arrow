@@ -11,6 +11,7 @@
 #include <deque>
 #include <memory>
 
+#include "arrow/ptr.hpp"
 #include "arrow/position.hpp"
 #include "arrow/token.hpp"
 
@@ -21,7 +22,7 @@ namespace arrow {
 /// Operates as a queue.
 class File {
  public:
-  explicit File(std::shared_ptr<std::istream> is);
+  explicit File(ptr<std::istream> is);
 
   /// Test for the end of the stream (EOF).
   bool empty() {
@@ -45,7 +46,7 @@ class File {
   bool _read(unsigned count);
 
   // Input stream
-  std::shared_ptr<std::istream> _stream;
+  ptr<std::istream> _stream;
 
   // Character queue.
   std::deque<char32_t> _queue;

@@ -18,7 +18,7 @@ namespace po = boost::program_options;
 Tokenize::~Tokenize() noexcept { }
 
 int Tokenize::run_with_input(
-  std::shared_ptr<std::istream> is, const po::variables_map& vm
+  ptr<std::istream> is, const po::variables_map& vm
 ) {
   // Build and bind a tokenizer to the input file
   arrow::Tokenizer tokenizer{is, vm["input-file"].as<std::string>()};

@@ -12,7 +12,7 @@
 
 using arrow::Compiler;
 
-Compiler::Compiler() {
+Compiler::Compiler() : _ctx() {
 }
 
 Compiler::~Compiler() noexcept {
@@ -20,11 +20,17 @@ Compiler::~Compiler() noexcept {
 
 void Compiler::compile(ptr<ast::Module> node) {
   // Declare
-  auto module = cast<ir::Module>(middle::Declare().run(node));
+  auto module = cast<ir::Module>(middle::Declare(_ctx).run(node));
+  if (Log::get().count(LOG_ERROR) > 0) return;
 
   // Define
-  middle::Define().run(module);
+  middle::Define(_ctx).run(module);
+  if (Log::get().count(LOG_ERROR) > 0) return;
 
   // Generator: Convert IR into CODE (LLVM IR)
-  Generator{}.run(module).print();
+  Generator g;
+  g.run(module);
+  if (Log::get().count(arrow::LOG_ERROR) > 0) return;
+
+  g.print();
 }

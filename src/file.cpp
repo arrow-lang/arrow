@@ -9,7 +9,7 @@
 
 using arrow::File;
 
-File::File(std::shared_ptr<std::istream> is) :
+File::File(ptr<std::istream> is) :
   _stream(is), _queue(), _row(0), _column(0) {
 }
 

@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_str() -> std::shared_ptr<ast::String> {
+auto Parser::parse_str() -> ptr<ast::String> {
   // Expect: integer
   auto tok = expect<token::String>(token::Type::String);
   if (!tok) return nullptr;

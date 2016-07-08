@@ -6,6 +6,7 @@
 #include "cppformat/format.h"
 
 #include "arrow/generator.hpp"
+#include "arrow/log.hpp"
 #include "arrow/back/declare.hpp"
 #include "arrow/back/define.hpp"
 #include "mach7.hpp"
@@ -76,7 +77,10 @@ Generator& Generator::run(ptr<ir::Module> module) {
   // 1 - Iterate over each item in the IR module.
   //   * Declare and define the global variable/function/type/etc.
   for (auto& item : module->items) back::Declare(_ctx).run(item);
+  if (Log::get().count(LOG_ERROR) > 0) return *this;
+
   for (auto& item : module->items) back::Define(_ctx).run(item);
+  if (Log::get().count(LOG_ERROR) > 0) return *this;
 
   return *this;
 }

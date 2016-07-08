@@ -15,13 +15,14 @@ using arrow::middle::Build;
 
 auto Build::run(ptr<ast::Node> node) -> ptr<ir::Value> {
   Match(*node) {
+    ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Integer, int);
     ACCEPT(ast::Boolean, bool);
     // ACCEPT(ast::Float, float);
     // ACCEPT(ast::String, str);
 
     Otherwise() {
-      Log::get().error("not implemented for {}", typeid(*node).name());
+      Log::get().error("middle::Build not implemented for {}", typeid(*node).name());
     }
   } EndMatch;
 

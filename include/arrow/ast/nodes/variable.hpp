@@ -22,8 +22,8 @@ struct Variable : Statement {
   Variable(
     Span span,
     std::string name,
-    std::shared_ptr<Type> type,
-    std::shared_ptr<Expression> initializer
+    ptr<Type> type,
+    ptr<Expression> initializer
   )
   : Statement(span), name(name), type(type), initializer(initializer) {
   }
@@ -32,10 +32,10 @@ struct Variable : Statement {
   std::string name;
 
   /// Type annotation of the variable (optional).
-  std::shared_ptr<Type> type;
+  ptr<Type> type;
 
   /// Initializer expression for the variable (optional).
-  std::shared_ptr<Expression> initializer;
+  ptr<Expression> initializer;
 };
 
 }  // namespace ast

@@ -13,9 +13,12 @@ auto Declare::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Variable> {
 
   // Resolve type now if we have an explicit type annotation
   if (x->type) {
-    result->type = TypeResolve().run(x->type);
+    result->type = TypeResolve(_ctx).run(x->type);
     if (!result->type) return nullptr;
   }
+
+  // Emplace to scope
+  _ctx.scope.emplace(x->name, result);
 
   return result;
 }

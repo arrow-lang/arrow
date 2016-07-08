@@ -12,6 +12,6 @@ void Define::handle_variable(ptr<ir::Variable> item) {
   // Define the initializer expression (if present)
   auto source = cast<ast::Variable>(item->source);
   if (source && source->initializer) {
-    item->initializer = Build().run(source->initializer);
+    item->initializer = Build(_ctx).run(source->initializer);
   }
 }

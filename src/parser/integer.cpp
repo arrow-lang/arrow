@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_integer() -> std::shared_ptr<ast::Integer> {
+auto Parser::parse_integer() -> ptr<ast::Integer> {
   // Expect: integer
   auto tok = expect<token::Integer>(token::Type::Integer);
   if (!tok) return nullptr;

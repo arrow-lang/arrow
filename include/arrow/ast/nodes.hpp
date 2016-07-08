@@ -18,6 +18,7 @@
 #include "arrow/ast/nodes/integer.hpp"
 #include "arrow/ast/nodes/float.hpp"
 #include "arrow/ast/nodes/string.hpp"
+#include "arrow/ast/nodes/identifier.hpp"
 
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/type_name.hpp"
