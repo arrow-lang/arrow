@@ -5,21 +5,55 @@
 
 #include "arrow/ast/nodes.hpp"
 
-namespace ast = arrow::ast;
+#define IMPL(N) \
+  N::~N() noexcept { }
 
-ast::Node::~Node() noexcept { }
+using namespace arrow::ast;
 
-ast::Statement::~Statement() noexcept { }
-ast::Module::~Module() noexcept { }
-ast::Variable::~Variable() noexcept { }
-ast::ExpressionStatement::~ExpressionStatement() noexcept { }
+IMPL(Node)
+IMPL(Unary)
+IMPL(Binary)
 
-ast::Expression::~Expression() noexcept { }
-ast::Integer::~Integer() noexcept { }
-ast::Float::~Float() noexcept { }
-ast::Boolean::~Boolean() noexcept { }
-ast::String::~String() noexcept { }
-ast::Identifier::~Identifier() noexcept { }
+IMPL(Statement)
+IMPL(Module)
+IMPL(Variable)
+IMPL(ExpressionStatement)
 
-ast::Type::~Type() noexcept { }
-ast::TypeName::~TypeName() noexcept { }
+IMPL(Expression)
+IMPL(Integer)
+IMPL(Float)
+IMPL(Boolean)
+IMPL(String)
+IMPL(Identifier)
+
+IMPL(Identity)
+IMPL(Negate)
+
+IMPL(BitNot)
+
+IMPL(Not)
+
+IMPL(Add)
+IMPL(Sub)
+IMPL(Mul)
+IMPL(Div)
+IMPL(Mod)
+
+IMPL(BitOr)
+IMPL(BitXor)
+IMPL(BitAnd)
+
+IMPL(EqualTo)
+IMPL(NotEqualTo)
+IMPL(GreaterThanOrEqualTo)
+IMPL(GreaterThan)
+IMPL(LessThanOrEqualTo)
+IMPL(LessThan)
+
+IMPL(And)
+IMPL(Or)
+
+IMPL(Assign)
+
+IMPL(Type)
+IMPL(TypeName)

@@ -14,6 +14,8 @@
 #include "arrow/ast/nodes/expression_statement.hpp"
 
 #include "arrow/ast/nodes/expression.hpp"
+#include "arrow/ast/nodes/unary.hpp"
+#include "arrow/ast/nodes/binary.hpp"
 #include "arrow/ast/nodes/boolean.hpp"
 #include "arrow/ast/nodes/integer.hpp"
 #include "arrow/ast/nodes/float.hpp"
