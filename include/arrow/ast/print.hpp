@@ -41,10 +41,35 @@ class Print {
   void print_str(ptr<String>);
   void print_id(ptr<Identifier>);
 
+  void print_identity(ptr<Identity>);
+  void print_negate(ptr<Negate>);
+  void print_bit_not(ptr<BitNot>);
+  void print_not(ptr<Not>);
+
+  void print_mul(ptr<Mul> n);
+  void print_div(ptr<Div> n);
+  void print_mod(ptr<Mod> n);
+  void print_add(ptr<Add> n);
+  void print_sub(ptr<Sub> n);
+  void print_bit_and(ptr<BitAnd> n);
+  void print_bit_xor(ptr<BitXor> n);
+  void print_bit_or(ptr<BitOr> n);
+  void print_gte(ptr<GreaterThanOrEqualTo> n);
+  void print_gt(ptr<GreaterThan> n);
+  void print_lt(ptr<LessThan> n);
+  void print_lte(ptr<LessThanOrEqualTo> n);
+  void print_eq(ptr<EqualTo> n);
+  void print_ne(ptr<NotEqualTo> n);
+  void print_and(ptr<And> n);
+  void print_or(ptr<Or> n);
+  void print_assign(ptr<Assign> n);
   void print_type_name(ptr<TypeName>);
 
   void handle(
     const char* name, ptr<Node> n, std::function<void()> handle);
+
+  void handle_unary(const char* name, ptr<Unary> n);
+  void handle_binary(const char* name, ptr<Binary> n);
 
   rapidjson::StringBuffer _s;
   rapidjson::PrettyWriter<rapidjson::StringBuffer> _w;

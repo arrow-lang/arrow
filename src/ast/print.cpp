@@ -65,6 +65,28 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Float, float);
     ACCEPT(Identifier, id);
 
+    ACCEPT(Identity, identity);
+    ACCEPT(Negate, negate);
+    ACCEPT(BitNot, bit_not);
+    ACCEPT(Not, not);
+
+    ACCEPT(Mul, mul);
+    ACCEPT(Div, div);
+    ACCEPT(Mod, mod);
+    ACCEPT(Add, add);
+    ACCEPT(Sub, sub);
+    ACCEPT(BitAnd, bit_and);
+    ACCEPT(BitXor, bit_xor);
+    ACCEPT(BitOr, bit_or);
+    ACCEPT(GreaterThanOrEqualTo, gte);
+    ACCEPT(GreaterThan, gt);
+    ACCEPT(LessThan, lt);
+    ACCEPT(LessThanOrEqualTo, lte);
+    ACCEPT(EqualTo, eq);
+    ACCEPT(NotEqualTo, ne);
+    ACCEPT(And, and);
+    ACCEPT(Or, or);
+    ACCEPT(Assign, assign);
     ACCEPT(TypeName, type_name);
 
     Otherwise() {

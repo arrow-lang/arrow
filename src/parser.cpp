@@ -40,25 +40,31 @@ auto Parser::parse() -> ptr<ast::Module> {
   return mod;
 }
 
-auto Parser::expect(token::Type type) -> ptr<token::Token> {
-  return expect({type});
+auto Parser::expect(token::Type type, bool consume) -> ptr<token::Token> {
+  return expect({type}, consume);
 }
 
 auto Parser::expect(
-  std::initializer_list<token::Type> types
+  std::initializer_list<token::Type> types, bool consume
 ) -> ptr<token::Token> {
   std::vector<token::Type> types_v(types);
-  auto tok = _t.pop();
+  return expect(types_v, consume);
+}
 
-  if (std::find(types_v.begin(), types_v.end(), tok->type) == types_v.end()) {
-    if (types_v.size() == 1) {
-      Log::get().error("expected {}, found {}", types_v[0], tok->type);
+auto Parser::expect(
+  std::vector<token::Type> types, bool consume
+) -> ptr<token::Token> {
+  auto tok = consume ? _t.pop() : _t.peek();
+
+  if (std::find(types.begin(), types.end(), tok->type) == types.end()) {
+    if (types.size() == 1) {
+      Log::get().error("expected {}, found {}", types[0], tok->type);
     } else {
       std::stringstream msg;
       msg << "expected one of ";
 
       unsigned index = 0;
-      for (auto& type : types_v) {
+      for (auto& type : types) {
         msg << type;
         if (index != 0) {
           msg << ", ";

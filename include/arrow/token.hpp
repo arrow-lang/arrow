@@ -184,4 +184,14 @@ struct Symbol : Token {
 }  // namespace token
 }  // namespace arrow
 
+namespace std {
+
+template <> struct hash<arrow::token::Type> {
+  std::size_t operator() (const arrow::token::Type& t) const noexcept {
+    return std::size_t(t);
+  }
+};
+
+}  // namespace std
+
 #endif  // ARROW_TOKEN_H

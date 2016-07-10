@@ -32,22 +32,32 @@ class Parser {
  private:
   // Expect a token of a specific type
   // Handle the proper error message on failure
-  ptr<token::Token> expect(token::Type type);
+  ptr<token::Token> expect(token::Type type, bool consume = true);
 
   // Expect a token of one of the passed types
   ptr<token::Token> expect(
-    std::initializer_list<token::Type> types);
+    std::initializer_list<token::Type> types, bool consume = true);
+
+  // Expect a token of one of the passed types
+  ptr<token::Token> expect(
+    std::vector<token::Type> types, bool consume = true);
 
   // Expect a token of a specific type (...)
   template <typename T>
-  ptr<T> expect(token::Type type) {
-    return std::dynamic_pointer_cast<T>(expect(type));
+  ptr<T> expect(token::Type type, bool consume = true) {
+    return std::dynamic_pointer_cast<T>(expect(type, consume));
   }
 
   ptr<ast::Statement> parse_statement();
   ptr<ast::Variable> parse_variable();
 
-  ptr<ast::Expression> parse_expression();
+  ptr<ast::Expression> parse_expression(unsigned power = 0);
+  ptr<ast::Expression> parse_unary_expression();
+  ptr<ast::Expression> parse_postfix_expression();
+  ptr<ast::Expression> parse_primary_expression();
+  ptr<ast::Expression> parse_binary_expression(
+    ptr<ast::Expression> lhs, unsigned power, int *result);
+
   ptr<ast::Integer> parse_integer();
   ptr<ast::Boolean> parse_bool();
   ptr<ast::Float> parse_float();

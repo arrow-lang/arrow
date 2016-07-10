@@ -23,6 +23,9 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
     auto expr = parse_expression();
     if (!expr) return nullptr;
 
+    // Expect a `;` to close the expression statement
+    if (!expect(token::Type::Semicolon)) return nullptr;
+
     return std::make_shared<ast::ExpressionStatement>(expr);
   }
 }
