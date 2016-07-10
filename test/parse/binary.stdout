@@ -1,0 +1,334 @@
+{
+  "tag": "Module",
+  "span": "test/parse/binary.as:1:1-1",
+  "statements": [
+    {
+      "tag": "Assign",
+      "span": "test/parse/binary.as:2:8-2",
+      "lhs": {
+        "tag": "Add",
+        "span": "test/parse/binary.as:2:3-2",
+        "lhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:2:1",
+          "value": "4"
+        },
+        "rhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:2:5-7",
+          "value": "32"
+        }
+      },
+      "rhs": {
+        "tag": "Assign",
+        "span": "test/parse/binary.as:2:13-12",
+        "lhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:2:10-12",
+          "value": "10"
+        },
+        "rhs": {
+          "tag": "Mul",
+          "span": "test/parse/binary.as:2:20-19",
+          "lhs": {
+            "tag": "Integer",
+            "span": "test/parse/binary.as:2:15-19",
+            "value": "2305"
+          },
+          "rhs": {
+            "tag": "Integer",
+            "span": "test/parse/binary.as:2:22",
+            "value": "3"
+          }
+        }
+      }
+    },
+    {
+      "tag": "And",
+      "span": "test/parse/binary.as:29:7-6",
+      "lhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:29:1-6",
+        "value": "false"
+      },
+      "rhs": {
+        "tag": "Not",
+        "span": "test/parse/binary.as:29:11-19",
+        "operand": {
+          "tag": "Boolean",
+          "span": "test/parse/binary.as:29:15-19",
+          "value": "true"
+        }
+      }
+    },
+    {
+      "tag": "Or",
+      "span": "test/parse/binary.as:32:10-9",
+      "lhs": {
+        "tag": "Not",
+        "span": "test/parse/binary.as:32:1-9",
+        "operand": {
+          "tag": "Boolean",
+          "span": "test/parse/binary.as:32:5-9",
+          "value": "true"
+        }
+      },
+      "rhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:32:13-18",
+        "value": "false"
+      }
+    },
+    {
+      "tag": "EqualTo",
+      "span": "test/parse/binary.as:35:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:35:1-3",
+        "value": "54"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:35:7-9",
+        "value": "20"
+      }
+    },
+    {
+      "tag": "NotEqualTo",
+      "span": "test/parse/binary.as:38:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:38:1-3",
+        "value": "20"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:38:7-9",
+        "value": "20"
+      }
+    },
+    {
+      "tag": "LessThan",
+      "span": "test/parse/binary.as:41:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:41:1-3",
+        "value": "50"
+      },
+      "rhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:41:6-11",
+        "value": "false"
+      }
+    },
+    {
+      "tag": "LessThanOrEqualTo",
+      "span": "test/parse/binary.as:44:6-5",
+      "lhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:44:1-5",
+        "value": "true"
+      },
+      "rhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:44:9-14",
+        "value": "false"
+      }
+    },
+    {
+      "tag": "GreaterThanOrEqualTo",
+      "span": "test/parse/binary.as:47:7-6",
+      "lhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:47:1-6",
+        "value": "false"
+      },
+      "rhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:47:10-14",
+        "value": "true"
+      }
+    },
+    {
+      "tag": "GreaterThan",
+      "span": "test/parse/binary.as:50:7-6",
+      "lhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:50:1-6",
+        "value": "false"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:50:9-11",
+        "value": "30"
+      }
+    },
+    {
+      "tag": "BitAnd",
+      "span": "test/parse/binary.as:53:6-5",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:53:1-5",
+        "value": "4093"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:53:8-10",
+        "value": "39"
+      }
+    },
+    {
+      "tag": "BitXor",
+      "span": "test/parse/binary.as:56:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:56:1-3",
+        "value": "32"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:56:6-9",
+        "value": "328"
+      }
+    },
+    {
+      "tag": "BitXor",
+      "span": "test/parse/binary.as:57:6-5",
+      "lhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:57:1-5",
+        "value": "true"
+      },
+      "rhs": {
+        "tag": "Boolean",
+        "span": "test/parse/binary.as:57:8-13",
+        "value": "false"
+      }
+    },
+    {
+      "tag": "BitOr",
+      "span": "test/parse/binary.as:60:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:60:1-3",
+        "value": "40"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:60:6-8",
+        "value": "20"
+      }
+    },
+    {
+      "tag": "Add",
+      "span": "test/parse/binary.as:63:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:63:1-3",
+        "value": "32"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:63:6-10",
+        "value": "3295"
+      }
+    },
+    {
+      "tag": "Sub",
+      "span": "test/parse/binary.as:66:5-4",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:66:1-4",
+        "value": "320"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:66:7-11",
+        "value": "3209"
+      }
+    },
+    {
+      "tag": "Mul",
+      "span": "test/parse/binary.as:69:5-4",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:69:1-4",
+        "value": "523"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:69:7-10",
+        "value": "230"
+      }
+    },
+    {
+      "tag": "Sub",
+      "span": "test/parse/binary.as:70:15-3",
+      "lhs": {
+        "tag": "Add",
+        "span": "test/parse/binary.as:70:4-3",
+        "lhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:70:1-3",
+          "value": "32"
+        },
+        "rhs": {
+          "tag": "Mul",
+          "span": "test/parse/binary.as:70:10-9",
+          "lhs": {
+            "tag": "Integer",
+            "span": "test/parse/binary.as:70:6-9",
+            "value": "320"
+          },
+          "rhs": {
+            "tag": "Integer",
+            "span": "test/parse/binary.as:70:12-14",
+            "value": "32"
+          }
+        }
+      },
+      "rhs": {
+        "tag": "Mod",
+        "span": "test/parse/binary.as:70:20-19",
+        "lhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:70:17-19",
+          "value": "30"
+        },
+        "rhs": {
+          "tag": "Integer",
+          "span": "test/parse/binary.as:70:22-24",
+          "value": "32"
+        }
+      }
+    },
+    {
+      "tag": "Div",
+      "span": "test/parse/binary.as:73:4-3",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:73:1-3",
+        "value": "32"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:73:6-9",
+        "value": "321"
+      }
+    },
+    {
+      "tag": "Mod",
+      "span": "test/parse/binary.as:76:5-4",
+      "lhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:76:1-4",
+        "value": "532"
+      },
+      "rhs": {
+        "tag": "Integer",
+        "span": "test/parse/binary.as:76:7-10",
+        "value": "320"
+      }
+    }
+  ]
+}
