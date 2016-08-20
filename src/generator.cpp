@@ -3,7 +3,7 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "fmt/format.h"
+#include "fmt.hpp"
 
 #include "arrow/generator.hpp"
 #include "arrow/log.hpp"
@@ -14,7 +14,7 @@
 using arrow::Generator;
 
 Generator::Generator()
-  : _ctx{nullptr, nullptr, nullptr} {
+  : _ctx{nullptr, nullptr, nullptr, {}} {
   initialize();
 }
 

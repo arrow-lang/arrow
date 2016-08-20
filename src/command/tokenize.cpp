@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-#include "fmt/format.h"
+#include "fmt.hpp"
 
 #include "arrow/command/tokenize.hpp"
 #include "arrow/tokenizer.hpp"

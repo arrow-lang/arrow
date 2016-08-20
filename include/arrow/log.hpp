@@ -9,7 +9,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "fmt/format.h"
+#include "fmt.hpp"
 
 #include "arrow/span.hpp"
 

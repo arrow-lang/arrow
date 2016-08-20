@@ -33,6 +33,7 @@ def configure(ctx):
 
     ctx.check(lib='pthread', mandatory=True, uselib_store='PTHREAD')
     ctx.check(lib='dl', mandatory=True, uselib_store='DL')
+    ctx.check(lib='ncurses', mandatory=False, uselib_store='TINFO')
     ctx.check(lib='tinfo', mandatory=False, uselib_store='TINFO')
     ctx.check(lib='z', mandatory=True, uselib_store='Z')
     ctx.check(lib='gmp', mandatory=True, uselib_store='GMP')
@@ -77,9 +78,6 @@ def configure(ctx):
         ctx.env.append_unique("CXXFLAGS", "-Wno-unused-value")
         ctx.env.append_unique("CXXFLAGS", "-Wno-unused-parameter")
 
-        ctx.env.append_unique("CXXFLAGS", "-rdynamic")
-        ctx.env.append_unique("LINKFLAGS", "-rdynamic")
-
 
 def build(ctx):
     # start_dir = ctx.path.find_dir("lib")
@@ -93,6 +91,7 @@ def build(ctx):
                     "include",
                     "vendor/mach7/code",
                     "vendor/rapidjson/include",
+                    "vendor/utfcpp/source",
                 ],
                 target="arrow",
                 use=["BOOST", "LLVM", "PTHREAD", "DL", "TINFO", "Z", "GMP",
