@@ -3,7 +3,7 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "cppformat/format.h"
+#include "fmt/format.h"
 
 #include "arrow/generator.hpp"
 #include "arrow/log.hpp"

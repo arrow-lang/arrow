@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 
-#include "cppformat/format.h"
+#include "fmt/format.h"
 #include "arrow/tokenizer.hpp"
 #include "arrow/command.hpp"
 

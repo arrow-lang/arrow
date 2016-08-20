@@ -4,7 +4,7 @@
 // See accompanying file LICENSE
 
 #include "mach7.hpp"
-#include "cppformat/format.h"
+#include "fmt/format.h"
 
 #include "arrow/ast/print.hpp"
 #include "arrow/log.hpp"

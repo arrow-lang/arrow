@@ -37,7 +37,7 @@ def configure(ctx):
     ctx.check(lib='z', mandatory=True, uselib_store='Z')
     ctx.check(lib='gmp', mandatory=True, uselib_store='GMP')
     ctx.check(lib='ffi', mandatory=True, uselib_store='FFI')
-    ctx.check(lib='cppformat', mandatory=True, uselib_store='CPPFORMAT')
+    ctx.check(lib='fmt', mandatory=True, uselib_store='fmt')
 
     ctx.check_boost(lib="system program_options filesystem")
 
@@ -96,7 +96,7 @@ def build(ctx):
                 ],
                 target="arrow",
                 use=["BOOST", "LLVM", "PTHREAD", "DL", "TINFO", "Z", "GMP",
-                     "FFI", "CPPFORMAT"])
+                     "FFI", "fmt"])
 
 
 def test(ctx):
