@@ -17,6 +17,7 @@
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/integer.hpp"
 #include "arrow/ir/boolean.hpp"
+#include "arrow/ir/binary.hpp"
 
 #include "arrow/ir/scope.hpp"
 

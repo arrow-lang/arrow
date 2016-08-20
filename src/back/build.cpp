@@ -19,6 +19,8 @@ LLVMValueRef Build::run(ptr<ir::Value> item) {
     ACCEPT(ir::Boolean, bool);
     ACCEPT(ir::Variable, variable);
 
+    ACCEPT(ir::Add, add);
+
     Otherwise() {
       Log::get().error("back::Build not implemented for {}", typeid(*item).name());
     }

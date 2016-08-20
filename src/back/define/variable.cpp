@@ -17,6 +17,8 @@ void Define::handle_variable(ptr<ir::Variable> item) {
   // Build the initializer if present; else, leave it at null
   if (item->initializer) {
     auto val = Build(_ctx).run(item->initializer);
+    if (!val) return;
+
     // TODO: Handle non-constants for global variables
     LLVMSetInitializer(handle, val);
   }

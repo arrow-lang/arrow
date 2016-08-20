@@ -21,6 +21,8 @@ auto Build::run(ptr<ast::Node> node) -> ptr<ir::Value> {
     // ACCEPT(ast::Float, float);
     // ACCEPT(ast::String, str);
 
+    ACCEPT(ast::Add, add);
+
     Otherwise() {
       Log::get().error("middle::Build not implemented for {}", typeid(*node).name());
     }

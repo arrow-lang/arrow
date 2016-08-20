@@ -27,7 +27,7 @@ struct Binary : Expression {
   struct Name : Binary { \
     using Binary::Binary; \
     virtual ~Name() noexcept; \
-  }
+  };
 
 DEF_BINARY(Add);
 DEF_BINARY(Sub);
