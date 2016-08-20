@@ -9,6 +9,7 @@
 #include "arrow/ptr.hpp"
 #include "arrow/ir.hpp"
 #include "llvm.hpp"
+#include "fmt.hpp"
 
 namespace arrow {
 

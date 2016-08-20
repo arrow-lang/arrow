@@ -18,7 +18,7 @@ bool Scope::contains(std::string name) const {
 }
 
 void Scope::emplace(std::string name, ptr<Item> item) {
-  _items.emplace(name, item);
+  _items[name] = item;
 }
 
 auto Scope::get(std::string name) const -> ptr<Item> {

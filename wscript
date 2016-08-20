@@ -57,9 +57,9 @@ def configure(ctx):
         else:
             ctx.env.append_unique("CXXFLAGS", "-g")
             ctx.env.append_unique("CXXFLAGS", "-O0")
-            ctx.env.append_unique("CXXFLAGS", "--coverage")
-
-            ctx.env.append_unique("LINKFLAGS", "--coverage")
+            # ctx.env.append_unique("CXXFLAGS", "--coverage")
+            #
+            # ctx.env.append_unique("LINKFLAGS", "--coverage")
 
         ctx.env.append_unique("CXXFLAGS", "-Wall")
         ctx.env.append_unique("CXXFLAGS", "-Wextra")
