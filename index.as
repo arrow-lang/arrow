@@ -1,11 +1,26 @@
-let a: bool = true;
-let b: bool = false;
-let c: bool = a + b + b + a;
-let d: int64;
-// d = 302;
-// a + 3;;;;
 
-// let c: int64 = (a + a + a) + b;
+methodA(); // error
+
+let mutable visited = a; // error "use before define"
+let a = 40;
+methodA(); // ok
+visited = true;
+methodA(); // ok
+
+def methodA() {
+  if (visited) {
+    // [...]
+  }
+}
+
+def methodB() {
+
+}
+
+// ast::Function
+
+// ir::Function
+// ir::Block {ir::Value}
 
 // TODO
 // [ ] Parenthetical grouping for expressions
