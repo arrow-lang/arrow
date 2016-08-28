@@ -18,6 +18,8 @@ struct Boolean : Value {
 
   virtual ~Boolean() noexcept;
 
+  virtual LLVMValueRef handle(GContext&) noexcept;
+
   bool value;
 };
 

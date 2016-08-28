@@ -19,6 +19,10 @@ struct TypeBoolean : Type {
   }
 
   virtual ~TypeBoolean() noexcept;
+
+  virtual LLVMTypeRef handle(GContext&) noexcept {
+    return LLVMInt1Type();
+  }
 };
 
 }  // namespace ir

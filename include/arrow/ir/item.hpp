@@ -10,6 +10,7 @@
 
 #include "arrow/ptr.hpp"
 #include "arrow/ast.hpp"
+#include "arrow/ir/node.hpp"
 
 namespace arrow {
 namespace ir {
@@ -21,7 +22,7 @@ struct Type;
 ///  - Function
 ///  - Module
 ///  - Type
-struct Item {
+struct Item : Node {
   Item(ptr<ast::Node> source, std::string name)
     : source(source), name(name) {
   }

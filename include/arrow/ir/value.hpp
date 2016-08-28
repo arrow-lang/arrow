@@ -7,18 +7,27 @@
 #define ARROW_IR_VALUE_H
 
 #include "arrow/ptr.hpp"
+#include "arrow/ir/node.hpp"
 
 namespace arrow {
+
+struct GContext;
+
 namespace ir {
 
 struct Type;
 
-struct Value {
-  explicit Value(ptr<Type> type) : type(type) {
+struct Value : Node {
+  explicit Value(ptr<Type> type)
+  : type(type) {
   }
 
   virtual ~Value() noexcept;
 
+  // Get LLVM handle
+  virtual LLVMValueRef handle(GContext&) noexcept = 0;
+
+  // IR type of this value
   ptr<Type> type;
 };
 

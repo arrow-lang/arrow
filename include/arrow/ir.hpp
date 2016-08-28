@@ -6,6 +6,8 @@
 #ifndef ARROW_IR_H
 #define ARROW_IR_H
 
+#include "llvm.hpp"
+
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/module.hpp"
 #include "arrow/ir/variable.hpp"

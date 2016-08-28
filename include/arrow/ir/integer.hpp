@@ -14,11 +14,15 @@ namespace arrow {
 namespace ir {
 
 struct Integer : Value {
+  // TODO(mehcode): Determine type
   explicit Integer(mpz_class value) : Value(nullptr), value(value) {
   }
 
   virtual ~Integer() noexcept;
 
+  virtual LLVMValueRef handle(GContext&) noexcept;
+
+  // Integral value
   mpz_class value;
 };
 

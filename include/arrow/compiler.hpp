@@ -23,10 +23,6 @@ namespace arrow {
 
 class Compiler {
  public:
-  struct Context {
-    ir::Scope scope;
-  };
-
   Compiler();
 
   ~Compiler() noexcept;
@@ -38,9 +34,6 @@ class Compiler {
   Compiler& operator=(Compiler&&) = delete;
 
   void compile(ptr<ast::Module> node);
-
- private:
-  Context _ctx;
 };
 
 /// Helper function to construct and use a compiler.

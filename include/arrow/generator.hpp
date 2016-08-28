@@ -13,36 +13,26 @@
 
 namespace arrow {
 
+// Generation context.
+struct GContext {
+  // LLVM module context
+  LLVMModuleRef mod;
+
+  // LLVM instruction builder
+  // Simplifies IR generation with LLVM
+  LLVMBuilderRef irb;
+
+  // LLVM target machine
+  // Describes the target architecture
+  LLVMTargetMachineRef target;
+
+  // Scope
+  ir::Scope scope;
+};
+
 // Takes IR as input and will "generate" LLVM IR
 class Generator {
  public:
-  struct Context {
-    // LLVM module context
-    LLVMModuleRef mod;
-
-    // LLVM instruction builder
-    // Simplifies IR generation with LLVM
-    LLVMBuilderRef irb;
-
-    // LLVM target machine
-    // Describes the target architecture
-    LLVMTargetMachineRef target;
-
-    // Simple ptr -> value-ref map
-    // Probably will need something more complex in future
-    std::unordered_map<void*, LLVMValueRef> _m;
-
-    template <typename T>
-    inline void set_handle(ptr<T> p, LLVMValueRef value) {
-      _m[p.get()] = value;
-    }
-
-    template <typename T>
-    inline LLVMValueRef get_handle(ptr<T> p) {
-      return _m[p.get()];
-    }
-  };
-
   Generator();
 
   Generator(const Generator&) = delete;
@@ -53,12 +43,11 @@ class Generator {
 
   virtual ~Generator() noexcept;
 
-  Generator& run(ptr<ir::Module> module);
+  Generator& run(ptr<ast::Module> module);
   Generator& print();
 
  private:
-  // Generation context.
-  Context _ctx;
+  GContext _ctx;
 
   void initialize();
 };

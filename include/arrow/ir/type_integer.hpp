@@ -23,6 +23,10 @@ struct TypeInteger : Type {
 
   virtual ~TypeInteger() noexcept;
 
+  virtual LLVMTypeRef handle(GContext&) noexcept {
+    return LLVMIntType(bits);
+  }
+
   // Is this a signed integer type (or not).
   bool is_signed;
 

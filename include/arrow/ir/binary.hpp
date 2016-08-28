@@ -20,15 +20,21 @@ struct Binary : Value {
 
   ptr<Value> lhs;
   ptr<Value> rhs;
+
+ protected:
+  LLVMValueRef _handle = nullptr;
 };
 
 #define DEF_BINARY(Name) \
   struct Name : Binary { \
     using Binary::Binary; \
+    virtual LLVMValueRef handle(GContext&) noexcept; \
     virtual ~Name() noexcept; \
-  }
+  };
 
 DEF_BINARY(Add);
+
+DEF_BINARY(Assign);
 
 #undef DEF_BINARY
 

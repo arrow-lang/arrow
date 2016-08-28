@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "llvm.hpp"
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/value.hpp"
 
@@ -16,13 +17,18 @@ namespace ir {
 
 struct Variable : Item, Value {
   Variable(ptr<ast::Variable> source, std::string name)
-    : Item(source, name), Value(nullptr), initializer(nullptr) {
+    : Item(source, name), Value(nullptr) {
   }
 
   virtual ~Variable() noexcept;
 
+  virtual LLVMValueRef handle(GContext&) noexcept;
+
   // Initializer
-  ptr<ir::Value> initializer;
+  ptr<ir::Value> initializer = nullptr;
+
+  // Slot
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

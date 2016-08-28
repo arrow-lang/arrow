@@ -1,21 +1,5 @@
+// 534 + 32;
 
-methodA(); // error
-
-let mutable visited = a; // error "use before define"
-let a = 40;
-methodA(); // ok
-visited = true;
-methodA(); // ok
-
-def methodA() {
-  if (visited) {
-    // [...]
-  }
-}
-
-def methodB() {
-
-}
 
 // ast::Function
 
@@ -29,3 +13,8 @@ def methodB() {
 // [ ] Expression Statements
 // [ ] Assignment
 // [ ] Remaining expressions
+
+let x: int64;
+let y: int64;
+
+x = y = 40;
