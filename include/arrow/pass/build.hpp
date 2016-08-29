@@ -23,10 +23,18 @@ class Build : public Pass {
  private:
   ptr<ir::Value> handle_module(ptr<ast::Module>);
   ptr<ir::Value> handle_variable(ptr<ast::Variable>);
+
+  ptr<ir::Value> handle_add(ptr<ast::Add>);
+  ptr<ir::Value> handle_sub(ptr<ast::Sub>);
+  ptr<ir::Value> handle_mul(ptr<ast::Mul>);
+  ptr<ir::Value> handle_div(ptr<ast::Div>);
+  ptr<ir::Value> handle_mod(ptr<ast::Mod>);
   ptr<ir::Value> handle_assign(ptr<ast::Assign>);
+
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
+
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
 };
 

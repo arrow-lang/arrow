@@ -17,8 +17,14 @@ ir::TypeInteger::~TypeInteger() noexcept { }
 ir::TypeBoolean::~TypeBoolean() noexcept { }
 
 ir::Value::~Value() noexcept { }
+ir::Transmute::~Transmute() noexcept { }
 ir::Integer::~Integer() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
 ir::Binary::~Binary() noexcept {}
+ir::Add::~Add() noexcept {}
+ir::Sub::~Sub() noexcept {}
+ir::Mul::~Mul() noexcept {}
+ir::Div::~Div() noexcept {}
+ir::Mod::~Mod() noexcept {}
 ir::Assign::~Assign() noexcept {}

@@ -10,11 +10,15 @@ x = x % 05;
 let y: bool;
 y = true;
 
-// [ ] Add
-// [ ] Sub
-// [ ] Mul
-// [ ] Div
-// [ ] Mod
+let z: int32;
+z = 30 + 10 * 2 / 4;
+z = (30 + 10) * 2 / 4;
+
+// [x] Add
+// [x] Sub
+// [x] Mul
+// [x] Div
+// [x] Mod
 
 // [ ] Parenthetical grouping for expressions
 

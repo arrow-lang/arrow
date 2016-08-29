@@ -32,7 +32,11 @@ struct Binary : Value {
     virtual LLVMValueRef handle(GContext&) noexcept; \
   };
 
-// DEF_BINARY(Add);
+DEF_BINARY(Add);
+DEF_BINARY(Sub);
+DEF_BINARY(Mul);
+DEF_BINARY(Div);
+DEF_BINARY(Mod);
 
 DEF_BINARY(Assign);
 

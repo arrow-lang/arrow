@@ -17,6 +17,7 @@
 #include "arrow/ir/type_boolean.hpp"
 
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/transmute.hpp"
 #include "arrow/ir/integer.hpp"
 #include "arrow/ir/boolean.hpp"
 #include "arrow/ir/binary.hpp"
