@@ -21,5 +21,4 @@ ir::Integer::~Integer() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
 ir::Binary::~Binary() noexcept {}
-ir::Add::~Add() noexcept {}
 ir::Assign::~Assign() noexcept {}

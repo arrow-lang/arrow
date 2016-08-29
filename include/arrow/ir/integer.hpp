@@ -9,13 +9,16 @@
 #include <gmpxx.h>
 
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/type_integer.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Integer : Value {
-  // TODO(mehcode): Determine type
-  explicit Integer(mpz_class value) : Value(nullptr), value(value) {
+  // Type of an integer literal is the exact bit-size of the value
+  explicit Integer(mpz_class value)
+  : Value(make<TypeInteger>(false, mpz_sizeinbase(value.get_mpz_t(), 2) + 1)),
+    value(value) {
   }
 
   virtual ~Integer() noexcept;

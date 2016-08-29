@@ -22,6 +22,10 @@ struct Variable : Item, Value {
 
   virtual ~Variable() noexcept;
 
+  virtual bool is_addressable() const {
+    return true;
+  }
+
   virtual LLVMValueRef handle(GContext&) noexcept;
 
   // Initializer

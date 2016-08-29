@@ -6,6 +6,7 @@
 #ifndef ARROW_IR_VALUE_H
 #define ARROW_IR_VALUE_H
 
+#include "llvm.hpp"
 #include "arrow/ptr.hpp"
 #include "arrow/ir/node.hpp"
 
@@ -24,11 +25,23 @@ struct Value : Node {
 
   virtual ~Value() noexcept;
 
+  // IR type of this value
+  ptr<Type> type;
+
+  // Is Addressable
+  virtual bool is_addressable() const {
+    return false;
+  }
+
   // Get LLVM handle
   virtual LLVMValueRef handle(GContext&) noexcept = 0;
 
-  // IR type of this value
-  ptr<Type> type;
+  // Value Of
+  virtual LLVMValueRef value_of(GContext& ctx) noexcept;
+
+  // Address Of
+  virtual LLVMValueRef address_of(GContext& ctx) noexcept;
+
 };
 
 }  // namespace ir

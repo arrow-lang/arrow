@@ -28,11 +28,11 @@ struct Binary : Value {
 #define DEF_BINARY(Name) \
   struct Name : Binary { \
     using Binary::Binary; \
-    virtual LLVMValueRef handle(GContext&) noexcept; \
     virtual ~Name() noexcept; \
+    virtual LLVMValueRef handle(GContext&) noexcept; \
   };
 
-DEF_BINARY(Add);
+// DEF_BINARY(Add);
 
 DEF_BINARY(Assign);
 

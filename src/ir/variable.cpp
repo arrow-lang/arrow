@@ -21,7 +21,7 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
 
     // Set initializer (if present)
     if (initializer) {
-      LLVMSetInitializer(_handle, initializer->handle(ctx));
+      LLVMSetInitializer(_handle, initializer->value_of(ctx));
     } else {
       // Initialize to nil (for globals)
       LLVMSetInitializer(_handle, LLVMConstNull(type_handle));

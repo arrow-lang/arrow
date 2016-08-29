@@ -1,20 +1,24 @@
-// 534 + 32;
 
+let x: int8;
+x = 222;
 
-// ast::Function
+let y: bool;
+y = true;
 
-// ir::Function
-// ir::Block {ir::Value}
+// [ ] Add
+// [ ] Sub
+// [ ] Mul
+// [ ] Div
+// [ ] Mod
 
-// TODO
 // [ ] Parenthetical grouping for expressions
-// [ ] Type check ADD and ensure the operator "exists"
-// [ ] Module initializer ".init" and execution with main
-// [ ] Expression Statements
-// [ ] Assignment
-// [ ] Remaining expressions
 
-let x: int64;
-let y: int64;
+// [ ] Select (if, unless)
+// [ ] Loop (while, until)
+// [ ] Break
+// [ ] Continue
 
-x = y = 40;
+// [ ] float32 / float64
+
+// [ ] Relational
+// [ ] Bitwise
