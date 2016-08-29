@@ -58,7 +58,7 @@ auto Parser::expect(
 
   if (std::find(types.begin(), types.end(), tok->type) == types.end()) {
     if (types.size() == 1) {
-      Log::get().error("expected {}, found {}", types[0], tok->type);
+      Log::get().error(tok->span, "expected {}, found {}", types[0], tok->type);
     } else {
       std::stringstream msg;
       msg << "expected one of ";
@@ -74,7 +74,7 @@ auto Parser::expect(
       }
 
       msg << "; found " << tok->type;
-      Log::get().error(msg.str().c_str());
+      Log::get().error(tok->span, msg.str().c_str());
     }
 
 
