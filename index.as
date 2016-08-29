@@ -14,14 +14,6 @@ let z: int32;
 z = 30 + 10 * 2 / 4;
 z = (30 + 10) * 2 / 4;
 
-// [x] Add
-// [x] Sub
-// [x] Mul
-// [x] Div
-// [x] Mod
-
-// [x] Parenthetical grouping for expressions
-
 // [ ] Select (if, unless)
 // [ ] Loop (while, until)
 // [ ] Break
