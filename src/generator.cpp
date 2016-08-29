@@ -89,6 +89,10 @@ Generator& Generator::run(ptr<ast::Module> module) {
   LLVMPositionBuilderAtEnd(_ctx.irb,
     LLVMAppendBasicBlock(main, ""));
 
+  // HACK: Call top-level module initializer
+  auto init = LLVMGetNamedFunction(_ctx.mod, "#init");
+  LLVMBuildCall(_ctx.irb, init, nullptr, 0, "");
+
   // TODO(mehcode): Call each module initializer
   // TODO(mehcode): Call the top-level module main function (if present)
 
