@@ -304,6 +304,20 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   case token::Type::Identifier:
     return parse_id();
 
+  case token::Type::LeftParenthesis: {
+    // Pop the left parenthesis
+    _t.pop();
+
+    // Parse nested expression
+    auto expr = parse_expression();
+    if (!expr) return nullptr;
+
+    // Expect the right parenthesis
+    if (!expect(token::Type::RightParenthesis)) return nullptr;
+
+    return expr;
+  } break;
+
   default:
     auto tok = _t.pop();
     Log::get().error(tok->span, "expected expression; found {}", tok->type);

@@ -20,7 +20,7 @@ z = (30 + 10) * 2 / 4;
 // [x] Div
 // [x] Mod
 
-// [ ] Parenthetical grouping for expressions
+// [x] Parenthetical grouping for expressions
 
 // [ ] Select (if, unless)
 // [ ] Loop (while, until)
