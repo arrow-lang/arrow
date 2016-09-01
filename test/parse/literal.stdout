@@ -1,6 +1,6 @@
 {
   "tag": "Module",
-  "span": "test/parse/literal.as:1:1-1",
+  "span": "test/parse/literal.as:1-23",
   "statements": [
     {
       "tag": "Integer",

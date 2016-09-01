@@ -1,6 +1,6 @@
 {
   "tag": "Module",
-  "span": "test/parse/identifier.as:1:1-1",
+  "span": "test/parse/identifier.as:1-4",
   "statements": [
     {
       "tag": "Identifier",

@@ -1,6 +1,6 @@
 {
   "tag": "Module",
-  "span": "test/parse/binary.as:1:1-1",
+  "span": "test/parse/binary.as:1-76",
   "statements": [
     {
       "tag": "Assign",
@@ -10,7 +10,7 @@
         "span": "test/parse/binary.as:2:3-2",
         "lhs": {
           "tag": "Integer",
-          "span": "test/parse/binary.as:2:1",
+          "span": "test/parse/binary.as:2:1-2",
           "value": "4"
         },
         "rhs": {
@@ -37,7 +37,7 @@
           },
           "rhs": {
             "tag": "Integer",
-            "span": "test/parse/binary.as:2:22",
+            "span": "test/parse/binary.as:2:22-23",
             "value": "3"
           }
         }

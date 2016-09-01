@@ -8,4 +8,4 @@ test/tokenize/integer.as:14:1-7: integer: 420
 test/tokenize/integer.as:17:1-11: integer: 4210752250
 test/tokenize/integer.as:18:1-11: integer: 3735928559
 test/tokenize/integer.as:19:1-9: integer: 3487029
-test/tokenize/integer.as:20:1: end
+test/tokenize/integer.as:20:1-2: end

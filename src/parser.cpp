@@ -34,6 +34,9 @@ auto Parser::parse() -> ptr<ast::Module> {
     if (statement) {
       // Add it to the module
       mod->statements.push_back(statement);
+
+      // Extend the module span
+      mod->span = mod->span.extend(statement->span);
     }
   }
 

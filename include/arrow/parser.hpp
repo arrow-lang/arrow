@@ -48,6 +48,32 @@ class Parser {
     return std::dynamic_pointer_cast<T>(expect(type, consume));
   }
 
+  // Handle sequence (call arguments, function params, tuple, etc.)
+  template <typename T>
+  bool handle_sequence(std::vector<ptr<T>> *dst, std::function<ptr<T>()> cb) {
+    while (
+      (_t.peek()->type != token::Type::RightParenthesis) &&
+      (_t.peek()->type != token::Type::End)
+    ) {
+      // Parse
+      auto elem = cb();
+      if (!elem) return false;
+      dst->push_back(elem);
+
+      // Check for a sequence continuation token
+      auto tok = _t.peek();
+      if (tok->type == token::Type::Comma) {
+        _t.pop();
+        continue;
+      }
+
+      // Done
+      break;
+    }
+
+    return true;
+  }
+
   ptr<ast::Statement> parse_statement();
   ptr<ast::Variable> parse_variable();
 
@@ -66,6 +92,12 @@ class Parser {
 
   ptr<ast::Type> parse_type();
   ptr<ast::TypeName> parse_type_name();
+
+  ptr<ast::Function> parse_function();
+  ptr<ast::Parameter> parse_parameter();
+
+  ptr<ast::Call> parse_call(ptr<ast::Expression>);
+  ptr<ast::Argument> parse_argument();
 
   Tokenizer _t;
 };

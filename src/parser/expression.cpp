@@ -281,9 +281,24 @@ auto Parser::parse_binary_expression(
 }
 
 auto Parser::parse_postfix_expression() -> ptr<ast::Expression> {
-  // TODO(mehcode): Call, Path
+  // Parse operand
+  ptr<ast::Expression> op = parse_primary_expression();
+  if (!op) return nullptr;
 
-  return parse_primary_expression();
+  for (;;) {
+    // Check for a postfix start token
+    auto tok = _t.peek();
+    if (tok->type == token::Type::LeftParenthesis) {
+      op = parse_call(op);
+      if (!op) return nullptr;
+
+      continue;
+    }
+
+    break;
+  }
+
+  return op;
 }
 
 auto Parser::parse_primary_expression() -> ptr<ast::Expression> {

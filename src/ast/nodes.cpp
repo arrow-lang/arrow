@@ -57,3 +57,8 @@ IMPL(Assign)
 
 IMPL(Type)
 IMPL(TypeName)
+
+IMPL(Function)
+IMPL(Parameter)
+IMPL(Call)
+IMPL(Argument)

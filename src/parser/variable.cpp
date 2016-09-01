@@ -41,6 +41,6 @@ auto Parser::parse_variable() -> ptr<ast::Variable> {
   auto last_tok = expect(token::Type::Semicolon);
   if (!last_tok) return nullptr;
 
-  return std::make_shared<ast::Variable>(
+  return make<ast::Variable>(
     initial_tok->span.extend(last_tok->span), id->text, type, initializer);
 }

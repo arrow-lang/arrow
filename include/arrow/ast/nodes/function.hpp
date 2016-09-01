@@ -7,7 +7,9 @@
 #define ARROW_AST_FUNCTION_H
 
 #include <string>
+#include <vector>
 
+#include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/statement.hpp"
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/expression.hpp"
@@ -37,8 +39,8 @@ struct Parameter : Node {
 };
 
 struct Function : Statement {
-  Function(Span span, std::string name, ptr<Type> result_type)
-  : Statement(span), name(name), result_type(result_type), parameters() {
+  Function(Span span, std::string name)
+  : Statement(span), name(name), result_type(nullptr), parameters() {
   }
 
   virtual ~Function() noexcept;

@@ -13,6 +13,9 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Let:
     return parse_variable();
 
+  case token::Type::Def:
+    return parse_function();
+
   case token::Type::Semicolon:
     // Ignore spurious semicolons
     _t.pop();

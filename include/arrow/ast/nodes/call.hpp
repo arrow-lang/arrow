@@ -7,7 +7,9 @@
 #define ARROW_AST_CALL_H
 
 #include <string>
+#include <vector>
 
+#include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
@@ -38,7 +40,7 @@ struct NamedArgument : Argument {
 
 struct Call : Expression {
   Call(Span span, ptr<Expression> operand)
-  : Expression(span), operand(operand), p_arguments(), n_arguments() {
+  : Expression(span), operand(operand), arguments() {
   }
 
   virtual ~Call() noexcept;
@@ -46,11 +48,8 @@ struct Call : Expression {
   /// Operand expression to be invoked.
   ptr<Expression> operand;
 
-  /// Positional arguments.
-  std::vector<ptr<Argument>> p_arguments;
-
-  /// Named arguments.
-  std::vector<ptr<NamedArgument>> n_arguments;
+  /// Arguments.
+  std::vector<ptr<Argument>> arguments;
 };
 
 }  // namespace ast

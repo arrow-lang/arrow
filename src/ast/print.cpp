@@ -89,6 +89,11 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Assign, assign);
     ACCEPT(TypeName, type_name);
 
+    ACCEPT(Function, function);
+    ACCEPT(Parameter, parameter);
+    ACCEPT(Call, call);
+    ACCEPT(Argument, argument);
+
     Otherwise() {
       Log::get().error("print not implemented for node: {}",
         typeid(*node).name());

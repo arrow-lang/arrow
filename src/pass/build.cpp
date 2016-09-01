@@ -30,7 +30,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Assign, assign);
 
     Otherwise() {
-      Log::get().error("Build not implemented for {}", typeid(*x).name());
+      Log::get().error("build not implemented for {}", typeid(*x).name());
     }
   } EndMatch;
 

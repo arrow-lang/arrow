@@ -33,12 +33,12 @@ struct Span {
     if (sp.begin.row == sp.end.row) {
       os << sp.begin.row + 1 << ":" << sp.begin.column + 1;
 
-      if (sp.end.column - 1 != sp.begin.column) {
+      if (sp.end.column != sp.begin.column) {
         os << "-" << sp.end.column + 1;
       }
     } else {
-      throw new std::runtime_error(
-        "not implemented: multi-line span indication");
+      // TODO: Perhaps a better way to show this?
+      os << sp.begin.row + 1 << "-" << sp.end.row + 1;
     }
 
     return os;

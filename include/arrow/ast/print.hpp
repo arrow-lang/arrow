@@ -65,6 +65,12 @@ class Print {
   void print_assign(ptr<Assign> n);
   void print_type_name(ptr<TypeName>);
 
+  void print_function(ptr<Function>);
+  void print_parameter(ptr<Parameter>);
+
+  void print_call(ptr<Call>);
+  void print_argument(ptr<Argument>);
+
   void handle(
     const char* name, ptr<Node> n, std::function<void()> handle);
 
