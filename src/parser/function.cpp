@@ -77,15 +77,6 @@ auto Parser::parse_parameter() -> ptr<ast::Parameter> {
   auto type = parse_type();
   if (!type) return nullptr;
 
-  // Check for default value and parse
-  ptr<ast::Expression> default_value = nullptr;
-  if (_t.peek()->type == token::Type::Equals) {
-    _t.pop();
-
-    default_value = parse_expression();
-    if (!default_value) return nullptr;
-  }
-
   return make<ast::Parameter>(
-    id->span.extend(type->span), id->text, type, default_value);
+    id->span.extend(type->span), id->text, type);
 }

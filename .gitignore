@@ -2,3 +2,4 @@
 /build/
 .lock*
 *.pyc
+.DS_Store

@@ -1,0 +1,79 @@
+{
+  "tag": "Module",
+  "span": "test/parse/call.as:1-5",
+  "statements": [
+    {
+      "tag": "Call",
+      "span": "test/parse/call.as:1:7-9",
+      "operand": {
+        "tag": "Identifier",
+        "span": "test/parse/call.as:1:1-7",
+        "text": "method"
+      },
+      "arguments": []
+    },
+    {
+      "tag": "Call",
+      "span": "test/parse/call.as:3:9-18",
+      "operand": {
+        "tag": "Call",
+        "span": "test/parse/call.as:3:7-9",
+        "operand": {
+          "tag": "Identifier",
+          "span": "test/parse/call.as:3:1-7",
+          "text": "method"
+        },
+        "arguments": []
+      },
+      "arguments": [
+        {
+          "tag": "Argument",
+          "span": "test/parse/call.as:3:10-12",
+          "value": {
+            "tag": "Integer",
+            "span": "test/parse/call.as:3:10-12",
+            "value": "10"
+          }
+        },
+        {
+          "tag": "Argument",
+          "span": "test/parse/call.as:3:14-17",
+          "value": {
+            "tag": "Integer",
+            "span": "test/parse/call.as:3:14-17",
+            "value": "620"
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Call",
+      "span": "test/parse/call.as:5:7-16",
+      "operand": {
+        "tag": "Identifier",
+        "span": "test/parse/call.as:5:1-7",
+        "text": "method"
+      },
+      "arguments": [
+        {
+          "tag": "Argument",
+          "span": "test/parse/call.as:5:8-11",
+          "value": {
+            "tag": "Integer",
+            "span": "test/parse/call.as:5:8-11",
+            "value": "560"
+          }
+        },
+        {
+          "tag": "Argument",
+          "span": "test/parse/call.as:5:13-15",
+          "value": {
+            "tag": "Integer",
+            "span": "test/parse/call.as:5:13-15",
+            "value": "20"
+          }
+        }
+      ]
+    }
+  ]
+}

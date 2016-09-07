@@ -1,6 +1,6 @@
 {
   "tag": "Module",
-  "span": "test/parse/function.as:1-17",
+  "span": "test/parse/function.as:1-11",
   "statements": [
     {
       "tag": "Function",
@@ -36,8 +36,7 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:10:15-20",
             "name": "int64"
-          },
-          "default_value": null
+          }
         },
         {
           "tag": "Parameter",
@@ -47,103 +46,6 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:10:25-30",
             "name": "int64"
-          },
-          "default_value": null
-        }
-      ],
-      "statements": []
-    },
-    {
-      "tag": "Function",
-      "span": "test/parse/function.as:13-14",
-      "name": "method",
-      "result_type": null,
-      "parameters": [
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:13:12-20",
-          "name": "a",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:13:15-20",
-            "name": "int64"
-          },
-          "default_value": null
-        },
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:13:22-30",
-          "name": "b",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:13:25-30",
-            "name": "int64"
-          },
-          "default_value": null
-        },
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:13:32-40",
-          "name": "c",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:13:35-40",
-            "name": "int64"
-          },
-          "default_value": {
-            "tag": "Integer",
-            "span": "test/parse/function.as:13:43-46",
-            "value": "310"
-          }
-        }
-      ],
-      "statements": []
-    },
-    {
-      "tag": "Function",
-      "span": "test/parse/function.as:16-17",
-      "name": "method",
-      "result_type": {
-        "tag": "TypeName",
-        "span": "test/parse/function.as:16:49-53",
-        "name": "bool"
-      },
-      "parameters": [
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:16:12-20",
-          "name": "a",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:16:15-20",
-            "name": "int64"
-          },
-          "default_value": null
-        },
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:16:22-30",
-          "name": "b",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:16:25-30",
-            "name": "int64"
-          },
-          "default_value": null
-        },
-        {
-          "tag": "Parameter",
-          "span": "test/parse/function.as:16:32-40",
-          "name": "c",
-          "type": {
-            "tag": "TypeName",
-            "span": "test/parse/function.as:16:35-40",
-            "name": "int64"
-          },
-          "default_value": {
-            "tag": "Integer",
-            "span": "test/parse/function.as:16:43-46",
-            "value": "310"
           }
         }
       ],

@@ -43,8 +43,5 @@ void Print::print_parameter(ptr<Parameter> n) {
 
     _w.Key("type");
     print(n->type);
-
-    _w.Key("default_value");
-    print(n->default_value);
   });
 }
