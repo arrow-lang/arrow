@@ -19,10 +19,9 @@ namespace ast {
 
 struct Parameter : Node {
   Parameter(
-    Span span, std::string name, ptr<Type> type,
-    ptr<Expression> default_value
+    Span span, std::string name, ptr<Type> type
   )
-  : Node(span), name(name), type(type), default_value(default_value) {
+  : Node(span), name(name), type(type) {
   }
 
   virtual ~Parameter() noexcept;
@@ -33,9 +32,6 @@ struct Parameter : Node {
 
   /// Type annotation of the parameter (required).
   ptr<Type> type;
-
-  /// Default value for the parameter (optional).
-  ptr<Expression> default_value;
 };
 
 struct Function : Statement {

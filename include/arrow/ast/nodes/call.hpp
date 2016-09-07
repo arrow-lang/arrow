@@ -27,17 +27,6 @@ struct Argument : Node {
 
 };
 
-struct NamedArgument : Argument {
-  NamedArgument(Span span, ptr<Expression> value, std::string name)
-  : Argument(span, value), name(name) {
-  }
-
-  virtual ~NamedArgument() noexcept;
-
-  /// Name of the argument.
-  std::string name;
-};
-
 struct Call : Expression {
   Call(Span span, ptr<Expression> operand)
   : Expression(span), operand(operand), arguments() {
