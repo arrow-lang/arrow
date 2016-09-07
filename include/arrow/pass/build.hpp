@@ -23,6 +23,7 @@ class Build : public Pass {
  private:
   ptr<ir::Value> handle_module(ptr<ast::Module>);
   ptr<ir::Value> handle_variable(ptr<ast::Variable>);
+  ptr<ir::Value> handle_function(ptr<ast::Function>);
 
   ptr<ir::Value> handle_add(ptr<ast::Add>);
   ptr<ir::Value> handle_sub(ptr<ast::Sub>);

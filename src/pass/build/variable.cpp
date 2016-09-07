@@ -17,11 +17,13 @@ auto Build::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Value> {
   // Resolve the type annotation (if present)
   if (x->type) {
     item->type = TypeResolve(_ctx).run(x->type);
+    if (!item->type) return nullptr;
   }
 
   // Define the initializer expression (if present)
   if (x->initializer) {
     item->initializer = Build(_ctx).run(x->initializer);
+    if (!item->initializer) return nullptr;
   }
 
   // Emplace to scope

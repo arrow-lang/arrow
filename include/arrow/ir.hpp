@@ -11,10 +11,12 @@
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/module.hpp"
 #include "arrow/ir/variable.hpp"
+#include "arrow/ir/function.hpp"
 
 #include "arrow/ir/type.hpp"
 #include "arrow/ir/type_integer.hpp"
 #include "arrow/ir/type_boolean.hpp"
+#include "arrow/ir/type_function.hpp"
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/transmute.hpp"

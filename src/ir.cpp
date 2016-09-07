@@ -11,10 +11,12 @@ ir::Node::~Node() noexcept { }
 ir::Item::~Item() noexcept { }
 ir::Module::~Module() noexcept { }
 ir::Variable::~Variable() noexcept { }
+ir::Function::~Function() noexcept { }
 
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
 ir::TypeBoolean::~TypeBoolean() noexcept { }
+ir::TypeFunction::~TypeFunction() noexcept { }
 
 ir::Value::~Value() noexcept { }
 ir::Transmute::~Transmute() noexcept { }
