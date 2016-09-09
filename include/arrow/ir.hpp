@@ -23,6 +23,8 @@
 #include "arrow/ir/integer.hpp"
 #include "arrow/ir/boolean.hpp"
 #include "arrow/ir/binary.hpp"
+#include "arrow/ir/call.hpp"
+#include "arrow/ir/return.hpp"
 
 #include "arrow/ir/scope.hpp"
 

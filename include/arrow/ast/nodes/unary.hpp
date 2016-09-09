@@ -26,7 +26,7 @@ struct Unary : Expression {
   struct Name : Unary { \
     using Unary::Unary; \
     virtual ~Name() noexcept; \
-  }
+  };
 
 DEF_UNARY(Identity);
 DEF_UNARY(Negate);

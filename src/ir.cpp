@@ -30,3 +30,5 @@ ir::Mul::~Mul() noexcept {}
 ir::Div::~Div() noexcept {}
 ir::Mod::~Mod() noexcept {}
 ir::Assign::~Assign() noexcept {}
+ir::Call::~Call() noexcept {}
+ir::Return::~Return() noexcept {}

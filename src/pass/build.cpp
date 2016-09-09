@@ -30,6 +30,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Div, div);
     ACCEPT(ast::Mod, mod);
     ACCEPT(ast::Assign, assign);
+    ACCEPT(ast::Call, call);
+    ACCEPT(ast::Return, return);
 
     Otherwise() {
       Log::get().error("build not implemented for {}", typeid(*x).name());

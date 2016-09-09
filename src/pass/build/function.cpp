@@ -29,7 +29,10 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   // Make: Function
   auto item = make<ir::Function>(x, x->name, type);
 
-  // Scope: push
+  // Scope: emplace
+  _ctx.scope_b.emplace(item->name, item);
+
+  // Stack: push
   _ctx.function_s.push(item);
 
   // Iterate through each statement ..
@@ -40,7 +43,7 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
     }
   }
 
-  // Scope: pop
+  // Stack: pop
   _ctx.function_s.pop();
 
   return item;

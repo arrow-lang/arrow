@@ -23,6 +23,7 @@
 #include "arrow/ast/nodes/identifier.hpp"
 #include "arrow/ast/nodes/function.hpp"
 #include "arrow/ast/nodes/call.hpp"
+#include "arrow/ast/nodes/return.hpp"
 
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/type_name.hpp"
