@@ -11,10 +11,25 @@
 // [ ] Pass: Declare
 // [ ] Main!
 
-def method(a: int32): int32 {
+type c_int = int32;
+extern def puts(s: str) -> c_int;
+
+def method(a: int32) {
   return 30;
 }
 
 def main() {
-  let value: int32 = method(1);
+  // let apple;
+  // let banana: int8;
+  // let car = method(20);
+  let dollar: int32 = method(1);
+  if dollar > 10 {
+    puts("over");
+  } else {
+    puts("under");
+  }
+}
+
+def test() {
+  return false;
 }
