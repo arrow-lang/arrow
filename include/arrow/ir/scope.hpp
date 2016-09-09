@@ -14,22 +14,29 @@
 namespace arrow {
 namespace ir {
 
-struct Item;
-
+template <typename T>
 class Scope {
  public:
-  Scope();
+  Scope() : _items() {
+  }
 
-  virtual ~Scope() noexcept;
+  ~Scope() noexcept {
+  }
 
-  void emplace(std::string name, ptr<Item> item);
+  void emplace(std::string name, ptr<T> item) {
+    _items[name] = item;
+  }
 
-  bool contains(std::string name) const;
+  bool contains(std::string name) const {
+    return _items.find(name) != _items.end();
+  }
 
-  ptr<Item> get(std::string name) const;
+  ptr<T> get(std::string name) const {
+    return _items.find(name)->second;
+  }
 
  private:
-  std::unordered_map<std::string, ptr<Item>> _items;
+  std::unordered_map<std::string, ptr<T>> _items;
 };
 
 }  // namespace ir

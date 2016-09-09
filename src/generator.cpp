@@ -13,7 +13,7 @@
 using arrow::Generator;
 
 Generator::Generator()
-  : _ctx{nullptr, nullptr, nullptr, {}, {}} {
+  : _ctx() {
   initialize();
 }
 

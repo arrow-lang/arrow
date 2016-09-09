@@ -29,6 +29,9 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   // Make: Function
   auto item = make<ir::Function>(x, x->name, type);
 
+  // Scope: push
+  _ctx.function_s.push(item);
+
   // Iterate through each statement ..
   for (auto& statement : x->statements) {
     auto node = run(statement);
@@ -36,6 +39,9 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
       item->statements.push_back(node);
     }
   }
+
+  // Scope: pop
+  _ctx.function_s.pop();
 
   return item;
 }

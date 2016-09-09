@@ -6,6 +6,8 @@
 #ifndef ARROW_PASS_GENERATE_H
 #define ARROW_PASS_GENERATE_H
 
+#include <stack>
+
 #include "arrow/ptr.hpp"
 #include "arrow/ir.hpp"
 #include "llvm.hpp"
@@ -26,8 +28,11 @@ struct GContext {
   // Describes the target architecture
   LLVMTargetMachineRef target;
 
-  // Scope
-  ir::Scope scope;
+  // Scope (block) – general block scope (includes functions)
+  ir::Scope<ir::Item> scope_b;
+
+  // Function stack – which function are we currently processing
+  std::stack<ptr<ir::Function>> function_s;
 
   // Modules
   std::vector<ptr<ir::Module>> modules;

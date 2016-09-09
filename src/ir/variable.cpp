@@ -9,22 +9,34 @@
 using arrow::ir::Variable;
 
 LLVMValueRef Variable::handle(GContext& ctx) noexcept {
-  // TODO(mehcode): Local variables
-
   if (!_handle) {
-    // Add global variable to module
     auto type_handle = type->handle(ctx);
-    _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
 
-    // Set linkage to private
-    LLVMSetLinkage(_handle, LLVMLinkerPrivateLinkage);
-
-    // Set initializer (if present)
+    // Generate handle for the initializer expression (if present or needed)
+    LLVMValueRef initializer_handle = nullptr;
     if (initializer) {
-      LLVMSetInitializer(_handle, Transmute(initializer, type).value_of(ctx));
+      initializer_handle = Transmute(initializer, type).value_of(ctx);
+    } else if (_is_global) {
+      initializer_handle = LLVMConstNull(type_handle);
+    }
+
+    if (_is_global) {
+      // Add global variable to module
+      _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
+
+      // Set linkage to private
+      LLVMSetLinkage(_handle, LLVMLinkerPrivateLinkage);
+
+      // Set initializer
+      LLVMSetInitializer(_handle, initializer_handle);
     } else {
-      // Initialize to nil (for globals)
-      LLVMSetInitializer(_handle, LLVMConstNull(type_handle));
+      // Allocate space on the stack for the local variable
+      _handle = LLVMBuildAlloca(ctx.irb, type_handle, name.c_str());
+
+      // Set initializer (if present)
+      if (initializer_handle) {
+        LLVMBuildStore(ctx.irb, initializer_handle, _handle);
+      }
     }
   }
 
