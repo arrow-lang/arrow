@@ -13,9 +13,11 @@
 namespace arrow {
 namespace ir {
 
+struct Module;
+
 struct Function : Item, Value {
-  Function(ptr<ast::Function> source, std::string name, ptr<TypeFunction> type)
-    : Item(source, name), Value(type), statements() {
+  Function(ptr<ast::Function> source, ptr<Module> module, std::string name, ptr<TypeFunction> type)
+    : Item(source, name), Value(type), statements(), _module(module) {
   }
 
   virtual ~Function() noexcept;
@@ -24,10 +26,16 @@ struct Function : Item, Value {
 
   virtual void generate(GContext&);
 
+  // Get mangled name (for linking and loading)
+  std::string name_mangle() const;
+
   // Statements in the function
   std::vector<ptr<Value>> statements;
 
  private:
+  // Module (container)
+  ptr<Module> _module;
+
   // Slot
   LLVMValueRef _handle = nullptr;
 };

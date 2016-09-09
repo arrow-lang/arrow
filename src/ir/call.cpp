@@ -30,6 +30,6 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
     args.push_back(arg_handle);
   }
 
-  auto result = LLVMBuildCall(ctx.irb, op_handle, &(args[0]), args.size(), "");
+  auto result = LLVMBuildCall(ctx.irb, op_handle, args.data(), args.size(), "");
   return result;
 }

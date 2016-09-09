@@ -58,6 +58,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Module, module);
     ACCEPT(Variable, variable);
     ACCEPT(ExpressionStatement, expression_statement);
+    ACCEPT(Return, return);
 
     ACCEPT(Integer, integer);
     ACCEPT(Boolean, bool);

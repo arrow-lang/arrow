@@ -25,5 +25,17 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   // Make: Call
   auto item = make<ir::Call>(x, operand, type->result);
 
+  // Build: Arguments
+  for (auto& argument : x->arguments) {
+    auto arg = run(argument);
+    if (!arg) return nullptr;
+
+    item->arguments.push_back(arg);
+  }
+
   return item;
+}
+
+auto Build::handle_argument(ptr<ast::Argument> x) -> ptr<ir::Value> {
+  return run(x->value);
 }

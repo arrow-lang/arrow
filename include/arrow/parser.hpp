@@ -76,6 +76,7 @@ class Parser {
 
   ptr<ast::Statement> parse_statement();
   ptr<ast::Variable> parse_variable();
+  ptr<ast::Return> parse_return();
 
   ptr<ast::Expression> parse_expression(unsigned power = 0);
   ptr<ast::Expression> parse_unary_expression();

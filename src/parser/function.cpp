@@ -49,10 +49,10 @@ auto Parser::parse_function() -> ptr<ast::Function> {
   ) {
     // Parse a statement
     auto statement = parse_statement();
-    if (!statement) return nullptr;
-
-    // Add it to the function
-    result->statements.push_back(statement);
+    if (statement) {
+      // Add it to the function
+      result->statements.push_back(statement);
+    }
   }
 
   // Expect: `}`

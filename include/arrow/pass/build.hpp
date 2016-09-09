@@ -32,6 +32,7 @@ class Build : public Pass {
   ptr<ir::Value> handle_mod(ptr<ast::Mod>);
   ptr<ir::Value> handle_assign(ptr<ast::Assign>);
   ptr<ir::Value> handle_call(ptr<ast::Call>);
+  ptr<ir::Value> handle_argument(ptr<ast::Argument>);
   ptr<ir::Value> handle_return(ptr<ast::Return>);
 
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);

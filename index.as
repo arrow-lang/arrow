@@ -1,10 +1,3 @@
-// [ ] Function / Call @mehcode
-// [x]  - <statements> added to ir::Module and ir::Function / stop forcing generation via expression_statement
-// [x]  - Allow nil for result_type (void)
-// [x]  - Call
-// [x]  - Local variables
-// [ ]  - Return
-
 // [ ] Conditional – If
 // [ ] Iteration – While
 // [ ] Extern Function / Extern Call @mehcode
@@ -16,11 +9,12 @@
 
 // [ ] Integer literals should have their own type with a name of `_`
 // [ ] Pass: Declare
+// [ ] Main!
 
-def method() {
-  let x: int64 = 320;
-  x = 430;
-  x = x * 32;
+def method(a: int32): int32 {
+  return 30;
+}
 
-  // return x;
+def main() {
+  let value: int32 = method(1);
 }

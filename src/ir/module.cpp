@@ -10,12 +10,14 @@ using arrow::ir::Module;
 
 void Module::generate(GContext& ctx) {
   // Declare module initializer
-  auto init = LLVMAddFunction(ctx.mod, "#init", LLVMFunctionType(
+  auto init = LLVMAddFunction(ctx.mod, "$init", LLVMFunctionType(
     LLVMVoidType(),
     nullptr,
     0,
     false
   ));
+
+  LLVMSetLinkage(init, LLVMLinkerPrivateLinkage);
 
   LLVMPositionBuilderAtEnd(ctx.irb,
     LLVMAppendBasicBlock(init, ""));

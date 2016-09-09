@@ -32,7 +32,7 @@ struct GContext {
   ir::Scope<ir::Item> scope_b;
 
   // Function stack – which function are we currently processing
-  std::stack<ptr<ir::Function>> function_s;
+  std::stack<ir::Function*> function_s;
 
   // Modules
   std::vector<ptr<ir::Module>> modules;

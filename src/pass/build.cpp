@@ -31,6 +31,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Mod, mod);
     ACCEPT(ast::Assign, assign);
     ACCEPT(ast::Call, call);
+    ACCEPT(ast::Argument, argument);
     ACCEPT(ast::Return, return);
 
     Otherwise() {

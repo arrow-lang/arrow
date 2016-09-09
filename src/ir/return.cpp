@@ -11,8 +11,12 @@ using arrow::ir::Return;
 LLVMValueRef Return::handle(GContext &ctx) noexcept {
   // Build terminating ret ..
   if (operand) {
+    // Get type of enclosing function
+    auto top_f = ctx.function_s.top();
+    auto result_type = cast<TypeFunction>(top_f->type)->result;
+
     // Value return
-    auto op_handle = operand->value_of(ctx);
+    auto op_handle = Transmute(operand, result_type).value_of(ctx);
     LLVMBuildRet(ctx.irb, op_handle);
   } else {
     // Void return

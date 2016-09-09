@@ -10,8 +10,11 @@ using arrow::pass::Build;
 
 auto Build::handle_return(ptr<ast::Return> x) -> ptr<ir::Value> {
   // Build: Operand
-  auto operand = run(x->operand);
-  if (!operand) return nullptr;
+  ptr<ir::Value> operand = nullptr;
+  if (x->operand) {
+    operand = run(x->operand);
+    if (!operand) return nullptr;
+  }
 
   // Make: Return
   return make<ir::Return>(x, operand);

@@ -27,13 +27,13 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   }
 
   // Make: Function
-  auto item = make<ir::Function>(x, x->name, type);
+  auto item = make<ir::Function>(x, _ctx.modules.back(), x->name, type);
 
   // Scope: emplace
   _ctx.scope_b.emplace(item->name, item);
 
   // Stack: push
-  _ctx.function_s.push(item);
+  _ctx.function_s.push(item.get());
 
   // Iterate through each statement ..
   for (auto& statement : x->statements) {

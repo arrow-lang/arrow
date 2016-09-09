@@ -103,7 +103,6 @@ auto Parser::parse_expression(unsigned power/* = 0*/) -> ptr<ast::Expression> {
       }
     }
 
-
     // Match binary expression if we previously matched a LHS
     if (operand) {
       auto b = BINARY.find(tok->type);
