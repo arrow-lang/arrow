@@ -12,9 +12,5 @@ auto Build::handle_expression_statement(ptr<ast::ExpressionStatement> x) -> ptr<
   auto ref = Build(_ctx).run(x->expression);
   if (!ref) return nullptr;
 
-  // Force generation of the expression
-  // We normally wait until the last possible minute to generate
-  // assembly; this is that minute.
-  ref->handle(_ctx);
   return ref;
 }

@@ -13,8 +13,10 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   auto type = make<ir::TypeFunction>(x);
 
   // Resolve: Result type
-  type->result = TypeResolve(_ctx).run(x->result_type);
-  if (!type->result) return nullptr;
+  if (x->result_type) {
+    type->result = TypeResolve(_ctx).run(x->result_type);
+    if (!type->result) return nullptr;
+  }
 
   // Resolve: Parameter types
   for (auto& param : x->parameters) {
@@ -27,8 +29,13 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   // Make: Function
   auto item = make<ir::Function>(x, x->name, type);
 
-  // DEBUG!
-  item->handle(_ctx);
+  // Iterate through each statement ..
+  for (auto& statement : x->statements) {
+    auto node = run(statement);
+    if (node) {
+      item->statements.push_back(node);
+    }
+  }
 
   return item;
 }

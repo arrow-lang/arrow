@@ -9,7 +9,9 @@
 using arrow::ir::TypeFunction;
 
 LLVMTypeRef TypeFunction::handle(GContext& ctx) noexcept {
-  auto result_type_handle = result->handle(ctx);
+  // Nil result type => void
+  LLVMTypeRef result_type_handle = LLVMVoidType();
+  if (result) result_type_handle = result->handle(ctx);
 
   std::vector<LLVMTypeRef> param_type_handles;
   param_type_handles.reserve(parameters.size());

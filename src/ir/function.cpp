@@ -20,3 +20,21 @@ LLVMValueRef Function::handle(GContext& ctx) noexcept {
 
   return _handle;
 }
+
+void Function::generate(GContext& ctx) {
+  // Realize handle (if not already)
+  auto fn = handle(ctx);
+
+  // Prepare builder
+  auto old_block = LLVMGetInsertBlock(ctx.irb);
+  LLVMPositionBuilderAtEnd(ctx.irb, LLVMAppendBasicBlock(fn, ""));
+
+  // Generate each statement ..
+  for (auto& stmt : statements) stmt->generate(ctx);
+
+  // Terminate
+  LLVMBuildRetVoid(ctx.irb);
+
+  // Restore builder
+  LLVMPositionBuilderAtEnd(ctx.irb, old_block);
+}

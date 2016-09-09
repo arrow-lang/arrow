@@ -8,24 +8,19 @@
 using arrow::pass::Build;
 
 auto Build::handle_module(ptr<ast::Module> x) -> ptr<ir::Value> {
-  // Declare module initializer
-  auto init = LLVMAddFunction(_ctx.mod, "#init", LLVMFunctionType(
-    LLVMVoidType(),
-    nullptr,
-    0,
-    false
-  ));
+  // Make: Module
+  auto module = make<ir::Module>(x, x->name);
 
-  LLVMPositionBuilderAtEnd(_ctx.irb,
-    LLVMAppendBasicBlock(init, ""));
+  // Add module to modules orderable
+  _ctx.modules.push_back(module);
 
   // Iterate through each statement ..
   for (auto& statement : x->statements) {
-    run(statement);
+    auto node = run(statement);
+    if (node) {
+      module->statements.push_back(node);
+    }
   }
-
-  // Terminate module initializer
-  LLVMBuildRetVoid(_ctx.irb);
 
   // Has no value
   return nullptr;

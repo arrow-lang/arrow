@@ -11,19 +11,22 @@
 #include <vector>
 
 #include "arrow/ir/item.hpp"
+#include "arrow/ir/value.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Module : Item {
   Module(ptr<ast::Module> source, std::string name)
-    : Item(source, name), items() {
+    : Item(source, name), statements() {
   }
 
   virtual ~Module() noexcept;
 
-  // Items (found in the module)
-  std::vector<ptr<Item>> items;
+  virtual void generate(GContext&);
+
+  // Statements in the module (initializer)
+  std::vector<ptr<Value>> statements;
 };
 
 }  // namespace ir

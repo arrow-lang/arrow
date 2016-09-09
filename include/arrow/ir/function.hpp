@@ -15,12 +15,17 @@ namespace ir {
 
 struct Function : Item, Value {
   Function(ptr<ast::Function> source, std::string name, ptr<TypeFunction> type)
-    : Item(source, name), Value(type) {
+    : Item(source, name), Value(type), statements() {
   }
 
   virtual ~Function() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
+
+  virtual void generate(GContext&);
+
+  // Statements in the function
+  std::vector<ptr<Value>> statements;
 
  private:
   // Slot

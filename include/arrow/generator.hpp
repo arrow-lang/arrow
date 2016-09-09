@@ -28,6 +28,9 @@ struct GContext {
 
   // Scope
   ir::Scope scope;
+
+  // Modules
+  std::vector<ptr<ir::Module>> modules;
 };
 
 // Takes IR as input and will "generate" LLVM IR

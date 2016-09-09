@@ -25,6 +25,10 @@ struct Type : Item {
 
   // Get LLVM handle
   virtual LLVMTypeRef handle(GContext&) noexcept = 0;
+
+  virtual void generate(GContext&) {
+    // Most types don't have a generate step
+  }
 };
 
 }  // namespace ir

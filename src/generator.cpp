@@ -13,7 +13,7 @@
 using arrow::Generator;
 
 Generator::Generator()
-  : _ctx{nullptr, nullptr, nullptr, {}} {
+  : _ctx{nullptr, nullptr, nullptr, {}, {}} {
   initialize();
 }
 
@@ -77,6 +77,9 @@ Generator& Generator::run(ptr<ast::Module> module) {
   pass::Build(_ctx).run(module);
   if (Log::get().count(LOG_ERROR) > 0) return *this;
 
+  // Generate modules
+  for (auto& mod : _ctx.modules) mod->generate(_ctx);
+
   // Declare main
   // TODO(mehcode): Full (all parameters)
   auto main = LLVMAddFunction(_ctx.mod, "main", LLVMFunctionType(
@@ -90,8 +93,8 @@ Generator& Generator::run(ptr<ast::Module> module) {
     LLVMAppendBasicBlock(main, ""));
 
   // HACK: Call top-level module initializer
-  auto init = LLVMGetNamedFunction(_ctx.mod, "#init");
-  LLVMBuildCall(_ctx.irb, init, nullptr, 0, "");
+  // auto init = LLVMGetNamedFunction(_ctx.mod, "#init");
+  // LLVMBuildCall(_ctx.irb, init, nullptr, 0, "");
 
   // TODO(mehcode): Call each module initializer
   // TODO(mehcode): Call the top-level module main function (if present)

@@ -7,6 +7,9 @@
 #define ARROW_IR_NODE_H
 
 namespace arrow {
+
+struct GContext;
+
 namespace ir {
 
 struct Node {
@@ -14,6 +17,9 @@ struct Node {
   }
 
   virtual ~Node() noexcept;
+
+  // Generate LLVM for this IR node
+  virtual void generate(GContext&) = 0;
 };
 
 }  // namespace ir
