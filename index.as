@@ -3,16 +3,20 @@
 // [ ] Extern Function / Extern Call @mehcode
 // [ ] Structure
 // [ ] Pointers
-// [ ] Float
+// [ ] Real
+// [ ]  - Binary operations (FAdd)
 // [ ] (C-)String
 // [ ] Bitwise
 
 // [ ] Integer literals should have their own type with a name of `_`
 // [ ] Pass: Declare
 // [ ] Main!
+// [ ] Type determination on operators
 
 type c_int = int32;
 extern def puts(s: str) -> c_int;
+
+printf(c_str("..."), c_int(3))
 
 def method(a: int32) {
   return 30;
