@@ -10,7 +10,6 @@ using arrow::ir::Integer;
 
 LLVMValueRef Integer::handle(GContext& ctx) noexcept {
   auto type_handle = type->handle(ctx);
-  auto is_signed = cast<TypeInteger>(type)->is_signed;
 
-  return LLVMConstInt(type_handle, value.get_ui(), is_signed);
+  return LLVMConstInt(type_handle, value.get_ui(), type->is_signed());
 }

@@ -24,6 +24,11 @@ struct TypeFunction : Type {
 
   virtual LLVMTypeRef handle(GContext&) noexcept;
 
+  virtual bool is_equal(ptr<Type>) const {
+    // Functions cannot be typed yet
+    return false;
+  }
+
   // Result type
   ptr<Type> result;
 

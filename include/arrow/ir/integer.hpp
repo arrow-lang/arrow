@@ -9,7 +9,7 @@
 #include <gmpxx.h>
 
 #include "arrow/ir/value.hpp"
-#include "arrow/ir/type_integer.hpp"
+#include "arrow/ir/type_literal_integer.hpp"
 
 namespace arrow {
 namespace ir {
@@ -17,7 +17,7 @@ namespace ir {
 struct Integer : Value {
   // Type of an integer literal is the exact bit-size of the value
   explicit Integer(mpz_class value)
-  : Value(make<TypeInteger>(false, mpz_sizeinbase(value.get_mpz_t(), 2) + 1)),
+  : Value(make<TypeLiteralInteger>()),
     value(value) {
   }
 

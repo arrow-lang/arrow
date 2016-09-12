@@ -24,6 +24,8 @@ struct TypeLiteralInteger : Type {
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMInt64Type();
   }
+
+  virtual bool is_integer() const { return true; }
 };
 
 }  // namespace ir

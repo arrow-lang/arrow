@@ -24,6 +24,8 @@ struct TypeLiteralReal : Type {
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMDoubleType();
   }
+
+  virtual bool is_real() const { return true; }
 };
 
 }  // namespace ir

@@ -18,20 +18,31 @@ namespace ir {
 struct TypeInteger : Type {
   TypeInteger(bool is_signed, unsigned bits)
     : Type(nullptr, TypeInteger::_name(is_signed, bits)),
-      is_signed(is_signed), bits(bits) {
+      _is_signed(is_signed), _bits(bits) {
   }
 
   virtual ~TypeInteger() noexcept;
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
-    return LLVMIntType(bits);
+    return LLVMIntType(_bits);
   }
 
+  virtual bool is_equal(ptr<Type> other) const {
+    auto other_i = cast<TypeInteger>(other);
+    if (!other_i) return false;
+
+    return other_i->_is_signed == _is_signed && other_i->_bits == _bits;
+  }
+
+  virtual bool is_integer() const { return true; }
+  virtual unsigned size() const { return _bits; }
+  virtual bool is_signed() const { return _is_signed; }
+
   // Is this a signed integer type (or not).
-  bool is_signed;
+  bool _is_signed;
 
   // Number of bits this integer type is constrained to.
-  unsigned bits;
+  unsigned _bits;
 
  private:
   static std::string _name(bool is_signed, unsigned bits) {

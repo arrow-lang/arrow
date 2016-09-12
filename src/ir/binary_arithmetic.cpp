@@ -18,7 +18,14 @@ LLVMValueRef Add::handle(GContext &ctx) noexcept {
     auto rhs_handle = Transmute(rhs, type).value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    _handle = LLVMBuildAdd(ctx.irb, lhs_handle, rhs_handle, "");
+    if (type->is_integer()) {
+      _handle = LLVMBuildAdd(ctx.irb, lhs_handle, rhs_handle, "");
+    } else if (type->is_real()) {
+      _handle = LLVMBuildFAdd(ctx.irb, lhs_handle, rhs_handle, "");
+    } else {
+      throw std::runtime_error(fmt::format(
+        "not implemented: add: {} + {}", lhs->type->name, rhs->type->name));
+    }
   }
 
   return _handle;

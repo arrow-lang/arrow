@@ -1,39 +1,8 @@
-// [ ] Conditional – If
-// [ ] Iteration – While
-// [ ] Extern Function / Extern Call @mehcode
-// [ ] Structure
-// [ ] Pointers
-// [ ] Real
-// [ ]  - Binary operations (FAdd)
-// [ ] (C-)String
-// [ ] Bitwise
-
 // [ ] Integer literals should have their own type with a name of `_`
 // [ ] Pass: Declare
 // [ ] Main!
 // [ ] Type determination on operators
 
-type c_int = int32;
-extern def puts(s: str) -> c_int;
-
-printf(c_str("..."), c_int(3))
-
-def method(a: int32) {
-  return 30;
-}
-
-def main() {
-  // let apple;
-  // let banana: int8;
-  // let car = method(20);
-  let dollar: int32 = method(1);
-  if dollar > 10 {
-    puts("over");
-  } else {
-    puts("under");
-  }
-}
-
-def test() {
-  return false;
-}
+// let m: int8 = 3.12;
+// let m: float32 = 3 + 4.12;
+let m: bool = false + true;

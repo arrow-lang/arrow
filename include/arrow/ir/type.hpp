@@ -29,6 +29,29 @@ struct Type : Item {
   virtual void generate(GContext&) {
     // Most types don't have a generate step
   }
+
+  virtual bool is_equal(ptr<Type> other) const {
+    return typeid(*this) == typeid(*other);
+  }
+
+  // Undefined for most types
+  virtual bool is_signed() const {
+    return false;
+  }
+
+  // Size (in bits)
+  virtual unsigned size() const {
+    return 0;
+  }
+
+  // Test for type categories
+  virtual bool is_integer() const {
+    return false;
+  }
+
+  virtual bool is_real() const {
+    return false;
+  }
 };
 
 }  // namespace ir

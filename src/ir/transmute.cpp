@@ -7,6 +7,9 @@
 #include "arrow/generator.hpp"
 
 using arrow::ir::Transmute;
+using arrow::ptr;
+using arrow::isa;
+namespace ir = arrow::ir;
 
 LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
   if (!_handle) {
@@ -17,16 +20,32 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
     auto value_handle = value->value_of(ctx);
     if (!value_handle) return nullptr;
 
-    auto is_real = (isa<ir::TypeReal>(dst) || isa<ir::TypeLiteralReal>(dst));
-    auto is_int = (isa<ir::TypeInteger>(dst) || isa<ir::TypeLiteralInteger>(dst));
-
-    if (is_real) {
+    if (dst->is_equal(src)) {
+      // If same type .. no cast is needed
+      _handle = value_handle;
+    } else if (dst->is_real() && src->is_real()) {
+      // Real -> Real
       _handle = LLVMBuildFPCast(ctx.irb, value_handle, dst_handle, "");
-    } else if (is_int) {
-      _handle = LLVMBuildIntCast(ctx.irb, value_handle, type->handle(ctx), "");
+    } else if (dst->is_integer() && src->is_integer()) {
+      // Integer -> Integer
+      _handle = LLVMBuildIntCast(ctx.irb, value_handle, dst_handle, "");
+    } else if (dst->is_real() && src->is_integer()) {
+      // Integer -> Real
+      if (src->is_signed()) {
+        _handle = LLVMBuildSIToFP(ctx.irb, value_handle, dst_handle, "");
+      } else {
+        _handle = LLVMBuildUIToFP(ctx.irb, value_handle, dst_handle, "");
+      }
+    } else if (dst->is_integer() && src->is_real()) {
+      // Real -> Integer
+      if (dst->is_signed()) {
+        _handle = LLVMBuildFPToSI(ctx.irb, value_handle, dst_handle, "");
+      } else {
+        _handle = LLVMBuildFPToUI(ctx.irb, value_handle, dst_handle, "");
+      }
     } else {
-      // TODO: Say what types
-      throw std::runtime_error("transmute not implemented");
+      throw std::runtime_error(fmt::format(
+        "not implemented: transmute: {} -> {}", src->name, dst->name));
     }
   }
 

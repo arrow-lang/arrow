@@ -18,20 +18,30 @@ namespace ir {
 struct TypeReal : Type {
   TypeReal(unsigned bits)
     : Type(nullptr, TypeReal::_name(bits)),
-      bits(bits) {
+      _bits(bits) {
   }
 
   virtual ~TypeReal() noexcept;
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
-    if (bits == 32) return LLVMFloatType();
-    else if (bits == 64) return LLVMDoubleType();
+    if (_bits == 32) return LLVMFloatType();
+    else if (_bits == 64) return LLVMDoubleType();
 
     throw std::runtime_error("real types may only be 32 or 64 bits");
   }
 
+  virtual bool is_equal(ptr<Type> other) const {
+    auto other_r = cast<TypeReal>(other);
+    if (!other_r) return false;
+
+    return other_r->_bits == _bits;
+  }
+
+  virtual bool is_real() const { return true; }
+  virtual unsigned size() const { return _bits; }
+
   // Number of bits this real type is constrained to.
-  unsigned bits;
+  unsigned _bits;
 
  private:
   static std::string _name(unsigned bits) {
