@@ -1,0 +1,7 @@
+test/tokenize/real.as:1:1-7: real: 5.231
+test/tokenize/real.as:2:1-7: real: 7523
+test/tokenize/real.as:3:1-8: real: 2.14e+12
+test/tokenize/real.as:4:1-6: real: 3250
+test/tokenize/real.as:5:1-8: real: 5e-1243
+test/tokenize/real.as:6:1-10: real: 3252.35
+test/tokenize/real.as:7:1-2: end

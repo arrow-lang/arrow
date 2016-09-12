@@ -7,5 +7,5 @@ _231
 // Integer <dot> Identifier
 34._21
 
-// Float
+// Real
 432.32_1

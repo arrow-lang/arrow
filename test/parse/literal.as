@@ -8,7 +8,7 @@
 
 0o755;
 
-// Floating-point
+// Real
 5.12;
 0.1;
 5e+30;

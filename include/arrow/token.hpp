@@ -23,7 +23,7 @@ enum class Type {
   Keyword,
   Identifier,
   Integer,
-  Float,
+  Real,
   String,
 
   // Keywords
@@ -124,10 +124,10 @@ struct Integer : Token {
   mpz_class value;
 };
 
-struct Float : Token {
-  Float(Span span, long double value);
+struct Real : Token {
+  Real(Span span, long double value);
 
-  virtual ~Float() noexcept;
+  virtual ~Real() noexcept;
 
   virtual std::ostream& print(std::ostream &os) const {
     return os << type << ": " << value;

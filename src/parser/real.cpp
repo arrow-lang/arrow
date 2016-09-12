@@ -8,10 +8,10 @@
 
 using arrow::Parser;
 
-auto Parser::parse_float() -> ptr<ast::Float> {
-  // Expect: integer
-  auto tok = expect<token::Float>(token::Type::Float);
+auto Parser::parse_real() -> ptr<ast::Real> {
+  // Expect: real
+  auto tok = expect<token::Real>(token::Type::Real);
   if (!tok) return nullptr;
 
-  return std::make_shared<ast::Float>(tok->span, tok->value);
+  return std::make_shared<ast::Real>(tok->span, tok->value);
 }

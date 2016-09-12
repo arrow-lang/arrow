@@ -291,8 +291,8 @@ auto Tokenizer::_scan_numeric() -> ptr<Token> {
   // We are no longer a number (within our range)
   if (base == 10) {
     if (_file.peek() == '.' && in_range(_file.peek(1), '0', '9')) {
-      // We have at least '.#' to go; we can be a float
-      type = token::Type::Float;
+      // We have at least '.#' to go; we can be a real
+      type = token::Type::Real;
 
       // Push the `.` into the buffer
       text << static_cast<char>(_file.pop());
@@ -310,7 +310,7 @@ auto Tokenizer::_scan_numeric() -> ptr<Token> {
           && (in_range(p1, '0', '9')
             || ((p1 == 0x2b || p1 == 0x2d) && in_range(p2, '0', '9')))) {
       // We have at least [eE][+-]#
-      type = token::Type::Float;
+      type = token::Type::Real;
 
       // Push the first two characters.
       text << static_cast<char>(_file.pop());
@@ -326,7 +326,7 @@ auto Tokenizer::_scan_numeric() -> ptr<Token> {
     return std::make_shared<token::Integer>(span, text.str(), base);
   } else {
     long double value = std::stold(text.str());
-    return std::make_shared<token::Float>(span, value);
+    return std::make_shared<token::Real>(span, value);
   }
 }
 

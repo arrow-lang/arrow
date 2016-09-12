@@ -8,8 +8,8 @@
 
 using arrow::ast::Print;
 
-void Print::print_float(ptr<Float> n) {
-  handle("Float", n, [&, this] {
+void Print::print_real(ptr<Real> n) {
+  handle("Real", n, [&, this] {
     _w.Key("value");
     _w.String(std::to_string(n->value).c_str());
   });

@@ -18,7 +18,7 @@
 #include "arrow/ast/nodes/binary.hpp"
 #include "arrow/ast/nodes/boolean.hpp"
 #include "arrow/ast/nodes/integer.hpp"
-#include "arrow/ast/nodes/float.hpp"
+#include "arrow/ast/nodes/real.hpp"
 #include "arrow/ast/nodes/string.hpp"
 #include "arrow/ast/nodes/identifier.hpp"
 #include "arrow/ast/nodes/function.hpp"

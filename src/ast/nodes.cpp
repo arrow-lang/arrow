@@ -21,7 +21,7 @@ IMPL(ExpressionStatement)
 
 IMPL(Expression)
 IMPL(Integer)
-IMPL(Float)
+IMPL(Real)
 IMPL(Boolean)
 IMPL(String)
 IMPL(Identifier)

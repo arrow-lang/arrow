@@ -37,7 +37,7 @@ class Print {
   void print_return(ptr<Return>);
 
   void print_integer(ptr<Integer>);
-  void print_float(ptr<Float>);
+  void print_real(ptr<Real>);
   void print_bool(ptr<Boolean>);
   void print_str(ptr<String>);
   void print_id(ptr<Identifier>);

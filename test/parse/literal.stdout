@@ -28,27 +28,27 @@
       "value": "493"
     },
     {
-      "tag": "Float",
+      "tag": "Real",
       "span": "test/parse/literal.as:12:1-5",
       "value": "5.120000"
     },
     {
-      "tag": "Float",
+      "tag": "Real",
       "span": "test/parse/literal.as:13:1-4",
       "value": "0.100000"
     },
     {
-      "tag": "Float",
+      "tag": "Real",
       "span": "test/parse/literal.as:14:1-6",
       "value": "4999999999999999999917321879552.000000"
     },
     {
-      "tag": "Float",
+      "tag": "Real",
       "span": "test/parse/literal.as:15:1-5",
       "value": "40000000000.000000"
     },
     {
-      "tag": "Float",
+      "tag": "Real",
       "span": "test/parse/literal.as:16:1-5",
       "value": "0.010000"
     },

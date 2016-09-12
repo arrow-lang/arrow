@@ -3,20 +3,20 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_AST_FLOAT_H
-#define ARROW_AST_FLOAT_H
+#ifndef ARROW_AST_REAL_H
+#define ARROW_AST_REAL_H
 
 #include "arrow/ast/nodes/expression.hpp"
 
 namespace arrow {
 namespace ast {
 
-struct Float : Expression {
-  Float(Span span, long double value)
+struct Real : Expression {
+  Real(Span span, long double value)
   : Expression(span), value(value) {
   }
 
-  virtual ~Float() noexcept;
+  virtual ~Real() noexcept;
 
   long double value;
 };
@@ -24,4 +24,4 @@ struct Float : Expression {
 }  // namespace ast
 }  // namespace arrow
 
-#endif  // ARROW_AST_FLOAT_H
+#endif  // ARROW_AST_REAL_H

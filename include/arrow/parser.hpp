@@ -87,7 +87,7 @@ class Parser {
 
   ptr<ast::Integer> parse_integer();
   ptr<ast::Boolean> parse_bool();
-  ptr<ast::Float> parse_float();
+  ptr<ast::Real> parse_real();
   ptr<ast::String> parse_str();
   ptr<ast::Identifier> parse_id();
 

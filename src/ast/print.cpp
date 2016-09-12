@@ -63,7 +63,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Integer, integer);
     ACCEPT(Boolean, bool);
     ACCEPT(String, str);
-    ACCEPT(Float, float);
+    ACCEPT(Real, real);
     ACCEPT(Identifier, id);
 
     ACCEPT(Identity, identity);

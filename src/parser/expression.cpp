@@ -309,8 +309,8 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   case token::Type::False:
     return parse_bool();
 
-  case token::Type::Float:
-    return parse_float();
+  case token::Type::Real:
+    return parse_real();
 
   case token::Type::String:
     return parse_str();

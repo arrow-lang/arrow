@@ -9,7 +9,7 @@
 
 using arrow::token::Token;
 using arrow::token::Integer;
-using arrow::token::Float;
+using arrow::token::Real;
 using arrow::token::Symbol;
 using arrow::token::Keyword;
 using arrow::token::Identifier;
@@ -28,11 +28,11 @@ Integer::Integer(Span span, const std::string& text, unsigned base) :
 Integer::~Integer() noexcept {
 }
 
-Float::Float(Span span, long double value) :
-  Token(Type::Float, span), value(value) {
+Real::Real(Span span, long double value) :
+  Token(Type::Real, span), value(value) {
 }
 
-Float::~Float() noexcept {
+Real::~Real() noexcept {
 }
 
 Keyword::Keyword(Type type, Span span) :
@@ -70,7 +70,7 @@ std::ostream& arrow::token::operator<<(
   case Type::End:                     return os << "end";
 
   case Type::Integer:                 return os << "integer";
-  case Type::Float:                   return os << "float";
+  case Type::Real:                    return os << "real";
   case Type::Symbol:                  return os << "symbol";
   case Type::Identifier:              return os << "identifier";
   case Type::Keyword:                 return os << "keyword";
