@@ -11,19 +11,26 @@ using arrow::pass::TypeResolve;
 
 TypeResolve::TypeResolve(GContext& ctx) : Pass(ctx), _types() {
   // Register built-in types
+  // Boolean
   _types.emplace("bool", make<ir::TypeBoolean>());
 
+  // Integer, Signed
   _types.emplace("int8", make<ir::TypeInteger>(true, 8));
   _types.emplace("int16", make<ir::TypeInteger>(true, 16));
   _types.emplace("int32", make<ir::TypeInteger>(true, 32));
   _types.emplace("int64", make<ir::TypeInteger>(true, 64));
   _types.emplace("int128", make<ir::TypeInteger>(true, 128));
 
+  // Integer, Unsigned
   _types.emplace("uint8", make<ir::TypeInteger>(false, 8));
   _types.emplace("uint16", make<ir::TypeInteger>(false, 16));
   _types.emplace("uint32", make<ir::TypeInteger>(false, 32));
   _types.emplace("uint64", make<ir::TypeInteger>(false, 64));
   _types.emplace("uint128", make<ir::TypeInteger>(false, 128));
+
+  // Real
+  _types.emplace("float32", make<ir::TypeReal>(32));
+  _types.emplace("float64", make<ir::TypeReal>(64));
 }
 
 #define ACCEPT(type, name) \

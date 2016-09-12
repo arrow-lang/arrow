@@ -23,6 +23,11 @@ inline ptr<T> cast(const ptr<U>& p) {
   return std::dynamic_pointer_cast<T>(p);
 }
 
+template <typename T, typename U>
+inline bool isa(const ptr<U>& p) {
+  return cast<T>(p) != nullptr;
+}
+
 }  // namespace arrow
 
 #endif  // ARROW_PTR_H

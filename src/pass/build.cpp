@@ -22,6 +22,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Boolean, bool);
     ACCEPT(ast::Integer, int);
+    ACCEPT(ast::Real, real);
     ACCEPT(ast::ExpressionStatement, expression_statement);
 
     ACCEPT(ast::Add, add);

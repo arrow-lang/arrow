@@ -16,11 +16,15 @@ ir::Function::~Function() noexcept { }
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
 ir::TypeBoolean::~TypeBoolean() noexcept { }
+ir::TypeReal::~TypeReal() noexcept { }
+ir::TypeLiteralInteger::~TypeLiteralInteger() noexcept { }
+ir::TypeLiteralReal::~TypeLiteralReal() noexcept { }
 ir::TypeFunction::~TypeFunction() noexcept { }
 
 ir::Value::~Value() noexcept { }
 ir::Transmute::~Transmute() noexcept { }
 ir::Integer::~Integer() noexcept { }
+ir::Real::~Real() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
 ir::Binary::~Binary() noexcept {}
