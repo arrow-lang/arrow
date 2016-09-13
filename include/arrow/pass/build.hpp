@@ -25,6 +25,9 @@ class Build : public Pass {
   ptr<ir::Value> handle_variable(ptr<ast::Variable>);
   ptr<ir::Value> handle_function(ptr<ast::Function>);
 
+  ptr<ir::Value> handle_identity(ptr<ast::Identity>);
+  ptr<ir::Value> handle_negate(ptr<ast::Negate>);
+
   ptr<ir::Value> handle_add(ptr<ast::Add>);
   ptr<ir::Value> handle_sub(ptr<ast::Sub>);
   ptr<ir::Value> handle_mul(ptr<ast::Mul>);
@@ -42,8 +45,8 @@ class Build : public Pass {
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
 
-  // Reduce two types using arithemtic, type promotion rules
-  ptr<ir::Type> _type_reduce(ptr<ir::Type> a, ptr<ir::Type> b);
+  // Reduce two types using arithemtic type promotion rules
+  ptr<ir::Type> _type_reduce_a(ptr<ir::Type> a, ptr<ir::Type> b);
 };
 
 }  // namespace back

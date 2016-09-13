@@ -27,6 +27,9 @@ ir::Integer::~Integer() noexcept { }
 ir::Real::~Real() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
+ir::Unary::~Unary() noexcept {}
+ir::Negate::~Negate() noexcept {}
+
 ir::Binary::~Binary() noexcept {}
 ir::Add::~Add() noexcept {}
 ir::Sub::~Sub() noexcept {}

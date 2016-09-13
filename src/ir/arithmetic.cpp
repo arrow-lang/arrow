@@ -6,11 +6,30 @@
 #include "arrow/ir.hpp"
 #include "arrow/generator.hpp"
 
+using arrow::ir::Negate;
 using arrow::ir::Add;
 using arrow::ir::Sub;
 using arrow::ir::Mul;
 using arrow::ir::Div;
 using arrow::ir::Mod;
+
+LLVMValueRef Negate::handle(GContext &ctx) noexcept {
+  if (!_handle) {
+    auto op_handle = Transmute(operand, type).value_of(ctx);
+    if (!op_handle) return nullptr;
+
+    if (type->is_integer()) {
+      _handle = LLVMBuildNeg(ctx.irb, op_handle, "");
+    } else if (type->is_real()) {
+      _handle = LLVMBuildFNeg(ctx.irb, op_handle, "");
+    } else {
+      throw std::runtime_error(fmt::format(
+        "not implemented: negate: {}", operand->type->name));
+    }
+  }
+
+  return _handle;
+}
 
 LLVMValueRef Add::handle(GContext &ctx) noexcept {
   if (!_handle) {

@@ -22,6 +22,38 @@ let b: bool = true;
 let f32: float32 = 1e10;
 let f64: float64 = 320.325;
 
+// Identity ====================================================================
+
+// Identity: Integer
++i32;
++i128;
+
+// Identity: Literal Integer
++3043592358825323;
+
+// Identity: Real
++f64;
+
+// Identity: Literal Real
++3.1253;
++6e+123;
+
+// Negate ====================================================================
+
+// Negate: Integer
+-i32;
+-i128;
+
+// Negate: Literal Integer
+-3043592358825323;
+
+// Negate: Real
+-f64;
+
+// Negate: Literal Real
+-3.1253;
+-6e-120;
+
 // Add =========================================================================
 
 // Add: Integer + Integer
