@@ -131,7 +131,7 @@ def handle_(binary_path, filename, *args, **kwargs):
     expected = get_expected(filename, "stdout")
     test = True
 
-    if len(stdout) > 0:
+    if len(stdout) > 0 and len(expected) > 0:
         test = test and (len(expected) > 0 and expected == stdout)
 
     test = test and process.returncode == 0
@@ -218,7 +218,7 @@ def run(ctx):
     # run_("tokenize-fail", ctx, binary_path)
     run_("parse", ctx, binary_path)
     # run_("parse-fail", ctx, binary_path)
-    # run_("compile", ctx, binary_path)
+    run_("compile", ctx, binary_path)
     # run_("compile-fail", ctx, binary_path)
     # run_("run", ctx, binary_path)
 
