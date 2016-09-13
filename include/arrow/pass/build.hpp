@@ -41,6 +41,9 @@ class Build : public Pass {
   ptr<ir::Value> handle_real(ptr<ast::Real>);
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
+
+  // Reduce two types using arithemtic, type promotion rules
+  ptr<ir::Type> _type_reduce(ptr<ir::Type> a, ptr<ir::Type> b);
 };
 
 }  // namespace back
