@@ -45,6 +45,10 @@ struct Type : Item {
   }
 
   // Test for type categories
+  virtual bool is_boolean() const {
+    return false;
+  }
+
   virtual bool is_integer() const {
     return false;
   }

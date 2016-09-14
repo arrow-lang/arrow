@@ -59,6 +59,7 @@ enum class Type {
   Ampersand,
   Pipe,
   Caret,
+  Tilde,
   ExclamationMark,
   Equals,
   LessThan,

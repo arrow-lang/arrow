@@ -38,6 +38,11 @@ class Build : public Pass {
   ptr<ir::Value> handle_argument(ptr<ast::Argument>);
   ptr<ir::Value> handle_return(ptr<ast::Return>);
 
+  ptr<ir::Value> handle_bit_not(ptr<ast::BitNot>);
+  ptr<ir::Value> handle_bit_and(ptr<ast::BitAnd>);
+  ptr<ir::Value> handle_bit_or(ptr<ast::BitOr>);
+  ptr<ir::Value> handle_bit_xor(ptr<ast::BitXor>);
+
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
@@ -45,8 +50,8 @@ class Build : public Pass {
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
 
-  // Reduce two types using arithemtic type promotion rules
-  ptr<ir::Type> _type_reduce_a(ptr<ir::Type> a, ptr<ir::Type> b);
+  // Reduce two types using type promotion rules
+  ptr<ir::Type> _type_reduce(ptr<ir::Type> a, ptr<ir::Type> b);
 };
 
 }  // namespace back

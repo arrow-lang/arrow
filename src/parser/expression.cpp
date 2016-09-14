@@ -29,7 +29,7 @@ static std::unordered_map<token::Type, unsigned> UNARY = {
   // Identitiy, Negation, Bitwise NOT [2]
   {token::Type::Plus,            2000},
   {token::Type::Minus,           2000},
-  {token::Type::ExclamationMark, 2000},
+  {token::Type::Tilde,           2000},
 
   // Logical NOT [11]
   {token::Type::Not,             1100},
@@ -162,7 +162,7 @@ auto Parser::parse_unary_expression() -> ptr<ast::Expression> {
       result = make<ast::Negate>(sp, operand);
       break;
 
-    case token::Type::ExclamationMark:
+    case token::Type::Tilde:
       result = make<ast::BitNot>(sp, operand);
       break;
 

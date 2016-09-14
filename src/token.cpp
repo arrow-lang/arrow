@@ -107,6 +107,7 @@ std::ostream& arrow::token::operator<<(
   case Type::Ampersand:               return os << "`&`";
   case Type::Pipe:                    return os << "`|`";
   case Type::Caret:                   return os << "`^`";
+  case Type::Tilde:                   return os << "`~`";
   case Type::ExclamationMark:         return os << "`!`";
   case Type::Equals:                  return os << "`=`";
   case Type::LessThan:                return os << "`<`";

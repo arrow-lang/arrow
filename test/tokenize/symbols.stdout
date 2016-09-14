@@ -6,7 +6,7 @@ test/tokenize/symbols.as:6:1-2: symbol: `%`
 test/tokenize/symbols.as:7:1-2: symbol: `&`
 test/tokenize/symbols.as:8:1-2: symbol: `|`
 test/tokenize/symbols.as:9:1-2: symbol: `^`
-test/tokenize/symbols.as:10:1-2: symbol: `!`
+test/tokenize/symbols.as:10:1-2: symbol: `~`
 test/tokenize/symbols.as:11:1-2: symbol: `=`
 test/tokenize/symbols.as:12:1-2: symbol: `<`
 test/tokenize/symbols.as:13:1-2: symbol: `>`

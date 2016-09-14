@@ -53,7 +53,7 @@ static std::map<vector<char32_t>, arrow::token::Type> symbols = {
   {{'&'}, arrow::token::Type::Ampersand        },
   {{'|'}, arrow::token::Type::Pipe             },
   {{'^'}, arrow::token::Type::Caret            },
-  {{'!'}, arrow::token::Type::ExclamationMark  },
+  {{'~'}, arrow::token::Type::Tilde            },
   {{'='}, arrow::token::Type::Equals           },
   {{'<'}, arrow::token::Type::LessThan         },
   {{'>'}, arrow::token::Type::GreaterThan      },

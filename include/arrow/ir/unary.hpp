@@ -32,6 +32,8 @@ struct Unary : Value {
   };
 
 DEF_UNARY(Negate);
+DEF_UNARY(BitNot);
+DEF_UNARY(Not);
 
 #undef DEF_UNARY
 

@@ -1,7 +1,7 @@
 // [ ] Pass: Declare
-// [ ] Unary Operators
+// [.] Unary Operators
 // [ ] Binary Operators: Relational
-// [ ] Binary Operators: Bitwise
+// [x] Binary Operators: Bitwise
 // [ ] Select (if)
 // [ ] Loop (while)
 // [ ] Main!

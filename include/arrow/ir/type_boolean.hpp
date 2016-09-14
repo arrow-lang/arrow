@@ -23,6 +23,10 @@ struct TypeBoolean : Type {
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMInt1Type();
   }
+
+  virtual bool is_boolean() const {
+    return true;
+  }
 };
 
 }  // namespace ir

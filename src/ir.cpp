@@ -39,3 +39,8 @@ ir::Mod::~Mod() noexcept {}
 ir::Assign::~Assign() noexcept {}
 ir::Call::~Call() noexcept {}
 ir::Return::~Return() noexcept {}
+
+ir::BitNot::~BitNot() noexcept {}
+ir::BitAnd::~BitAnd() noexcept {}
+ir::BitOr::~BitOr() noexcept {}
+ir::BitXor::~BitXor() noexcept {}
