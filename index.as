@@ -5,3 +5,7 @@
 // [ ] Select (if)
 // [ ] Loop (while)
 // [ ] Main!
+
+let a: bool = false;
+a = 320;
+a = 3.12;

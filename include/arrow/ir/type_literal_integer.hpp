@@ -15,8 +15,11 @@
 namespace arrow {
 namespace ir {
 
+// TODO(mehcode): Literal integers are meant to default to `int` (
+//   once that type is available)
+
 struct TypeLiteralInteger : Type {
-  TypeLiteralInteger() : Type(nullptr, "_") {
+  TypeLiteralInteger() : Type(nullptr, "int64") {
   }
 
   virtual ~TypeLiteralInteger() noexcept;

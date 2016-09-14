@@ -52,6 +52,9 @@ class Build : public Pass {
 
   // Reduce two types using type coercion rules
   ptr<ir::Type> _type_reduce(ptr<ir::Type> a, ptr<ir::Type> b);
+
+  // Check if type is assignable
+  bool _type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) const;
 };
 
 }  // namespace back
