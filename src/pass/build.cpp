@@ -43,6 +43,10 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::BitOr, bit_or);
     ACCEPT(ast::BitXor, bit_xor);
 
+    ACCEPT(ast::Not, not);
+    ACCEPT(ast::And, and);
+    ACCEPT(ast::Or, or);
+
     Otherwise() {
       Log::get().error("build not implemented for {}", typeid(*x).name());
     }
@@ -92,4 +96,24 @@ auto Build::_type_reduce(ptr<ir::Type> a, ptr<ir::Type> b) -> ptr<ir::Type> {
   }
 
   return nullptr;
+}
+
+// Check if type RHS is assignable to type LHS
+bool Build::_type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) const {
+  return (
+    // Equal
+    (lhs->is_equal(rhs)) ||
+    // Integer & Literal Integer
+    (
+      lhs->is_integer() && rhs->is_integer() &&
+      (lhs->size() == 0 || rhs->size() == 0)
+    ) ||
+    // Real & Literal Real
+    (
+      lhs->is_real() && rhs->is_real() &&
+      (lhs->size() == 0 || rhs->size() == 0)
+    ) ||
+    // Real & Literal Integer
+    (lhs->is_real() && rhs->is_integer() && rhs->size() == 0)
+  );
 }

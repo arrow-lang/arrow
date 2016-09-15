@@ -3,6 +3,7 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
+#include "arrow/log.hpp"
 #include "arrow/pass/build.hpp"
 #include "arrow/pass/type_resolve.hpp"
 
@@ -25,8 +26,18 @@ auto Build::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Value> {
 
   // Define the initializer expression (if present)
   if (x->initializer) {
-    item->initializer = Build(_ctx).run(x->initializer);
+    item->initializer = run(x->initializer);
     if (!item->initializer) return nullptr;
+
+    if (item->type) {
+      // Assignment must be type equivalent
+      if (!_type_is_assignable(item->type, item->initializer->type)) {
+        Log::get().error(x->span, "mismatched types: expected `{}`, found `{}`",
+          item->type->name, item->initializer->type->name);
+
+        return nullptr;
+      }
+    }
   }
 
   // Emplace to scope
