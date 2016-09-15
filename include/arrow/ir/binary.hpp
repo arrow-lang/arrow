@@ -42,6 +42,9 @@ DEF_BINARY(BitAnd);
 DEF_BINARY(BitOr);
 DEF_BINARY(BitXor);
 
+DEF_BINARY(And);
+DEF_BINARY(Or);
+
 DEF_BINARY(Assign);
 
 #undef DEF_BINARY

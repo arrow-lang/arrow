@@ -43,6 +43,10 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::BitOr, bit_or);
     ACCEPT(ast::BitXor, bit_xor);
 
+    ACCEPT(ast::Not, not);
+    ACCEPT(ast::And, and);
+    ACCEPT(ast::Or, or);
+
     Otherwise() {
       Log::get().error("build not implemented for {}", typeid(*x).name());
     }

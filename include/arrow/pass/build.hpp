@@ -43,6 +43,10 @@ class Build : public Pass {
   ptr<ir::Value> handle_bit_or(ptr<ast::BitOr>);
   ptr<ir::Value> handle_bit_xor(ptr<ast::BitXor>);
 
+  ptr<ir::Value> handle_not(ptr<ast::Not>);
+  ptr<ir::Value> handle_and(ptr<ast::And>);
+  ptr<ir::Value> handle_or(ptr<ast::Or>);
+
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
