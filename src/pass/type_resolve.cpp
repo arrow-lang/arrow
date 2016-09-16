@@ -31,6 +31,9 @@ TypeResolve::TypeResolve(GContext& ctx) : Pass(ctx), _types() {
   // Real
   _types.emplace("float32", make<ir::TypeReal>(32));
   _types.emplace("float64", make<ir::TypeReal>(64));
+
+  // String
+  _types.emplace("str", make<ir::TypeString>());
 }
 
 #define ACCEPT(type, name) \

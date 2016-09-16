@@ -20,11 +20,13 @@ ir::TypeReal::~TypeReal() noexcept { }
 ir::TypeLiteralInteger::~TypeLiteralInteger() noexcept { }
 ir::TypeLiteralReal::~TypeLiteralReal() noexcept { }
 ir::TypeFunction::~TypeFunction() noexcept { }
+ir::TypeString::~TypeString() noexcept { }
 
 ir::Value::~Value() noexcept { }
 ir::Transmute::~Transmute() noexcept { }
 ir::Integer::~Integer() noexcept { }
 ir::Real::~Real() noexcept { }
+ir::String::~String() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
 ir::Unary::~Unary() noexcept {}

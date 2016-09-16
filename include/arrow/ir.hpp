@@ -20,6 +20,7 @@
 #include "arrow/ir/type_real.hpp"
 #include "arrow/ir/type_literal_integer.hpp"
 #include "arrow/ir/type_literal_real.hpp"
+#include "arrow/ir/type_string.hpp"
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/transmute.hpp"
@@ -27,6 +28,7 @@
 #include "arrow/ir/real.hpp"
 #include "arrow/ir/boolean.hpp"
 #include "arrow/ir/binary.hpp"
+#include "arrow/ir/string.hpp"
 #include "arrow/ir/unary.hpp"
 #include "arrow/ir/call.hpp"
 #include "arrow/ir/return.hpp"

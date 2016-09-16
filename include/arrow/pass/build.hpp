@@ -58,6 +58,7 @@ class Build : public Pass {
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
   ptr<ir::Value> handle_real(ptr<ast::Real>);
+  ptr<ir::Value> handle_str(ptr<ast::String>);
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
 };
