@@ -1,4 +1,4 @@
-extern "C" def printf(s: str, ...) -> int64;
+extern def printf(s: str, ...);
 
 let b0: bool = false;
 let b1: bool = true;
@@ -8,7 +8,7 @@ let b: bool = b1 and b0;
 let c: bool = b0 or b1;
 let d: bool = b1 or b0;
 
-printf("a = %b\n", a);
-printf("b = %b\n", b);
-printf("c = %b\n", c);
-printf("d = %b\n", d);
+printf("a = %d\n", a);
+printf("b = %d\n", b);
+printf("c = %d\n", c);
+printf("d = %d\n", d);

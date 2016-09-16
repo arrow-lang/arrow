@@ -7,6 +7,7 @@
 #include "arrow/generator.hpp"
 
 using arrow::ir::TypeFunction;
+using arrow::ir::TypeExternFunction;
 
 LLVMTypeRef TypeFunction::handle(GContext& ctx) noexcept {
   // Nil result type => void
@@ -23,6 +24,23 @@ LLVMTypeRef TypeFunction::handle(GContext& ctx) noexcept {
     result_type_handle,
     param_type_handles.data(),
     param_type_handles.size(),
-    false
-  );
+    false);
+}
+
+LLVMTypeRef TypeExternFunction::handle(GContext& ctx) noexcept {
+  // Nil result type => void
+  LLVMTypeRef result_type_handle = LLVMVoidType();
+  if (result) result_type_handle = result->handle(ctx);
+
+  std::vector<LLVMTypeRef> param_type_handles;
+  param_type_handles.reserve(parameters.size());
+  for (auto& param : parameters) {
+    param_type_handles.push_back(param->handle(ctx));
+  }
+
+  return LLVMFunctionType(
+    result_type_handle,
+    param_type_handles.data(),
+    param_type_handles.size(),
+    is_varidac);
 }

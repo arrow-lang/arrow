@@ -27,6 +27,9 @@ struct Module : Item {
 
   // Statements in the module (initializer)
   std::vector<ptr<Value>> statements;
+
+  // Reference to LLVM Initializer
+  LLVMValueRef initializer;
 };
 
 }  // namespace ir

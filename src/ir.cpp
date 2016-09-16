@@ -12,6 +12,7 @@ ir::Item::~Item() noexcept { }
 ir::Module::~Module() noexcept { }
 ir::Variable::~Variable() noexcept { }
 ir::Function::~Function() noexcept { }
+ir::ExternFunction::~ExternFunction() noexcept { }
 
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
@@ -20,6 +21,7 @@ ir::TypeReal::~TypeReal() noexcept { }
 ir::TypeLiteralInteger::~TypeLiteralInteger() noexcept { }
 ir::TypeLiteralReal::~TypeLiteralReal() noexcept { }
 ir::TypeFunction::~TypeFunction() noexcept { }
+ir::TypeExternFunction::~TypeExternFunction() noexcept { }
 ir::TypeString::~TypeString() noexcept { }
 
 ir::Value::~Value() noexcept { }

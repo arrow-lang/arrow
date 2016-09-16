@@ -135,6 +135,8 @@ std::ostream& arrow::token::operator<<(
   case Type::ExclamationMark_Equals:  return os << "`!=`";
   case Type::GreaterThan_Equals:      return os << "`>=`";
   case Type::LessThan_Equals:         return os << "`<=`";
+
+  case Type::Ellipsis:                return os << "`...`";
   }
 
   return os << "?";

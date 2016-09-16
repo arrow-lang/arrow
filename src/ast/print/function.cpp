@@ -36,6 +36,25 @@ void Print::print_function(ptr<Function> n) {
   });
 }
 
+void Print::print_extern_function(ptr<ExternFunction> n) {
+  handle("ExternFunction", n, [&, this] {
+    _w.Key("name");
+    _w.String(n->name.c_str());
+
+    _w.Key("result_type");
+    print(n->result_type);
+
+    _w.Key("parameters");
+    _w.StartArray();
+
+    for (auto& param : n->parameters) {
+      print(param);
+    }
+
+    _w.EndArray();
+  });
+}
+
 void Print::print_parameter(ptr<Parameter> n) {
   handle("Parameter", n, [&, this] {
     _w.Key("name");

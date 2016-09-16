@@ -67,6 +67,7 @@ class Print {
   void print_type_name(ptr<TypeName>);
 
   void print_function(ptr<Function>);
+  void print_extern_function(ptr<ExternFunction>);
   void print_parameter(ptr<Parameter>);
 
   void print_call(ptr<Call>);

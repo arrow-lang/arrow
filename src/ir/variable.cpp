@@ -16,23 +16,26 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
     LLVMValueRef initializer_handle = nullptr;
     if (initializer) {
       initializer_handle = Transmute(initializer, type).value_of(ctx);
-    } else if (_is_global) {
-      initializer_handle = LLVMConstNull(type_handle);
     }
 
     if (_is_global) {
       // Add global variable to module
       _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
 
+      // Set constant initializer
+      LLVMSetInitializer(_handle, LLVMConstNull(type_handle));
+
       // Set linkage to private
       LLVMSetLinkage(_handle, LLVMLinkerPrivateLinkage);
 
-      if (LLVMIsConstant(initializer_handle)) {
-        // Set initializer
-        LLVMSetInitializer(_handle, initializer_handle);
-      } else {
-        // Set store
-        LLVMBuildStore(ctx.irb, initializer_handle, _handle);
+      if (initializer_handle) {
+        if (LLVMIsConstant(initializer_handle)) {
+          // Set initializer
+          LLVMSetInitializer(_handle, initializer_handle);
+        } else {
+          // Set store
+          LLVMBuildStore(ctx.irb, initializer_handle, _handle);
+        }
       }
     } else {
       // Allocate space on the stack for the local variable

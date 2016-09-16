@@ -54,6 +54,27 @@ struct Function : Statement {
   std::vector<ptr<Statement>> statements;
 };
 
+struct ExternFunction : Statement {
+  ExternFunction(Span span, std::string name)
+  : Statement(span), name(name), result_type(nullptr), parameters(),
+    is_varidac(false) {
+  }
+
+  virtual ~ExternFunction() noexcept;
+
+  /// Name of the function.
+  std::string name;
+
+  /// Result type annotation of the function (required).
+  ptr<Type> result_type;
+
+  /// Parameters.
+  std::vector<ptr<Parameter>> parameters;
+
+  /// Allows additional, varidac parameters
+  bool is_varidac;
+};
+
 }  // namespace ast
 }  // namespace arrow
 

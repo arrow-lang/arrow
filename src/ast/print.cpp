@@ -91,6 +91,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(TypeName, type_name);
 
     ACCEPT(Function, function);
+    ACCEPT(ExternFunction, extern_function);
     ACCEPT(Parameter, parameter);
     ACCEPT(Call, call);
     ACCEPT(Argument, argument);

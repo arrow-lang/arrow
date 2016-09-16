@@ -95,6 +95,7 @@ class Parser {
   ptr<ast::TypeName> parse_type_name();
 
   ptr<ast::Function> parse_function();
+  ptr<ast::ExternFunction> parse_extern_function();
   ptr<ast::Parameter> parse_parameter();
 
   ptr<ast::Call> parse_call(ptr<ast::Expression>);

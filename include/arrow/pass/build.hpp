@@ -24,6 +24,7 @@ class Build : public Pass {
   ptr<ir::Value> handle_module(ptr<ast::Module>);
   ptr<ir::Value> handle_variable(ptr<ast::Variable>);
   ptr<ir::Value> handle_function(ptr<ast::Function>);
+  ptr<ir::Value> handle_extern_function(ptr<ast::ExternFunction>);
 
   ptr<ir::Value> handle_identity(ptr<ast::Identity>);
   ptr<ir::Value> handle_negate(ptr<ast::Negate>);

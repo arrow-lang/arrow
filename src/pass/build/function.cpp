@@ -48,3 +48,30 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
 
   return item;
 }
+
+auto Build::handle_extern_function(ptr<ast::ExternFunction> x) -> ptr<ir::Value> {
+  // Make: Extern Function Type
+  auto type = make<ir::TypeExternFunction>(x, x->is_varidac);
+
+  // Resolve: Result type
+  if (x->result_type) {
+    type->result = TypeResolve(_ctx).run(x->result_type);
+    if (!type->result) return nullptr;
+  }
+
+  // Resolve: Parameter types
+  for (auto& param : x->parameters) {
+    auto param_type = TypeResolve(_ctx).run(param->type);
+    if (!param_type) return nullptr;
+
+    type->parameters.push_back(param_type);
+  }
+
+  // Make: Extern Function
+  auto item = make<ir::ExternFunction>(x, _ctx.modules.back(), x->name, type);
+
+  // Scope: emplace
+  _ctx.scope_b.emplace(item->name, item);
+
+  return item;
+}

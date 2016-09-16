@@ -88,6 +88,9 @@ enum class Type {
   ExclamationMark_Equals,
   GreaterThan_Equals,
   LessThan_Equals,
+
+  // Symbols: 3-character
+  Ellipsis,
 };
 
 extern std::ostream &operator<<(std::ostream &os, const Type &type);

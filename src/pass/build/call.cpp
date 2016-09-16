@@ -14,16 +14,25 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   if (!operand) return nullptr;
 
   // Assert: Operand is indeed a function
-  auto type = cast<ir::TypeFunction>(operand->type);
-  if (!type) {
+  if (!operand->type->is_function()) {
     Log::get().error(
       x->span, "expected function, found `{}`", operand->type->name);
 
     return nullptr;
   }
 
+  // Get result type (of call)
+  ptr<ir::Type> result_type = nullptr;
+  if (isa<ir::TypeFunction>(operand->type)) {
+    result_type = cast<ir::TypeFunction>(operand->type)->result;
+  } else if (isa<ir::TypeExternFunction>(operand->type)) {
+    result_type = cast<ir::TypeExternFunction>(operand->type)->result;
+  } else {
+    return nullptr;
+  }
+
   // Make: Call
-  auto item = make<ir::Call>(x, operand, type->result);
+  auto item = make<ir::Call>(x, operand, result_type);
 
   // Build: Arguments
   for (auto& argument : x->arguments) {

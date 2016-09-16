@@ -10,10 +10,10 @@
 #include "arrow/generator.hpp"
 
 using arrow::ir::Function;
+using arrow::ir::ExternFunction;
 
 LLVMValueRef Function::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    // Add global variable to module
     auto type_handle = type->handle(ctx);
     _handle = LLVMAddFunction(ctx.mod, name_mangle().c_str(), type_handle);
 
@@ -77,4 +77,17 @@ std::string Function::name_mangle() const {
   }
 
   return stream.str();
+}
+
+LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
+  if (!_handle) {
+    auto type_handle = type->handle(ctx);
+    _handle = LLVMAddFunction(ctx.mod, name.c_str(), type_handle);
+  }
+
+  return _handle;
+}
+
+void ExternFunction::generate(GContext& ctx) {
+  // Do nothing [...]
 }

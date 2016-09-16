@@ -56,6 +56,10 @@ struct Type : Item {
   virtual bool is_real() const {
     return false;
   }
+
+  virtual bool is_function() const {
+    return false;
+  }
 };
 
 }  // namespace ir

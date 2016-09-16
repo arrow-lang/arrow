@@ -40,6 +40,25 @@ struct Function : Item, Value {
   LLVMValueRef _handle = nullptr;
 };
 
+struct ExternFunction : Item, Value {
+  ExternFunction(ptr<ast::ExternFunction> source, ptr<Module> module, std::string name, ptr<TypeExternFunction> type)
+    : Item(source, name), Value(type), _module(module) {
+  }
+
+  virtual ~ExternFunction() noexcept;
+
+  virtual LLVMValueRef handle(GContext&) noexcept;
+
+  virtual void generate(GContext&);
+
+ private:
+  // Module (container)
+  ptr<Module> _module;
+
+  // Slot
+  LLVMValueRef _handle = nullptr;
+};
+
 }  // namespace ir
 }  // namespace arrow
 

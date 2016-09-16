@@ -96,7 +96,12 @@ Generator& Generator::run(ptr<ast::Module> module) {
   // auto init = LLVMGetNamedFunction(_ctx.mod, "#init");
   // LLVMBuildCall(_ctx.irb, init, nullptr, 0, "");
 
-  // TODO(mehcode): Call each module initializer
+  // Call each module initializer (in reverse order for now)
+  // TODO(mehcode): Resolve order
+  for (auto m = _ctx.modules.rbegin(); m < _ctx.modules.rend(); ++m) {
+    LLVMBuildCall(_ctx.irb, (*m)->initializer, nullptr, 0, "");
+  }
+
   // TODO(mehcode): Call the top-level module main function (if present)
 
   // Terminate main

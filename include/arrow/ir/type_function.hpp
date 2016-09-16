@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "arrow/ir/type.hpp"
 
@@ -16,7 +17,7 @@ namespace ir {
 
 struct TypeFunction : Type {
   // TODO(mehcode): Name of function type
-  TypeFunction(ptr<ast::Function> source)
+  explicit TypeFunction(ptr<ast::Function> source)
     : Type(source, "<?>") {
   }
 
@@ -29,11 +30,44 @@ struct TypeFunction : Type {
     return false;
   }
 
+  virtual bool is_function() const {
+    return true;
+  }
+
   // Result type
   ptr<Type> result;
 
   // Sequence of parameter types
   std::vector<ptr<Type>> parameters;
+};
+
+struct TypeExternFunction : Type {
+  // TODO(mehcode): Name of function type
+  explicit TypeExternFunction(ptr<ast::ExternFunction> source, bool is_varidac)
+    : Type(source, "extern <?>"), is_varidac(is_varidac) {
+  }
+
+  virtual ~TypeExternFunction() noexcept;
+
+  virtual LLVMTypeRef handle(GContext&) noexcept;
+
+  virtual bool is_equal(ptr<Type>) const {
+    // Functions cannot be typed yet
+    return false;
+  }
+
+  virtual bool is_function() const {
+    return true;
+  }
+
+  // Result type
+  ptr<Type> result;
+
+  // Sequence of parameter types
+  std::vector<ptr<Type>> parameters;
+
+  // Varidac
+  bool is_varidac;
 };
 
 }  // namespace ir

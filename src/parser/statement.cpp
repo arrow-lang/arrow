@@ -16,6 +16,10 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Def:
     return parse_function();
 
+  case token::Type::Extern:
+    // TODO(mehcode): parse_extern
+    return parse_extern_function();
+
   case token::Type::Return:
     return parse_return();
 

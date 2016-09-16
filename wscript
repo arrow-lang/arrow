@@ -49,6 +49,9 @@ def configure(ctx):
     )
 
     if ctx.env["CXX_NAME"] in ("gcc", "clang"):
+        # Add -lclang (can't seem to get it working in the check system)
+        ctx.env.append_unique("LINKFLAGS", "-lclang")
+
         ctx.env.append_unique("CXXFLAGS", "-std=gnu++1y")
 
         if ctx.options.release:
@@ -95,7 +98,7 @@ def build(ctx):
                 ],
                 target="arrow",
                 use=["BOOST", "LLVM", "PTHREAD", "DL", "TINFO", "Z", "GMP",
-                     "FFI", "fmt"])
+                     "FFI", "fmt", "CLANG"])
 
 
 def test(ctx):
