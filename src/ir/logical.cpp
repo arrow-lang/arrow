@@ -35,6 +35,11 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   LLVMPositionBuilderAtEnd(ctx.irb, next);
   auto rhs_handle = rhs->value_of(ctx);
   if (!rhs_handle) return nullptr;
+  if (is_and) {
+    rhs_handle = LLVMBuildAnd(ctx.irb, lhs_handle, rhs_handle, "");
+  } else {
+    rhs_handle = LLVMBuildOr(ctx.irb, lhs_handle, rhs_handle, "");
+  }
   next = LLVMGetInsertBlock(ctx.irb);
 
   // Close
