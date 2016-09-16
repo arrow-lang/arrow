@@ -3,13 +3,12 @@
 -Ivendor/mach7/code
 -Ivendor/rapidjson/include
 -Ivendor/utfcpp/source
--D_DEBUG 
+-D_DEBUG
 -D_GNU_SOURCE
 -D__STDC_CONSTANT_MACROS
 -D__STDC_FORMAT_MACROS
 -D__STDC_LIMIT_MACROS
 -std=c++11
 -fvisibility-inlines-hidden
--fno-exceptions
 -fno-common
 -Wcast-qual

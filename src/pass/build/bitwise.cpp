@@ -28,7 +28,7 @@ auto Build::handle_bit_and(ptr<ast::BitAnd> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_boolean())) {
     Log::get().error(x->span,
       "unsupported operand types for `&`: `{}` and `{}`",
@@ -45,7 +45,7 @@ auto Build::handle_bit_or(ptr<ast::BitOr> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_boolean())) {
     Log::get().error(x->span,
       "unsupported operand types for `|`: `{}` and `{}`",
@@ -62,7 +62,7 @@ auto Build::handle_bit_xor(ptr<ast::BitXor> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_boolean())) {
     Log::get().error(x->span,
       "unsupported operand types for `^`: `{}` and `{}`",

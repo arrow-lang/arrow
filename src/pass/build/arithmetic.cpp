@@ -44,7 +44,7 @@ auto Build::handle_add(ptr<ast::Add> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_real())) {
     // TODO: <pointer> + <integer>
     // TODO: <integer> + <pointer>
@@ -65,7 +65,7 @@ auto Build::handle_sub(ptr<ast::Sub> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_real())) {
     // TODO: <pointer> - <integer>
     // TODO: <integer> - <pointer>
@@ -87,7 +87,7 @@ auto Build::handle_mul(ptr<ast::Mul> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_real())) {
     Log::get().error(x->span,
       "unsupported operand types for `*`: `{}` and `{}`",
@@ -105,7 +105,7 @@ auto Build::handle_div(ptr<ast::Div> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_real())) {
     Log::get().error(x->span,
       "unsupported operand types for `/`: `{}` and `{}`",
@@ -123,7 +123,7 @@ auto Build::handle_mod(ptr<ast::Mod> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type || !(type->is_integer() || type->is_real())) {
     Log::get().error(x->span,
       "unsupported operand types for `%`: `{}` and `{}`",

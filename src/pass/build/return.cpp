@@ -25,7 +25,7 @@ auto Build::handle_return(ptr<ast::Return> x) -> ptr<ir::Value> {
 
   // Test: Type equality
   auto res_t = cast<ir::TypeFunction>(_ctx.function_s.top()->type)->result;
-  if (res_t && operand && !_type_is_assignable(res_t, operand->type)) {
+  if (res_t && operand && !ir::type_is_assignable(res_t, operand->type)) {
     Log::get().error(x->span, "mismatched types: expected `{}`, found `{}`",
       res_t->name, operand->type->name);
 

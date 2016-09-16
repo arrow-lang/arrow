@@ -13,7 +13,7 @@ auto Build::handle_eq(ptr<ast::EqualTo> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `==`: `{}` and `{}`",
@@ -30,7 +30,7 @@ auto Build::handle_ne(ptr<ast::NotEqualTo> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `!=`: `{}` and `{}`",
@@ -47,7 +47,7 @@ auto Build::handle_lt(ptr<ast::LessThan> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `<`: `{}` and `{}`",
@@ -64,7 +64,7 @@ auto Build::handle_le(ptr<ast::LessThanOrEqualTo> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `<=`: `{}` and `{}`",
@@ -81,7 +81,7 @@ auto Build::handle_gt(ptr<ast::GreaterThan> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `>`: `{}` and `{}`",
@@ -98,7 +98,7 @@ auto Build::handle_ge(ptr<ast::GreaterThanOrEqualTo> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  auto type = _type_reduce(lhs->type, rhs->type);
+  auto type = ir::type_reduce(lhs->type, rhs->type);
   if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `>=`: `{}` and `{}`",

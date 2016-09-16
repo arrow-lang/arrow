@@ -14,7 +14,7 @@ auto Build::handle_assign(ptr<ast::Assign> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Assignment must be type equivalent
-  if (!_type_is_assignable(lhs->type, rhs->type)) {
+  if (!ir::type_is_assignable(lhs->type, rhs->type)) {
     Log::get().error(x->span, "mismatched types: expected `{}`, found `{}`",
       lhs->type->name, rhs->type->name);
 

@@ -33,4 +33,16 @@
 
 #include "arrow/ir/scope.hpp"
 
+namespace arrow {
+namespace ir {
+
+// Reduce 2 types following simple rules
+extern ptr<Type> type_reduce(ptr<Type> a, ptr<Type> b);
+
+// Check if type RHS is assignable to type LHS
+extern bool type_is_assignable(ptr<Type> lhs, ptr<Type> rhs);
+
+}  // namespace ir
+}  // namespace arrow
+
 #endif  // ARROW_IR_H

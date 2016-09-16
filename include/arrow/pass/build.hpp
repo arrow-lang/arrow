@@ -60,12 +60,6 @@ class Build : public Pass {
   ptr<ir::Value> handle_real(ptr<ast::Real>);
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
-
-  // Reduce two types using type coercion rules
-  ptr<ir::Type> _type_reduce(ptr<ir::Type> a, ptr<ir::Type> b);
-
-  // Check if type is assignable
-  bool _type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) const;
 };
 
 }  // namespace back
