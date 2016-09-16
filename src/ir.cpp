@@ -48,3 +48,10 @@ ir::BitXor::~BitXor() noexcept {}
 ir::Not::~Not() noexcept {}
 ir::And::~And() noexcept {}
 ir::Or::~Or() noexcept {}
+
+ir::EqualTo::~EqualTo() noexcept {}
+ir::NotEqualTo::~NotEqualTo() noexcept {}
+ir::LessThan::~LessThan() noexcept {}
+ir::LessThanOrEqualTo::~LessThanOrEqualTo() noexcept {}
+ir::GreaterThan::~GreaterThan() noexcept {}
+ir::GreaterThanOrEqualTo::~GreaterThanOrEqualTo() noexcept {}

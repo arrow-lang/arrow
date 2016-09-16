@@ -46,7 +46,7 @@ auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
 
   if (!(lhs->type->is_boolean() && rhs->type->is_boolean())) {
     Log::get().error(x->span,
-      "unsupported operand types for `and`: `{}` and `{}`",
+      "unsupported operand types for `or`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
 
     return nullptr;

@@ -27,8 +27,13 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
       // Set linkage to private
       LLVMSetLinkage(_handle, LLVMLinkerPrivateLinkage);
 
-      // Set initializer
-      LLVMSetInitializer(_handle, initializer_handle);
+      if (LLVMIsConstant(initializer_handle)) {
+        // Set initializer
+        LLVMSetInitializer(_handle, initializer_handle);
+      } else {
+        // Set store
+        LLVMBuildStore(ctx.irb, initializer_handle, _handle);
+      }
     } else {
       // Allocate space on the stack for the local variable
       _handle = LLVMBuildAlloca(ctx.irb, type_handle, name.c_str());

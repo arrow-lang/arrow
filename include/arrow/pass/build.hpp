@@ -47,6 +47,13 @@ class Build : public Pass {
   ptr<ir::Value> handle_and(ptr<ast::And>);
   ptr<ir::Value> handle_or(ptr<ast::Or>);
 
+  ptr<ir::Value> handle_eq(ptr<ast::EqualTo>);
+  ptr<ir::Value> handle_ne(ptr<ast::NotEqualTo>);
+  ptr<ir::Value> handle_lt(ptr<ast::LessThan>);
+  ptr<ir::Value> handle_le(ptr<ast::LessThanOrEqualTo>);
+  ptr<ir::Value> handle_gt(ptr<ast::GreaterThan>);
+  ptr<ir::Value> handle_ge(ptr<ast::GreaterThanOrEqualTo>);
+
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);

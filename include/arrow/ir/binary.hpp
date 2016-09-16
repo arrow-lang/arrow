@@ -45,6 +45,13 @@ DEF_BINARY(BitXor);
 DEF_BINARY(And);
 DEF_BINARY(Or);
 
+DEF_BINARY(EqualTo);
+DEF_BINARY(NotEqualTo);
+DEF_BINARY(LessThan);
+DEF_BINARY(LessThanOrEqualTo);
+DEF_BINARY(GreaterThan);
+DEF_BINARY(GreaterThanOrEqualTo);
+
 DEF_BINARY(Assign);
 
 #undef DEF_BINARY
