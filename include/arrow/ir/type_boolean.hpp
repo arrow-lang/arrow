@@ -24,6 +24,10 @@ struct TypeBoolean : Type {
     return LLVMInt1Type();
   }
 
+  virtual unsigned size() const {
+    return 1;
+  }
+
   virtual bool is_boolean() const {
     return true;
   }
