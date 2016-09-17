@@ -28,8 +28,7 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
       _handle = LLVMBuildFPCast(ctx.irb, value_handle, dst_handle, "");
     } else if (dst->is_integer() && (src->is_integer() || src->is_boolean())) {
       // Integer -> Integer
-      // TODO: Declare signed or unsigned
-      if (src->is_signed()) {
+      if (src->is_signed() && src->size() > 0) {
         if (src->size() > dst->size()) {
           _handle = LLVMBuildTrunc(ctx.irb, value_handle, dst_handle, "");
         } else {

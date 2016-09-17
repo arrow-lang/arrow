@@ -78,7 +78,7 @@ auto Build::handle_sub(ptr<ast::Sub> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Sub>(lhs->type, lhs, rhs);
+  return make<ir::Sub>(type, lhs, rhs);
 }
 
 auto Build::handle_mul(ptr<ast::Mul> x) -> ptr<ir::Value> {
@@ -96,7 +96,7 @@ auto Build::handle_mul(ptr<ast::Mul> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Mul>(lhs->type, lhs, rhs);
+  return make<ir::Mul>(type, lhs, rhs);
 }
 
 auto Build::handle_div(ptr<ast::Div> x) -> ptr<ir::Value> {
@@ -114,7 +114,7 @@ auto Build::handle_div(ptr<ast::Div> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Div>(lhs->type, lhs, rhs);
+  return make<ir::Div>(type, lhs, rhs);
 }
 
 auto Build::handle_mod(ptr<ast::Mod> x) -> ptr<ir::Value> {
@@ -132,5 +132,5 @@ auto Build::handle_mod(ptr<ast::Mod> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Mod>(lhs->type, lhs, rhs);
+  return make<ir::Mod>(type, lhs, rhs);
 }
