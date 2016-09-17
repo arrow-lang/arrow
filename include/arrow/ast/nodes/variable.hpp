@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/statement.hpp"
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/expression.hpp"
@@ -23,9 +24,11 @@ struct Variable : Statement {
     Span span,
     std::string name,
     ptr<Type> type,
-    ptr<Expression> initializer
+    ptr<Expression> initializer,
+    bool is_mutable
   )
-  : Statement(span), name(name), type(type), initializer(initializer) {
+  : Statement(span), name(name), type(type), initializer(initializer),
+    is_mutable(is_mutable) {
   }
 
   /// Name of the variable.
@@ -36,6 +39,9 @@ struct Variable : Statement {
 
   /// Initializer expression for the variable (optional).
   ptr<Expression> initializer;
+
+  /// Mutable
+  bool is_mutable;
 };
 
 }  // namespace ast

@@ -13,6 +13,13 @@ auto Parser::parse_variable() -> ptr<ast::Variable> {
   auto initial_tok = expect(token::Type::Let);
   if (!initial_tok) return nullptr;
 
+  // Check for `mutable`
+  bool is_mutable = false;
+  if (_t.peek()->type == token::Type::Mutable) {
+    _t.pop();
+    is_mutable = true;
+  }
+
   // Expect: identifier
   auto id = expect<token::Identifier>(token::Type::Identifier);
   if (!id) return nullptr;
@@ -42,5 +49,6 @@ auto Parser::parse_variable() -> ptr<ast::Variable> {
   if (!last_tok) return nullptr;
 
   return make<ast::Variable>(
-    initial_tok->span.extend(last_tok->span), id->text, type, initializer);
+    initial_tok->span.extend(last_tok->span), id->text, type, initializer,
+    is_mutable);
 }
