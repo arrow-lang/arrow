@@ -26,10 +26,12 @@ static std::vector<TKey> keys_of(std::unordered_map<TKey, TValue> map) {
 }
 
 static std::unordered_map<token::Type, unsigned> UNARY = {
-  // Identitiy, Negation, Bitwise NOT [2]
+  // Identitiy, Negation, Bitwise NOT, Address Of, Indirect [2]
   {token::Type::Plus,            2000},
   {token::Type::Minus,           2000},
   {token::Type::Tilde,           2000},
+  {token::Type::Ampersand,       2000},
+  {token::Type::Asterisk,        2000},
 
   // Logical NOT [11]
   {token::Type::Not,             1100},
@@ -168,6 +170,14 @@ auto Parser::parse_unary_expression() -> ptr<ast::Expression> {
 
     case token::Type::Not:
       result = make<ast::Not>(sp, operand);
+      break;
+
+    case token::Type::Asterisk:
+      result = make<ast::Indirect>(sp, operand);
+      break;
+
+    case token::Type::Ampersand:
+      result = make<ast::AddressOf>(sp, operand);
       break;
 
     default:

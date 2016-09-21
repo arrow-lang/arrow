@@ -32,6 +32,7 @@
 #include "arrow/ir/binary.hpp"
 #include "arrow/ir/string.hpp"
 #include "arrow/ir/unary.hpp"
+#include "arrow/ir/pointer.hpp"
 #include "arrow/ir/call.hpp"
 #include "arrow/ir/return.hpp"
 

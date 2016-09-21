@@ -43,6 +43,9 @@ IMPL(BitOr)
 IMPL(BitXor)
 IMPL(BitAnd)
 
+IMPL(Indirect)
+IMPL(AddressOf)
+
 IMPL(EqualTo)
 IMPL(NotEqualTo)
 IMPL(GreaterThanOrEqualTo)

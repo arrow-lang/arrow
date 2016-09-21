@@ -70,6 +70,8 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Negate, negate);
     ACCEPT(BitNot, bit_not);
     ACCEPT(Not, not);
+    ACCEPT(Indirect, indirect);
+    ACCEPT(AddressOf, address_of);
 
     ACCEPT(Mul, mul);
     ACCEPT(Div, div);

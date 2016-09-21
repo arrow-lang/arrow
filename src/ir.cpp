@@ -34,6 +34,9 @@ ir::Real::~Real() noexcept { }
 ir::String::~String() noexcept { }
 ir::Boolean::~Boolean() noexcept { }
 
+ir::AddressOf::~AddressOf() noexcept {}
+ir::Indirect::~Indirect() noexcept {}
+
 ir::Unary::~Unary() noexcept {}
 ir::Negate::~Negate() noexcept {}
 

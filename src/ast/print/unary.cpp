@@ -29,3 +29,11 @@ void Print::print_bit_not(ptr<BitNot> n) {
 void Print::print_not(ptr<Not> n) {
   handle_unary("Not", n);
 }
+
+void Print::print_indirect(ptr<Indirect> n) {
+  handle_unary("Indirect", n);
+}
+
+void Print::print_address_of(ptr<AddressOf> n) {
+  handle_unary("AddressOf", n);
+}

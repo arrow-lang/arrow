@@ -46,6 +46,8 @@ class Print {
   void print_negate(ptr<Negate>);
   void print_bit_not(ptr<BitNot>);
   void print_not(ptr<Not>);
+  void print_indirect(ptr<Indirect>);
+  void print_address_of(ptr<AddressOf>);
 
   void print_mul(ptr<Mul> n);
   void print_div(ptr<Div> n);

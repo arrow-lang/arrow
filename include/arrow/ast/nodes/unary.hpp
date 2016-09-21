@@ -35,6 +35,9 @@ DEF_UNARY(BitNot);
 
 DEF_UNARY(Not);
 
+DEF_UNARY(Indirect);
+DEF_UNARY(AddressOf);
+
 #undef DEF_UNARY
 
 }  // namespace ast
