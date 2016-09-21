@@ -21,6 +21,8 @@
 #include "arrow/ir/type_literal_integer.hpp"
 #include "arrow/ir/type_literal_real.hpp"
 #include "arrow/ir/type_string.hpp"
+#include "arrow/ir/type_pointer.hpp"
+#include "arrow/ir/type_alias.hpp"
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/transmute.hpp"
@@ -43,6 +45,9 @@ extern ptr<Type> type_reduce(ptr<Type> a, ptr<Type> b);
 
 // Check if type RHS is assignable to type LHS
 extern bool type_is_assignable(ptr<Type> lhs, ptr<Type> rhs);
+
+// Get the canonical type
+extern ptr<Type> type_canonical(ptr<Type> type);
 
 }  // namespace ir
 }  // namespace arrow

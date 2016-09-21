@@ -19,13 +19,12 @@ class TypeResolve : public Pass {
  public:
   TypeResolve(GContext& ctx);
 
-  ptr<ir::Type> run(ptr<ast::Type>);
+  ptr<ir::Type> run(ptr<ast::Node>);
 
  private:
   ptr<ir::Type> handle_type_name(ptr<ast::TypeName>);
-
-  // Built-in types
-  std::unordered_map<std::string, ptr<ir::Type>> _types;
+  ptr<ir::Type> handle_id(ptr<ast::Identifier>);
+  ptr<ir::TypePointer> handle_type_pointer(ptr<ast::TypePointer>);
 };
 
 }  // namespace back

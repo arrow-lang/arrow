@@ -4,14 +4,32 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_resolve.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
+using arrow::pass::TypeResolve;
 
 auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   // Build: Operand
   auto operand = run(x->operand);
-  if (!operand) return nullptr;
+  if (!operand) {
+    // Is this a type?
+    auto operand_t = TypeResolve(_ctx).run(x->operand);
+    if (!operand_t) return nullptr;
+
+    // Yes; assert we have a single argument
+    if (x->arguments.size() != 1) {
+      // TODO(mehcode): pluralize
+      Log::get().error(
+        x->span, "expected 1 parameter, found {} parameter(s)",
+        x->arguments.size());
+
+      return nullptr;
+    }
+
+    return handle_conversion(x->arguments[0]->value, operand_t);
+  }
 
   // Assert: Operand is indeed a function
   if (!operand->type->is_function()) {

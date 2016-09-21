@@ -16,9 +16,28 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Def:
     return parse_function();
 
-  case token::Type::Extern:
-    // TODO(mehcode): parse_extern
-    return parse_extern_function();
+  case token::Type::Octothorpe:
+    return parse_preprocessor();
+
+  case token::Type::Import:
+    return parse_import();
+
+  case token::Type::Type:
+    return parse_type_alias();
+
+  case token::Type::Extern: {
+    unsigned peek = 1;
+    if (_t.peek(peek)->type == token::Type::String) peek++;
+    if (_t.peek(peek)->type == token::Type::Def) {
+      return parse_extern_function();
+    }
+
+    // Failed to match extern ..
+    _t.pop();
+    if (_t.peek()->type == token::Type::String) _t.pop();
+    expect({token::Type::Def});
+    return nullptr;
+  }
 
   case token::Type::Return:
     return parse_return();

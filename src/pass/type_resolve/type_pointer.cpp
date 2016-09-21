@@ -8,6 +8,9 @@
 
 using arrow::pass::TypeResolve;
 
-auto TypeResolve::handle_type_name(ptr<ast::TypeName> x) -> ptr<ir::Type> {
-  return handle_id(make<ast::Identifier>(x->span, x->name));
+auto TypeResolve::handle_type_pointer(ptr<ast::TypePointer> x) -> ptr<ir::TypePointer> {
+  auto element_t = run(x->element);
+  if (!element_t) return nullptr;
+
+  return make<ir::TypePointer>(element_t);
 }

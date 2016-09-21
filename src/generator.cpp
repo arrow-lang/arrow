@@ -55,6 +55,31 @@ void Generator::initialize() {
     LLVMCodeModelDefault);
 
   LLVMDisposeMessage(triple);
+
+  // Register built-in types
+  // Boolean
+  _ctx.scope_b.emplace("bool", make<ir::TypeBoolean>());
+
+  // Integer, Signed
+  _ctx.scope_b.emplace("int8", make<ir::TypeInteger>(true, 8));
+  _ctx.scope_b.emplace("int16", make<ir::TypeInteger>(true, 16));
+  _ctx.scope_b.emplace("int32", make<ir::TypeInteger>(true, 32));
+  _ctx.scope_b.emplace("int64", make<ir::TypeInteger>(true, 64));
+  _ctx.scope_b.emplace("int128", make<ir::TypeInteger>(true, 128));
+
+  // Integer, Unsigned
+  _ctx.scope_b.emplace("uint8", make<ir::TypeInteger>(false, 8));
+  _ctx.scope_b.emplace("uint16", make<ir::TypeInteger>(false, 16));
+  _ctx.scope_b.emplace("uint32", make<ir::TypeInteger>(false, 32));
+  _ctx.scope_b.emplace("uint64", make<ir::TypeInteger>(false, 64));
+  _ctx.scope_b.emplace("uint128", make<ir::TypeInteger>(false, 128));
+
+  // Real
+  _ctx.scope_b.emplace("float32", make<ir::TypeReal>(32));
+  _ctx.scope_b.emplace("float64", make<ir::TypeReal>(64));
+
+  // String
+  _ctx.scope_b.emplace("str", make<ir::TypeString>());
 }
 
 // TODO(mehcode): How do imports work with regards to ir::Module and LLVMModule

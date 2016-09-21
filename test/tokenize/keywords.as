@@ -20,3 +20,4 @@ return
 global
 as
 struct
+import

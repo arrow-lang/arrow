@@ -9,6 +9,8 @@
 #include <memory>
 #include <string>
 
+#include "clang.hpp"
+
 #include "arrow/pass.hpp"
 
 namespace arrow {
@@ -62,6 +64,16 @@ class Build : public Pass {
   ptr<ir::Value> handle_str(ptr<ast::String>);
 
   ptr<ir::Value> handle_expression_statement(ptr<ast::ExpressionStatement>);
+
+  ptr<ir::Value> handle_import(ptr<ast::Import>);
+  ptr<ir::Value> handle_type_alias(ptr<ast::TypeAlias>);
+
+  ptr<ir::Value> handle_cinclude(ptr<ast::CInclude>);
+
+  ptr<ir::Value> handle_conversion(ptr<ast::Expression> operand, ptr<ir::Type> type);
+
+  static CXChildVisitResult _cx_visit(
+    CXCursor cursor, CXCursor parent, CXClientData clientData);
 };
 
 }  // namespace back

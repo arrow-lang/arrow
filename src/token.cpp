@@ -97,7 +97,9 @@ std::ostream& arrow::token::operator<<(
   case Type::Global:                  return os << "`global`";
   case Type::As:                      return os << "`as`";
   case Type::Struct:                  return os << "`struct`";
-  case Type::Underscore:              return os << "`underscore`";
+  case Type::Underscore:              return os << "`_`";
+  case Type::Import:                  return os << "`import`";
+  case Type::Type:                    return os << "`type`";
 
   case Type::Plus:                    return os << "`+`";
   case Type::Minus:                   return os << "`-`";
@@ -122,6 +124,7 @@ std::ostream& arrow::token::operator<<(
   case Type::LeftBracket:             return os << "`[`";
   case Type::RightBracket:            return os << "`]`";
   case Type::Comma:                   return os << "`,`";
+  case Type::Octothorpe:              return os << "`#`";
 
   case Type::Plus_Equals:             return os << "`+=`";
   case Type::Minus_Equals:            return os << "`-=`";

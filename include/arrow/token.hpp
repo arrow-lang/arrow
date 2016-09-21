@@ -49,6 +49,8 @@ enum class Type {
   As,
   Struct,
   Underscore,
+  Import,
+  Type,
 
   // Symbols: 1-character
   Plus,
@@ -74,6 +76,7 @@ enum class Type {
   LeftBracket,
   RightBracket,
   Comma,
+  Octothorpe,
 
   // Symbols: 2-character
   Plus_Equals,

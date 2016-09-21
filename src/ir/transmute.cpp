@@ -13,8 +13,8 @@ namespace ir = arrow::ir;
 
 LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    auto src = value->type;
-    auto dst = type;
+    auto src = ir::type_canonical(value->type);
+    auto dst = ir::type_canonical(type);
     auto dst_handle = type->handle(ctx);
 
     auto value_handle = value->value_of(ctx);

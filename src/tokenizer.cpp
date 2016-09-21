@@ -40,6 +40,8 @@ static std::unordered_map<std::string, arrow::token::Type> keywords = {
   {"as",        arrow::token::Type::As          },
   {"struct",    arrow::token::Type::Struct      },
   {"_",         arrow::token::Type::Underscore  },
+  {"import",    arrow::token::Type::Import      },
+  {"type",      arrow::token::Type::Type        },
 };
 
 // Symbols
@@ -67,6 +69,7 @@ static std::map<vector<char32_t>, arrow::token::Type> symbols = {
   {{'['}, arrow::token::Type::LeftBracket      },
   {{']'}, arrow::token::Type::RightBracket     },
   {{','}, arrow::token::Type::Comma            },
+  {{'#'}, arrow::token::Type::Octothorpe       },
 
   // 2-character
   {{'+', '='}, arrow::token::Type::Plus_Equals             },

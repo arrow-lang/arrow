@@ -56,6 +56,11 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::GreaterThan, gt);
     ACCEPT(ast::GreaterThanOrEqualTo, ge);
 
+    ACCEPT(ast::Import, import);
+    ACCEPT(ast::TypeAlias, type_alias);
+
+    ACCEPT(ast::CInclude, cinclude);
+
     Otherwise() {
       Log::get().error("build not implemented for {}", typeid(*x).name());
     }

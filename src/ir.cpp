@@ -4,6 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/ir.hpp"
+#include "mach7.hpp"
 
 namespace ir = arrow::ir;
 
@@ -23,6 +24,8 @@ ir::TypeLiteralReal::~TypeLiteralReal() noexcept { }
 ir::TypeFunction::~TypeFunction() noexcept { }
 ir::TypeExternFunction::~TypeExternFunction() noexcept { }
 ir::TypeString::~TypeString() noexcept { }
+ir::TypePointer::~TypePointer() noexcept { }
+ir::TypeAlias::~TypeAlias() noexcept { }
 
 ir::Value::~Value() noexcept { }
 ir::Transmute::~Transmute() noexcept { }
@@ -121,4 +124,20 @@ bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
     // Real & Literal Integer
     (lhs->is_real() && rhs->is_integer() && rhs->size() == 0)
   );
+}
+
+// Get canonical type
+auto arrow::ir::type_canonical(ptr<Type> type) -> ptr<Type> {
+  Match(*type) {
+    Case(mch::C<ir::TypeAlias>()) {
+      auto type_alias = cast<ir::TypeAlias>(type);
+      return type_alias->target;
+    }
+
+    Otherwise() {
+      return type;
+    }
+  } EndMatch;
+
+  return type;
 }

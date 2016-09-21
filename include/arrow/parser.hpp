@@ -93,13 +93,19 @@ class Parser {
 
   ptr<ast::Type> parse_type();
   ptr<ast::TypeName> parse_type_name();
+  ptr<ast::TypePointer> parse_type_pointer();
+  ptr<ast::TypeAlias> parse_type_alias();
 
   ptr<ast::Function> parse_function();
   ptr<ast::ExternFunction> parse_extern_function();
+  ptr<ast::Import> parse_import();
   ptr<ast::Parameter> parse_parameter();
 
   ptr<ast::Call> parse_call(ptr<ast::Expression>);
   ptr<ast::Argument> parse_argument();
+
+  ptr<ast::Statement> parse_preprocessor();
+  ptr<ast::CInclude> parse_cinclude();
 
   Tokenizer _t;
 };

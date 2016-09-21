@@ -6,6 +6,7 @@
       "tag": "Variable",
       "span": "test/parse/variable.as:2:1-22",
       "name": "value",
+      "mutable": false,
       "type": {
         "tag": "TypeName",
         "span": "test/parse/variable.as:2:12-16",
@@ -21,6 +22,7 @@
       "tag": "Variable",
       "span": "test/parse/variable.as:3:1-18",
       "name": "value",
+      "mutable": false,
       "type": null,
       "initializer": {
         "tag": "Integer",
@@ -32,6 +34,7 @@
       "tag": "Variable",
       "span": "test/parse/variable.as:4:1-11",
       "name": "value",
+      "mutable": false,
       "type": null,
       "initializer": null
     }

@@ -65,10 +65,16 @@ class Print {
   void print_or(ptr<Or> n);
   void print_assign(ptr<Assign> n);
   void print_type_name(ptr<TypeName>);
+  void print_type_pointer(ptr<TypePointer>);
+  void print_type_alias(ptr<TypeAlias>);
 
   void print_function(ptr<Function>);
   void print_extern_function(ptr<ExternFunction>);
   void print_parameter(ptr<Parameter>);
+
+  void print_import(ptr<Import>);
+
+  void print_cinclude(ptr<CInclude>);
 
   void print_call(ptr<Call>);
   void print_argument(ptr<Argument>);

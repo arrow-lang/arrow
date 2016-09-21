@@ -57,6 +57,8 @@ IMPL(Assign)
 
 IMPL(Type)
 IMPL(TypeName)
+IMPL(TypePointer)
+IMPL(TypeAlias)
 
 IMPL(Function)
 IMPL(ExternFunction)
@@ -64,3 +66,6 @@ IMPL(Parameter)
 IMPL(Call)
 IMPL(Argument)
 IMPL(Return)
+IMPL(Import)
+
+IMPL(CInclude)

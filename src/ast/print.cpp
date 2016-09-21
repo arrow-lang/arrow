@@ -88,13 +88,20 @@ void Print::print(ptr<Node> node) {
     ACCEPT(And, and);
     ACCEPT(Or, or);
     ACCEPT(Assign, assign);
+
     ACCEPT(TypeName, type_name);
+    ACCEPT(TypePointer, type_pointer);
+    ACCEPT(TypeAlias, type_alias);
 
     ACCEPT(Function, function);
     ACCEPT(ExternFunction, extern_function);
     ACCEPT(Parameter, parameter);
     ACCEPT(Call, call);
     ACCEPT(Argument, argument);
+
+    ACCEPT(Import, import);
+
+    ACCEPT(CInclude, cinclude);
 
     Otherwise() {
       Log::get().error("print not implemented for node: {}",

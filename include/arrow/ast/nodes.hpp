@@ -24,8 +24,12 @@
 #include "arrow/ast/nodes/function.hpp"
 #include "arrow/ast/nodes/call.hpp"
 #include "arrow/ast/nodes/return.hpp"
+#include "arrow/ast/nodes/import.hpp"
+#include "arrow/ast/nodes/preprocessor.hpp"
 
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/type_name.hpp"
+#include "arrow/ast/nodes/type_pointer.hpp"
+#include "arrow/ast/nodes/type_alias.hpp"
 
 #endif  // ARROW_AST_NODES_H

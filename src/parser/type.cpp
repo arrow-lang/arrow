@@ -13,6 +13,9 @@ auto Parser::parse_type() -> ptr<ast::Type> {
   case token::Type::Identifier:
     return parse_type_name();
 
+  case token::Type::Asterisk:
+    return parse_type_pointer();
+
   default:
     Log::get().error(_t.pop()->span, "expected type");
     return nullptr;
