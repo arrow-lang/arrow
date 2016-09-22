@@ -1,25 +1,24 @@
 // [ ] Pass: Declare
 // [ ] Select (if)
 // [ ] Loop (while)
-// [ ] Pointer (*)
 // [ ] Structure
 // [ ] Main!
 
 // [x] Parse: Mutable
 
-// [ ] ABI to ExternFunction
-
-// [ ] Parse: TypePointer
+// [x] Parse: TypePointer
 // [ ] Parse: TypeRecord
 // [ ] Parse: If
 // [ ] Parse: While
-// [ ] Build: TypePointer
+// [x] Build: TypePointer
 // [ ] Build: If
 // [ ] Build: While
 // [ ] Build: TypeRecord
-// [ ] Parse/Build: Address Of
-// [ ] Parse/Build: Dereference
+// [x] Parse/Build: Address Of
+// [x] Parse/Build: Dereference
 // [ ] Parse/Build: Pointer Arithmetic
 
 // [ ] Cast: Primitive (function)
 // [ ] Cast: Alias (pointer)
+
+// [ ] Implicit cast to type alias from unnamed _literal_ of underlying type
