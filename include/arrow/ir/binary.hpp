@@ -27,7 +27,9 @@ struct Binary : Value {
 
 #define DEF_BINARY(Name) \
   struct Name : Binary { \
-    using Binary::Binary; \
+    Name(ptr<ast::Node> source, ptr<Type> type, ptr<Value> lhs, ptr<Value> rhs) \
+      : Node(source), Binary(type, lhs, rhs) { \
+    } \
     virtual ~Name() noexcept; \
     virtual LLVMValueRef handle(GContext&) noexcept; \
   };

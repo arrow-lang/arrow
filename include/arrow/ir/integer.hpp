@@ -16,8 +16,8 @@ namespace ir {
 
 struct Integer : Value {
   // Type of an integer literal is the exact bit-size of the value
-  explicit Integer(mpz_class value)
-  : Value(make<TypeLiteralInteger>()),
+  explicit Integer(ptr<ast::Node> source, mpz_class value)
+  : Node(source), Value(make<TypeLiteralInteger>()),
     value(value) {
   }
 

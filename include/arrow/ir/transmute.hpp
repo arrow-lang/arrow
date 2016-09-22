@@ -15,8 +15,8 @@ namespace arrow {
 namespace ir {
 
 struct Transmute : Value {
-  explicit Transmute(ptr<Value> value, ptr<Type> type)
-  : Value(type), value(value), _handle(nullptr) {
+  explicit Transmute(ptr<ast::Node> source, ptr<Value> value, ptr<Type> type)
+  : Node(source), Value(type), value(value), _handle(nullptr) {
   }
 
   virtual ~Transmute() noexcept;

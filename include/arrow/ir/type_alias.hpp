@@ -16,8 +16,8 @@ namespace arrow {
 namespace ir {
 
 struct TypeAlias : Type {
-  explicit TypeAlias(std::string name, ptr<Type> target)
-    : Type(nullptr, name), target(target) {
+  explicit TypeAlias(ptr<ast::Node> source, std::string name, ptr<Type> target)
+    : Node(source), Type(name), target(target) {
   }
 
   virtual ~TypeAlias() noexcept;

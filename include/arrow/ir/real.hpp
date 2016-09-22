@@ -14,8 +14,8 @@ namespace ir {
 
 struct Real : Value {
   // Type of an integer literal is the exact bit-size of the value
-  explicit Real(long double value)
-  : Value(make<TypeLiteralReal>()),
+  explicit Real(ptr<ast::Node> source, long double value)
+  : Node(source), Value(make<TypeLiteralReal>()),
     value(value) {
   }
 

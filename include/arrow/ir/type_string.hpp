@@ -15,7 +15,7 @@ namespace arrow {
 namespace ir {
 
 struct TypeString : Type {
-  TypeString() : Type(nullptr, "str") {
+  TypeString() : Node(nullptr), Type("str") {
   }
 
   virtual ~TypeString() noexcept;

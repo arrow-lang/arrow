@@ -19,7 +19,7 @@ namespace ir {
 //   once that type is available)
 
 struct TypeLiteralInteger : Type {
-  TypeLiteralInteger() : Type(nullptr, "int64") {
+  TypeLiteralInteger() : Node(nullptr), Type("int64") {
   }
 
   virtual ~TypeLiteralInteger() noexcept;

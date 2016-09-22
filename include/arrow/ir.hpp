@@ -50,6 +50,9 @@ extern bool type_is_assignable(ptr<Type> lhs, ptr<Type> rhs);
 // Get the canonical type
 extern ptr<Type> type_canonical(ptr<Type> type);
 
+// Transmute shorthand
+extern ptr<Value> transmute(ptr<Value> operand, ptr<Type> type);
+
 }  // namespace ir
 }  // namespace arrow
 

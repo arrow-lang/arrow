@@ -13,7 +13,7 @@ namespace arrow {
 namespace ir {
 
 struct Boolean : Value {
-  explicit Boolean(bool value) : Value(make<TypeBoolean>()), value(value) {
+  explicit Boolean(ptr<ast::Node> source, bool value) : Node(source), Value(make<TypeBoolean>()), value(value) {
   }
 
   virtual ~Boolean() noexcept;

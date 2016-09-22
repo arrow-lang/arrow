@@ -8,5 +8,5 @@
 using arrow::pass::Build;
 
 auto Build::handle_int(ptr<ast::Integer> x) -> ptr<ir::Value> {
-  return make<ir::Integer>(x->value);
+  return make<ir::Integer>(x, x->value);
 }

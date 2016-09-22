@@ -18,8 +18,8 @@ LLVMValueRef EqualTo::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {
@@ -40,8 +40,8 @@ LLVMValueRef NotEqualTo::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {
@@ -62,8 +62,8 @@ LLVMValueRef LessThan::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {
@@ -88,8 +88,8 @@ LLVMValueRef LessThanOrEqualTo::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {
@@ -114,8 +114,8 @@ LLVMValueRef GreaterThan::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {
@@ -140,8 +140,8 @@ LLVMValueRef GreaterThanOrEqualTo::handle(GContext &ctx) noexcept {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
     if (!target_t) return nullptr;
 
-    auto lhs_handle = Transmute(lhs, target_t).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, target_t).value_of(ctx);
+    auto lhs_handle = transmute(lhs, target_t)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (target_t->is_integer() || target_t->is_boolean()) {

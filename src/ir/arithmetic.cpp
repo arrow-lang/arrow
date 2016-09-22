@@ -15,7 +15,7 @@ using arrow::ir::Mod;
 
 LLVMValueRef Negate::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto op_handle = Transmute(operand, type).value_of(ctx);
+    auto op_handle = transmute(operand, type)->value_of(ctx);
     if (!op_handle) return nullptr;
 
     if (type->is_integer()) {
@@ -33,8 +33,8 @@ LLVMValueRef Negate::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Add::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (type->is_integer()) {
@@ -52,8 +52,8 @@ LLVMValueRef Add::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Sub::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (type->is_integer()) {
@@ -71,8 +71,8 @@ LLVMValueRef Sub::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Mul::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (type->is_integer()) {
@@ -90,8 +90,8 @@ LLVMValueRef Mul::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Div::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (type->is_integer()) {
@@ -113,8 +113,8 @@ LLVMValueRef Div::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Mod::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     if (type->is_integer()) {

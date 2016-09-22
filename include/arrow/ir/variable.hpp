@@ -17,7 +17,7 @@ namespace ir {
 
 struct Variable : Item, Value {
   Variable(ptr<ast::Variable> source, std::string name, bool is_global)
-    : Item(source, name), Value(nullptr), _is_global(is_global) {
+    : Node(source), Item(name), Value(nullptr), _is_global(is_global) {
   }
 
   virtual ~Variable() noexcept;

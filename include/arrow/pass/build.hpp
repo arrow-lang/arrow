@@ -73,8 +73,6 @@ class Build : public Pass {
 
   ptr<ir::Value> handle_cinclude(ptr<ast::CInclude>);
 
-  ptr<ir::Value> handle_conversion(ptr<ast::Expression> operand, ptr<ir::Type> type);
-
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);
 };

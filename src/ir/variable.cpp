@@ -15,7 +15,8 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
     // Generate handle for the initializer expression (if present or needed)
     LLVMValueRef initializer_handle = nullptr;
     if (initializer) {
-      initializer_handle = Transmute(initializer, type).value_of(ctx);
+      initializer_handle = Transmute(
+        initializer->source, initializer, type).value_of(ctx);
     }
 
     if (_is_global) {

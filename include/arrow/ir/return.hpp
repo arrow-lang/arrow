@@ -14,7 +14,7 @@ namespace ir {
 
 struct Return : Value {
   Return(ptr<ast::Return> source, ptr<Value> operand)
-    : Value(operand ? operand->type : nullptr), operand(operand) {
+    : Node(source), Value(operand ? operand->type : nullptr), operand(operand) {
   }
 
   virtual ~Return() noexcept;

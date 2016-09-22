@@ -14,7 +14,7 @@ namespace ir {
 
 struct Call : Value {
   Call(ptr<ast::Call> source, ptr<Value> operand, ptr<Type> result_type)
-    : Value(result_type), operand(operand), arguments() {
+    : Node(source), Value(result_type), operand(operand), arguments() {
   }
 
   virtual ~Call() noexcept;

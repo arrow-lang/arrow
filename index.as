@@ -23,13 +23,3 @@
 
 // [ ] Cast: Primitive (function)
 // [ ] Cast: Alias (pointer)
-
-// let a: int8 = 120;
-// let mutable b: int16 = int16(a);
-//
-// let c: float32 = 3.125;
-// let mutable d: float64 = float64(c);
-
-extern "cdecl" def printf(s: str, ...);
-
-printf("Hello, World!\n");

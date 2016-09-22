@@ -28,7 +28,10 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
       return nullptr;
     }
 
-    return handle_conversion(x->arguments[0]->value, operand_t);
+    auto value = run(x->arguments[0]->value);
+    if (!value) return nullptr;
+
+    return make<ir::Transmute>(x, value, operand_t);
   }
 
   // Assert: Operand is indeed a function

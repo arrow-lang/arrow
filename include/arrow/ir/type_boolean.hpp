@@ -15,7 +15,7 @@ namespace arrow {
 namespace ir {
 
 struct TypeBoolean : Type {
-  TypeBoolean() : Type(nullptr, "bool") {
+  TypeBoolean() : Node(nullptr), Type("bool") {
   }
 
   virtual ~TypeBoolean() noexcept;

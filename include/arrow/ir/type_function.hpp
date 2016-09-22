@@ -18,7 +18,7 @@ namespace ir {
 struct TypeFunction : Type {
   // TODO(mehcode): Name of function type
   explicit TypeFunction(ptr<ast::Function> source)
-    : Type(source, "<?>") {
+    : Node(source), Type("<?>") {
   }
 
   virtual ~TypeFunction() noexcept;
@@ -44,7 +44,7 @@ struct TypeFunction : Type {
 struct TypeExternFunction : Type {
   // TODO(mehcode): Name of function type
   explicit TypeExternFunction(ptr<ast::ExternFunction> source, bool is_varidac)
-    : Type(source, "extern <?>"), is_varidac(is_varidac) {
+    : Node(source), Type("extern <?>"), is_varidac(is_varidac) {
   }
 
   virtual ~TypeExternFunction() noexcept;

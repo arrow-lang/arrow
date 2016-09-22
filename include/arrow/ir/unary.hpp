@@ -26,7 +26,9 @@ struct Unary : Value {
 
 #define DEF_UNARY(Name) \
   struct Name : Unary { \
-    using Unary::Unary; \
+    Name(ptr<ast::Node> source, ptr<Type> type, ptr<Value> operand) \
+      : Node(source), Unary(type, operand) { \
+    } \
     virtual ~Name() noexcept; \
     virtual LLVMValueRef handle(GContext&) noexcept; \
   };

@@ -15,7 +15,7 @@ auto Build::handle_type_alias(ptr<ast::TypeAlias> x) -> ptr<ir::Value> {
   if (!target_t) return nullptr;
 
   // Make: alias
-  auto alias = make<ir::TypeAlias>(x->name, target_t);
+  auto alias = make<ir::TypeAlias>(x, x->name, target_t);
 
   // TODO(mehcode): Add to module items
   // HACK: Emplace in scope

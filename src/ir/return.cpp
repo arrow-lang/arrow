@@ -16,7 +16,7 @@ LLVMValueRef Return::handle(GContext &ctx) noexcept {
     auto result_type = cast<TypeFunction>(top_f->type)->result;
 
     // Value return
-    auto op_handle = Transmute(operand, result_type).value_of(ctx);
+    auto op_handle = ir::transmute(operand, result_type)->value_of(ctx);
     LLVMBuildRet(ctx.irb, op_handle);
   } else {
     // Void return

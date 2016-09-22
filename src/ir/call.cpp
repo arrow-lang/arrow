@@ -28,7 +28,7 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
   unsigned arg_i = 0;
   for (; arg_i < arguments.size() && arg_i < params.size(); ++arg_i) {
     auto arg_type = params.at(arg_i);
-    auto arg_handle = Transmute(arguments[arg_i], arg_type).value_of(ctx);
+    auto arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
     if (!arg_handle) return nullptr;
 
     args.push_back(arg_handle);
@@ -49,7 +49,7 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
         target_t = make<ir::TypeReal>(64);
       }
 
-      auto arg_handle = Transmute(arg, target_t).value_of(ctx);
+      auto arg_handle = Transmute(arg->source, arg, target_t).value_of(ctx);
       if (!arg_handle) return nullptr;
 
       args.push_back(arg_handle);

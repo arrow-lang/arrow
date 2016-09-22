@@ -8,5 +8,5 @@
 using arrow::pass::Build;
 
 auto Build::handle_bool(ptr<ast::Boolean> x) -> ptr<ir::Value> {
-  return make<ir::Boolean>(x->value);
+  return make<ir::Boolean>(x, x->value);
 }

@@ -22,5 +22,5 @@ auto Build::handle_assign(ptr<ast::Assign> x) -> ptr<ir::Value> {
   }
 
   // The type of the assignment is always the type of the LHS
-  return make<ir::Assign>(lhs->type, lhs, rhs);
+  return make<ir::Assign>(x, lhs->type, lhs, rhs);
 }

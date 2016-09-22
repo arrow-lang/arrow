@@ -22,12 +22,12 @@ auto Build::handle_indirect(ptr<ast::Indirect> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Indirect>(type, operand);
+  return make<ir::Indirect>(x, type, operand);
 }
 
 auto Build::handle_address_of(ptr<ast::AddressOf> x) -> ptr<ir::Value> {
   auto operand = run(x->operand);
   if (!operand) return nullptr;
 
-  return make<ir::AddressOf>(make<ir::TypePointer>(operand->type), operand);
+  return make<ir::AddressOf>(x, make<ir::TypePointer>(x, operand->type), operand);
 }

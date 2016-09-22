@@ -13,7 +13,7 @@ using arrow::ir::BitXor;
 
 LLVMValueRef BitNot::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto op_handle = Transmute(operand, type).value_of(ctx);
+    auto op_handle = transmute(operand, type)->value_of(ctx);
     if (!op_handle) return nullptr;
 
     _handle = LLVMBuildNot(ctx.irb, op_handle, "");
@@ -24,8 +24,8 @@ LLVMValueRef BitNot::handle(GContext &ctx) noexcept {
 
 LLVMValueRef BitAnd::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     _handle = LLVMBuildAnd(ctx.irb, lhs_handle, rhs_handle, "");
@@ -36,8 +36,8 @@ LLVMValueRef BitAnd::handle(GContext &ctx) noexcept {
 
 LLVMValueRef BitOr::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     _handle = LLVMBuildOr(ctx.irb, lhs_handle, rhs_handle, "");
@@ -48,8 +48,8 @@ LLVMValueRef BitOr::handle(GContext &ctx) noexcept {
 
 LLVMValueRef BitXor::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = Transmute(lhs, type).value_of(ctx);
-    auto rhs_handle = Transmute(rhs, type).value_of(ctx);
+    auto lhs_handle = transmute(lhs, type)->value_of(ctx);
+    auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     _handle = LLVMBuildXor(ctx.irb, lhs_handle, rhs_handle, "");

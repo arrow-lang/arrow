@@ -20,7 +20,7 @@ auto Build::handle_not(ptr<ast::Not> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Not>(operand->type, operand);
+  return make<ir::Not>(x, operand->type, operand);
 }
 
 auto Build::handle_and(ptr<ast::And> x) -> ptr<ir::Value> {
@@ -36,7 +36,7 @@ auto Build::handle_and(ptr<ast::And> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::And>(lhs->type, lhs, rhs);
+  return make<ir::And>(x, lhs->type, lhs, rhs);
 }
 
 auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
@@ -52,5 +52,5 @@ auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Or>(lhs->type, lhs, rhs);
+  return make<ir::Or>(x, lhs->type, lhs, rhs);
 }

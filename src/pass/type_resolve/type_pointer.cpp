@@ -12,5 +12,5 @@ auto TypeResolve::handle_type_pointer(ptr<ast::TypePointer> x) -> ptr<ir::TypePo
   auto element_t = run(x->element);
   if (!element_t) return nullptr;
 
-  return make<ir::TypePointer>(element_t);
+  return make<ir::TypePointer>(x, element_t);
 }

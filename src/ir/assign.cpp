@@ -11,7 +11,7 @@ using arrow::ir::Assign;
 LLVMValueRef Assign::handle(GContext &ctx) noexcept {
   if (!_handle) {
     auto lhs_handle = lhs->address_of(ctx);
-    auto rhs_handle = Transmute(rhs, lhs->type).value_of(ctx);
+    auto rhs_handle = transmute(rhs, lhs->type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store

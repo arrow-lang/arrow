@@ -18,7 +18,7 @@ namespace ir {
 
 struct Type;
 
-struct Value : Node {
+struct Value : virtual Node {
   explicit Value(ptr<Type> type)
   : type(type) {
   }

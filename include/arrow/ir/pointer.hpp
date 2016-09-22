@@ -12,8 +12,8 @@ namespace arrow {
 namespace ir {
 
 struct Indirect : Value {
-  Indirect(ptr<Type> type, ptr<Value> operand)
-    : Value(type), operand(operand) {
+  Indirect(ptr<ast::Node> source, ptr<Type> type, ptr<Value> operand)
+    : Node(source), Value(type), operand(operand) {
   }
 
   virtual ~Indirect() noexcept;
@@ -31,8 +31,8 @@ struct Indirect : Value {
 };
 
 struct AddressOf : Value {
-  AddressOf(ptr<Type> type, ptr<Value> operand)
-    : Value(type), operand(operand) {
+  AddressOf(ptr<ast::Node> source, ptr<Type> type, ptr<Value> operand)
+    : Node(source), Value(type), operand(operand) {
   }
 
   virtual ~AddressOf() noexcept;

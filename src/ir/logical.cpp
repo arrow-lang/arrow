@@ -57,7 +57,7 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
 
 LLVMValueRef Not::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto op_handle = Transmute(operand, type).value_of(ctx);
+    auto op_handle = Transmute(operand->source, operand, type).value_of(ctx);
     if (!op_handle) return nullptr;
 
     _handle = LLVMBuildNot(ctx.irb, op_handle, "");

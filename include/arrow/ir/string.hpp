@@ -15,7 +15,7 @@ namespace arrow {
 namespace ir {
 
 struct String : Value {
-  explicit String(std::string value) : Value(make<TypeString>()), value(value) {
+  explicit String(ptr<ast::Node> source, std::string value) : Node(source), Value(make<TypeString>()), value(value) {
   }
 
   virtual ~String() noexcept;

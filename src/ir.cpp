@@ -144,3 +144,8 @@ auto arrow::ir::type_canonical(ptr<Type> type) -> ptr<Type> {
 
   return type;
 }
+
+// Transmute shorthand
+auto arrow::ir::transmute(ptr<Value> operand, ptr<Type> type) -> ptr<ir::Value> {
+  return make<Transmute>(operand->source, operand, type);
+}

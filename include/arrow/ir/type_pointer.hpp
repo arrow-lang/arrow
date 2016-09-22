@@ -16,8 +16,8 @@ namespace arrow {
 namespace ir {
 
 struct TypePointer : Type {
-  explicit TypePointer(ptr<Type> element)
-    : Type(nullptr, TypePointer::_name(element)), element(element) {
+  explicit TypePointer(ptr<ast::Node> source, ptr<Type> element)
+    : Node(source), Type(TypePointer::_name(element)), element(element) {
   }
 
   virtual ~TypePointer() noexcept;

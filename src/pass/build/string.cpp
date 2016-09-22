@@ -8,5 +8,5 @@
 using arrow::pass::Build;
 
 auto Build::handle_str(ptr<ast::String> x) -> ptr<ir::Value> {
-  return make<ir::String>(x->value);
+  return make<ir::String>(x, x->value);
 }

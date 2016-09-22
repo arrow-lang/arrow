@@ -22,7 +22,7 @@ auto Build::handle_eq(ptr<ast::EqualTo> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::EqualTo>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::EqualTo>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }
 
 auto Build::handle_ne(ptr<ast::NotEqualTo> x) -> ptr<ir::Value> {
@@ -39,7 +39,7 @@ auto Build::handle_ne(ptr<ast::NotEqualTo> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::NotEqualTo>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::NotEqualTo>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }
 
 auto Build::handle_lt(ptr<ast::LessThan> x) -> ptr<ir::Value> {
@@ -56,7 +56,7 @@ auto Build::handle_lt(ptr<ast::LessThan> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::LessThan>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::LessThan>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }
 
 auto Build::handle_le(ptr<ast::LessThanOrEqualTo> x) -> ptr<ir::Value> {
@@ -73,7 +73,7 @@ auto Build::handle_le(ptr<ast::LessThanOrEqualTo> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::LessThanOrEqualTo>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::LessThanOrEqualTo>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }
 
 auto Build::handle_gt(ptr<ast::GreaterThan> x) -> ptr<ir::Value> {
@@ -90,7 +90,7 @@ auto Build::handle_gt(ptr<ast::GreaterThan> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::GreaterThan>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::GreaterThan>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }
 
 auto Build::handle_ge(ptr<ast::GreaterThanOrEqualTo> x) -> ptr<ir::Value> {
@@ -107,5 +107,5 @@ auto Build::handle_ge(ptr<ast::GreaterThanOrEqualTo> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::GreaterThanOrEqualTo>(make<ir::TypeBoolean>(), lhs, rhs);
+  return make<ir::GreaterThanOrEqualTo>(x, make<ir::TypeBoolean>(), lhs, rhs);
 }

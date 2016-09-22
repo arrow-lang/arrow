@@ -17,7 +17,7 @@ struct Module;
 
 struct Function : Item, Value {
   Function(ptr<ast::Function> source, ptr<Module> module, std::string name, ptr<TypeFunction> type)
-    : Item(source, name), Value(type), statements(), _module(module) {
+    : Node(source), Item(name), Value(type), statements(), _module(module) {
   }
 
   virtual ~Function() noexcept;
@@ -42,7 +42,7 @@ struct Function : Item, Value {
 
 struct ExternFunction : Item, Value {
   ExternFunction(ptr<ast::ExternFunction> source, ptr<Module> module, std::string name, ptr<TypeExternFunction> type)
-    : Item(source, name), Value(type), _module(module) {
+    : Node(source), Item(name), Value(type), _module(module) {
   }
 
   virtual ~ExternFunction() noexcept;

@@ -17,7 +17,7 @@ namespace ir {
 
 struct TypeReal : Type {
   TypeReal(unsigned bits)
-    : Type(nullptr, TypeReal::_name(bits)),
+    : Node(nullptr), Type(TypeReal::_name(bits)),
       _bits(bits) {
   }
 

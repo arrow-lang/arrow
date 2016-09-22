@@ -20,7 +20,7 @@ auto Build::handle_bit_not(ptr<ast::BitNot> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::BitNot>(operand->type, operand);
+  return make<ir::BitNot>(x, operand->type, operand);
 }
 
 auto Build::handle_bit_and(ptr<ast::BitAnd> x) -> ptr<ir::Value> {
@@ -37,7 +37,7 @@ auto Build::handle_bit_and(ptr<ast::BitAnd> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::BitAnd>(type, lhs, rhs);
+  return make<ir::BitAnd>(x, type, lhs, rhs);
 }
 
 auto Build::handle_bit_or(ptr<ast::BitOr> x) -> ptr<ir::Value> {
@@ -54,7 +54,7 @@ auto Build::handle_bit_or(ptr<ast::BitOr> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::BitOr>(type, lhs, rhs);
+  return make<ir::BitOr>(x, type, lhs, rhs);
 }
 
 auto Build::handle_bit_xor(ptr<ast::BitXor> x) -> ptr<ir::Value> {
@@ -71,5 +71,5 @@ auto Build::handle_bit_xor(ptr<ast::BitXor> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::BitXor>(type, lhs, rhs);
+  return make<ir::BitXor>(x, type, lhs, rhs);
 }

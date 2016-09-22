@@ -8,8 +8,6 @@
 
 #include <string>
 
-#include "arrow/ptr.hpp"
-#include "arrow/ast.hpp"
 #include "arrow/ir/node.hpp"
 
 namespace arrow {
@@ -22,15 +20,12 @@ struct Type;
 ///  - Function
 ///  - Module
 ///  - Type
-struct Item : Node {
-  Item(ptr<ast::Node> source, std::string name)
-    : source(source), name(name) {
+struct Item : virtual Node {
+  Item(std::string name)
+    : name(name) {
   }
 
   virtual ~Item() noexcept;
-
-  /// Source (in file) of the item
-  ptr<ast::Node> source;
 
   /// Referencable name of the item
   std::string name;

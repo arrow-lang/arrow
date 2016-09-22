@@ -8,5 +8,5 @@
 using arrow::pass::Build;
 
 auto Build::handle_real(ptr<ast::Real> x) -> ptr<ir::Value> {
-  return make<ir::Real>(x->value);
+  return make<ir::Real>(x, x->value);
 }

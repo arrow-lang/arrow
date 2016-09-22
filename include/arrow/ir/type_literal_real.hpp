@@ -16,7 +16,7 @@ namespace arrow {
 namespace ir {
 
 struct TypeLiteralReal : Type {
-  TypeLiteralReal() : Type(nullptr, "float64") {
+  TypeLiteralReal() : Node(nullptr), Type("float64") {
   }
 
   virtual ~TypeLiteralReal() noexcept;
