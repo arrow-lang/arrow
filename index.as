@@ -18,7 +18,7 @@
 // [x] Parse/Build: Dereference
 // [ ] Parse/Build: Pointer Arithmetic
 
-// [ ] Cast: Primitive (function)
+// [x] Cast: Primitive (function)
 // [ ] Cast: Alias (pointer)
 
 // [ ] Implicit cast to type alias from unnamed _literal_ of underlying type
