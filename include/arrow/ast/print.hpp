@@ -81,6 +81,12 @@ class Print {
   void print_call(ptr<Call>);
   void print_argument(ptr<Argument>);
 
+  void print_repeat(ptr<Repeat>);
+  void print_conditional(ptr<Conditional>);
+  void print_branch(ptr<Branch>);
+  void print_break(ptr<Break>);
+  void print_continue(ptr<Continue>);
+
   void handle(
     const char* name, ptr<Node> n, std::function<void()> handle);
 

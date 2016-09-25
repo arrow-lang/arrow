@@ -35,13 +35,8 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
   // Stack: push
   _ctx.function_s.push(item.get());
 
-  // Iterate through each statement ..
-  for (auto& statement : x->statements) {
-    auto node = run(statement);
-    if (node) {
-      item->statements.push_back(node);
-    }
-  }
+  // Handle: Block
+  item->block = handle_block(x->block);
 
   // Stack: pop
   _ctx.function_s.pop();

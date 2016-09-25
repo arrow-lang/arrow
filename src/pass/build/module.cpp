@@ -15,7 +15,7 @@ auto Build::handle_module(ptr<ast::Module> x) -> ptr<ir::Value> {
   _ctx.modules.push_back(module);
 
   // Iterate through each statement ..
-  for (auto& statement : x->statements) {
+  for (auto& statement : x->block->statements) {
     auto node = run(statement);
     if (node) {
       module->statements.push_back(node);

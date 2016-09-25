@@ -24,6 +24,7 @@ class Build : public Pass {
 
  private:
   ptr<ir::Value> handle_module(ptr<ast::Module>);
+  ptr<ir::Block> handle_block(ptr<ast::Block>);
   ptr<ir::Value> handle_variable(ptr<ast::Variable>);
   ptr<ir::Value> handle_function(ptr<ast::Function>);
   ptr<ir::Value> handle_extern_function(ptr<ast::ExternFunction>);
@@ -72,6 +73,9 @@ class Build : public Pass {
   ptr<ir::Value> handle_type_alias(ptr<ast::TypeAlias>);
 
   ptr<ir::Value> handle_cinclude(ptr<ast::CInclude>);
+
+  ptr<ir::Value> handle_conditional(ptr<ast::Conditional>);
+  ptr<ir::Value> handle_repeat(ptr<ast::Repeat>);
 
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);

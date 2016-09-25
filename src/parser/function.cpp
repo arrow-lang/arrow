@@ -40,27 +40,31 @@ auto Parser::parse_function() -> ptr<ast::Function> {
     if (!result->result_type) return nullptr;
   }
 
-  // Expect: `{`
-  if (!expect(token::Type::LeftBrace)) return nullptr;
+  // Parse: block
+  result->block = parse_block(false);
+  if (!result->block) return nullptr;
 
-  while (
-    (_t.peek()->type != token::Type::RightBrace) &&
-    (_t.peek()->type != token::Type::End)
-  ) {
-    // Parse a statement
-    auto statement = parse_statement();
-    if (statement) {
-      // Add it to the function
-      result->statements.push_back(statement);
-    }
-  }
-
-  // Expect: `}`
-  auto end_tok = expect(token::Type::RightBrace);
-  if (!end_tok) return nullptr;
+  // // Expect: `{`
+  // if (!expect(token::Type::LeftBrace)) return nullptr;
+  //
+  // while (
+  //   (_t.peek()->type != token::Type::RightBrace) &&
+  //   (_t.peek()->type != token::Type::End)
+  // ) {
+  //   // Parse a statement
+  //   auto statement = parse_statement();
+  //   if (statement) {
+  //     // Add it to the function
+  //     result->statements.push_back(statement);
+  //   }
+  // }
+  //
+  // // Expect: `}`
+  // auto end_tok = expect(token::Type::RightBrace);
+  // if (!end_tok) return nullptr;
 
   // Extend span for whole function
-  result->span = result->span.extend(end_tok->span);
+  result->span = result->span.extend(result->block->span);
 
   return result;
 }

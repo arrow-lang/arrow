@@ -22,8 +22,25 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Import:
     return parse_import();
 
+  case token::Type::While:
+    return parse_repeat();
+
+  case token::Type::Break:
+    return parse_break();
+
+  case token::Type::Continue:
+    return parse_continue();
+
   case token::Type::Type:
     return parse_type_alias();
+
+  case token::Type::If: {
+    // Consume IF expression as a statement
+    auto expr = parse_conditional();
+    if (!expr) return nullptr;
+
+    return std::make_shared<ast::ExpressionStatement>(expr);
+  }
 
   case token::Type::Extern: {
     unsigned peek = 1;

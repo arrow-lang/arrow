@@ -26,6 +26,8 @@
 #include "arrow/ast/nodes/return.hpp"
 #include "arrow/ast/nodes/import.hpp"
 #include "arrow/ast/nodes/preprocessor.hpp"
+#include "arrow/ast/nodes/conditional.hpp"
+#include "arrow/ast/nodes/repeat.hpp"
 
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/type_name.hpp"

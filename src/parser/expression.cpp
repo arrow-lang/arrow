@@ -328,6 +328,9 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   case token::Type::Identifier:
     return parse_id();
 
+  case token::Type::If:
+    return parse_conditional();
+
   case token::Type::LeftParenthesis: {
     // Pop the left parenthesis
     _t.pop();

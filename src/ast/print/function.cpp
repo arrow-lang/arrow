@@ -28,7 +28,7 @@ void Print::print_function(ptr<Function> n) {
     _w.Key("statements");
     _w.StartArray();
 
-    for (auto& statement : n->statements) {
+    for (auto& statement : n->block->statements) {
       print(statement);
     }
 

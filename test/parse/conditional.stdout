@@ -1,0 +1,99 @@
+{
+  "tag": "Module",
+  "span": "test/parse/conditional.as:1-19",
+  "statements": [
+    {
+      "tag": "Conditional",
+      "span": "test/parse/conditional.as:2-8",
+      "branches": [
+        {
+          "tag": "Branch",
+          "span": "test/parse/conditional.as:2-4",
+          "condition": {
+            "tag": "Identifier",
+            "span": "test/parse/conditional.as:2:4-13",
+            "text": "condition"
+          },
+          "statements": []
+        },
+        {
+          "tag": "Branch",
+          "span": "test/parse/conditional.as:4-6",
+          "condition": {
+            "tag": "Identifier",
+            "span": "test/parse/conditional.as:4:11-26",
+            "text": "other_condition"
+          },
+          "statements": []
+        }
+      ],
+      "otherwise": []
+    },
+    {
+      "tag": "Conditional",
+      "span": "test/parse/conditional.as:10-12",
+      "branches": [
+        {
+          "tag": "Branch",
+          "span": "test/parse/conditional.as:10-12",
+          "condition": {
+            "tag": "Identifier",
+            "span": "test/parse/conditional.as:10:4-13",
+            "text": "condition"
+          },
+          "statements": []
+        }
+      ],
+      "otherwise": null
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/conditional.as:15-19",
+      "name": "name",
+      "mutable": false,
+      "type": {
+        "tag": "TypeName",
+        "span": "test/parse/conditional.as:15:11-16",
+        "name": "int32"
+      },
+      "initializer": {
+        "tag": "Conditional",
+        "span": "test/parse/conditional.as:15-19",
+        "branches": [
+          {
+            "tag": "Branch",
+            "span": "test/parse/conditional.as:15-17",
+            "condition": {
+              "tag": "GreaterThan",
+              "span": "test/parse/conditional.as:15:24-23",
+              "lhs": {
+                "tag": "Identifier",
+                "span": "test/parse/conditional.as:15:22-23",
+                "text": "a"
+              },
+              "rhs": {
+                "tag": "Identifier",
+                "span": "test/parse/conditional.as:15:26-27",
+                "text": "b"
+              }
+            },
+            "statements": [
+              {
+                "tag": "Integer",
+                "span": "test/parse/conditional.as:16:3-5",
+                "value": "30"
+              }
+            ]
+          }
+        ],
+        "otherwise": [
+          {
+            "tag": "Integer",
+            "span": "test/parse/conditional.as:18:3-13",
+            "value": "3735928559"
+          }
+        ]
+      }
+    }
+  ]
+}

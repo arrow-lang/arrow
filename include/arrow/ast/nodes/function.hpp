@@ -13,6 +13,7 @@
 #include "arrow/ast/nodes/statement.hpp"
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/expression.hpp"
+#include "arrow/ast/nodes/block.hpp"
 
 namespace arrow {
 namespace ast {
@@ -36,7 +37,8 @@ struct Parameter : Node {
 
 struct Function : Statement {
   Function(Span span, std::string name)
-  : Statement(span), name(name), result_type(nullptr), parameters() {
+  : Statement(span), name(name), result_type(nullptr), parameters(),
+    block(nullptr) {
   }
 
   virtual ~Function() noexcept;
@@ -51,7 +53,7 @@ struct Function : Statement {
   std::vector<ptr<Parameter>> parameters;
 
   /// Sequence of statements in the function.
-  std::vector<ptr<Statement>> statements;
+  ptr<Block> block;
 };
 
 struct ExternFunction : Statement {

@@ -38,6 +38,9 @@
 
 #include "arrow/ir/scope.hpp"
 
+#include "arrow/ir/conditional.hpp"
+#include "arrow/ir/repeat.hpp"
+
 namespace arrow {
 namespace ir {
 
