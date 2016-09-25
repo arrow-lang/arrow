@@ -29,27 +29,27 @@ struct Binary : Expression {
     virtual ~Name() noexcept; \
   };
 
-DEF_BINARY(Add);
-DEF_BINARY(Sub);
-DEF_BINARY(Mul);
-DEF_BINARY(Div);
-DEF_BINARY(Mod);
+DEF_BINARY(Add)
+DEF_BINARY(Sub)
+DEF_BINARY(Mul)
+DEF_BINARY(Div)
+DEF_BINARY(Mod)
 
-DEF_BINARY(BitOr);
-DEF_BINARY(BitXor);
-DEF_BINARY(BitAnd);
+DEF_BINARY(BitOr)
+DEF_BINARY(BitXor)
+DEF_BINARY(BitAnd)
 
-DEF_BINARY(EqualTo);
-DEF_BINARY(NotEqualTo);
-DEF_BINARY(GreaterThanOrEqualTo);
-DEF_BINARY(GreaterThan);
-DEF_BINARY(LessThanOrEqualTo);
-DEF_BINARY(LessThan);
+DEF_BINARY(EqualTo)
+DEF_BINARY(NotEqualTo)
+DEF_BINARY(GreaterThanOrEqualTo)
+DEF_BINARY(GreaterThan)
+DEF_BINARY(LessThanOrEqualTo)
+DEF_BINARY(LessThan)
 
-DEF_BINARY(And);
-DEF_BINARY(Or);
+DEF_BINARY(And)
+DEF_BINARY(Or)
 
-DEF_BINARY(Assign);
+DEF_BINARY(Assign)
 
 #undef DEF_BINARY
 

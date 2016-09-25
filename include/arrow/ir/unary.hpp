@@ -33,9 +33,9 @@ struct Unary : Value {
     virtual LLVMValueRef handle(GContext&) noexcept; \
   };
 
-DEF_UNARY(Negate);
-DEF_UNARY(BitNot);
-DEF_UNARY(Not);
+DEF_UNARY(Negate)
+DEF_UNARY(BitNot)
+DEF_UNARY(Not)
 
 #undef DEF_UNARY
 

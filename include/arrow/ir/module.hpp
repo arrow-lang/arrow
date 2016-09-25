@@ -18,7 +18,7 @@ namespace ir {
 
 struct Module : Item {
   Module(ptr<ast::Module> source, std::string name)
-    : Node(source), Item(name), statements() {
+    : Node(source), Item(name), statements(), initializer(nullptr) {
   }
 
   virtual ~Module() noexcept;

@@ -28,15 +28,15 @@ struct Unary : Expression {
     virtual ~Name() noexcept; \
   };
 
-DEF_UNARY(Identity);
-DEF_UNARY(Negate);
+DEF_UNARY(Identity)
+DEF_UNARY(Negate)
 
-DEF_UNARY(BitNot);
+DEF_UNARY(BitNot)
 
-DEF_UNARY(Not);
+DEF_UNARY(Not)
 
-DEF_UNARY(Indirect);
-DEF_UNARY(AddressOf);
+DEF_UNARY(Indirect)
+DEF_UNARY(AddressOf)
 
 #undef DEF_UNARY
 
