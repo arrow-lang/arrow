@@ -43,7 +43,9 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   next = LLVMGetInsertBlock(ctx.irb);
 
   // Close
-  LLVMBuildBr(ctx.irb, merge);
+  if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
+    LLVMBuildBr(ctx.irb, merge);
+  }
 
   // Result
   LLVMMoveBasicBlockAfter(merge, LLVMGetInsertBlock(ctx.irb));

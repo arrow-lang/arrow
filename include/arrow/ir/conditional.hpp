@@ -17,10 +17,10 @@ namespace ir {
 struct Conditional : Value {
   Conditional(
     ptr<ast::Node> source, ptr<Type> type, ptr<Value> condition,
-    ptr<Block> then, ptr<Block> else_
+    ptr<Value> then, ptr<Value> else_
   )
   : Node(source), Value(type), condition(condition),
-    b_then(then), b_else(else_) {
+    then(then), otherwise(else_) {
   }
 
   virtual ~Conditional() noexcept;
@@ -28,8 +28,8 @@ struct Conditional : Value {
   virtual LLVMValueRef handle(GContext&) noexcept;
 
   ptr<Value> condition;
-  ptr<Block> b_then;
-  ptr<Block> b_else;
+  ptr<Value> then;
+  ptr<Value> otherwise;
 };
 
 }  // namespace ir
