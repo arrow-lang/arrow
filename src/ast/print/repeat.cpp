@@ -8,8 +8,11 @@
 
 using arrow::ast::Print;
 
-void Print::print_module(ptr<Module> n) {
-  handle("Module", n, [&, this] {
+void Print::print_repeat(ptr<Repeat> n) {
+  handle("Repeat", n, [&, this] {
+    _w.Key("condition");
+    print(n->condition);
+
     _w.Key("statements");
     _w.StartArray();
 
@@ -18,5 +21,17 @@ void Print::print_module(ptr<Module> n) {
     }
 
     _w.EndArray();
+  });
+}
+
+void Print::print_continue(ptr<Continue> n) {
+  handle("Continue", n, [&, this] {
+    // Nothing
+  });
+}
+
+void Print::print_break(ptr<Break> n) {
+  handle("Break", n, [&, this] {
+    // Nothing
   });
 }

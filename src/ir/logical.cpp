@@ -25,9 +25,9 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
 
   // Test
   if (is_and) {
-    LLVMBuildCondBr(ctx.irb, lhs_handle, merge, next);
-  } else {
     LLVMBuildCondBr(ctx.irb, lhs_handle, next, merge);
+  } else {
+    LLVMBuildCondBr(ctx.irb, lhs_handle, merge, next);
   }
 
   // Realize RHS

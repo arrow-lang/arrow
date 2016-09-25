@@ -35,8 +35,8 @@ void Function::generate(GContext& ctx) {
   // Stack: push
   ctx.function_s.push(this);
 
-  // Generate each statement ..
-  for (auto& stmt : statements) stmt->generate(ctx);
+  // Generate block
+  block->generate(ctx);
 
   // Stack: pop
   ctx.function_s.pop();

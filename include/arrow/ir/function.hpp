@@ -9,6 +9,7 @@
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/type_function.hpp"
+#include "arrow/ir/block.hpp"
 
 namespace arrow {
 namespace ir {
@@ -17,7 +18,7 @@ struct Module;
 
 struct Function : Item, Value {
   Function(ptr<ast::Function> source, ptr<Module> module, std::string name, ptr<TypeFunction> type)
-    : Node(source), Item(name), Value(type), statements(), _module(module) {
+    : Node(source), Item(name), Value(type), block(nullptr), _module(module) {
   }
 
   virtual ~Function() noexcept;
@@ -29,8 +30,8 @@ struct Function : Item, Value {
   // Get mangled name (for linking and loading)
   std::string name_mangle() const;
 
-  // Statements in the function
-  std::vector<ptr<Value>> statements;
+  // Function block – body
+  ptr<Block> block;
 
  private:
   // Module (container)

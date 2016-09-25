@@ -105,6 +105,12 @@ void Print::print(ptr<Node> node) {
 
     ACCEPT(CInclude, cinclude);
 
+    ACCEPT(Branch, branch);
+    ACCEPT(Conditional, conditional);
+    ACCEPT(Repeat, repeat);
+    ACCEPT(Break, break);
+    ACCEPT(Continue, continue);
+
     Otherwise() {
       Log::get().error("print not implemented for node: {}",
         typeid(*node).name());

@@ -25,20 +25,26 @@ auto Parser::parse() -> ptr<ast::Module> {
   // Declare the top-level, automatic module
   // The name of the module is built from the name of the given file
   auto stem = fs::path(_t._filename).stem().string();
-  auto mod = std::make_shared<ast::Module>(Span(_t._filename), stem);
 
-  // Attempt to match statements until the end of the stream
-  while (!_t.empty()) {
-    // Parse a statement (try)
-    auto statement = parse_statement();
-    if (statement) {
-      // Add it to the module
-      mod->statements.push_back(statement);
+  // Parse: block
+  auto block = parse_block(true);
+  if (!block) return nullptr;
 
-      // Extend the module span
-      mod->span = mod->span.extend(statement->span);
-    }
-  }
+  // Make
+  auto mod = std::make_shared<ast::Module>(block->span, stem, block);
+
+  // // Attempt to match statements until the end of the stream
+  // while (!_t.empty()) {
+  //   // Parse a statement (try)
+  //   auto statement = parse_statement();
+  //   if (statement) {
+  //     // Add it to the module
+  //     mod->statements.push_back(statement);
+  //
+  //     // Extend the module span
+  //     mod->span = mod->span.extend(statement->span);
+  //   }
+  // }
 
   return mod;
 }

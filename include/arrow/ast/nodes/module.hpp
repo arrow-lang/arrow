@@ -11,13 +11,14 @@
 
 #include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/statement.hpp"
+#include "arrow/ast/nodes/block.hpp"
 
 namespace arrow {
 namespace ast {
 
 struct Module : Statement {
-  Module(Span span, std::string name)
-  : Statement(span), name(name), statements() {
+  Module(Span span, std::string name, ptr<Block> block)
+  : Statement(span), name(name), block(block) {
   }
 
   virtual ~Module() noexcept;
@@ -27,9 +28,8 @@ struct Module : Statement {
   /// is speicifed directly for an explicitly declared module.
   std::string name;
 
-  /// Sequence of statements in the module.
   /// A module is made up of 0..n statements.
-  std::vector<ptr<Statement>> statements;
+  ptr<Block> block;
 };
 
 }  // namespace ast

@@ -1,0 +1,25 @@
+{
+  "tag": "Module",
+  "span": "test/parse/repeat.as:1-5",
+  "statements": [
+    {
+      "tag": "Repeat",
+      "span": "test/parse/repeat.as:2-5",
+      "condition": {
+        "tag": "Identifier",
+        "span": "test/parse/repeat.as:2:7-16",
+        "text": "condition"
+      },
+      "statements": [
+        {
+          "tag": "Break",
+          "span": "test/parse/repeat.as:3:3-8"
+        },
+        {
+          "tag": "Continue",
+          "span": "test/parse/repeat.as:4:3-11"
+        }
+      ]
+    }
+  ]
+}

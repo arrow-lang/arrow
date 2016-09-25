@@ -11,6 +11,7 @@ namespace ir = arrow::ir;
 ir::Node::~Node() noexcept { }
 ir::Item::~Item() noexcept { }
 ir::Module::~Module() noexcept { }
+ir::Block::~Block() noexcept { }
 ir::Variable::~Variable() noexcept { }
 ir::Function::~Function() noexcept { }
 ir::ExternFunction::~ExternFunction() noexcept { }
@@ -58,6 +59,9 @@ ir::BitXor::~BitXor() noexcept {}
 ir::Not::~Not() noexcept {}
 ir::And::~And() noexcept {}
 ir::Or::~Or() noexcept {}
+
+ir::Repeat::~Repeat() noexcept {}
+ir::Conditional::~Conditional() noexcept {}
 
 ir::EqualTo::~EqualTo() noexcept {}
 ir::NotEqualTo::~NotEqualTo() noexcept {}

@@ -18,6 +18,7 @@ IMPL(Statement)
 IMPL(Module)
 IMPL(Variable)
 IMPL(ExpressionStatement)
+IMPL(Block)
 
 IMPL(Expression)
 IMPL(Integer)
@@ -72,3 +73,9 @@ IMPL(Return)
 IMPL(Import)
 
 IMPL(CInclude)
+
+IMPL(Conditional)
+IMPL(Branch)
+IMPL(Repeat)
+IMPL(Break)
+IMPL(Continue)
