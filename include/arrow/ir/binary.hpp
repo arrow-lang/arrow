@@ -13,7 +13,7 @@ namespace ir {
 
 struct Binary : Value {
   Binary(ptr<Type> type, ptr<Value> lhs, ptr<Value> rhs)
-    : Value(type), lhs(lhs), rhs(rhs) {
+    : Node(nullptr), Value(type), lhs(lhs), rhs(rhs) {
   }
 
   virtual ~Binary() noexcept;

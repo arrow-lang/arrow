@@ -20,7 +20,7 @@ struct Type;
 
 struct Value : virtual Node {
   explicit Value(ptr<Type> type)
-  : type(type) {
+  : Node(nullptr), type(type) {
   }
 
   virtual ~Value() noexcept;

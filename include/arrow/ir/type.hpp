@@ -19,7 +19,9 @@ struct GContext;
 namespace ir {
 
 struct Type : Item {
-  using Item::Item;
+  Type(std::string name)
+    : Node(nullptr), Item(name) {
+  }
 
   virtual ~Type() noexcept;
 

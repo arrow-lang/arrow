@@ -48,10 +48,10 @@ def configure(ctx):
         uselib_store='LLVM'
     )
 
-    if ctx.env["CXX_NAME"] in ("gcc", "clang"):
-        # Add -lclang (can't seem to get it working in the check system)
-        ctx.env.append_unique("LINKFLAGS", "-lclang")
+    # HACK: Add clang as a llvm lib -- not sure how to do this with check
+    ctx.env["LIB_LLVM"].append("clang")
 
+    if ctx.env["CXX_NAME"] in ("gcc", "clang"):
         ctx.env.append_unique("CXXFLAGS", "-std=gnu++1y")
 
         if ctx.options.release:
@@ -75,11 +75,12 @@ def configure(ctx):
         # ctx.env.append_unique("CXXFLAGS", "-Wsuggest-attribute=const")
         # ctx.env.append_unique("CXXFLAGS", "-Wsuggest-attribute=noreturn")
         ctx.env.append_unique("CXXFLAGS", "-Weffc++")
-        ctx.env.append_unique("CXXFLAGS", "-Wpedantic")
+        # ctx.env.append_unique("CXXFLAGS", "-Wpedantic")
 
         ctx.env.append_unique("CXXFLAGS", "-Woverloaded-virtual")
         ctx.env.append_unique("CXXFLAGS", "-Wno-unused-value")
         ctx.env.append_unique("CXXFLAGS", "-Wno-unused-parameter")
+        ctx.env.append_unique("CXXFLAGS", "-Wno-pragmas")
 
 
 def build(ctx):

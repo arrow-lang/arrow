@@ -22,7 +22,7 @@ struct Type;
 ///  - Type
 struct Item : virtual Node {
   Item(std::string name)
-    : name(name) {
+    : Node(nullptr), name(name) {
   }
 
   virtual ~Item() noexcept;

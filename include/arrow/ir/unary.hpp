@@ -13,7 +13,7 @@ namespace ir {
 
 struct Unary : Value {
   Unary(ptr<Type> type, ptr<Value> operand)
-    : Value(type), operand(operand) {
+    : Node(nullptr), Value(type), operand(operand) {
   }
 
   virtual ~Unary() noexcept;
