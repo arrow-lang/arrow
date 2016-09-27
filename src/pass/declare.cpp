@@ -3,7 +3,7 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "arrow/pass/build.hpp"
+#include "arrow/pass/declare.hpp"
 #include "arrow/log.hpp"
 #include "mach7.hpp"
 
@@ -11,7 +11,7 @@ using arrow::pass::Declare;
 
 #define ACCEPT(type, name) \
   Case(mch::C<type>()) \
-    handle_##name(std::dynamic_pointer_cast<type>(x))
+    handle_##name(std::dynamic_pointer_cast<type>(x)); break
 
 void Declare::run(ptr<ast::Node> x) {
   Match(*x) {

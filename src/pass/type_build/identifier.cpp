@@ -10,13 +10,13 @@ using arrow::pass::TypeBuild;
 
 auto TypeBuild::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
   // Does this identifier exist
-  if (!_ctx.scope_b.contains(x->text)) {
+  if (!_ctx.scope->contains(x->text)) {
     Log::get().error(x->span, "unresolved name `{}`", x->text);
     return nullptr;
   }
 
   // Get the item in reference
-  auto item = _ctx.scope_b.get(x->text);
+  auto item = _ctx.scope->get(x->text);
 
   auto item_t = cast<ir::Type>(item);
   if (item_t == nullptr) {

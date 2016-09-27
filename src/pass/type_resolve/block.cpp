@@ -3,16 +3,13 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "arrow/pass/declare.hpp"
+#include "arrow/pass/type_resolve.hpp"
 
-using arrow::pass::Declare;
+using arrow::pass::TypeResolve;
 
-auto Declare::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
-  // Declaring a block just creates it
-  auto bl = make<ir::Block>(x, _ctx.scope);
-
-  // Add block to scope for later get
-  _ctx.scope->put(x, bl, "");
+void TypeResolve::handle_block(ptr<ast::Block> x) {
+  auto bl = _ctx.scope->get<ir::Block>(x);
+  if (!bl) return;
 
   // Scope: Enter
   auto sb = ir::Scope::enter(bl->scope, _ctx);
@@ -22,6 +19,4 @@ auto Declare::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
 
   // Scope: Exit
   sb.exit();
-
-  return bl;
 }

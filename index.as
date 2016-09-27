@@ -24,8 +24,10 @@
 // [ ] Implicit cast to type alias from unnamed _literal_ of underlying type
 // [ ] If Expression
 
-let a = 10;
-let b;
-b = false;
+let a: int8 = 210;
 
-let c = true;
+// let a = 10;
+// let b;
+// b = false;
+//
+// let c = true;

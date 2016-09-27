@@ -12,6 +12,7 @@
 
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/block.hpp"
 
 namespace arrow {
 namespace ir {

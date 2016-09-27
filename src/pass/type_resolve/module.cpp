@@ -3,18 +3,15 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "arrow/pass/build.hpp"
+#include "arrow/pass/type_resolve.hpp"
 
-using arrow::pass::Build;
+using arrow::pass::TypeResolve;
 
-auto Build::handle_module(ptr<ast::Module> x) -> ptr<ir::Value> {
+void TypeResolve::handle_module(ptr<ast::Module> x) {
   // Get: Module
   auto module = _ctx.scope->get<ir::Module>(x);
-  if (!module) return nullptr;
+  if (!module) return;
 
   // Block
   run(x->block);
-
-  // Has no value
-  return nullptr;
 }

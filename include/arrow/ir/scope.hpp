@@ -14,29 +14,57 @@
 namespace arrow {
 namespace ir {
 
-template <typename T>
-class Scope {
+class Scope;
+
+class ScopeBlock {
  public:
-  Scope() : _items() {
+  ScopeBlock(ptr<Scope> previous, GContext& ctx)
+  : _previous(previous), _ctx(ctx) {
   }
 
-  ~Scope() noexcept {
-  }
-
-  void emplace(std::string name, ptr<T> item) {
-    _items[name] = item;
-  }
-
-  bool contains(std::string name) const {
-    return _items.find(name) != _items.end();
-  }
-
-  ptr<T> get(std::string name) const {
-    return _items.find(name)->second;
-  }
+  void exit();
 
  private:
-  std::unordered_map<std::string, ptr<T>> _items;
+  ptr<Scope> _previous;
+  GContext& _ctx;
+};
+
+class Scope {
+ public:
+  static ScopeBlock enter(ptr<Scope> scope, GContext&);
+
+  Scope(ptr<Scope> parent)
+  : _parent(parent), _items(), _names() {
+  }
+
+  ~Scope() noexcept;
+
+  void put(std::string name, ptr<ir::Node> item);
+  void put(ptr<ast::Node> node, ptr<ir::Node> item, std::string name);
+
+  bool contains(std::string name) const;
+  bool contains(ptr<ast::Node> node) const;
+
+  ptr<ir::Node> get(std::string name) const;
+  ptr<ir::Node> get(ptr<ast::Node> node) const;
+
+  template <typename T>
+  ptr<T> get(std::string name) const {
+    return cast<T>(get(name));
+  }
+
+  template <typename T>
+  ptr<T> get(ptr<ast::Node> node) const {
+    return cast<T>(get(node));
+  }
+
+  ScopeBlock enter(GContext&);
+
+ private:
+  ptr<Scope> _parent;
+  std::unordered_map<void*, ptr<ir::Node>> _items;
+  std::unordered_map<std::string, void*> _names;
+
 };
 
 }  // namespace ir

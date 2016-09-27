@@ -28,8 +28,8 @@ struct GContext {
   // Describes the target architecture
   LLVMTargetMachineRef target;
 
-  // Scope (block) – general block scope (includes functions)
-  ir::Scope<ir::Item> scope_b;
+  // Scope
+  ptr<ir::Scope> scope;
 
   // Function stack – which function are we currently processing
   std::stack<ir::Function*> function_s;

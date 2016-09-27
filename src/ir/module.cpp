@@ -22,7 +22,7 @@ void Module::generate(GContext& ctx) {
     LLVMAppendBasicBlock(initializer, ""));
 
   // Generate each statement ..
-  for (auto& stmt : statements) stmt->generate(ctx);
+  block->generate(ctx);
 
   // Terminate module initializer
   LLVMBuildRetVoid(ctx.irb);

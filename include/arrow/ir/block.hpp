@@ -12,14 +12,16 @@
 
 #include "arrow/ir/item.hpp"
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/scope.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Block : Value {
-  explicit Block(ptr<ast::Block> source, ptr<Type> type, ptr<Scope> parent_scope)
-    : Node(source), Value(type), statements(), _handle(nullptr),
-      scope(parent_scope) {
+  explicit Block(ptr<ast::Block> source, ptr<Scope> parent_scope)
+    : Node(source), Value(nullptr), statements(),
+      scope(parent_scope),
+      _handle(nullptr) {
   }
 
   virtual ~Block() noexcept;

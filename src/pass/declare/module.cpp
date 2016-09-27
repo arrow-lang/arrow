@@ -15,8 +15,8 @@ void Declare::handle_module(ptr<ast::Module> x) {
   _ctx.modules.push_back(module);
 
   // Add module to (top-level) scope
-  _ctx.scope.put(x, module, x->name);
+  _ctx.scope->put(x, module, x->name);
 
   // Block
-  module->block = run(x->block);
+  module->block = handle_block(x->block);
 }

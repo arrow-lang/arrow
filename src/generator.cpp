@@ -8,6 +8,8 @@
 #include "arrow/generator.hpp"
 #include "arrow/log.hpp"
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/declare.hpp"
+#include "arrow/pass/type_resolve.hpp"
 #include "mach7.hpp"
 
 using arrow::Generator;
@@ -56,30 +58,33 @@ void Generator::initialize() {
 
   LLVMDisposeMessage(triple);
 
+  // Initialize top scope
+  _ctx.scope = make<ir::Scope>(nullptr);
+
   // Register built-in types
   // Boolean
-  _ctx.scope_b.emplace("bool", make<ir::TypeBoolean>());
+  _ctx.scope->put("bool", make<ir::TypeBoolean>());
 
   // Integer, Signed
-  _ctx.scope_b.emplace("int8", make<ir::TypeInteger>(true, 8));
-  _ctx.scope_b.emplace("int16", make<ir::TypeInteger>(true, 16));
-  _ctx.scope_b.emplace("int32", make<ir::TypeInteger>(true, 32));
-  _ctx.scope_b.emplace("int64", make<ir::TypeInteger>(true, 64));
-  _ctx.scope_b.emplace("int128", make<ir::TypeInteger>(true, 128));
+  _ctx.scope->put("int8", make<ir::TypeInteger>(true, 8));
+  _ctx.scope->put("int16", make<ir::TypeInteger>(true, 16));
+  _ctx.scope->put("int32", make<ir::TypeInteger>(true, 32));
+  _ctx.scope->put("int64", make<ir::TypeInteger>(true, 64));
+  _ctx.scope->put("int128", make<ir::TypeInteger>(true, 128));
 
   // Integer, Unsigned
-  _ctx.scope_b.emplace("uint8", make<ir::TypeInteger>(false, 8));
-  _ctx.scope_b.emplace("uint16", make<ir::TypeInteger>(false, 16));
-  _ctx.scope_b.emplace("uint32", make<ir::TypeInteger>(false, 32));
-  _ctx.scope_b.emplace("uint64", make<ir::TypeInteger>(false, 64));
-  _ctx.scope_b.emplace("uint128", make<ir::TypeInteger>(false, 128));
+  _ctx.scope->put("uint8", make<ir::TypeInteger>(false, 8));
+  _ctx.scope->put("uint16", make<ir::TypeInteger>(false, 16));
+  _ctx.scope->put("uint32", make<ir::TypeInteger>(false, 32));
+  _ctx.scope->put("uint64", make<ir::TypeInteger>(false, 64));
+  _ctx.scope->put("uint128", make<ir::TypeInteger>(false, 128));
 
   // Real
-  _ctx.scope_b.emplace("float32", make<ir::TypeReal>(32));
-  _ctx.scope_b.emplace("float64", make<ir::TypeReal>(64));
+  _ctx.scope->put("float32", make<ir::TypeReal>(32));
+  _ctx.scope->put("float64", make<ir::TypeReal>(64));
 
   // String
-  _ctx.scope_b.emplace("str", make<ir::TypeString>());
+  _ctx.scope->put("str", make<ir::TypeString>());
 }
 
 // TODO(mehcode): How do imports work with regards to ir::Module and LLVMModule
@@ -97,6 +102,14 @@ Generator& Generator::run(ptr<ast::Module> module) {
     _ctx.target));
   LLVMSetDataLayout(_ctx.mod, data);
   LLVMDisposeMessage(data);
+
+  // Declare
+  pass::Declare(_ctx).run(module);
+  if (Log::get().count(LOG_ERROR) > 0) return *this;
+
+  // TypeResolve
+  pass::TypeResolve(_ctx).run(module);
+  if (Log::get().count(LOG_ERROR) > 0) return *this;
 
   // Build
   pass::Build(_ctx).run(module);

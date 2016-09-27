@@ -11,14 +11,14 @@ using arrow::pass::TypeResolve;
 
 #define ACCEPT(type, name) \
   Case(mch::C<type>()) \
-    handle_##name(std::dynamic_pointer_cast<type>(x))
+    handle_##name(std::dynamic_pointer_cast<type>(x)); break
 
 void TypeResolve::run(ptr<ast::Node> x) {
   Match(*x) {
     ACCEPT(ast::Module, module);
     ACCEPT(ast::Variable, variable);
-    ACCEPT(ast::Function, function);
-    ACCEPT(ast::ExternFunction, extern_function);
+    // ACCEPT(ast::Function, function);
+    // ACCEPT(ast::ExternFunction, extern_function);
     ACCEPT(ast::Block, block);
 
     Otherwise() {
