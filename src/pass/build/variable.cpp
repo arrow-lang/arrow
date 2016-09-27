@@ -5,7 +5,7 @@
 
 #include "arrow/log.hpp"
 #include "arrow/pass/build.hpp"
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_build.hpp"
 
 using arrow::pass::Build;
 
@@ -20,7 +20,7 @@ auto Build::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Value> {
 
   // Resolve the type annotation (if present)
   if (x->type) {
-    item->type = TypeResolve(_ctx).run(x->type);
+    item->type = TypeBuild(_ctx).run(x->type);
     if (!item->type) return nullptr;
   }
 

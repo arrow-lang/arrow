@@ -17,8 +17,9 @@ namespace arrow {
 namespace ir {
 
 struct Block : Value {
-  explicit Block(ptr<ast::Block> source, ptr<Type> type)
-    : Node(source), Value(type), statements(), _handle(nullptr) {
+  explicit Block(ptr<ast::Block> source, ptr<Type> type, ptr<Scope> parent_scope)
+    : Node(source), Value(type), statements(), _handle(nullptr),
+      scope(parent_scope) {
   }
 
   virtual ~Block() noexcept;
@@ -27,6 +28,9 @@ struct Block : Value {
 
   // Statements in the module (initializer)
   std::vector<ptr<Value>> statements;
+
+  // Scope
+  ptr<Scope> scope;
 
  private:
   LLVMValueRef _handle;

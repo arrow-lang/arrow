@@ -3,12 +3,12 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_build.hpp"
 #include "arrow/log.hpp"
 
-using arrow::pass::TypeResolve;
+using arrow::pass::TypeBuild;
 
-auto TypeResolve::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
+auto TypeBuild::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
   // Does this identifier exist
   if (!_ctx.scope_b.contains(x->text)) {
     Log::get().error(x->span, "unresolved name `{}`", x->text);

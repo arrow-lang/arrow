@@ -4,14 +4,14 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_build.hpp"
 
 using arrow::pass::Build;
-using arrow::pass::TypeResolve;
+using arrow::pass::TypeBuild;
 
 auto Build::handle_type_alias(ptr<ast::TypeAlias> x) -> ptr<ir::Value> {
   // Resolve: target type
-  auto target_t = TypeResolve(_ctx).run(x->target);
+  auto target_t = TypeBuild(_ctx).run(x->target);
   if (!target_t) return nullptr;
 
   // Make: alias

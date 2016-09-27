@@ -8,8 +8,13 @@
 using arrow::pass::Build;
 
 auto Build::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
-  // Make: Block
-  auto bl = make<ir::Block>(x, nullptr);
+  // A block should be there for module/functions but it won't for
+  // expression blocks
+  ptr<ir::Block> bl = _ctx.scope->get(x);
+  if (!bl) bl = make<ir::Block>(x, nullptr)
+
+  // Scope: Enter
+  bl->scope->enter(_ctx);
 
   // Iterate through each statement ..
   for (auto& statement : x->statements) {
@@ -21,6 +26,9 @@ auto Build::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
       bl->type = node->type;
     }
   }
+
+  // Scope: Exit
+  bl->scope->exit(_ctx);
 
   return bl;
 }

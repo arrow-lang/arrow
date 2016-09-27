@@ -69,7 +69,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Repeat, repeat);
 
     Otherwise() {
-      Log::get().error("build not implemented for {}", typeid(*x).name());
+      Log::get().error("Build not implemented for {}", typeid(*x).name());
     }
   } EndMatch;
 

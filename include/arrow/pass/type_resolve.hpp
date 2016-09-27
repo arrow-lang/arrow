@@ -3,8 +3,8 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#ifndef ARROW_TYPE_RESOLVE_H
-#define ARROW_TYPE_RESOLVE_H
+#ifndef ARROW_TYPE_BUILD_H
+#define ARROW_TYPE_BUILD_H
 
 #include <memory>
 #include <string>
@@ -15,9 +15,9 @@
 namespace arrow {
 namespace pass {
 
-class TypeResolve : public Pass {
+class TypeBuild : public Pass {
  public:
-  TypeResolve(GContext& ctx);
+  TypeBuild(GContext& ctx);
 
   ptr<ir::Type> run(ptr<ast::Node>);
 
@@ -30,4 +30,4 @@ class TypeResolve : public Pass {
 }  // namespace back
 }  // namespace arrow
 
-#endif  // ARROW_TYPE_RESOLVE_H
+#endif  // ARROW_TYPE_BUILD_H

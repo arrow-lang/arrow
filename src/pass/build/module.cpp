@@ -8,19 +8,12 @@
 using arrow::pass::Build;
 
 auto Build::handle_module(ptr<ast::Module> x) -> ptr<ir::Value> {
-  // Make: Module
-  auto module = make<ir::Module>(x, x->name);
+  // Get: Module
+  auto module = _ctx.scope.get(x);
+  if (!module) return nullptr;
 
-  // Add module to modules orderable
-  _ctx.modules.push_back(module);
-
-  // Iterate through each statement ..
-  for (auto& statement : x->block->statements) {
-    auto node = run(statement);
-    if (node) {
-      module->statements.push_back(node);
-    }
-  }
+  // Block
+  module->block = run(x->block);
 
   // Has no value
   return nullptr;

@@ -4,7 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_build.hpp"
 
 using arrow::pass::Build;
 
@@ -14,13 +14,13 @@ auto Build::handle_function(ptr<ast::Function> x) -> ptr<ir::Value> {
 
   // Resolve: Result type
   if (x->result_type) {
-    type->result = TypeResolve(_ctx).run(x->result_type);
+    type->result = TypeBuild(_ctx).run(x->result_type);
     if (!type->result) return nullptr;
   }
 
   // Resolve: Parameter types
   for (auto& param : x->parameters) {
-    auto param_type = TypeResolve(_ctx).run(param->type);
+    auto param_type = TypeBuild(_ctx).run(param->type);
     if (!param_type) return nullptr;
 
     type->parameters.push_back(param_type);
@@ -50,13 +50,13 @@ auto Build::handle_extern_function(ptr<ast::ExternFunction> x) -> ptr<ir::Value>
 
   // Resolve: Result type
   if (x->result_type) {
-    type->result = TypeResolve(_ctx).run(x->result_type);
+    type->result = TypeBuild(_ctx).run(x->result_type);
     if (!type->result) return nullptr;
   }
 
   // Resolve: Parameter types
   for (auto& param : x->parameters) {
-    auto param_type = TypeResolve(_ctx).run(param->type);
+    auto param_type = TypeBuild(_ctx).run(param->type);
     if (!param_type) return nullptr;
 
     type->parameters.push_back(param_type);

@@ -4,18 +4,18 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_build.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
-using arrow::pass::TypeResolve;
+using arrow::pass::TypeBuild;
 
 auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   // Build: Operand
   auto operand = run(x->operand);
   if (!operand) {
     // Is this a type?
-    auto operand_t = TypeResolve(_ctx).run(x->operand);
+    auto operand_t = TypeBuild(_ctx).run(x->operand);
     if (!operand_t) return nullptr;
 
     // Yes; assert we have a single argument

@@ -3,17 +3,17 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
-#include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/build.hpp"
 #include "arrow/log.hpp"
 #include "mach7.hpp"
 
-using arrow::pass::TypeResolve;
+using arrow::pass::Declare;
 
 #define ACCEPT(type, name) \
   Case(mch::C<type>()) \
     handle_##name(std::dynamic_pointer_cast<type>(x))
 
-void TypeResolve::run(ptr<ast::Node> x) {
+void Declare::run(ptr<ast::Node> x) {
   Match(*x) {
     ACCEPT(ast::Module, module);
     ACCEPT(ast::Variable, variable);
@@ -22,7 +22,7 @@ void TypeResolve::run(ptr<ast::Node> x) {
     ACCEPT(ast::Block, block);
 
     Otherwise() {
-      Log::get().error("TypeResolve not implemented for {}", typeid(*x).name());
+      Log::get().error("Declare not implemented for {}", typeid(*x).name());
     }
   } EndMatch;
 }
