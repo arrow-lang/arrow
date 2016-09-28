@@ -7,7 +7,7 @@
 
 using arrow::pass::Declare;
 
-void Declare::handle_module(ptr<ast::Module> x) {
+void Declare::visit_module(ptr<ast::Module> x) {
   // Make: Module
   auto module = make<ir::Module>(x, x->name);
 
@@ -15,8 +15,9 @@ void Declare::handle_module(ptr<ast::Module> x) {
   _ctx.modules.push_back(module);
 
   // Add module to (top-level) scope
-  _ctx.scope->put(x, module, x->name);
+  _ctx.scope->put(x, module, "");
 
   // Block
-  module->block = handle_block(x->block);
+  accept(x->block);
+  module->block = _ctx.scope->get<ir::Block>(x->block);
 }

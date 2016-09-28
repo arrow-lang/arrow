@@ -10,22 +10,31 @@
 #include <string>
 
 #include "arrow/pass.hpp"
+#include "arrow/ast/visitor.hpp"
 
 namespace arrow {
 namespace pass {
 
-class TypeResolve : public Pass {
+class TypeResolve : public ast::Visitor, public Pass {
  public:
   using Pass::Pass;
 
-  void run(ptr<ast::Node>);
+  virtual void run(ptr<ast::Node>);
 
  private:
-  void handle_module(ptr<ast::Module>);
-  void handle_block(ptr<ast::Block>);
-  void handle_variable(ptr<ast::Variable>);
-  // void handle_function(ptr<ast::Function>);
-  // void handle_extern_function(ptr<ast::ExternFunction>);
+  struct Assign { ptr<ir::Type> type; };
+  struct Use { ptr<ir::Type> type; };
+
+  std::vector<ptr<ir::Variable>> _declare;
+  std::unordered_map<ir::Variable*, std::vector<Assign>> _assigns;
+  std::unordered_map<ir::Variable*, std::vector<Use>> _uses;
+
+  void visit_module(ptr<ast::Module>);
+  void visit_block(ptr<ast::Block>);
+  void visit_variable(ptr<ast::Variable>);
+  void visit_assign(ptr<ast::Assign>);
+  // void visit_function(ptr<ast::Function>);
+  // void visit_extern_function(ptr<ast::ExternFunction>);
 };
 
 }  // namespace back

@@ -10,22 +10,21 @@
 #include <string>
 
 #include "arrow/pass.hpp"
+#include "arrow/ast/visitor.hpp"
 
 namespace arrow {
 namespace pass {
 
-class Declare : public Pass {
+class Declare : public Pass, public ast::Visitor {
  public:
   using Pass::Pass;
 
-  void run(ptr<ast::Node>);
-
  private:
-  void handle_module(ptr<ast::Module>);
-  ptr<ir::Block> handle_block(ptr<ast::Block>);
-  void handle_variable(ptr<ast::Variable>);
-  void handle_function(ptr<ast::Function>);
-  void handle_extern_function(ptr<ast::ExternFunction>);
+  void visit_module(ptr<ast::Module>);
+  void visit_block(ptr<ast::Block>);
+  void visit_variable(ptr<ast::Variable>);
+  void visit_function(ptr<ast::Function>);
+  void visit_extern_function(ptr<ast::ExternFunction>);
 };
 
 }  // namespace back

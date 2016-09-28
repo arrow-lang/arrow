@@ -4,11 +4,12 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/type_resolve.hpp"
+#include "arrow/pass/type_deduce.hpp"
 #include "arrow/pass/type_build.hpp"
 
 using arrow::pass::TypeResolve;
 
-void TypeResolve::handle_variable(ptr<ast::Variable> x) {
+void TypeResolve::visit_variable(ptr<ast::Variable> x) {
   // Get: Variable
   auto var = _ctx.scope->get<ir::Variable>(x);
   if (!var) return;
@@ -17,5 +18,15 @@ void TypeResolve::handle_variable(ptr<ast::Variable> x) {
   if (x->type) {
     var->type = TypeBuild(_ctx).run(x->type);
     if (!var->type) return;
+  } else {
+    // TypeResolve: Record the declaration
+    _declare.push_back(var);
+
+    // Check for an initializer expression (and record as an assignment)
+    if (x->initializer) {
+      // NOTE: If deduction fails; we want to record the null
+      auto type = TypeDeduce(_ctx).run(x->initializer);
+      _assigns[var.get()].push_back(Assign{type});
+    }
   }
 }

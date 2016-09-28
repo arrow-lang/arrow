@@ -11,8 +11,6 @@
 namespace arrow {
 namespace ast {
 
-class Visitor;
-
 struct Node {
   explicit Node(Span span) : span(span) {
   }

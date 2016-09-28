@@ -7,7 +7,7 @@
 
 using arrow::pass::TypeResolve;
 
-void TypeResolve::handle_block(ptr<ast::Block> x) {
+void TypeResolve::visit_block(ptr<ast::Block> x) {
   auto bl = _ctx.scope->get<ir::Block>(x);
   if (!bl) return;
 
@@ -15,7 +15,7 @@ void TypeResolve::handle_block(ptr<ast::Block> x) {
   auto sb = ir::Scope::enter(bl->scope, _ctx);
 
   // Iterate through each statement ..
-  for (auto& statement : x->statements) run(statement);
+  for (auto& statement : x->statements) accept(statement);
 
   // Scope: Exit
   sb.exit();

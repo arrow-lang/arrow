@@ -7,7 +7,7 @@
 
 using arrow::pass::Declare;
 
-auto Declare::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
+void Declare::visit_block(ptr<ast::Block> x) {
   // Declaring a block just creates it
   auto bl = make<ir::Block>(x, _ctx.scope);
 
@@ -22,6 +22,4 @@ auto Declare::handle_block(ptr<ast::Block> x) -> ptr<ir::Block> {
 
   // Scope: Exit
   sb.exit();
-
-  return bl;
 }

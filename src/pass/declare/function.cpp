@@ -7,7 +7,7 @@
 
 using arrow::pass::Declare;
 
-void Declare::handle_function(ptr<ast::Function> x) {
+void Declare::visit_function(ptr<ast::Function> x) {
   // Make: Function
   auto fn = make<ir::Function>(x, _ctx.modules.back(), x->name, nullptr);
 
@@ -18,13 +18,14 @@ void Declare::handle_function(ptr<ast::Function> x) {
   _ctx.function_s.push(fn.get());
 
   // Handle: Block
-  fn->block = handle_block(x->block);
+  accept(x->block);
+  fn->block = _ctx.scope->get<ir::Block>(x->block);
 
   // Stack: pop
   _ctx.function_s.pop();
 }
 
-void Declare::handle_extern_function(ptr<ast::ExternFunction> x) {
+void Declare::visit_extern_function(ptr<ast::ExternFunction> x) {
   // Make: Extern Function
   auto fn = make<ir::ExternFunction>(
     x, _ctx.modules.back(), x->name, nullptr);

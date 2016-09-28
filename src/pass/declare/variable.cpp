@@ -7,7 +7,7 @@
 
 using arrow::pass::Declare;
 
-void Declare::handle_variable(ptr<ast::Variable> x) {
+void Declare::visit_variable(ptr<ast::Variable> x) {
   // Make: Variable
   bool is_global = (_ctx.function_s.size() == 0);
   auto item = make<ir::Variable>(x, x->name, is_global);

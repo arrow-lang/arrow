@@ -7,11 +7,11 @@
 
 using arrow::pass::TypeResolve;
 
-void TypeResolve::handle_module(ptr<ast::Module> x) {
+void TypeResolve::visit_module(ptr<ast::Module> x) {
   // Get: Module
   auto module = _ctx.scope->get<ir::Module>(x);
   if (!module) return;
 
   // Block
-  run(x->block);
+  accept(x->block);
 }
