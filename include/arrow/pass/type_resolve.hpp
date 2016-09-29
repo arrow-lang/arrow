@@ -11,6 +11,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <stack>
 
 #include "arrow/pass.hpp"
 #include "arrow/ast/visitor.hpp"
@@ -31,6 +32,7 @@ class TypeResolve : public ast::Visitor, public Pass {
   std::unordered_set<ptr<ir::Variable>> _declare;
   std::unordered_map<ir::Variable*, std::vector<Assign>> _assigns;
   std::unordered_map<ir::Variable*, std::vector<Use>> _uses;
+  std::stack<ptr<ir::Type>> _type_s;
   bool _incomplete = false;
 
   void visit_module(ptr<ast::Module>);
@@ -38,7 +40,11 @@ class TypeResolve : public ast::Visitor, public Pass {
   void visit_variable(ptr<ast::Variable>);
   void visit_assign(ptr<ast::Assign>);
   void visit_function(ptr<ast::Function>);
-  // void visit_extern_function(ptr<ast::ExternFunction>);
+  void visit_id(ptr<ast::Identifier>);
+  void visit_call(ptr<ast::Call>);
+  void visit_extern_function(ptr<ast::ExternFunction>);
+  void visit_unary(ptr<ast::Unary>);
+  void visit_binary(ptr<ast::Binary>);
 };
 
 }  // namespace back

@@ -1,4 +1,4 @@
-// [-] Pass: Declare
+// [x] Pass: Declare
 // [-] Select (if)
 // [x] Loop (while)
 // [ ] Structure

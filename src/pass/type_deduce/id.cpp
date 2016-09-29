@@ -14,8 +14,15 @@ auto TypeDeduce::visit_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
 
   Match(*item) {
     Case(mch::C<ir::Variable>()) {
-      auto var = cast<ir::Variable>(item);
-      return var->type;
+      return cast<ir::Variable>(item)->type;
+    }
+
+    Case(mch::C<ir::Function>()) {
+      return cast<ir::Function>(item)->type;
+    }
+
+    Case(mch::C<ir::ExternFunction>()) {
+      return cast<ir::ExternFunction>(item)->type;
     }
   } EndMatch
 

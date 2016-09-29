@@ -53,10 +53,10 @@ void TypeResolve::run(ptr<ast::Node> x) {
     // Ensure all variables are either annotated or there is enough information
     // to infer the type
     for (auto& item : _declare) {
-      if (item->type) continue;
-
       bool invalid = false;
       auto& assign_set = _assigns[item.get()];
+      auto& use_set = _uses[item.get()];
+
       std::vector<ptr<ir::Type>> type_set;
 
       for (auto& assign : assign_set) {
@@ -77,9 +77,34 @@ void TypeResolve::run(ptr<ast::Node> x) {
       // Reduce types
       auto type = type_set_reduce(type_set);
 
+      // Attempt to further speciaize the type using its uses
+      type_set.clear();
+      for (auto& use : use_set) {
+        if (!use.type) {
+          // An invalid type was resolved
+          invalid = true;
+          break;
+        }
+
+        type_set.push_back(use.type);
+      }
+
+      if (invalid) {
+        _incomplete = true;
+        continue;
+      }
+
+      // Treat the use types as "weak" (assign types win)
+      auto temp = type_set_reduce(type_set);
+      if (temp) {
+        temp = ir::type_reduce(type, temp);
+        if (temp) {
+          type = temp;
+        }
+      }
+
       // Mark the type of the item
       item->type = type_literal_promote(type);
     }
-
   } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
 }
