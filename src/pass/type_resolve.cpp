@@ -27,10 +27,24 @@ static auto type_literal_promote(ptr<ir::Type> type) -> ptr<ir::Type> {
   return type;
 }
 
+// Type reduction over a vector is done 2 at a time and falls back to
+// the LHS if an inner reduction fails. This method cannot fail.
+static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Type> {
+  ptr<ir::Type> result = type_set[0];
+  for (std::size_t i = 1; i < type_set.size(); ++i) {
+    auto tmp = ir::type_reduce(result, type_set[i]);
+    if (!tmp) break;
+
+    result = tmp;
+  }
+
+  return result;
+}
+
 void TypeResolve::run(ptr<ast::Node> x) {
-  bool incomplete;
   do {
-    incomplete = false;
+    // Reset incomplete flag
+    _incomplete = false;
 
     // Accept (visit each child expression)
     accept(x);
@@ -56,15 +70,16 @@ void TypeResolve::run(ptr<ast::Node> x) {
       }
 
       if (invalid) {
-        incomplete = true;
+        _incomplete = true;
         continue;
       }
 
-      // TODO: Reduce types
+      // Reduce types
+      auto type = type_set_reduce(type_set);
 
       // Mark the type of the item
-      item->type = type_literal_promote(type_set[0]);
+      item->type = type_literal_promote(type);
     }
 
-  } while (incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
+  } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
 }

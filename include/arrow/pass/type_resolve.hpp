@@ -31,12 +31,13 @@ class TypeResolve : public ast::Visitor, public Pass {
   std::unordered_set<ptr<ir::Variable>> _declare;
   std::unordered_map<ir::Variable*, std::vector<Assign>> _assigns;
   std::unordered_map<ir::Variable*, std::vector<Use>> _uses;
+  bool _incomplete = false;
 
   void visit_module(ptr<ast::Module>);
   void visit_block(ptr<ast::Block>);
   void visit_variable(ptr<ast::Variable>);
   void visit_assign(ptr<ast::Assign>);
-  // void visit_function(ptr<ast::Function>);
+  void visit_function(ptr<ast::Function>);
   // void visit_extern_function(ptr<ast::ExternFunction>);
 };
 
