@@ -60,9 +60,9 @@ def configure(ctx):
         else:
             ctx.env.append_unique("CXXFLAGS", "-g")
             ctx.env.append_unique("CXXFLAGS", "-O0")
-            # ctx.env.append_unique("CXXFLAGS", "--coverage")
-            #
-            # ctx.env.append_unique("LINKFLAGS", "--coverage")
+            ctx.env.append_unique("CXXFLAGS", "--coverage")
+
+            ctx.env.append_unique("LINKFLAGS", "--coverage")
 
         ctx.env.append_unique("CXXFLAGS", "-Wall")
         ctx.env.append_unique("CXXFLAGS", "-Wextra")
@@ -112,47 +112,18 @@ def test(ctx):
 #     ws.test.generate(ctx)
 
 
-# def coverage(ctx):
-#     with open(os.devnull) as nil:
-#         # Generate *.gcov files
-#         object_files = ctx.path.ant_glob("build/**/*.o")
-#         for object_file in object_files:
-#             check_call([
-#                 "gcov", "-r", "-b", "-c", object_file.abspath()
-#             ], cwd="./build", stdout=nil, stderr=nil)
-#
-#         # Process *.gcov files and create a coverage.info file
-#         check_call([
-#             "lcov",
-#             "--capture",
-#             "--directory", "./build",
-#             "--output-file", "coverage.info"
-#         ], stdout=nil, stderr=nil)
-#
-#         # Remove external files
-#         check_call([
-#             "lcov",
-#             "--remove", "coverage.info",
-#             "/usr/*",
-#             "--output-file", "coverage.info"
-#         ], stdout=nil, stderr=nil)
-#
-#         check_call([
-#             "lcov",
-#             "--remove", "coverage.info",
-#             "vendor/*",
-#             "--output-file", "coverage.info"
-#         ], stdout=nil, stderr=nil)
-#
-#         # Generate coverage report
-#         check_call([
-#             "genhtml",
-#             "coverage.info",
-#             "--output-directory", "coverage"
-#         ], stdout=nil, stderr=nil)
-#
-#         # Print the coverage report
-#         check_call([
-#             "lcov",
-#             "--summary", "coverage.info",
-#         ])
+def coverage(ctx):
+    with open(os.devnull) as nil:
+        # Copy all source files into the build directory
+        # HACK: If someone can get this working without this step, be my guest
+        check_call(["cp", "-r", "./src", "./build"]);
+
+        # Generate HTML coverage
+        check_call(["rm", "-rf", "coverage"])
+        check_call(["mkdir", "-p", "coverage"])
+        check_call([
+            "gcovr", "-r", "build/src", "--html", "--html-details",
+            "-o", "coverage/index.html"])
+
+        # Generate coverage report
+        check_call(["gcovr", "-r", "build/src", "-s"])
