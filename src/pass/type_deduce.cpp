@@ -15,7 +15,7 @@ using arrow::pass::TypeDeduce;
 
 auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
   Match(*x) {
-    // ACCEPT(ast::Identifier, id);
+    ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Boolean, bool);
     ACCEPT(ast::Integer, int);
     ACCEPT(ast::String, str);

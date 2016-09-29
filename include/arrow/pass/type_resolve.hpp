@@ -8,6 +8,9 @@
 
 #include <memory>
 #include <string>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 #include "arrow/pass.hpp"
 #include "arrow/ast/visitor.hpp"
@@ -25,7 +28,7 @@ class TypeResolve : public ast::Visitor, public Pass {
   struct Assign { ptr<ir::Type> type; };
   struct Use { ptr<ir::Type> type; };
 
-  std::vector<ptr<ir::Variable>> _declare;
+  std::unordered_set<ptr<ir::Variable>> _declare;
   std::unordered_map<ir::Variable*, std::vector<Assign>> _assigns;
   std::unordered_map<ir::Variable*, std::vector<Use>> _uses;
 

@@ -19,8 +19,10 @@ void TypeResolve::visit_variable(ptr<ast::Variable> x) {
     var->type = TypeBuild(_ctx).run(x->type);
     if (!var->type) return;
   } else {
-    // TypeResolve: Record the declaration
-    _declare.push_back(var);
+    // TypeResolve: Record the declaration (and re-initialize the storage)
+    _declare.insert(var);
+    _assigns[var.get()] = {};
+    _uses[var.get()] = {};
 
     // Check for an initializer expression (and record as an assignment)
     if (x->initializer) {
