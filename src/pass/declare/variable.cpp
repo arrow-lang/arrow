@@ -14,4 +14,7 @@ void Declare::visit_variable(ptr<ast::Variable> x) {
 
   // Scope: put
   _ctx.scope->put(x, item, item->name);
+
+  // Visit initializer (if present)
+  if (x->initializer) accept(x->initializer);
 }

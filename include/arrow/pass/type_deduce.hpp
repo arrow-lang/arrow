@@ -21,7 +21,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> run(ptr<ast::Node>);
 
  private:
-  // ptr<ir::Type> visit_block(ptr<ast::Block>);
+  ptr<ir::Type> visit_block(ptr<ast::Block>);
   // ptr<ir::Type> visit_indirect(ptr<ast::Indirect>);
   // ptr<ir::Type> visit_address_of(ptr<ast::AddressOf>);
   ptr<ir::Type> visit_identity(ptr<ast::Identity>);

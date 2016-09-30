@@ -11,9 +11,11 @@ using arrow::Parser;
 auto Parser::parse_conditional() -> ptr<ast::Conditional> {
   std::vector<ptr<ast::Branch>> branches;
   ptr<ast::Block> otherwise = nullptr;
+  unsigned index = 0;
 
   for (;;) {
-    if (_t.peek()->type == token::Type::If) {
+    index++;
+    if (index == 1 && _t.peek()->type == token::Type::If) {
       // Leading branch
       _t.pop();
 

@@ -45,7 +45,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::LessThanOrEqualTo, le);
     ACCEPT(ast::GreaterThan, gt);
     ACCEPT(ast::GreaterThanOrEqualTo, ge);
-    // ACCEPT(ast::Block, block);
+    ACCEPT(ast::Block, block);
     // ACCEPT(ast::Conditional, conditional);
     // ACCEPT(ast::Repeat, repeat);
 

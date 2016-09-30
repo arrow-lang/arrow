@@ -28,6 +28,7 @@ class Visitor {
 
  private:
   virtual void visit_return(ptr<ast::Return> x);
+  virtual void visit_variable(ptr<ast::Variable> x);
   virtual void visit_block(ptr<ast::Block> x);
   virtual void visit_branch(ptr<ast::Branch> x);
   virtual void visit_conditional(ptr<ast::Conditional> x);
@@ -63,7 +64,6 @@ class Visitor {
   virtual void visit_binary(ptr<ast::Binary> x);
 
   virtual void visit_module(ptr<ast::Module> x) { /* LCOV_EXCL_LINE */ }
-  virtual void visit_variable(ptr<ast::Variable> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_integer(ptr<ast::Integer> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_bool(ptr<ast::Boolean> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_str(ptr<ast::String> x) { /* LCOV_EXCL_LINE */ }

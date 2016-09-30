@@ -94,6 +94,11 @@ void Visitor::visit_block(ptr<ast::Block> x) {
   for (auto& stmt : x->statements) accept(stmt);
 }
 
+// Variable
+void Visitor::visit_variable(ptr<ast::Variable> x) {
+  if (x->initializer) accept(x->initializer);
+}
+
 // Return
 void Visitor::visit_return(ptr<ast::Return> x) {
   if (x->operand) accept(x->operand);

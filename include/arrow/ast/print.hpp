@@ -35,6 +35,7 @@ class Print {
   void print_variable(ptr<Variable>);
   void print_expression_statement(ptr<ExpressionStatement>);
   void print_return(ptr<Return>);
+  void print_block(ptr<Block>);
 
   void print_integer(ptr<Integer>);
   void print_real(ptr<Real>);

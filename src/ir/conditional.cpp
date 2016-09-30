@@ -10,16 +10,19 @@ using arrow::ir::Conditional;
 
 // TODO: Value
 
+unsigned conditional_index = 0;
+
 LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Realize condition
   auto condition_handle = condition->value_of(ctx);
 
   // Launchpad
+  conditional_index++;
   auto current = LLVMGetInsertBlock(ctx.irb);
   auto parent_fn = LLVMGetBasicBlockParent(current);
-  auto b_then = LLVMAppendBasicBlock(parent_fn, "");
-  auto b_otherwise = LLVMAppendBasicBlock(parent_fn, "");
-  auto b_merge = LLVMAppendBasicBlock(parent_fn, "");
+  auto b_then = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-then").c_str());
+  auto b_otherwise = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-otherwise").c_str());
+  auto b_merge = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-merge").c_str());
   auto divergent_then = false;
   auto divergent_otherwise = false;
 

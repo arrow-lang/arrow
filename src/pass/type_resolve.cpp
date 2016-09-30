@@ -32,6 +32,9 @@ static auto type_literal_promote(ptr<ir::Type> type) -> ptr<ir::Type> {
 static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Type> {
   ptr<ir::Type> result = type_set[0];
   for (std::size_t i = 1; i < type_set.size(); ++i) {
+    if (result == nullptr) result = type_set[i];
+    if (type_set[i] == nullptr) continue;
+
     auto tmp = ir::type_reduce(result, type_set[i]);
     if (!tmp) break;
 
@@ -40,6 +43,8 @@ static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Typ
 
   return result;
 }
+
+static unsigned MAX_NIL_ITERATIONS = 15;
 
 void TypeResolve::run(ptr<ast::Node> x) {
   unsigned iteration = 0;
@@ -66,7 +71,7 @@ void TypeResolve::run(ptr<ast::Node> x) {
         if (!assign.type) {
           // An invalid type was resolved
           invalid = true;
-          break;
+          continue;
         }
 
         type_set.push_back(assign.type);
@@ -74,12 +79,12 @@ void TypeResolve::run(ptr<ast::Node> x) {
 
       if (invalid) {
         _incomplete = true;
-        continue;
+        if (iteration < MAX_NIL_ITERATIONS) continue;
       }
 
       if (type_set.size() == 0) {
         _incomplete = true;
-        continue;
+        if (iteration < MAX_NIL_ITERATIONS) continue;
       }
 
       // Reduce types
@@ -91,7 +96,7 @@ void TypeResolve::run(ptr<ast::Node> x) {
         if (!use.type) {
           // An invalid type was resolved
           invalid = true;
-          break;
+          continue;
         }
 
         type_set.push_back(use.type);
@@ -99,7 +104,7 @@ void TypeResolve::run(ptr<ast::Node> x) {
 
       if (invalid) {
         _incomplete = true;
-        continue;
+        if (iteration < MAX_NIL_ITERATIONS) continue;
       }
 
       if (type_set.size() > 0) {
@@ -113,12 +118,16 @@ void TypeResolve::run(ptr<ast::Node> x) {
         }
       }
 
+      if (!item->type) {
+        ++cnt;
+        iteration = 0;
+      }
+
       // Mark the type of the item
-      item->type = type_literal_promote(type);
-      ++cnt;
+      item->type = type;
     }
 
-    if (iteration >= 5) {
+    if (iteration >= MAX_NIL_ITERATIONS) {
       // We've done enough
       break;
     }
@@ -127,4 +136,11 @@ void TypeResolve::run(ptr<ast::Node> x) {
       ++iteration;
     }
   } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
+
+  // Re-iterate through all items and promote any literal types
+  for (auto& item : _declare) {
+    if (item->type) {
+      item->type = type_literal_promote(item->type);
+    }
+  }
 }

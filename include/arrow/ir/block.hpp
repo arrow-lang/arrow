@@ -20,7 +20,7 @@ namespace ir {
 struct Block : Value {
   explicit Block(ptr<ast::Block> source, ptr<Scope> parent_scope)
     : Node(source), Value(nullptr), statements(),
-      scope(parent_scope),
+      scope(make<ir::Scope>(parent_scope)),
       _handle(nullptr) {
   }
 

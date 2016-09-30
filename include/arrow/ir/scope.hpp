@@ -33,7 +33,7 @@ class Scope {
  public:
   static ScopeBlock enter(ptr<Scope> scope, GContext&);
 
-  Scope(ptr<Scope> parent)
+  explicit Scope(ptr<Scope> parent)
   : _parent(parent), _items(), _names() {
   }
 
