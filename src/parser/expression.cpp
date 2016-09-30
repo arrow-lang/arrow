@@ -345,6 +345,9 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
     return expr;
   } break;
 
+  case token::Type::LeftBrace:
+    return parse_block(false);
+
   default:
     auto tok = _t.pop();
     Log::get().error(tok->span, "expected expression; found {}", tok->type);

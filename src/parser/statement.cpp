@@ -42,6 +42,14 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
     return std::make_shared<ast::ExpressionStatement>(expr);
   }
 
+  case token::Type::LeftBrace: {
+    // Consume BLOCK expression as a statement
+    auto expr = parse_block(false);
+    if (!expr) return nullptr;
+
+    return std::make_shared<ast::ExpressionStatement>(expr);
+  }
+
   case token::Type::Extern: {
     unsigned peek = 1;
     if (_t.peek(peek)->type == token::Type::String) peek++;
