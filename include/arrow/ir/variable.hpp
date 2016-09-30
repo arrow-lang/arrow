@@ -28,8 +28,6 @@ struct Variable : Item, Value {
 
   virtual LLVMValueRef handle(GContext&) noexcept;
 
-  virtual void generate(GContext&);
-
    // Initializer
    ptr<ir::Value> initializer = nullptr;
 

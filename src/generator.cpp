@@ -116,7 +116,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
   if (Log::get().count(LOG_ERROR) > 0) return *this;
 
   // Generate modules
-  for (auto& mod : _ctx.modules) mod->generate(_ctx);
+  for (auto& mod : _ctx.modules) mod->handle(_ctx);
 
   // Declare main
   // TODO(mehcode): Full (all parameters)

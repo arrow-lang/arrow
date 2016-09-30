@@ -28,7 +28,7 @@ LLVMValueRef Repeat::handle(GContext& ctx) noexcept {
   // Move to the loop block
   LLVMMoveBasicBlockAfter(b_loop, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, b_loop);
-  body->generate(ctx);
+  body->handle(ctx);
   if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
     // Add terminator to jump back to the condition block
     LLVMBuildBr(ctx.irb, b_condition);

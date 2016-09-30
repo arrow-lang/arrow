@@ -51,8 +51,3 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
 
   return _handle;
 }
-
-void Variable::generate(GContext& ctx) {
-  // Ensure we've realized our handle
-  handle(ctx);
-}

@@ -19,41 +19,47 @@ LLVMValueRef Function::handle(GContext& ctx) noexcept {
 
     // Set linkage to private
     LLVMSetLinkage(_handle, LLVMLinkerPrivateLinkage);
+
+    // Prepare builder
+    auto old_block = LLVMGetInsertBlock(ctx.irb);
+    LLVMPositionBuilderAtEnd(ctx.irb, LLVMAppendBasicBlock(_handle, ""));
+
+    // Realize parameter handles
+    unsigned param_index = 0;
+    for (auto& param : parameters) {
+      auto param_type_handle = param->type->handle(ctx);
+      param->_handle = LLVMBuildAlloca(
+        ctx.irb, param_type_handle, param->name.c_str());
+
+      LLVMBuildStore(
+        ctx.irb, LLVMGetParam(_handle, param_index++), param->_handle);
+    }
+
+    // Stack: push
+    ctx.function_s.push(this);
+
+    // Realize block
+    block->handle(ctx);
+
+    // Stack: pop
+    ctx.function_s.pop();
+
+    if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
+      // Not terminated; Terminate
+      auto result_type = cast<TypeFunction>(type)->result;
+      if (result_type) {
+        // Expected a return but none found
+        Log::get().error(source->span, "not all control paths return a value");
+      } else {
+        LLVMBuildRetVoid(ctx.irb);
+      }
+    }
+
+    // Restore builder
+    LLVMPositionBuilderAtEnd(ctx.irb, old_block);
   }
 
   return _handle;
-}
-
-void Function::generate(GContext& ctx) {
-  // Realize handle (if not already)
-  auto fn = handle(ctx);
-
-  // Prepare builder
-  auto old_block = LLVMGetInsertBlock(ctx.irb);
-  LLVMPositionBuilderAtEnd(ctx.irb, LLVMAppendBasicBlock(fn, ""));
-
-  // Stack: push
-  ctx.function_s.push(this);
-
-  // Generate block
-  block->generate(ctx);
-
-  // Stack: pop
-  ctx.function_s.pop();
-
-  if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
-    // Not terminated; Terminate
-    auto result_type = cast<TypeFunction>(type)->result;
-    if (result_type) {
-      // Expected a return but none found
-      Log::get().error(source->span, "not all control paths return a value");
-    } else {
-      LLVMBuildRetVoid(ctx.irb);
-    }
-  }
-
-  // Restore builder
-  LLVMPositionBuilderAtEnd(ctx.irb, old_block);
 }
 
 std::string Function::name_mangle() const {
@@ -86,8 +92,4 @@ LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
   }
 
   return _handle;
-}
-
-void ExternFunction::generate(GContext& ctx) {
-  // Do nothing [...]
 }

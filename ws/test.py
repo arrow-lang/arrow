@@ -183,7 +183,8 @@ def handle_run(_, binary_path, filename):
         [binary_path, "--compile", filename], stdout=PIPE, stderr=PIPE,
         cwd=path.join(path.dirname(__file__), ".."),
     )
-    interpreter = Popen(["lli"], stdin=p.stdout, stdout=PIPE, stderr=PIPE)
+    # TODO: Some platforms define this as `lli` and others define it as `lli-<version>`
+    interpreter = Popen(["lli-3.8"], stdin=p.stdout, stdout=PIPE, stderr=PIPE)
 
     stdout, _ = interpreter.communicate()
 
@@ -220,7 +221,7 @@ def run(ctx):
     # run_("parse-fail", ctx, binary_path)
     run_("compile", ctx, binary_path)
     # run_("compile-fail", ctx, binary_path)
-    # run_("run", ctx, binary_path)
+    run_("run", ctx, binary_path)
 
     print_report()
 

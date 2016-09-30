@@ -13,13 +13,15 @@ using arrow::ir::Conditional;
 LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Realize condition
   auto condition_handle = condition->value_of(ctx);
-  
+
   // Launchpad
   auto current = LLVMGetInsertBlock(ctx.irb);
   auto parent_fn = LLVMGetBasicBlockParent(current);
   auto b_then = LLVMAppendBasicBlock(parent_fn, "");
   auto b_otherwise = LLVMAppendBasicBlock(parent_fn, "");
   auto b_merge = LLVMAppendBasicBlock(parent_fn, "");
+  auto divergent_then = false;
+  auto divergent_otherwise = false;
 
   // Test and Branch
   LLVMBuildCondBr(ctx.irb, condition_handle, b_then, b_otherwise);
@@ -33,6 +35,8 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Terminate THEN (if needed)
   if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
   	LLVMBuildBr(ctx.irb, b_merge);
+  } else {
+    divergent_then = true;
   }
 
 	// Realize OTHERWISE
@@ -45,16 +49,24 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
 	  // Terminate OTHERWISE (if needed)
 	  if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
 	  	LLVMBuildBr(ctx.irb, b_merge);
-	  }
+	  } else {
+      divergent_otherwise = true;
+    }
 	} else {
 		// Terminate directly
-		// NOTE: Easier then adjusting the algorithm 
+		// NOTE: Easier then adjusting the algorithm
 		LLVMBuildBr(ctx.irb, b_merge);
 	}
 
-  // Result
-  LLVMMoveBasicBlockAfter(b_merge, LLVMGetInsertBlock(ctx.irb));
-  LLVMPositionBuilderAtEnd(ctx.irb, b_merge);
+  // Is the conditional divergent?
+  if (divergent_then && divergent_otherwise) {
+    // Remove the merge block
+    LLVMDeleteBasicBlock(b_merge);
+  } else {
+    // Realize the merge block
+    LLVMMoveBasicBlockAfter(b_merge, LLVMGetInsertBlock(ctx.irb));
+    LLVMPositionBuilderAtEnd(ctx.irb, b_merge);
+  }
 
   return nullptr;
 }

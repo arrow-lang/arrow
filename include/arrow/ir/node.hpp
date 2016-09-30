@@ -6,6 +6,7 @@
 #ifndef ARROW_IR_NODE_H
 #define ARROW_IR_NODE_H
 
+#include "llvm.hpp"
 #include "arrow/ptr.hpp"
 #include "arrow/ast.hpp"
 
@@ -20,9 +21,6 @@ struct Node {
   }
 
   virtual ~Node() noexcept;
-
-  // Generate LLVM for this IR node
-  virtual void generate(GContext&) = 0;
 
   /// Source (in file) of the item
   ptr<ast::Node> source;

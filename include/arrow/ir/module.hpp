@@ -19,18 +19,21 @@ namespace ir {
 
 struct Module : Item {
   Module(ptr<ast::Module> source, std::string name)
-    : Node(source), Item(name), block(nullptr), initializer(nullptr) {
+    : Node(source), Item(name), block(nullptr), initializer(nullptr), _initialized(false) {
   }
 
   virtual ~Module() noexcept;
 
-  virtual void generate(GContext&);
+  virtual LLVMValueRef handle(GContext&);
 
   // Block (statements in module)
   ptr<Block> block;
 
   // Reference to LLVM Initializer
   LLVMValueRef initializer;
+
+ private:
+  bool _initialized;
 };
 
 }  // namespace ir

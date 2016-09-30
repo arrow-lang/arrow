@@ -27,14 +27,20 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
   }
 
   // Resolve: Parameter types
-  for (auto& param : x->parameters) {
+  for (std::size_t i = 0; i < x->parameters.size(); ++i) {
+    auto param = x->parameters[i];
+
     auto param_type = TypeBuild(_ctx).run(param->type);
     if (!param_type) {
       _incomplete = true;
       return;
     }
 
+    // Push parameter type to function type
     type->parameters.push_back(param_type);
+
+    // Mark parameter on function item
+    fn->parameters[i]->type = param_type;
   }
 
   // Block

@@ -31,9 +31,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::Div, div);
     ACCEPT(ast::Mod, mod);
     // ACCEPT(ast::Assign, assign);
-    // ACCEPT(ast::Call, call);
-    // ACCEPT(ast::Argument, argument);
-    // ACCEPT(ast::Return, return);
+    ACCEPT(ast::Call, call);
     ACCEPT(ast::BitNot, bit_not);
     ACCEPT(ast::BitAnd, bit_and);
     ACCEPT(ast::BitOr, bit_or);
@@ -52,7 +50,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     // ACCEPT(ast::Repeat, repeat);
 
     Otherwise() {
-      Log::get().error("TypeDeduce not implemented for {}", typeid(*x).name());
+      // Unhandled
     }
   } EndMatch;
 

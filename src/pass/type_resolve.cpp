@@ -127,6 +127,4 @@ void TypeResolve::run(ptr<ast::Node> x) {
       ++iteration;
     }
   } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
-
-  fmt::print("TypeResolve::run [after]\n");
 }

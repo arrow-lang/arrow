@@ -8,7 +8,10 @@
 
 using arrow::ir::Module;
 
-void Module::generate(GContext& ctx) {
+LLVMValueRef Module::handle(GContext& ctx) {
+  if (_initialized) return nullptr;
+  _initialized = true;
+
   // Declare module initializer
   initializer = LLVMAddFunction(ctx.mod, "$init", LLVMFunctionType(
     LLVMVoidType(),
@@ -22,8 +25,10 @@ void Module::generate(GContext& ctx) {
     LLVMAppendBasicBlock(initializer, ""));
 
   // Generate each statement ..
-  block->generate(ctx);
+  block->handle(ctx);
 
   // Terminate module initializer
   LLVMBuildRetVoid(ctx.irb);
+
+  return nullptr;
 }

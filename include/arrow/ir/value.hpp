@@ -36,12 +36,6 @@ struct Value : virtual Node {
   // Get LLVM handle
   virtual LLVMValueRef handle(GContext&) noexcept = 0;
 
-  // Generate
-  virtual void generate(GContext& ctx) {
-    // Default generate just realizes the handle
-    handle(ctx);
-  }
-
   // Value Of
   virtual LLVMValueRef value_of(GContext& ctx) noexcept;
 

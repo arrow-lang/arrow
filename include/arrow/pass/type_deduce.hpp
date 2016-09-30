@@ -32,9 +32,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_div(ptr<ast::Div>);
   ptr<ir::Type> visit_mod(ptr<ast::Mod>);
   // ptr<ir::Type> visit_assign(ptr<ast::Assign>);
-  // ptr<ir::Type> visit_call(ptr<ast::Call>);
-  // ptr<ir::Type> visit_argument(ptr<ast::Argument>);
-  // ptr<ir::Type> visit_return(ptr<ast::Return>);
+  ptr<ir::Type> visit_call(ptr<ast::Call>);
   ptr<ir::Type> visit_bit_not(ptr<ast::BitNot>);
   ptr<ir::Type> visit_bit_and(ptr<ast::BitAnd>);
   ptr<ir::Type> visit_bit_or(ptr<ast::BitOr>);
