@@ -1,4 +1,5 @@
 
+// TODO: assert built-in or something
 extern def abort();
 
 def assert(condition: bool) {

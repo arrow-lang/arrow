@@ -45,6 +45,7 @@ class TypeResolve : public ast::Visitor, public Pass {
   void visit_extern_function(ptr<ast::ExternFunction>);
   void visit_unary(ptr<ast::Unary>);
   void visit_binary(ptr<ast::Binary>);
+  void visit_type_alias(ptr<ast::TypeAlias>);
 };
 
 }  // namespace back

@@ -21,6 +21,10 @@ auto TypeDeduce::visit_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
       return cast<ir::Parameter>(item)->type;
     }
 
+    Case(mch::C<ir::TypeAlias>()) {
+      return cast<ir::TypeAlias>(item);
+    }
+
     Case(mch::C<ir::Function>()) {
       return cast<ir::Function>(item)->type;
     }
