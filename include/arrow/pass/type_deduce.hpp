@@ -52,7 +52,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_real(ptr<ast::Real>);
   ptr<ir::Type> visit_str(ptr<ast::String>);
   ptr<ir::Type> visit_expression_statement(ptr<ast::ExpressionStatement>);
-  // ptr<ir::Type> visit_conditional(ptr<ast::Conditional>);
+  ptr<ir::Type> visit_conditional(ptr<ast::Conditional>);
   // ptr<ir::Type> visit_repeat(ptr<ast::Repeat>);
 };
 
