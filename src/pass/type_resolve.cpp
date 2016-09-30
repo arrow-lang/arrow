@@ -42,7 +42,10 @@ static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Typ
 }
 
 void TypeResolve::run(ptr<ast::Node> x) {
+  unsigned iteration = 0;
   do {
+    unsigned cnt = 0;
+
     // Reset incomplete flag
     _incomplete = false;
 
@@ -74,6 +77,11 @@ void TypeResolve::run(ptr<ast::Node> x) {
         continue;
       }
 
+      if (type_set.size() == 0) {
+        _incomplete = true;
+        continue;
+      }
+
       // Reduce types
       auto type = type_set_reduce(type_set);
 
@@ -94,17 +102,31 @@ void TypeResolve::run(ptr<ast::Node> x) {
         continue;
       }
 
-      // Treat the use types as "weak" (assign types win)
-      auto temp = type_set_reduce(type_set);
-      if (temp) {
-        temp = ir::type_reduce(type, temp);
+      if (type_set.size() > 0) {
+        // Treat the use types as "weak" (assign types win)
+        auto temp = type_set_reduce(type_set);
         if (temp) {
-          type = temp;
+          temp = ir::type_reduce(type, temp);
+          if (temp) {
+            type = temp;
+          }
         }
       }
 
       // Mark the type of the item
       item->type = type_literal_promote(type);
+      ++cnt;
+    }
+
+    if (iteration >= 5) {
+      // We've done enough
+      break;
+    }
+
+    if (cnt == 0) {
+      ++iteration;
     }
   } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
+
+  fmt::print("TypeResolve::run [after]\n");
 }

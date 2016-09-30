@@ -4,6 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_deduce.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
@@ -12,7 +13,8 @@ auto Build::handle_identity(ptr<ast::Identity> x) -> ptr<ir::Value> {
   auto operand = run(x->operand);
   if (!operand) return nullptr;
 
-  if (!(operand->type->is_integer() || operand->type->is_real())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand type for `+`: `{}`",
       operand->type->name);
@@ -27,7 +29,8 @@ auto Build::handle_negate(ptr<ast::Negate> x) -> ptr<ir::Value> {
   auto operand = run(x->operand);
   if (!operand) return nullptr;
 
-  if (!(operand->type->is_integer() || operand->type->is_real())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand type for `-`: `{}`",
       operand->type->name);
@@ -43,12 +46,8 @@ auto Build::handle_add(ptr<ast::Add> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  // Determine the appropriate type
-  auto type = ir::type_reduce(lhs->type, rhs->type);
-  if (!type || !(type->is_integer() || type->is_real())) {
-    // TODO: <pointer> + <integer>
-    // TODO: <integer> + <pointer>
-
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `+`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
@@ -64,13 +63,8 @@ auto Build::handle_sub(ptr<ast::Sub> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  // Determine the appropriate type
-  auto type = ir::type_reduce(lhs->type, rhs->type);
-  if (!type || !(type->is_integer() || type->is_real())) {
-    // TODO: <pointer> - <integer>
-    // TODO: <integer> - <pointer>
-    // TODO: <pointer> - <pointer> (difference)
-
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `-`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
@@ -86,9 +80,8 @@ auto Build::handle_mul(ptr<ast::Mul> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  // Determine the appropriate type
-  auto type = ir::type_reduce(lhs->type, rhs->type);
-  if (!type || !(type->is_integer() || type->is_real())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `*`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
@@ -105,12 +98,8 @@ auto Build::handle_div(ptr<ast::Div> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = ir::type_reduce(lhs->type, rhs->type);
-  if (!type || !(type->is_integer() || type->is_real())) {
-    Log::get().error(x->span,
-      "unsupported operand types for `/`: `{}` and `{}`",
-      lhs->type->name, rhs->type->name);
-
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     return nullptr;
   }
 
@@ -123,8 +112,8 @@ auto Build::handle_mod(ptr<ast::Mod> x) -> ptr<ir::Value> {
   if (!lhs || !rhs) return nullptr;
 
   // Determine the appropriate type
-  auto type = ir::type_reduce(lhs->type, rhs->type);
-  if (!type || !(type->is_integer() || type->is_real())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
     Log::get().error(x->span,
       "unsupported operand types for `%`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);

@@ -60,9 +60,9 @@ def configure(ctx):
         else:
             ctx.env.append_unique("CXXFLAGS", "-g")
             ctx.env.append_unique("CXXFLAGS", "-O0")
-            ctx.env.append_unique("CXXFLAGS", "--coverage")
-
-            ctx.env.append_unique("LINKFLAGS", "--coverage")
+            # ctx.env.append_unique("CXXFLAGS", "--coverage")
+            #
+            # ctx.env.append_unique("LINKFLAGS", "--coverage")
 
         ctx.env.append_unique("CXXFLAGS", "-Wall")
         ctx.env.append_unique("CXXFLAGS", "-Wextra")
@@ -113,17 +113,16 @@ def test(ctx):
 
 
 def coverage(ctx):
-    with open(os.devnull) as nil:
-        # Copy all source files into the build directory
-        # HACK: If someone can get this working without this step, be my guest
-        check_call(["cp", "-r", "./src", "./build"]);
+    # Copy all source files into the build directory
+    # HACK: If someone can get this working without this step, be my guest
+    check_call(["cp", "-r", "./src", "./build"]);
 
-        # Generate HTML coverage
-        check_call(["rm", "-rf", "coverage"])
-        check_call(["mkdir", "-p", "coverage"])
-        check_call([
-            "gcovr", "-r", "build/src", "--html", "--html-details",
-            "-o", "coverage/index.html"])
+    # Generate HTML coverage
+    check_call(["rm", "-rf", "coverage"])
+    check_call(["mkdir", "-p", "coverage"])
+    check_call([
+        "gcovr", "-r", "build/src", "--html", "--html-details",
+        "-o", "coverage/index.html"])
 
-        # Generate coverage report
-        check_call(["gcovr", "-r", "build/src", "-s"])
+    # Generate coverage report
+    check_call(["gcovr", "-r", "build/src", "-s"])
