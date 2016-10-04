@@ -15,6 +15,8 @@ auto TypeDeduce::visit_conditional(ptr<ast::Conditional> x) -> ptr<ir::Type> {
   }
 
   auto type = run(x->branches[0]);
+  if (!type) return nullptr;
+
   for (std::size_t i = 1; i < x->branches.size(); ++i) {
     auto tmp = run(x->branches[i]);
     if (!tmp) return nullptr;
@@ -33,4 +35,8 @@ auto TypeDeduce::visit_conditional(ptr<ast::Conditional> x) -> ptr<ir::Type> {
   if (tmp) type = tmp;
 
   return type;
+}
+
+auto TypeDeduce::visit_branch(ptr<ast::Branch> x) -> ptr<ir::Type> {
+  return run(x->block);
 }

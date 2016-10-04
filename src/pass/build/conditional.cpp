@@ -4,12 +4,17 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_deduce.hpp"
 
 using arrow::pass::Build;
 
 auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   ptr<ir::Value> result = nullptr;
   int i = x->branches.size() - 1;
+
+  // Determine the type (of the entire conditional)
+  auto ctype = TypeDeduce(_ctx).run(x);
+  if (!ctype) ctype = nullptr;
 
   do {
   	auto br = x->branches.at(i);
@@ -30,9 +35,8 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   	}
 
   	// TODO: Need to make source a SPAN
-  	// TODO: Need to determine the type
 
-  	result = make<ir::Conditional>(x, nullptr, condition, then, otherwise);
+  	result = make<ir::Conditional>(x, ctype, condition, then, otherwise);
   } while (i >= 0);
 
   return result;

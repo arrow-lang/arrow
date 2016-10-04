@@ -10,21 +10,20 @@ using arrow::ir::Conditional;
 
 // TODO: Value
 
-unsigned conditional_index = 0;
-
 LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Realize condition
   auto condition_handle = condition->value_of(ctx);
 
   // Launchpad
-  conditional_index++;
   auto current = LLVMGetInsertBlock(ctx.irb);
   auto parent_fn = LLVMGetBasicBlockParent(current);
-  auto b_then = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-then").c_str());
-  auto b_otherwise = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-otherwise").c_str());
-  auto b_merge = LLVMAppendBasicBlock(parent_fn, (std::to_string(conditional_index) + "-merge").c_str());
+  auto b_then = LLVMAppendBasicBlock(parent_fn, "conditional:then");
+  auto b_otherwise = LLVMAppendBasicBlock(parent_fn, "conditional:otherwise");
+  auto b_merge = LLVMAppendBasicBlock(parent_fn, "conditional:merge");
   auto divergent_then = false;
   auto divergent_otherwise = false;
+  LLVMValueRef then_handle = nullptr;
+  LLVMValueRef otherwise_handle = nullptr;
 
   // Test and Branch
   LLVMBuildCondBr(ctx.irb, condition_handle, b_then, b_otherwise);
@@ -32,7 +31,7 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Realize THEN
   LLVMMoveBasicBlockAfter(b_then, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, b_then);
-  auto then_handle = then->value_of(ctx);
+  then_handle = ir::transmute(then, type)->value_of(ctx);
   b_then = LLVMGetInsertBlock(ctx.irb);
 
   // Terminate THEN (if needed)
@@ -46,7 +45,7 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   LLVMMoveBasicBlockAfter(b_otherwise, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, b_otherwise);
   if (otherwise) {
-	  auto otherwise_handle = otherwise->value_of(ctx);
+	  otherwise_handle = ir::transmute(otherwise, type)->value_of(ctx);
 	  b_otherwise = LLVMGetInsertBlock(ctx.irb);
 
 	  // Terminate OTHERWISE (if needed)
@@ -62,7 +61,8 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
 	}
 
   // Is the conditional divergent?
-  if (divergent_then && divergent_otherwise) {
+  auto divergent = divergent_then && divergent_otherwise;
+  if (divergent) {
     // Remove the merge block
     LLVMDeleteBasicBlock(b_merge);
   } else {
@@ -71,5 +71,13 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
     LLVMPositionBuilderAtEnd(ctx.irb, b_merge);
   }
 
-  return nullptr;
+  LLVMValueRef result = nullptr;
+  if (!divergent) {
+    // Result
+    result = LLVMBuildPhi(ctx.irb, type->handle(ctx), "");
+    LLVMAddIncoming(result, &then_handle, &b_then, 1);
+    LLVMAddIncoming(result, &otherwise_handle, &b_otherwise, 1);
+  }
+
+  return result;
 }
