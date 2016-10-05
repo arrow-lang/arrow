@@ -17,14 +17,17 @@ namespace arrow {
 namespace ast {
 
 struct Block : Expression {
-  explicit Block(Span span)
-  : Expression(span), statements() {
+  explicit Block(Span span, bool is_expression)
+  : Expression(span), statements(), is_expression(is_expression) {
   }
 
   virtual ~Block() noexcept;
 
   /// Sequence of statements in the block.
   std::vector<ptr<Statement>> statements;
+
+  /// Statement OR Expression
+  bool is_expression;
 };
 
 }  // namespace ast

@@ -18,7 +18,6 @@ void TypeResolve::visit_call(ptr<ast::Call> x) {
   if (operand_t->is_function()) {
     // Function
     std::vector<ptr<ir::Type>>* parameter_types;
-    bool is_varidac = false;
     if (isa<ir::TypeFunction>(operand_t)) {
       auto fn_t = cast<ir::TypeFunction>(operand_t);
 
@@ -27,7 +26,6 @@ void TypeResolve::visit_call(ptr<ast::Call> x) {
       auto fn_t = cast<ir::TypeExternFunction>(operand_t);
 
       parameter_types = &(fn_t->parameters);
-      is_varidac = fn_t->is_varidac;
     } else {
       return;
     }

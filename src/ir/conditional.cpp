@@ -23,7 +23,8 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   auto divergent_then = false;
   auto divergent_otherwise = false;
   LLVMValueRef then_handle = nullptr;
-  LLVMValueRef otherwise_handle = nullptr;
+  LLVMValueRef other_handle = nullptr;
+  auto eval = is_expression;
 
   // Test and Branch
   LLVMBuildCondBr(ctx.irb, condition_handle, b_then, b_otherwise);
@@ -31,7 +32,8 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   // Realize THEN
   LLVMMoveBasicBlockAfter(b_then, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, b_then);
-  then_handle = ir::transmute(then, type)->value_of(ctx);
+  if (eval) then_handle = ir::transmute(then, type)->value_of(ctx);
+  else      then->handle(ctx);
   b_then = LLVMGetInsertBlock(ctx.irb);
 
   // Terminate THEN (if needed)
@@ -45,7 +47,8 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   LLVMMoveBasicBlockAfter(b_otherwise, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, b_otherwise);
   if (otherwise) {
-	  otherwise_handle = ir::transmute(otherwise, type)->value_of(ctx);
+    if (eval) other_handle = ir::transmute(otherwise, type)->value_of(ctx);
+    else      otherwise->handle(ctx);
 	  b_otherwise = LLVMGetInsertBlock(ctx.irb);
 
 	  // Terminate OTHERWISE (if needed)
@@ -72,11 +75,11 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
   }
 
   LLVMValueRef result = nullptr;
-  if (!divergent) {
+  if (!divergent && eval) {
     // Result
     result = LLVMBuildPhi(ctx.irb, type->handle(ctx), "");
     LLVMAddIncoming(result, &then_handle, &b_then, 1);
-    LLVMAddIncoming(result, &otherwise_handle, &b_otherwise, 1);
+    LLVMAddIncoming(result, &other_handle, &b_otherwise, 1);
   }
 
   return result;

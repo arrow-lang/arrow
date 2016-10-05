@@ -28,8 +28,8 @@ struct Branch : Node {
 };
 
 struct Conditional : Expression {
-  Conditional(Span span, std::vector<ptr<Branch>> brs, ptr<Block> otherwise)
-  : Expression(span), branches(brs), otherwise(otherwise) {
+  Conditional(Span span, std::vector<ptr<Branch>> brs, ptr<Block> otherwise, bool is_expression)
+  : Expression(span), branches(brs), otherwise(otherwise), is_expression(is_expression) {
   }
 
   virtual ~Conditional() noexcept;
@@ -39,6 +39,9 @@ struct Conditional : Expression {
 
   // Otherwise (optional)
   ptr<Block> otherwise;
+
+  // Statement OR Expression
+  bool is_expression;
 };
 
 }  // namespace ast

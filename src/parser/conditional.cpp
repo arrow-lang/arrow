@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_conditional() -> ptr<ast::Conditional> {
+auto Parser::parse_conditional(bool is_expression) -> ptr<ast::Conditional> {
   std::vector<ptr<ast::Branch>> branches;
   ptr<ast::Block> otherwise = nullptr;
   unsigned index = 0;
@@ -54,7 +54,7 @@ auto Parser::parse_conditional() -> ptr<ast::Conditional> {
   auto sp = branches[0]->span;
   if (otherwise) sp = sp.extend(otherwise->span);
 
-  return make<ast::Conditional>(sp, branches, otherwise);
+  return make<ast::Conditional>(sp, branches, otherwise, is_expression);
 }
 
 auto Parser::parse_branch() -> ptr<ast::Branch> {

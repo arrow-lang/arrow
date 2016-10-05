@@ -5,6 +5,7 @@
 
 #include "arrow/pass/build.hpp"
 #include "arrow/pass/type_deduce.hpp"
+#include "arrow/log.hpp"
 
 using arrow::pass::Build;
 
@@ -12,9 +13,41 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   ptr<ir::Value> result = nullptr;
   int i = x->branches.size() - 1;
 
+  // Check if this block is an expression 
+  auto is_expression = x->is_expression || (!_expression_c.empty() && _expression_c.top());
+  auto ec = _expression_c.enter(is_expression);
+
+  // Check for a missing ELSE if this is an expression
+  if (is_expression && !x->otherwise) {
+    Log::get().error(x->span, "if expression missing an else clause");
+
+    return nullptr;
+  }
+
   // Determine the type (of the entire conditional)
   auto ctype = TypeDeduce(_ctx).run(x);
   if (!ctype) ctype = nullptr;
+
+  // Type check the branches (if we are an expression)
+  if (is_expression) {
+    auto fail = false;
+    for (auto& br : x->branches) {
+      auto type = TypeDeduce(_ctx).run(br);
+
+      // Assignment must be type equivalent
+      if (!ir::type_is_assignable(ctype, type)) {
+        Log::get().error(
+          br->block->statements[br->block->statements.size() - 1]->span, 
+          "mismatched types: expected `{}`, found `{}`",
+          ctype->name, type->name);
+
+        fail = true;
+      }
+    }
+
+    if (fail) return nullptr;
+  }
+
 
   do {
   	auto br = x->branches.at(i);
@@ -36,7 +69,7 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
 
   	// TODO: Need to make source a SPAN
 
-  	result = make<ir::Conditional>(x, ctype, condition, then, otherwise);
+  	result = make<ir::Conditional>(x, ctype, condition, then, otherwise, is_expression);
   } while (i >= 0);
 
   return result;

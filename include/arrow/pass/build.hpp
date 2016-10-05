@@ -8,10 +8,12 @@
 
 #include <memory>
 #include <string>
+#include <stack>
 
 #include "clang.hpp"
 
 #include "arrow/pass.hpp"
+#include "arrow/context.hpp"
 
 namespace arrow {
 namespace pass {
@@ -79,6 +81,8 @@ class Build : public Pass {
 
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);
+
+  Context<bool> _expression_c; 
 };
 
 }  // namespace back

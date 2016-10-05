@@ -9,7 +9,7 @@ using arrow::pass::Build;
 
 auto Build::handle_expression_statement(ptr<ast::ExpressionStatement> x) -> ptr<ir::Value> {
   // Build the expression
-  auto ref = Build(_ctx).run(x->expression);
+  auto ref = run(x->expression);
   if (!ref) return nullptr;
 
   return ref;

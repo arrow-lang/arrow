@@ -12,11 +12,11 @@ LLVMValueRef Block::handle(GContext& ctx) noexcept {
   if (!_handle) {
     for (std::size_t i = 0; i < statements.size(); ++i) {
       auto stmt = statements[i];
-      if (i < (statements.size() - 1)) {
+      if (!is_expression || i < (statements.size() - 1)) {
         // Not last one
         stmt->handle(ctx);
       } else {
-        // Last one
+        // Last one and an expression
         _handle = stmt->value_of(ctx);
       }
     }

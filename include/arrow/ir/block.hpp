@@ -21,7 +21,7 @@ struct Block : Value {
   explicit Block(ptr<ast::Block> source, ptr<Scope> parent_scope)
     : Node(source), Value(nullptr), statements(),
       scope(make<ir::Scope>(parent_scope)),
-      _handle(nullptr) {
+      is_expression(false), _handle(nullptr) {
   }
 
   virtual ~Block() noexcept;
@@ -33,6 +33,9 @@ struct Block : Value {
 
   // Scope
   ptr<Scope> scope;
+
+  // Statement OR Expression 
+  bool is_expression;
 
  private:
   LLVMValueRef _handle;

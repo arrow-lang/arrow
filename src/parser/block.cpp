@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_block(bool top_level) -> ptr<ast::Block> {
+auto Parser::parse_block(bool top_level, bool is_expression) -> ptr<ast::Block> {
   // Expect `{` (if top-level)
   auto sp = Span(_t._filename);
   if (!top_level) {
@@ -19,7 +19,7 @@ auto Parser::parse_block(bool top_level) -> ptr<ast::Block> {
   }
 
   // Make
-  auto result = make<ast::Block>(sp);
+  auto result = make<ast::Block>(sp, is_expression);
 
   while (
     (!_t.empty()) &&

@@ -329,7 +329,7 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
     return parse_id();
 
   case token::Type::If:
-    return parse_conditional();
+    return parse_conditional(true);
 
   case token::Type::LeftParenthesis: {
     // Pop the left parenthesis
@@ -346,7 +346,7 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   } break;
 
   case token::Type::LeftBrace:
-    return parse_block(false);
+    return parse_block(false, true);
 
   default:
     auto tok = _t.pop();

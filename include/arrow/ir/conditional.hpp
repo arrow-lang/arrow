@@ -17,10 +17,10 @@ namespace ir {
 struct Conditional : Value {
   Conditional(
     ptr<ast::Node> source, ptr<Type> type, ptr<Value> condition,
-    ptr<Value> then, ptr<Value> else_
+    ptr<Value> then, ptr<Value> else_, bool is_expression
   )
   : Node(source), Value(type), condition(condition),
-    then(then), otherwise(else_) {
+    then(then), otherwise(else_), is_expression(is_expression) {
   }
 
   virtual ~Conditional() noexcept;
@@ -30,6 +30,7 @@ struct Conditional : Value {
   ptr<Value> condition;
   ptr<Value> then;
   ptr<Value> otherwise;
+  bool is_expression;
 };
 
 }  // namespace ir

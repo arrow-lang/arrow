@@ -120,8 +120,9 @@ Generator& Generator::run(ptr<ast::Module> module) {
 
   // Declare main
   // TODO(mehcode): Full (all parameters)
+  // FIXME(mehcode): Get proper size of C INT here  
   auto main = LLVMAddFunction(_ctx.mod, "main", LLVMFunctionType(
-    LLVMVoidType(),
+    LLVMInt32Type(),
     nullptr,
     0,
     false
@@ -143,7 +144,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
   // TODO(mehcode): Call the top-level module main function (if present)
 
   // Terminate main
-  LLVMBuildRetVoid(_ctx.irb);
+  LLVMBuildRet(_ctx.irb, LLVMConstInt(LLVMInt32Type(), 0, false));
 
   return *this;
 }

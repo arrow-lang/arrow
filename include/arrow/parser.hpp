@@ -78,7 +78,7 @@ class Parser {
   ptr<ast::Variable> parse_variable();
   ptr<ast::Return> parse_return();
 
-  ptr<ast::Block> parse_block(bool top_level);
+  ptr<ast::Block> parse_block(bool top_level, bool is_expression = false);
 
   ptr<ast::Expression> parse_expression(unsigned power = 0);
   ptr<ast::Expression> parse_unary_expression();
@@ -106,7 +106,7 @@ class Parser {
   ptr<ast::Call> parse_call(ptr<ast::Expression>);
   ptr<ast::Argument> parse_argument();
 
-  ptr<ast::Conditional> parse_conditional();
+  ptr<ast::Conditional> parse_conditional(bool is_expression = false);
   ptr<ast::Branch> parse_branch();
   ptr<ast::Repeat> parse_repeat();
   ptr<ast::Break> parse_break();
