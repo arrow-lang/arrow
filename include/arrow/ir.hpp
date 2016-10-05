@@ -23,8 +23,10 @@
 #include "arrow/ir/type_string.hpp"
 #include "arrow/ir/type_pointer.hpp"
 #include "arrow/ir/type_alias.hpp"
+#include "arrow/ir/type_unit.hpp"
 
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/unit.hpp"
 #include "arrow/ir/transmute.hpp"
 #include "arrow/ir/integer.hpp"
 #include "arrow/ir/real.hpp"

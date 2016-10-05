@@ -28,8 +28,10 @@ ir::TypeExternFunction::~TypeExternFunction() noexcept { }
 ir::TypeString::~TypeString() noexcept { }
 ir::TypePointer::~TypePointer() noexcept { }
 ir::TypeAlias::~TypeAlias() noexcept { }
+ir::TypeUnit::~TypeUnit() noexcept { }
 
 ir::Value::~Value() noexcept { }
+ir::Unit::~Unit() noexcept { }
 ir::Transmute::~Transmute() noexcept { }
 ir::Integer::~Integer() noexcept { }
 ir::Real::~Real() noexcept { }

@@ -72,6 +72,7 @@ class Visitor {
   virtual void visit_type_name(ptr<ast::TypeName> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_pointer(ptr<ast::TypePointer> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_alias(ptr<ast::TypeAlias> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_type_unit(ptr<ast::TypeUnit> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_function(ptr<ast::Function> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_extern_function(ptr<ast::ExternFunction> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_parameter(ptr<ast::Parameter> x) { /* LCOV_EXCL_LINE */ }
@@ -79,6 +80,7 @@ class Visitor {
   virtual void visit_cinclude(ptr<ast::CInclude> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_break(ptr<ast::Break> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_continue(ptr<ast::Continue> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_unit(ptr<ast::Unit> x) { /* LCOV_EXCL_LINE */ }
 };
 
 }  // namespace ast

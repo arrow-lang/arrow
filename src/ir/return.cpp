@@ -10,7 +10,7 @@ using arrow::ir::Return;
 
 LLVMValueRef Return::handle(GContext &ctx) noexcept {
   // Build terminating ret ..
-  if (operand) {
+  if (!operand->type->is_unit()) {
     // Get type of enclosing function
     auto top_f = ctx.function_s.top();
     auto result_type = cast<TypeFunction>(top_f->type)->result;

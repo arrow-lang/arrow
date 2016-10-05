@@ -37,6 +37,14 @@ struct Type : Item {
     return false;
   }
 
+  virtual bool is_unit() const {
+    return false;
+  }
+
+  virtual bool is_divergent() const {
+    return false;
+  }
+
   // Size (in bits)
   virtual unsigned size() const {
     return 0;

@@ -14,6 +14,7 @@
 #include "arrow/ast/nodes/expression_statement.hpp"
 
 #include "arrow/ast/nodes/expression.hpp"
+#include "arrow/ast/nodes/unit.hpp"
 #include "arrow/ast/nodes/unary.hpp"
 #include "arrow/ast/nodes/binary.hpp"
 #include "arrow/ast/nodes/boolean.hpp"
@@ -33,5 +34,6 @@
 #include "arrow/ast/nodes/type_name.hpp"
 #include "arrow/ast/nodes/type_pointer.hpp"
 #include "arrow/ast/nodes/type_alias.hpp"
+#include "arrow/ast/nodes/type_unit.hpp"
 
 #endif  // ARROW_AST_NODES_H

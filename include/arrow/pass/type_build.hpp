@@ -25,6 +25,7 @@ class TypeBuild : public Pass {
   ptr<ir::Type> handle_type_name(ptr<ast::TypeName>);
   ptr<ir::Type> handle_id(ptr<ast::Identifier>);
   ptr<ir::TypePointer> handle_type_pointer(ptr<ast::TypePointer>);
+  ptr<ir::Type> handle_type_unit(ptr<ast::TypeUnit>);
 };
 
 }  // namespace back

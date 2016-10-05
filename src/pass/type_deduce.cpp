@@ -30,7 +30,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::Mul, mul);
     ACCEPT(ast::Div, div);
     ACCEPT(ast::Mod, mod);
-    // ACCEPT(ast::Assign, assign);
+    ACCEPT(ast::Assign, assign);
     ACCEPT(ast::Call, call);
     ACCEPT(ast::BitNot, bit_not);
     ACCEPT(ast::BitAnd, bit_and);
@@ -48,7 +48,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::Block, block);
     ACCEPT(ast::Conditional, conditional);
     ACCEPT(ast::Branch, branch);
-    // ACCEPT(ast::Repeat, repeat);
+    ACCEPT(ast::Unit, unit);
 
     Otherwise() {
       // Unhandled

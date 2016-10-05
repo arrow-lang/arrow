@@ -21,6 +21,7 @@ auto TypeBuild::run(ptr<ast::Node> node) -> ptr<ir::Type> {
     ACCEPT(ast::TypeName, type_name);
     ACCEPT(ast::Identifier, id);
     ACCEPT(ast::TypePointer, type_pointer);
+    ACCEPT(ast::TypeUnit, type_unit);
 
     Otherwise() {
       Log::get().error("TypeBuild not implemented for {}", typeid(*node).name());

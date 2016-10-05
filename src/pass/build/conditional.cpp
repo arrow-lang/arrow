@@ -31,6 +31,8 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   // Type check the branches (if we are an expression)
   if (is_expression) {
     auto fail = false;
+
+    // Branches
     for (auto& br : x->branches) {
       auto type = TypeDeduce(_ctx).run(br);
 
@@ -38,6 +40,21 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
       if (!ir::type_is_assignable(ctype, type)) {
         Log::get().error(
           br->block->statements[br->block->statements.size() - 1]->span, 
+          "mismatched types: expected `{}`, found `{}`",
+          ctype->name, type->name);
+
+        fail = true;
+      }
+    }
+
+    // Otherwise
+    if (x->otherwise) {
+      auto type = TypeDeduce(_ctx).run(x->otherwise);
+
+      // Assignment must be type equivalent
+      if (!ir::type_is_assignable(ctype, type)) {
+        Log::get().error(
+          x->otherwise->statements[x->otherwise->statements.size() - 1]->span, 
           "mismatched types: expected `{}`, found `{}`",
           ctype->name, type->name);
 

@@ -27,12 +27,14 @@ LLVMValueRef Function::handle(GContext& ctx) noexcept {
     // Realize parameter handles
     unsigned param_index = 0;
     for (auto& param : parameters) {
-      auto param_type_handle = param->type->handle(ctx);
-      param->_handle = LLVMBuildAlloca(
-        ctx.irb, param_type_handle, param->name.c_str());
+      if (!param->type->is_unit()) {
+        auto param_type_handle = param->type->handle(ctx);
+        param->_handle = LLVMBuildAlloca(
+          ctx.irb, param_type_handle, param->name.c_str());
 
-      LLVMBuildStore(
-        ctx.irb, LLVMGetParam(_handle, param_index++), param->_handle);
+        LLVMBuildStore(
+          ctx.irb, LLVMGetParam(_handle, param_index++), param->_handle);
+      }
     }
 
     // Stack: push
@@ -47,7 +49,7 @@ LLVMValueRef Function::handle(GContext& ctx) noexcept {
     if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
       // Not terminated; Terminate
       auto result_type = cast<TypeFunction>(type)->result;
-      if (result_type) {
+      if (!result_type->is_unit()) {
         // Expected a return but none found
         Log::get().error(source->span, "not all control paths return a value");
       } else {

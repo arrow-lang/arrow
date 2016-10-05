@@ -17,11 +17,8 @@ auto Build::handle_return(ptr<ast::Return> x) -> ptr<ir::Value> {
   }
 
   // Build: Operand
-  ptr<ir::Value> operand = nullptr;
-  if (x->operand) {
-    operand = run(x->operand);
-    if (!operand) return nullptr;
-  }
+  ptr<ir::Value> operand = run(x->operand);
+  if (!operand) return nullptr;
 
   // Test: Type equality
   auto res_t = cast<ir::TypeFunction>(_ctx.function_s.top()->type)->result;

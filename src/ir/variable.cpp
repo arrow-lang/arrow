@@ -10,6 +10,9 @@ using arrow::ir::Variable;
 
 LLVMValueRef Variable::handle(GContext& ctx) noexcept {
   if (!_handle) {
+    // A variable of type unit does not exist
+    if (type->is_unit()) return nullptr;
+
     auto type_handle = type->handle(ctx);
 
     // Generate handle for the initializer expression (if present or needed)

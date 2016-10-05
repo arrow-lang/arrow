@@ -21,6 +21,8 @@ auto Parser::parse_return() -> ptr<ast::Return> {
     if (!operand) return nullptr;
 
     span = span.extend(operand->span);
+  } else {
+    operand = make<ast::Unit>(Span(_t._filename));
   }
 
   return std::make_shared<ast::Return>(span, operand);

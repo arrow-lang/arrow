@@ -24,6 +24,8 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
       _incomplete = true;
       return;
     }
+  } else {
+    type->result = make<ir::TypeUnit>(false);
   }
 
   // Resolve: Parameter types
@@ -63,6 +65,8 @@ void TypeResolve::visit_extern_function(ptr<ast::ExternFunction> x) {
       _incomplete = true;
       return;
     }
+  } else {
+    type->result = make<ir::TypeUnit>(false);
   }
 
   // Resolve: Parameter types

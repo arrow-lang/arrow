@@ -31,7 +31,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_mul(ptr<ast::Mul>);
   ptr<ir::Type> visit_div(ptr<ast::Div>);
   ptr<ir::Type> visit_mod(ptr<ast::Mod>);
-  // ptr<ir::Type> visit_assign(ptr<ast::Assign>);
+  ptr<ir::Type> visit_assign(ptr<ast::Assign>);
   ptr<ir::Type> visit_call(ptr<ast::Call>);
   ptr<ir::Type> visit_bit_not(ptr<ast::BitNot>);
   ptr<ir::Type> visit_bit_and(ptr<ast::BitAnd>);
@@ -47,6 +47,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_gt(ptr<ast::GreaterThan>);
   ptr<ir::Type> visit_ge(ptr<ast::GreaterThanOrEqualTo>);
   ptr<ir::Type> visit_id(ptr<ast::Identifier>);
+  ptr<ir::Type> visit_unit(ptr<ast::Unit>);
   ptr<ir::Type> visit_bool(ptr<ast::Boolean>);
   ptr<ir::Type> visit_int(ptr<ast::Integer>);
   ptr<ir::Type> visit_real(ptr<ast::Real>);
@@ -54,7 +55,6 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_expression_statement(ptr<ast::ExpressionStatement>);
   ptr<ir::Type> visit_conditional(ptr<ast::Conditional>);
   ptr<ir::Type> visit_branch(ptr<ast::Branch>);
-  // ptr<ir::Type> visit_repeat(ptr<ast::Repeat>);
 };
 
 }  // namespace back

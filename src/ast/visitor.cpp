@@ -76,6 +76,8 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(Repeat, repeat);
     ACCEPT(Break, break);
     ACCEPT(Continue, continue);
+    ACCEPT(Unit, unit);
+    ACCEPT(TypeUnit, type_unit);
 
     Otherwise() {
       Log::get().error("visitor not implemented for node: {}",

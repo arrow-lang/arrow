@@ -31,7 +31,10 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
     auto arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
     if (!arg_handle) return nullptr;
 
-    args.push_back(arg_handle);
+    // Unit-typed arguments do not materialize
+    if (!arg_type->is_unit()) {
+      args.push_back(arg_handle);
+    }
   }
 
   // Realize varidac arguments (extern)

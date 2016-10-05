@@ -44,25 +44,6 @@ auto Parser::parse_function() -> ptr<ast::Function> {
   result->block = parse_block(false);
   if (!result->block) return nullptr;
 
-  // // Expect: `{`
-  // if (!expect(token::Type::LeftBrace)) return nullptr;
-  //
-  // while (
-  //   (_t.peek()->type != token::Type::RightBrace) &&
-  //   (_t.peek()->type != token::Type::End)
-  // ) {
-  //   // Parse a statement
-  //   auto statement = parse_statement();
-  //   if (statement) {
-  //     // Add it to the function
-  //     result->statements.push_back(statement);
-  //   }
-  // }
-  //
-  // // Expect: `}`
-  // auto end_tok = expect(token::Type::RightBrace);
-  // if (!end_tok) return nullptr;
-
   // Extend span for whole function
   result->span = result->span.extend(result->block->span);
 

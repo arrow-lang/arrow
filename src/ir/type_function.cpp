@@ -15,9 +15,12 @@ LLVMTypeRef TypeFunction::handle(GContext& ctx) noexcept {
   if (result) result_type_handle = result->handle(ctx);
 
   std::vector<LLVMTypeRef> param_type_handles;
-  param_type_handles.reserve(parameters.size());
   for (auto& param : parameters) {
-    param_type_handles.push_back(param->handle(ctx));
+    // Parameters can have unit type but do not materialize
+    // if (param && param->is_unit()) continue;
+    if (!param->is_unit()) {
+      param_type_handles.push_back(param->handle(ctx));
+    }
   }
 
   return LLVMFunctionType(

@@ -25,6 +25,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Integer, int);
     ACCEPT(ast::String, str);
     ACCEPT(ast::Real, real);
+    ACCEPT(ast::Unit, unit);
     ACCEPT(ast::ExpressionStatement, expression_statement);
 
     ACCEPT(ast::Indirect, indirect);
