@@ -7,3 +7,10 @@
 // [ ] DIVERGENT Type / Value
 // [ ] Repeat: Break
 // [ ] Repeat: Continue
+
+def main(): int32 {
+	// let a = if false { 302; } else { return; };     // [ ] OK
+	// let b = (return 30) + 10;                       // [ ] ERROR
+ 	let c = return 32;                              // [ ] OK
+ 	// return c;                                       // [x] ERROR
+}

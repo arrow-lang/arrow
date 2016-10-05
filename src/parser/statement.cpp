@@ -64,9 +64,6 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
     return nullptr;
   }
 
-  case token::Type::Return:
-    return parse_return();
-
   case token::Type::Semicolon:
     // Ignore spurious semicolons
     _t.pop();

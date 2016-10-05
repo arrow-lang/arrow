@@ -8,14 +8,13 @@
 
 #include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/expression.hpp"
-#include "arrow/ast/nodes/statement.hpp"
 
 namespace arrow {
 namespace ast {
 
-struct Return : Statement {
+struct Return : Expression {
   Return(Span span, ptr<Expression> operand)
-  : Statement(span), operand(operand) {
+  : Expression(span), operand(operand) {
   }
 
   virtual ~Return() noexcept;
