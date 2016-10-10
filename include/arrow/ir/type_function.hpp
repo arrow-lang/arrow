@@ -12,6 +12,9 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_FUNCTION __COUNTER__
+#define ARROW_TTAG_EXTERN_FUNCTION __COUNTER__
+
 namespace arrow {
 namespace ir {
 
@@ -22,6 +25,10 @@ struct TypeFunction : Type {
   }
 
   virtual ~TypeFunction() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_FUNCTION;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept;
 
@@ -48,6 +55,10 @@ struct TypeExternFunction : Type {
   }
 
   virtual ~TypeExternFunction() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_EXTERN_FUNCTION;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept;
 

@@ -12,6 +12,8 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_LITERAL_INTEGER __COUNTER__
+
 namespace arrow {
 namespace ir {
 
@@ -23,6 +25,10 @@ struct TypeLiteralInteger : Type {
   }
 
   virtual ~TypeLiteralInteger() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_LITERAL_INTEGER;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMInt64Type();

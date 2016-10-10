@@ -36,14 +36,19 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   // Realize RHS
   LLVMMoveBasicBlockAfter(next, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, next);
-  auto rhs_handle = rhs->value_of(ctx);
-  if (!rhs_handle) return nullptr;
-  if (is_and) {
-    rhs_handle = LLVMBuildAnd(ctx.irb, lhs_handle, rhs_handle, "");
+  LLVMValueRef rhs_handle = nullptr;
+  if (rhs->type->is_divergent()) {
+    rhs->handle(ctx);
   } else {
-    rhs_handle = LLVMBuildOr(ctx.irb, lhs_handle, rhs_handle, "");
+    rhs_handle = rhs->value_of(ctx);
+    if (!rhs_handle) return nullptr;
+    if (is_and) {
+      rhs_handle = LLVMBuildAnd(ctx.irb, lhs_handle, rhs_handle, "");
+    } else {
+      rhs_handle = LLVMBuildOr(ctx.irb, lhs_handle, rhs_handle, "");
+    }
+    next = LLVMGetInsertBlock(ctx.irb);
   }
-  next = LLVMGetInsertBlock(ctx.irb);
 
   // Close
   if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(ctx.irb))) {
@@ -53,11 +58,15 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   // Result
   LLVMMoveBasicBlockAfter(merge, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, merge);
-  auto result = LLVMBuildPhi(ctx.irb, lhs->type->handle(ctx), "");
-  LLVMAddIncoming(result, &lhs_handle, &current, 1);
-  LLVMAddIncoming(result, &rhs_handle, &next, 1);
+  if (!(lhs->type->is_divergent() || rhs->type->is_divergent())) {
+    auto result = LLVMBuildPhi(ctx.irb, lhs->type->handle(ctx), "");
+    LLVMAddIncoming(result, &lhs_handle, &current, 1);
+    LLVMAddIncoming(result, &rhs_handle, &next, 1);
 
-  return result;
+    return result;
+  }
+
+  return nullptr;
 }
 
 LLVMValueRef Not::handle(GContext &ctx) noexcept {

@@ -11,6 +11,8 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_STRING __COUNTER__
+
 namespace arrow {
 namespace ir {
 
@@ -19,6 +21,10 @@ struct TypeString : Type {
   }
 
   virtual ~TypeString() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_STRING;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMPointerType(LLVMInt8Type(), 0);

@@ -12,15 +12,21 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_ALIAS __COUNTER__
+
 namespace arrow {
 namespace ir {
 
-struct TypeAlias : TypeT<TypeAlias> {
+struct TypeAlias : Type {
   explicit TypeAlias(ptr<ast::Node> source, std::string name, ptr<Type> target)
-    : Node(source), TypeT(name), target(target) {
+    : Node(source), Type(name), target(target) {
   }
 
   virtual ~TypeAlias() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_ALIAS;
+  }
 
   virtual LLVMTypeRef handle(GContext& ctx) noexcept {
     return target->handle(ctx);

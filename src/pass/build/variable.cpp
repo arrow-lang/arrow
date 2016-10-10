@@ -10,7 +10,7 @@
 using arrow::pass::Build;
 
 auto Build::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Value> {
-  // Get: Function
+  // Get: Variable
   auto var = _ctx.scope->get<ir::Variable>(x);
   if (!var) return nullptr;
 

@@ -11,14 +11,20 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_BOOLEAN __COUNTER__
+
 namespace arrow {
 namespace ir {
 
-struct TypeBoolean : TypeT<TypeBoolean> {
-  TypeBoolean() : Node(nullptr), TypeT("bool") {
+struct TypeBoolean : Type {
+  TypeBoolean() : Node(nullptr), Type("bool") {
   }
 
   virtual ~TypeBoolean() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_BOOLEAN;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMInt1Type();

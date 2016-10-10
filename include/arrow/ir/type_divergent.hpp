@@ -15,12 +15,16 @@
 namespace arrow {
 namespace ir {
 
-struct TypeDivergent : TypeT<TypeDivergent> {
+struct TypeDivergent : Type {
   explicit TypeDivergent(ptr<Type> element)
-    : Node(nullptr), TypeT(element->name), element(element) {
+    : Node(nullptr), Type(element->name), element(element) {
   }
 
   virtual ~TypeDivergent() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return element->tag();
+  }
 
   virtual LLVMTypeRef handle(GContext& ctx) noexcept {
     return element->handle(ctx);

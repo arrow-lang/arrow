@@ -12,6 +12,8 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_INTEGER __COUNTER__
+
 namespace arrow {
 namespace ir {
 
@@ -22,6 +24,10 @@ struct TypeInteger : Type {
   }
 
   virtual ~TypeInteger() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_INTEGER;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMIntType(_bits);

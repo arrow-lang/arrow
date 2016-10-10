@@ -12,6 +12,8 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_LITERAL_REAL __COUNTER__
+
 namespace arrow {
 namespace ir {
 
@@ -20,6 +22,10 @@ struct TypeLiteralReal : Type {
   }
 
   virtual ~TypeLiteralReal() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_LITERAL_REAL;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMDoubleType();

@@ -11,15 +11,21 @@
 
 #include "arrow/ir/type.hpp"
 
+#define ARROW_TTAG_UNIT __COUNTER__
+
 namespace arrow {
 namespace ir {
 
 struct TypeUnit : Type {
-  TypeUnit() 
+  TypeUnit()
   : Node(nullptr), Type("()") {
   }
 
   virtual ~TypeUnit() noexcept;
+
+  virtual unsigned tag() const noexcept {
+    return ARROW_TTAG_UNIT;
+  }
 
   virtual LLVMTypeRef handle(GContext&) noexcept {
     return LLVMVoidType();

@@ -23,6 +23,5 @@ LLVMValueRef Return::handle(GContext &ctx) noexcept {
     LLVMBuildRetVoid(ctx.irb);
   }
 
-  // No (value-able) result
   return nullptr;
 }

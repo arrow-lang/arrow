@@ -28,7 +28,11 @@ struct Type : Item {
   // Get LLVM handle
   virtual LLVMTypeRef handle(GContext&) noexcept = 0;
 
-  virtual bool is_equal(ptr<Type> other) const = 0;
+  virtual unsigned tag() const noexcept = 0;
+
+  virtual bool is_equal(ptr<Type> other) const {
+    return tag() == other->tag();
+  }
 
   // Undefined for most types
   virtual bool is_signed() const {
@@ -63,18 +67,6 @@ struct Type : Item {
 
   virtual bool is_function() const {
     return false;
-  }
-};
-
-template <typename T>
-struct TypeT : Type {
-  using Type::Type;
-
-  virtual ~TypeT() noexcept {
-  }
-
-  virtual bool is_equal(ptr<Type> other) const {
-    return cast<T>(other) != nullptr;
   }
 };
 

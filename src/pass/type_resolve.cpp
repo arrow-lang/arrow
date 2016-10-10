@@ -80,11 +80,13 @@ void TypeResolve::run(ptr<ast::Node> x) {
       if (invalid) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
+        else break;
       }
 
       if (type_set.size() == 0) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
+        else break;
       }
 
       // Reduce types
@@ -105,6 +107,7 @@ void TypeResolve::run(ptr<ast::Node> x) {
       if (invalid) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
+        else break;
       }
 
       if (type_set.size() > 0) {
