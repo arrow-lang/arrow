@@ -16,8 +16,9 @@ auto TypeDeduce::handle_combinator(ptr<ast::Binary> x) -> ptr<ir::Type> {
   auto rhs_t = run(x->rhs);
   if (!lhs_t || !rhs_t) return nullptr;
 
+  // NOTE: A logical expression is only divergent if the LHS is divergent
   ptr<ir::Type> type = make<ir::TypeBoolean>();
-  if (lhs_t->is_divergent() || rhs_t->is_divergent()) {
+  if (lhs_t->is_divergent()) {
   	type = make<ir::TypeDivergent>(type);
   }
 

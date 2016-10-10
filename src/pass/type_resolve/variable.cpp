@@ -26,6 +26,8 @@ void TypeResolve::visit_variable(ptr<ast::Variable> x) {
 
     // Check for an initializer expression (and record as an assignment)
     if (x->initializer) {
+      accept(x->initializer);
+
       // NOTE: If deduction fails; we want to record the null
       auto type = TypeDeduce(_ctx).run(x->initializer);
       _assigns[var.get()].push_back(Assign{type});

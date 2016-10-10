@@ -5,6 +5,7 @@
 
 #include "arrow/ir.hpp"
 #include "mach7.hpp"
+#include "fmt.hpp"
 
 namespace ir = arrow::ir;
 
@@ -120,8 +121,12 @@ arrow::ptr<ir::Type> arrow::ir::type_reduce(ptr<ir::Type> a, ptr<ir::Type> b) {
 // Check if type RHS is assignable to type LHS
 bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
   return (
+    // Nil
+    (lhs && rhs) && (
     // Equal
     (lhs->is_equal(rhs)) ||
+    // Divergent
+    (rhs->is_divergent()) ||
     // Integer & Literal Integer
     (
       lhs->is_integer() && rhs->is_integer() &&
@@ -134,7 +139,7 @@ bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
     ) ||
     // Real & Literal Integer
     (lhs->is_real() && rhs->is_integer() && rhs->size() == 0)
-  );
+  ));
 }
 
 // Get canonical type

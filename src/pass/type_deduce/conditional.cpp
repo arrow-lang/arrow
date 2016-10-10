@@ -14,25 +14,40 @@ auto TypeDeduce::visit_conditional(ptr<ast::Conditional> x) -> ptr<ir::Type> {
     return nullptr;
   }
 
-  auto type = run(x->branches[0]);
-  if (!type) return nullptr;
+  ptr<ir::Type> type = nullptr;
+  unsigned divergent_cnt = 0;
+  auto handle = [&, this](ptr<ast::Block> &block){
+    auto tmp = run(block);
+    if (!tmp) return false;
 
-  for (std::size_t i = 1; i < x->branches.size(); ++i) {
-    auto tmp = run(x->branches[i]);
-    if (!tmp) return nullptr;
-    else break;
+    if (!tmp->is_divergent()) {
+      if (type == nullptr) type = tmp;
+      else {
+        tmp = ir::type_reduce(type, tmp);
+        if (tmp) type = tmp;
+      }
+    } else {
+      divergent_cnt += 1;
+    }
 
-    tmp = ir::type_reduce(type, tmp);
-    if (tmp) type = tmp;
+    return true;
+  };
+
+  // Branches
+  for (std::size_t i = 0; i < x->branches.size(); ++i) {
+    if (!handle(x->branches[i]->block)) return nullptr;
   }
 
-  // TODO: Make sure we type check in build for this
+  // Otherwise
+  if (!handle(x->otherwise)) return nullptr;
 
-  auto tmp = run(x->otherwise);
-  if (!tmp) return nullptr;
-
-  tmp = ir::type_reduce(type, tmp);
-  if (tmp) type = tmp;
+  // Unit
+  if (!type) {
+    type = make<ir::TypeUnit>();
+    if (divergent_cnt >= x->branches.size() + 1) {
+      type = make<ir::TypeDivergent>(type);
+    }
+  }
 
   return type;
 }

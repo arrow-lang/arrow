@@ -66,7 +66,6 @@ void TypeResolve::run(ptr<ast::Node> x) {
       auto& use_set = _uses[item.get()];
 
       std::vector<ptr<ir::Type>> type_set;
-
       for (auto& assign : assign_set) {
         if (!assign.type) {
           // An invalid type was resolved
@@ -80,7 +79,6 @@ void TypeResolve::run(ptr<ast::Node> x) {
       if (invalid) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
-        else break;
       }
 
       if (type_set.size() == 0) {
@@ -107,7 +105,6 @@ void TypeResolve::run(ptr<ast::Node> x) {
       if (invalid) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
-        else break;
       }
 
       if (type_set.size() > 0) {

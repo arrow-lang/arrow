@@ -58,15 +58,18 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   // Result
   LLVMMoveBasicBlockAfter(merge, LLVMGetInsertBlock(ctx.irb));
   LLVMPositionBuilderAtEnd(ctx.irb, merge);
-  if (!(lhs->type->is_divergent() || rhs->type->is_divergent())) {
-    auto result = LLVMBuildPhi(ctx.irb, lhs->type->handle(ctx), "");
-    LLVMAddIncoming(result, &lhs_handle, &current, 1);
-    LLVMAddIncoming(result, &rhs_handle, &next, 1);
-
-    return result;
+  LLVMValueRef result = nullptr;
+  if (!lhs->type->is_divergent()) {
+    if (rhs->type->is_divergent()) {
+      result = lhs_handle;
+    } else {
+      result = LLVMBuildPhi(ctx.irb, lhs->type->handle(ctx), "");
+      LLVMAddIncoming(result, &lhs_handle, &current, 1);
+      LLVMAddIncoming(result, &rhs_handle, &next, 1);
+    }
   }
 
-  return nullptr;
+  return result;
 }
 
 LLVMValueRef Not::handle(GContext &ctx) noexcept {
