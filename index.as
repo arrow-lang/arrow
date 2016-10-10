@@ -8,9 +8,14 @@
 // [ ] Repeat: Break
 // [ ] Repeat: Continue
 
+// #[divergent]
 def main(): int32 {
-	// let a = if false { 302; } else { return; };     // [ ] OK
+	// let a = if false { 302; } else { return 4; };     // [ ] OK
+	// let d = false or (return 20);                   // [ ] OK
+	let d = (return 200) or true;                   // [ ] OK
+	// let d = false or true;                   // [ ] OK
 	// let b = (return 30) + 10;                       // [ ] ERROR
- 	let c = return 32;                              // [ ] OK
+    // let c = return 32;                              // [x] OK
  	// return c;                                       // [x] ERROR
+ 	return 3;
 }

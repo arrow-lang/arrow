@@ -8,5 +8,5 @@
 using arrow::pass::TypeDeduce;
 
 auto TypeDeduce::visit_return(ptr<ast::Return>) -> ptr<ir::Type> {
-  return make<ir::TypeUnit>(true);
+  return make<ir::TypeDivergent>(make<ir::TypeUnit>());
 }

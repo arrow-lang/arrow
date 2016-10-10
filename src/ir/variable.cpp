@@ -10,17 +10,23 @@ using arrow::ir::Variable;
 
 LLVMValueRef Variable::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    // A variable of type unit does not exist
-    if (type->is_unit()) return nullptr;
-
     auto type_handle = type->handle(ctx);
 
     // Generate handle for the initializer expression (if present or needed)
     LLVMValueRef initializer_handle = nullptr;
     if (initializer) {
-      initializer_handle = Transmute(
-        initializer->source, initializer, type).value_of(ctx);
+      if (type->is_unit()) {
+        initializer->handle(ctx);  
+      } else {
+        initializer_handle = ir::transmute(initializer, type)->value_of(ctx);  
+      }
     }
+
+    // A variable of type unit does not exist
+    if (type->is_unit()) return nullptr;
+
+    // An initializer that is divergent does not create a variable
+    if (initializer->type->is_divergent()) return nullptr;
 
     if (_is_global) {
       // Add global variable to module

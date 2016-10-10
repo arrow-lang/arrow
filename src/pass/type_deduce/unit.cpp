@@ -8,5 +8,5 @@
 using arrow::pass::TypeDeduce;
 
 auto TypeDeduce::visit_unit(ptr<ast::Unit>) -> ptr<ir::Type> {
-  return make<ir::TypeUnit>(false);
+  return make<ir::TypeUnit>();
 }

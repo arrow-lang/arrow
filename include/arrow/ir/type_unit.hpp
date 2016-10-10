@@ -15,8 +15,8 @@ namespace arrow {
 namespace ir {
 
 struct TypeUnit : Type {
-  TypeUnit(bool divergent) 
-  : Node(nullptr), Type("()"), _divergent(divergent) {
+  TypeUnit() 
+  : Node(nullptr), Type("()") {
   }
 
   virtual ~TypeUnit() noexcept;
@@ -28,13 +28,6 @@ struct TypeUnit : Type {
   virtual bool is_unit() const {
   	return true;
   }
-
-  virtual bool is_divergent() const {
-    return _divergent;
-  }
-
- private:
-  bool _divergent;
 };
 
 }  // namespace ir

@@ -4,6 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_deduce.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
@@ -28,7 +29,8 @@ auto Build::handle_and(ptr<ast::And> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  if (!(lhs->type->is_boolean() && rhs->type->is_boolean())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type->is_boolean()) {
     Log::get().error(x->span,
       "unsupported operand types for `and`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
@@ -36,7 +38,7 @@ auto Build::handle_and(ptr<ast::And> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::And>(x, lhs->type, lhs, rhs);
+  return make<ir::And>(x, type, lhs, rhs);
 }
 
 auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
@@ -44,7 +46,8 @@ auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
   auto rhs = run(x->rhs);
   if (!lhs || !rhs) return nullptr;
 
-  if (!(lhs->type->is_boolean() && rhs->type->is_boolean())) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type->is_boolean()) {
     Log::get().error(x->span,
       "unsupported operand types for `or`: `{}` and `{}`",
       lhs->type->name, rhs->type->name);
@@ -52,5 +55,5 @@ auto Build::handle_or(ptr<ast::Or> x) -> ptr<ir::Value> {
     return nullptr;
   }
 
-  return make<ir::Or>(x, lhs->type, lhs, rhs);
+  return make<ir::Or>(x, type, lhs, rhs);
 }

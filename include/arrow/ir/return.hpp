@@ -8,13 +8,15 @@
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/type.hpp"
+#include "arrow/ir/type_unit.hpp"
+#include "arrow/ir/type_divergent.hpp"
 
 namespace arrow {
 namespace ir {
 
 struct Return : Value {
   Return(ptr<ast::Return> source, ptr<Value> operand)
-    : Node(source), Value(operand ? operand->type : nullptr), operand(operand) {
+    : Node(source), Value(make<TypeDivergent>(make<TypeUnit>())), operand(operand) {
   }
 
   virtual ~Return() noexcept;

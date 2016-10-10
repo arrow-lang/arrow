@@ -29,6 +29,7 @@ ir::TypeString::~TypeString() noexcept { }
 ir::TypePointer::~TypePointer() noexcept { }
 ir::TypeAlias::~TypeAlias() noexcept { }
 ir::TypeUnit::~TypeUnit() noexcept { }
+ir::TypeDivergent::~TypeDivergent() noexcept { }
 
 ir::Value::~Value() noexcept { }
 ir::Unit::~Unit() noexcept { }

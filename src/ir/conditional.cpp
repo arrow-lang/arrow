@@ -74,12 +74,18 @@ LLVMValueRef Conditional::handle(GContext& ctx) noexcept {
     LLVMPositionBuilderAtEnd(ctx.irb, b_merge);
   }
 
+  // Result
   LLVMValueRef result = nullptr;
   if (!divergent && eval) {
-    // Result
-    result = LLVMBuildPhi(ctx.irb, type->handle(ctx), "");
-    LLVMAddIncoming(result, &then_handle, &b_then, 1);
-    LLVMAddIncoming(result, &other_handle, &b_otherwise, 1);
+    if (divergent_then) {
+      result = other_handle;
+    } else if (divergent_otherwise) {
+      result = then_handle;
+    } else {
+      result = LLVMBuildPhi(ctx.irb, type->handle(ctx), "");
+      LLVMAddIncoming(result, &then_handle, &b_then, 1);
+      LLVMAddIncoming(result, &other_handle, &b_otherwise, 1);
+    }
   }
 
   return result;

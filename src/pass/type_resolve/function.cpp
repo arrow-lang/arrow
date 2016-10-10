@@ -25,7 +25,7 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
       return;
     }
   } else {
-    type->result = make<ir::TypeUnit>(false);
+    type->result = make<ir::TypeUnit>();
   }
 
   // Resolve: Parameter types
@@ -66,7 +66,7 @@ void TypeResolve::visit_extern_function(ptr<ast::ExternFunction> x) {
       return;
     }
   } else {
-    type->result = make<ir::TypeUnit>(false);
+    type->result = make<ir::TypeUnit>();
   }
 
   // Resolve: Parameter types

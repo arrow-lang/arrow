@@ -56,6 +56,8 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_conditional(ptr<ast::Conditional>);
   ptr<ir::Type> visit_branch(ptr<ast::Branch>);
   ptr<ir::Type> visit_return(ptr<ast::Return>);
+
+  ptr<ir::Type> handle_combinator(ptr<ast::Binary>);
 };
 
 }  // namespace back

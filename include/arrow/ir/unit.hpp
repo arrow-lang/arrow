@@ -13,8 +13,8 @@ namespace arrow {
 namespace ir {
 
 struct Unit : Value {
-  explicit Unit(bool divergent)
-  : Node(nullptr), Value(make<ir::TypeUnit>(divergent)) {
+  explicit Unit()
+  : Node(nullptr), Value(make<ir::TypeUnit>()) {
   }
 
   virtual ~Unit() noexcept;

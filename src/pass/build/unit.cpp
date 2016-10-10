@@ -8,5 +8,5 @@
 using arrow::pass::Build;
 
 auto Build::handle_unit(ptr<ast::Unit>) -> ptr<ir::Value> {
-  return make<ir::Unit>(false);
+  return make<ir::Unit>();
 }

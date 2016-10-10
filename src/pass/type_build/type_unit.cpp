@@ -9,5 +9,5 @@
 using arrow::pass::TypeBuild;
 
 auto TypeBuild::handle_type_unit(ptr<ast::TypeUnit>) -> ptr<ir::Type> {
-  return make<ir::TypeUnit>(false);
+  return make<ir::TypeUnit>();
 }

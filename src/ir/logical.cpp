@@ -17,6 +17,9 @@ static LLVMValueRef _logical(arrow::GContext &ctx, ptr<Value> lhs, ptr<Value> rh
   auto lhs_handle = lhs->value_of(ctx);
   if (!lhs_handle) return nullptr;
 
+  // IIF LHS is divergent; get out
+  if (lhs->type->is_divergent()) return nullptr;
+
   // Launchpad
   auto current = LLVMGetInsertBlock(ctx.irb);
   auto parent_fn = LLVMGetBasicBlockParent(current);
