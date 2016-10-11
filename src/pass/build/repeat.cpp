@@ -22,8 +22,33 @@ auto Build::handle_repeat(ptr<ast::Repeat> x) -> ptr<ir::Value> {
   }
 
   // Build: block (of statements)
+  // Push a NIL loop frame (for error checking)
+  _ctx.loop_s.push({nullptr, nullptr});
   auto bl = run(x->block);
-  if (!bl) return nullptr;
+  _ctx.loop_s.pop();
+  if (!bl) {
+    return nullptr;
+  }
 
   return make<ir::Repeat>(x, cond, cast<ir::Block>(bl));
+}
+
+auto Build::handle_break(ptr<ast::Break> x) -> ptr<ir::Value> {
+  if (_ctx.loop_s.empty()) {
+    Log::get().error(x->span, "unexpected `break` outside loop");
+
+    return nullptr;
+  }
+
+  return make<ir::Break>(x);
+}
+
+auto Build::handle_continue(ptr<ast::Continue> x) -> ptr<ir::Value> {
+  if (_ctx.loop_s.empty()) {
+    Log::get().error(x->span, "unexpected `continue` outside loop");
+
+    return nullptr;
+  }
+
+  return make<ir::Continue>(x);
 }

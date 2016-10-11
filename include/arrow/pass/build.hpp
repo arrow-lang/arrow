@@ -79,11 +79,13 @@ class Build : public Pass {
 
   ptr<ir::Value> handle_conditional(ptr<ast::Conditional>);
   ptr<ir::Value> handle_repeat(ptr<ast::Repeat>);
+  ptr<ir::Value> handle_break(ptr<ast::Break>);
+  ptr<ir::Value> handle_continue(ptr<ast::Continue>);
 
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);
 
-  Context<bool> _expression_c; 
+  Context<bool> _expression_c;
 };
 
 }  // namespace back

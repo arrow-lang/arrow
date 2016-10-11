@@ -67,6 +67,8 @@ ir::Or::~Or() noexcept {}
 
 ir::Repeat::~Repeat() noexcept {}
 ir::Conditional::~Conditional() noexcept {}
+ir::Break::~Break() noexcept {}
+ir::Continue::~Continue() noexcept {}
 
 ir::EqualTo::~EqualTo() noexcept {}
 ir::NotEqualTo::~NotEqualTo() noexcept {}

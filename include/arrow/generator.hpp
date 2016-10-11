@@ -36,6 +36,9 @@ struct GContext {
 
   // Modules
   std::vector<ptr<ir::Module>> modules;
+
+  // Loop Frame Stack (<condition>, <merge>)
+  std::stack<std::pair<LLVMBasicBlockRef, LLVMBasicBlockRef>> loop_s;
 };
 
 // Takes IR as input and will "generate" LLVM IR

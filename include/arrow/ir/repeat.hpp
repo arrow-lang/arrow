@@ -27,6 +27,26 @@ struct Repeat : Value {
   ptr<Block> body;
 };
 
+struct Break : Value {
+  Break(ptr<ast::Break> source)
+    : Node(source), Value(make<TypeDivergent>(make<TypeUnit>())) {
+  }
+
+  virtual ~Break() noexcept;
+
+  virtual LLVMValueRef handle(GContext&) noexcept;
+};
+
+struct Continue : Value {
+  Continue(ptr<ast::Continue> source)
+    : Node(source), Value(make<TypeDivergent>(make<TypeUnit>())) {
+  }
+
+  virtual ~Continue() noexcept;
+
+  virtual LLVMValueRef handle(GContext&) noexcept;
+};
+
 }  // namespace ir
 }  // namespace arrow
 

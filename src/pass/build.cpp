@@ -68,6 +68,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Block, block);
     ACCEPT(ast::Conditional, conditional);
     ACCEPT(ast::Repeat, repeat);
+    ACCEPT(ast::Break, break);
+    ACCEPT(ast::Continue, continue);
 
     Otherwise() {
       Log::get().error("Build not implemented for {}", typeid(*x).name());

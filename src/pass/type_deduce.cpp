@@ -50,6 +50,8 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::Branch, branch);
     ACCEPT(ast::Unit, unit);
     ACCEPT(ast::Return, return);
+    ACCEPT(ast::Break, break);
+    ACCEPT(ast::Continue, continue);
 
     Otherwise() {
       // Unhandled
