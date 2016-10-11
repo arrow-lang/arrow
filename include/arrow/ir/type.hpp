@@ -18,6 +18,20 @@ struct GContext;
 
 namespace ir {
 
+enum TypeTag : unsigned {
+  ARROW_TTAG_ALIAS,
+  ARROW_TTAG_BOOLEAN,
+  ARROW_TTAG_FUNCTION,
+  ARROW_TTAG_EXTERN_FUNCTION,
+  ARROW_TTAG_INTEGER,
+  ARROW_TTAG_LITERAL_INTEGER,
+  ARROW_TTAG_LITERAL_REAL,
+  ARROW_TTAG_POINTER,
+  ARROW_TTAG_REAL,
+  ARROW_TTAG_STRING,
+  ARROW_TTAG_UNIT,
+};
+
 struct Type : Item {
   Type(std::string name)
     : Node(nullptr), Item(name) {

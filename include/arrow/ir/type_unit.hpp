@@ -11,8 +11,6 @@
 
 #include "arrow/ir/type.hpp"
 
-#define ARROW_TTAG_UNIT __COUNTER__
-
 namespace arrow {
 namespace ir {
 

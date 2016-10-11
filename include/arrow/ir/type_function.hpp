@@ -12,9 +12,6 @@
 
 #include "arrow/ir/type.hpp"
 
-#define ARROW_TTAG_FUNCTION __COUNTER__
-#define ARROW_TTAG_EXTERN_FUNCTION __COUNTER__
-
 namespace arrow {
 namespace ir {
 

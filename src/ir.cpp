@@ -138,7 +138,10 @@ bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
       (lhs->size() == 0 || rhs->size() == 0)
     ) ||
     // Real & Literal Integer
-    (lhs->is_real() && rhs->is_integer() && rhs->size() == 0)
+    (lhs->is_real() && rhs->is_integer() && rhs->size() == 0) ||
+    // Alias := Literal
+    (lhs->tag() == ARROW_TTAG_ALIAS && rhs->size() == 0 &&
+      type_is_assignable(type_canonical(lhs), rhs))
   ));
 }
 
