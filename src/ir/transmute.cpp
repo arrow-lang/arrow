@@ -57,6 +57,10 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
       } else {
         _handle = LLVMBuildFPToUI(ctx.irb, value_handle, dst_handle, "");
       }
+    } else if (src->is_integer() && dst->is_pointer()) {
+      _handle = LLVMBuildIntToPtr(ctx.irb, value_handle, dst_handle, "");
+    } else if (src->is_pointer() && dst->is_pointer()) {
+      _handle = LLVMBuildBitCast(ctx.irb, value_handle, dst_handle, "");
     } else {
       throw std::runtime_error(fmt::format(
         "not implemented: transmute: {} -> {}", src->name, dst->name));

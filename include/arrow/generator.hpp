@@ -27,6 +27,7 @@ struct GContext {
   // LLVM target machine
   // Describes the target architecture
   LLVMTargetMachineRef target;
+  LLVMTargetDataRef target_data;
 
   // Scope
   ptr<ir::Scope> scope;

@@ -71,6 +71,10 @@ struct Type : Item {
     return false;
   }
 
+  virtual bool is_pointer() const {
+    return false;
+  }
+
   virtual bool is_integer() const {
     return false;
   }

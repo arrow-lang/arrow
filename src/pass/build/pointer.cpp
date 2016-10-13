@@ -4,6 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_build.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
@@ -30,4 +31,27 @@ auto Build::handle_address_of(ptr<ast::AddressOf> x) -> ptr<ir::Value> {
   if (!operand) return nullptr;
 
   return make<ir::AddressOf>(x, make<ir::TypePointer>(x, operand->type), operand);
+}
+
+auto Build::handle_transmute(ptr<ast::Transmute> x) -> ptr<ir::Value> {
+  auto operand = run(x->operand);
+  if (!operand) return nullptr;
+
+  auto type = TypeBuild(_ctx).run(x->target);
+  if (!type) return nullptr;
+
+  if (!type->is_pointer()) {
+    Log::get().error(x->target->span, "destination type must be a pointer");
+
+    return nullptr;
+  }
+
+  if (!(operand->type->is_integer() || operand->type->is_pointer())) {
+    Log::get().error(x->operand->span,
+      "source expression must be of an integer or pointer type");
+
+    return nullptr;
+  }
+
+  return make<ir::Transmute>(x, operand, type);
 }

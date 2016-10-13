@@ -4,10 +4,10 @@
   "statements": [
     {
       "tag": "Assign",
-      "span": "test/parse/binary.as:2:8-2",
+      "span": "test/parse/binary.as:2:8-23",
       "lhs": {
         "tag": "Add",
-        "span": "test/parse/binary.as:2:3-2",
+        "span": "test/parse/binary.as:2:3-7",
         "lhs": {
           "tag": "Integer",
           "span": "test/parse/binary.as:2:1-2",
@@ -21,7 +21,7 @@
       },
       "rhs": {
         "tag": "Assign",
-        "span": "test/parse/binary.as:2:13-12",
+        "span": "test/parse/binary.as:2:13-23",
         "lhs": {
           "tag": "Integer",
           "span": "test/parse/binary.as:2:10-12",
@@ -29,7 +29,7 @@
         },
         "rhs": {
           "tag": "Mul",
-          "span": "test/parse/binary.as:2:20-19",
+          "span": "test/parse/binary.as:2:20-23",
           "lhs": {
             "tag": "Integer",
             "span": "test/parse/binary.as:2:15-19",
@@ -45,7 +45,7 @@
     },
     {
       "tag": "And",
-      "span": "test/parse/binary.as:29:7-6",
+      "span": "test/parse/binary.as:29:7-19",
       "lhs": {
         "tag": "Boolean",
         "span": "test/parse/binary.as:29:1-6",
@@ -63,7 +63,7 @@
     },
     {
       "tag": "Or",
-      "span": "test/parse/binary.as:32:10-9",
+      "span": "test/parse/binary.as:32:10-18",
       "lhs": {
         "tag": "Not",
         "span": "test/parse/binary.as:32:1-9",
@@ -81,7 +81,7 @@
     },
     {
       "tag": "EqualTo",
-      "span": "test/parse/binary.as:35:4-3",
+      "span": "test/parse/binary.as:35:4-9",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:35:1-3",
@@ -95,7 +95,7 @@
     },
     {
       "tag": "NotEqualTo",
-      "span": "test/parse/binary.as:38:4-3",
+      "span": "test/parse/binary.as:38:4-9",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:38:1-3",
@@ -109,7 +109,7 @@
     },
     {
       "tag": "LessThan",
-      "span": "test/parse/binary.as:41:4-3",
+      "span": "test/parse/binary.as:41:4-11",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:41:1-3",
@@ -123,7 +123,7 @@
     },
     {
       "tag": "LessThanOrEqualTo",
-      "span": "test/parse/binary.as:44:6-5",
+      "span": "test/parse/binary.as:44:6-14",
       "lhs": {
         "tag": "Boolean",
         "span": "test/parse/binary.as:44:1-5",
@@ -137,7 +137,7 @@
     },
     {
       "tag": "GreaterThanOrEqualTo",
-      "span": "test/parse/binary.as:47:7-6",
+      "span": "test/parse/binary.as:47:7-14",
       "lhs": {
         "tag": "Boolean",
         "span": "test/parse/binary.as:47:1-6",
@@ -151,7 +151,7 @@
     },
     {
       "tag": "GreaterThan",
-      "span": "test/parse/binary.as:50:7-6",
+      "span": "test/parse/binary.as:50:7-11",
       "lhs": {
         "tag": "Boolean",
         "span": "test/parse/binary.as:50:1-6",
@@ -165,7 +165,7 @@
     },
     {
       "tag": "BitAnd",
-      "span": "test/parse/binary.as:53:6-5",
+      "span": "test/parse/binary.as:53:6-10",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:53:1-5",
@@ -179,7 +179,7 @@
     },
     {
       "tag": "BitXor",
-      "span": "test/parse/binary.as:56:4-3",
+      "span": "test/parse/binary.as:56:4-9",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:56:1-3",
@@ -193,7 +193,7 @@
     },
     {
       "tag": "BitXor",
-      "span": "test/parse/binary.as:57:6-5",
+      "span": "test/parse/binary.as:57:6-13",
       "lhs": {
         "tag": "Boolean",
         "span": "test/parse/binary.as:57:1-5",
@@ -207,7 +207,7 @@
     },
     {
       "tag": "BitOr",
-      "span": "test/parse/binary.as:60:4-3",
+      "span": "test/parse/binary.as:60:4-8",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:60:1-3",
@@ -221,7 +221,7 @@
     },
     {
       "tag": "Add",
-      "span": "test/parse/binary.as:63:4-3",
+      "span": "test/parse/binary.as:63:4-10",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:63:1-3",
@@ -235,7 +235,7 @@
     },
     {
       "tag": "Sub",
-      "span": "test/parse/binary.as:66:5-4",
+      "span": "test/parse/binary.as:66:5-11",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:66:1-4",
@@ -249,7 +249,7 @@
     },
     {
       "tag": "Mul",
-      "span": "test/parse/binary.as:69:5-4",
+      "span": "test/parse/binary.as:69:5-10",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:69:1-4",
@@ -263,10 +263,10 @@
     },
     {
       "tag": "Sub",
-      "span": "test/parse/binary.as:70:15-3",
+      "span": "test/parse/binary.as:70:15-24",
       "lhs": {
         "tag": "Add",
-        "span": "test/parse/binary.as:70:4-3",
+        "span": "test/parse/binary.as:70:4-14",
         "lhs": {
           "tag": "Integer",
           "span": "test/parse/binary.as:70:1-3",
@@ -274,7 +274,7 @@
         },
         "rhs": {
           "tag": "Mul",
-          "span": "test/parse/binary.as:70:10-9",
+          "span": "test/parse/binary.as:70:10-14",
           "lhs": {
             "tag": "Integer",
             "span": "test/parse/binary.as:70:6-9",
@@ -289,7 +289,7 @@
       },
       "rhs": {
         "tag": "Mod",
-        "span": "test/parse/binary.as:70:20-19",
+        "span": "test/parse/binary.as:70:20-24",
         "lhs": {
           "tag": "Integer",
           "span": "test/parse/binary.as:70:17-19",
@@ -304,7 +304,7 @@
     },
     {
       "tag": "Div",
-      "span": "test/parse/binary.as:73:4-3",
+      "span": "test/parse/binary.as:73:4-9",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:73:1-3",
@@ -318,7 +318,7 @@
     },
     {
       "tag": "Mod",
-      "span": "test/parse/binary.as:76:5-4",
+      "span": "test/parse/binary.as:76:5-10",
       "lhs": {
         "tag": "Integer",
         "span": "test/parse/binary.as:76:1-4",

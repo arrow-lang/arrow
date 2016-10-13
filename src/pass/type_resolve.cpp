@@ -22,6 +22,13 @@ static auto type_literal_promote(ptr<ir::Type> type) -> ptr<ir::Type> {
       // Return float64
       return arrow::make<ir::TypeReal>(64);
     }
+
+    if (type->is_pointer()) {
+      return arrow::make<ir::TypePointer>(
+        type->source,
+        type_literal_promote(arrow::cast<ir::TypePointer>(type)->element)
+      );
+    }
   }
 
   return type;

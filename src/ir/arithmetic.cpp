@@ -33,6 +33,19 @@ LLVMValueRef Negate::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Add::handle(GContext &ctx) noexcept {
   if (!_handle) {
+    if (type->is_pointer()) {
+      // <pointer> + integer
+      auto lhs_handle = lhs->value_of(ctx);
+      auto rhs_handle = rhs->value_of(ctx);
+      if (lhs->type->is_pointer() && !rhs->type->is_pointer()) {
+        _handle = LLVMBuildGEP(ctx.irb, lhs_handle, &rhs_handle, 1, "");
+      } else if (rhs->type->is_pointer()) {
+        _handle = LLVMBuildGEP(ctx.irb, rhs_handle, &lhs_handle, 1, "");
+      }
+
+      if (_handle) return _handle;
+    }
+
     auto lhs_handle = transmute(lhs, type)->value_of(ctx);
     auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
@@ -52,6 +65,40 @@ LLVMValueRef Add::handle(GContext &ctx) noexcept {
 
 LLVMValueRef Sub::handle(GContext &ctx) noexcept {
   if (!_handle) {
+    if (type->is_pointer()) {
+      // <pointer> - integer
+      auto lhs_handle = lhs->value_of(ctx);
+      auto rhs_handle = rhs->value_of(ctx);
+      if (lhs->type->is_pointer() && rhs->type->is_integer()) {
+        rhs_handle = LLVMBuildNeg(ctx.irb, rhs_handle, "");
+        _handle = LLVMBuildGEP(ctx.irb, lhs_handle, &rhs_handle, 1, "");
+
+        return _handle;
+      }
+    } else if (
+        lhs->type->is_pointer() && rhs->type->is_pointer() &&
+        type->is_integer()) {
+      // <pointer> - <pointer>
+      // Run PtrToInt on both pointers
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      auto lhs_handle = LLVMBuildPtrToInt(
+        ctx.irb, lhs->value_of(ctx), intptr_t, "");
+      auto rhs_handle = LLVMBuildPtrToInt(
+        ctx.irb, rhs->value_of(ctx), intptr_t, "");
+
+      // Find the length
+      _handle = LLVMBuildSub(ctx.irb, lhs_handle, rhs_handle, "");
+
+      // Get the size (in bytes) of the underlying type
+      auto sizeb = LLVMSizeOf(
+        cast<ir::TypePointer>(lhs->type)->element->handle(ctx));
+
+      // Perform an integral division to find the -number- of elements.
+      _handle = LLVMBuildExactSDiv(ctx.irb, _handle, sizeb, "");
+
+      return _handle;
+    }
+
     auto lhs_handle = transmute(lhs, type)->value_of(ctx);
     auto rhs_handle = transmute(rhs, type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;

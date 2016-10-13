@@ -54,6 +54,10 @@ struct TypeDivergent : Type {
     return element->is_boolean();
   }
 
+  virtual bool is_pointer() const {
+    return element->is_pointer();
+  }
+
   virtual bool is_integer() const {
     return element->is_integer();
   }

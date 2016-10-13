@@ -56,6 +56,7 @@ void Generator::initialize() {
     LLVMRelocDefault,
     LLVMCodeModelDefault);
 
+  _ctx.target_data = LLVMGetTargetMachineData(_ctx.target);
   LLVMDisposeMessage(triple);
 
   // Initialize top scope
@@ -98,8 +99,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
   LLVMDisposeMessage(triple);
 
   // Set the data layout on the module
-  auto data = LLVMCopyStringRepOfTargetData(LLVMGetTargetMachineData(
-    _ctx.target));
+  auto data = LLVMCopyStringRepOfTargetData(_ctx.target_data);
   LLVMSetDataLayout(_ctx.mod, data);
   LLVMDisposeMessage(data);
 
@@ -120,7 +120,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
 
   // Declare main
   // TODO(mehcode): Full (all parameters)
-  // FIXME(mehcode): Get proper size of C INT here  
+  // FIXME(mehcode): Get proper size of C INT here
   auto main = LLVMAddFunction(_ctx.mod, "main", LLVMFunctionType(
     LLVMInt32Type(),
     nullptr,

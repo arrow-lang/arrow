@@ -81,3 +81,5 @@ IMPL(Branch)
 IMPL(Repeat)
 IMPL(Break)
 IMPL(Continue)
+
+IMPL(Transmute)

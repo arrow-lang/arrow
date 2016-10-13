@@ -79,10 +79,10 @@
     },
     {
       "tag": "Not",
-      "span": "test/parse/unary.as:15:1-6",
+      "span": "test/parse/unary.as:15:1-10",
       "operand": {
         "tag": "LessThan",
-        "span": "test/parse/unary.as:15:7-6",
+        "span": "test/parse/unary.as:15:7-10",
         "lhs": {
           "tag": "Identifier",
           "span": "test/parse/unary.as:15:5-6",

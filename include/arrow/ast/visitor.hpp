@@ -59,6 +59,7 @@ class Visitor {
   virtual void visit_or(ptr<ast::Or> x);
   virtual void visit_assign(ptr<ast::Assign> x);
   virtual void visit_expression_statement(ptr<ast::ExpressionStatement> x);
+  virtual void visit_transmute(ptr<ast::Transmute> x);
 
   virtual void visit_unary(ptr<ast::Unary> x);
   virtual void visit_binary(ptr<ast::Binary> x);

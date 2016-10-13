@@ -10,23 +10,16 @@
 #include <string>
 
 #include "arrow/ir/type.hpp"
+#include "arrow/ir/type_pointer.hpp"
 
 namespace arrow {
 namespace ir {
 
-struct TypeString : Type {
-  TypeString() : Node(nullptr), Type("str") {
+struct TypeString : TypePointer {
+  TypeString() : Node(nullptr), TypePointer(nullptr, make<ir::TypeInteger>(false, 8)) {
   }
 
   virtual ~TypeString() noexcept;
-
-  virtual unsigned tag() const noexcept {
-    return ARROW_TTAG_STRING;
-  }
-
-  virtual LLVMTypeRef handle(GContext&) noexcept {
-    return LLVMPointerType(LLVMInt8Type(), 0);
-  }
 };
 
 }  // namespace ir

@@ -82,6 +82,8 @@ class Build : public Pass {
   ptr<ir::Value> handle_break(ptr<ast::Break>);
   ptr<ir::Value> handle_continue(ptr<ast::Continue>);
 
+  ptr<ir::Value> handle_transmute(ptr<ast::Transmute>);
+
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);
 

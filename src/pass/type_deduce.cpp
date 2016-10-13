@@ -21,8 +21,8 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::String, str);
     ACCEPT(ast::Real, real);
     ACCEPT(ast::ExpressionStatement, expression_statement);
-    // ACCEPT(ast::Indirect, indirect);
-    // ACCEPT(ast::AddressOf, address_of);
+    ACCEPT(ast::Indirect, indirect);
+    ACCEPT(ast::AddressOf, address_of);
     ACCEPT(ast::Identity, identity);
     ACCEPT(ast::Negate, negate);
     ACCEPT(ast::Add, add);
@@ -52,6 +52,7 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     ACCEPT(ast::Return, return);
     ACCEPT(ast::Break, break);
     ACCEPT(ast::Continue, continue);
+    ACCEPT(ast::Transmute, transmute);
 
     Otherwise() {
       // Unhandled

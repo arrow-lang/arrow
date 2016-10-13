@@ -78,6 +78,7 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(Continue, continue);
     ACCEPT(Unit, unit);
     ACCEPT(TypeUnit, type_unit);
+    ACCEPT(Transmute, transmute);
 
     Otherwise() {
       Log::get().error("visitor not implemented for node: {}",
@@ -133,6 +134,12 @@ void Visitor::visit_call(ptr<ast::Call> x) {
 // Call: Argument
 void Visitor::visit_argument(ptr<ast::Argument> x) {
   accept(x->value);
+}
+
+// Transmute
+void Visitor::visit_transmute(ptr<ast::Transmute> x) {
+  accept(x->operand);
+  accept(x->target);
 }
 
 // Unary

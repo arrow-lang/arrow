@@ -13,6 +13,8 @@ using arrow::ir::LessThanOrEqualTo;
 using arrow::ir::GreaterThan;
 using arrow::ir::GreaterThanOrEqualTo;
 
+// TODO: Normalize methods and extract generic portion
+
 LLVMValueRef EqualTo::handle(GContext &ctx) noexcept {
   if (!_handle) {
     auto target_t = ir::type_reduce(lhs->type, rhs->type);
@@ -22,7 +24,15 @@ LLVMValueRef EqualTo::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       _handle = LLVMBuildICmp(ctx.irb, LLVMIntEQ, lhs_handle, rhs_handle, "");
     } else if (target_t->is_real()) {
       _handle = LLVMBuildFCmp(ctx.irb, LLVMRealOEQ, lhs_handle, rhs_handle, "");
@@ -44,7 +54,15 @@ LLVMValueRef NotEqualTo::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       _handle = LLVMBuildICmp(ctx.irb, LLVMIntNE, lhs_handle, rhs_handle, "");
     } else if (target_t->is_real()) {
       _handle = LLVMBuildFCmp(ctx.irb, LLVMRealONE, lhs_handle, rhs_handle, "");
@@ -66,7 +84,15 @@ LLVMValueRef LessThan::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       if (target_t->is_signed()) {
         _handle = LLVMBuildICmp(ctx.irb, LLVMIntSLT, lhs_handle, rhs_handle, "");
       } else {
@@ -92,7 +118,15 @@ LLVMValueRef LessThanOrEqualTo::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       if (target_t->is_signed()) {
         _handle = LLVMBuildICmp(ctx.irb, LLVMIntSLE, lhs_handle, rhs_handle, "");
       } else {
@@ -118,7 +152,15 @@ LLVMValueRef GreaterThan::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       if (target_t->is_signed()) {
         _handle = LLVMBuildICmp(ctx.irb, LLVMIntSGT, lhs_handle, rhs_handle, "");
       } else {
@@ -144,7 +186,15 @@ LLVMValueRef GreaterThanOrEqualTo::handle(GContext &ctx) noexcept {
     auto rhs_handle = transmute(rhs, target_t)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
-    if (target_t->is_integer() || target_t->is_boolean()) {
+    auto is_integer = target_t->is_integer() || target_t->is_boolean();
+    if (target_t->is_pointer()) {
+      auto intptr_t = LLVMIntPtrType(ctx.target_data);
+      lhs_handle = LLVMBuildPtrToInt(ctx.irb, lhs_handle, intptr_t, "");
+      rhs_handle = LLVMBuildPtrToInt(ctx.irb, rhs_handle, intptr_t, "");
+      is_integer = true;
+    }
+
+    if (is_integer) {
       if (target_t->is_signed()) {
         _handle = LLVMBuildICmp(ctx.irb, LLVMIntSGE, lhs_handle, rhs_handle, "");
       } else {

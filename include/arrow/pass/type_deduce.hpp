@@ -22,8 +22,8 @@ class TypeDeduce : public Pass {
 
  private:
   ptr<ir::Type> visit_block(ptr<ast::Block>);
-  // ptr<ir::Type> visit_indirect(ptr<ast::Indirect>);
-  // ptr<ir::Type> visit_address_of(ptr<ast::AddressOf>);
+  ptr<ir::Type> visit_indirect(ptr<ast::Indirect>);
+  ptr<ir::Type> visit_address_of(ptr<ast::AddressOf>);
   ptr<ir::Type> visit_identity(ptr<ast::Identity>);
   ptr<ir::Type> visit_negate(ptr<ast::Negate>);
   ptr<ir::Type> visit_add(ptr<ast::Add>);
@@ -58,6 +58,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_return(ptr<ast::Return>);
   ptr<ir::Type> visit_break(ptr<ast::Break>);
   ptr<ir::Type> visit_continue(ptr<ast::Continue>);
+  ptr<ir::Type> visit_transmute(ptr<ast::Transmute>);
 
   ptr<ir::Type> handle_combinator(ptr<ast::Binary>);
 };

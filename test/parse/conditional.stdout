@@ -65,7 +65,7 @@
             "span": "test/parse/conditional.as:15-17",
             "condition": {
               "tag": "GreaterThan",
-              "span": "test/parse/conditional.as:15:24-23",
+              "span": "test/parse/conditional.as:15:24-27",
               "lhs": {
                 "tag": "Identifier",
                 "span": "test/parse/conditional.as:15:22-23",

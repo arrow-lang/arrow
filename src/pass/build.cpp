@@ -71,6 +71,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Break, break);
     ACCEPT(ast::Continue, continue);
 
+    ACCEPT(ast::Transmute, transmute);
+
     Otherwise() {
       Log::get().error("Build not implemented for {}", typeid(*x).name());
     }

@@ -30,6 +30,17 @@ struct TypePointer : Type {
     return LLVMPointerType(element->handle(ctx), 0);
   }
 
+  virtual bool is_pointer() const {
+    return true;
+  }
+
+  virtual bool is_equal(ptr<ir::Type> other) const {
+    auto ptr = cast<ir::TypePointer>(other);
+    if (!ptr) return false;
+
+    return ptr->element->is_equal(element);
+  }
+
   ptr<Type> element;
 
  private:

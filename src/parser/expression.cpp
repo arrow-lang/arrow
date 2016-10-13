@@ -58,6 +58,9 @@ static std::unordered_map<token::Type, std::pair<unsigned, unsigned>> BINARY = {
   // Bitwise OR [7]
   {token::Type::Pipe,                    {1500,  1}},
 
+  // Transmute [7.5]
+  {token::Type::As,                      {1450,  1}},
+
   // Greater than; and, greater than or equal to [8]
   {token::Type::GreaterThan_Equals,      {1400,  1}},
   {token::Type::GreaterThan,             {1400,  1}},
@@ -205,12 +208,22 @@ auto Parser::parse_binary_expression(
   if (tok_power < power) return *rv = -1, nullptr;
   _t.pop();
 
+  // Check if this is a transmute expression (rhs is then a type)
+  if (tok->type == token::Type::As) {
+    // Parse the expected type
+    auto rhs = parse_type();
+    if (!rhs) return nullptr;
+
+    *rv = 1;
+    return make<ast::Transmute>(tok->span.extend(rhs->span), lhs, rhs);
+  }
+
   // Parse the RHS
   auto rhs = parse_expression(tok_power + tok_assoc);
   if (!rhs) return nullptr;
 
   // Construct the binary expression node
-  auto sp = tok->span.extend(lhs->span);
+  auto sp = tok->span.extend(rhs->span);
   ptr<ast::Expression> result;
   switch (tok->type) {
     case token::Type::Asterisk:

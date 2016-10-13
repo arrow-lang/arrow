@@ -38,8 +38,8 @@ auto TypeDeduce::visit_add(ptr<ast::Add> x) -> ptr<ir::Type> {
   // Determine the appropriate type
   auto type = ir::type_reduce(lhs, rhs);
   if (!type || !(type->is_integer() || type->is_real())) {
-    // TODO: <pointer> + <integer>
-    // TODO: <integer> + <pointer>
+    if (lhs->is_pointer() && rhs->is_integer()) return lhs;
+    if (rhs->is_pointer() && lhs->is_integer()) return rhs;
 
     return nullptr;
   }
@@ -55,9 +55,15 @@ auto TypeDeduce::visit_sub(ptr<ast::Sub> x) -> ptr<ir::Type> {
   // Determine the appropriate type
   auto type = ir::type_reduce(lhs, rhs);
   if (!type || !(type->is_integer() || type->is_real())) {
-    // TODO: <pointer> - <integer>
-    // TODO: <integer> - <pointer>
-    // TODO: <pointer> - <pointer> (difference)
+    if (type && type->is_pointer()) {
+      // FIXME
+      // return make<ir::TypeAlias>(nullptr, "intptr",
+      //   make<ir::TypeInteger>(false, LLVMPointerSize(_ctx.target_data)));
+      return make<ir::TypeInteger>(
+        false, LLVMPointerSize(_ctx.target_data) * 8);
+    }
+
+    if (lhs->is_pointer() && rhs->is_integer()) return lhs;
 
     return nullptr;
   }
