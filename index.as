@@ -15,3 +15,5 @@
 // [x] Repeat: Continue
 // [x]   `break` and `continue` are considered divergent (block)
 // [x] warning: unreachable code
+// [x] Type cast
+// [ ] Function hoisting segfaults compiler in type deduction

@@ -6,6 +6,7 @@
 #include "arrow/log.hpp"
 
 using arrow::Log;
+using arrow::LogLevel;
 
 Log::Log() : _counters() {
 }
@@ -15,11 +16,24 @@ Log& Log::get() noexcept {
   return instance;
 }
 
+void Log::level(LogLevel level) {
+  _level = level;
+}
+
+LogLevel Log::level() const {
+  return _level;
+}
+
 unsigned Log::count(LogLevel level) {
   return _counters[level];
 }
 
 void Log::log(LogLevel level, const char* format, fmt::ArgList args) {
+  // Skip if our level is higher
+  if (unsigned(level) < unsigned(_level)) {
+    return;
+  }
+
   fmt::print(stderr, "\x1b[0;37m{}", "arrow: ");
 
   // Move level_* determination to helper function
@@ -68,6 +82,11 @@ void Log::log(LogLevel level, const char* format, fmt::ArgList args) {
 void Log::log(
   LogLevel level, Span span, const char* format, fmt::ArgList args
 ) {
+  // Skip if our level is higher
+  if (unsigned(level) < unsigned(_level)) {
+    return;
+  }
+
   fmt::print(stderr, "\x1b[0;37m{}: ", span);
 
   // Move level_* determination to helper function

@@ -11,9 +11,10 @@ using arrow::pass::TypeDeduce;
 
 #define ACCEPT(type, name) \
   Case(mch::C<type>()) \
-    return visit_##name(std::dynamic_pointer_cast<type>(x))
+    result = visit_##name(std::dynamic_pointer_cast<type>(x)); break
 
 auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
+  ptr<ir::Type> result = nullptr;
   Match(*x) {
     ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Boolean, bool);
@@ -59,5 +60,13 @@ auto TypeDeduce::run(ptr<ast::Node> x) -> ptr<ir::Type> {
     }
   } EndMatch;
 
-  return nullptr;
+  if (result) {
+    Log::get().debug(x->span,
+      "TypeDeduce: {} -> {}", typeid(*x).name(), result->name);
+  } else {
+    Log::get().debug(x->span,
+      "TypeDeduce: {} -> (nil)", typeid(*x).name());
+  }
+
+  return result;
 }

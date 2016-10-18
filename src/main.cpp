@@ -13,6 +13,7 @@
 #include "fmt.hpp"
 #include "arrow/tokenizer.hpp"
 #include "arrow/command.hpp"
+#include "arrow/log.hpp"
 
 void help(char* binary_path,
           const std::deque<arrow::ptr<arrow::Command>>& commands) {
@@ -35,7 +36,10 @@ void help(char* binary_path,
 }
 
 int main(int argc, char** argv, char** environ) {
-    // Register available commands
+  // Set log level
+  arrow::Log::get().level(arrow::LOG_INFO);
+
+  // Register available commands
   std::deque<arrow::ptr<arrow::Command>> commands;
   commands.push_back(std::make_shared<arrow::command::Parse>());
   commands.push_back(std::make_shared<arrow::command::Tokenize>());

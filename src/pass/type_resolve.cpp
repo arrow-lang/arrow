@@ -148,6 +148,9 @@ void TypeResolve::run(ptr<ast::Node> x) {
   for (auto& item : _declare) {
     if (item->type) {
       item->type = type_literal_promote(item->type);
+
+      // DEBUG: Print resolved types
+      Log::get().debug("TypeResolve: {} -> {}", item->name, item->type->name);
     }
   }
 }

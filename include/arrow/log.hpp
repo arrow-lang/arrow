@@ -35,6 +35,10 @@ class Log {
   /// Count the number of messages of the passed level.
   unsigned count(LogLevel level);
 
+  /// Get/Set Level
+  void level(LogLevel level);
+  LogLevel level() const;
+
   // General (no location)
   // -------------------------------------------------------------------------|
 
@@ -125,6 +129,7 @@ class Log {
   Log();
 
   std::unordered_map<int, unsigned> _counters;
+  LogLevel _level = LOG_TRACE;
 };
 
 }  // namespace arrow
