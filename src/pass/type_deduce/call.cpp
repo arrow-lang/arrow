@@ -9,6 +9,8 @@ using arrow::pass::TypeDeduce;
 
 auto TypeDeduce::visit_call(ptr<ast::Call> x) -> ptr<ir::Type> {
   auto const& operand_t = run(x->operand);
+  if (!operand_t) return nullptr;
+
   if (operand_t->is_function()) {
     // Function Call
     if (isa<ir::TypeFunction>(operand_t)) {

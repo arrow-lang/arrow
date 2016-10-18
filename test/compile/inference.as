@@ -52,3 +52,8 @@ def methodF(param: float32) { }
 
 let b = 320;
 methodF(b);
+
+// Function hoisting
+let ab = methodG();
+
+def methodG(): bool { return false; }
