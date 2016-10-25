@@ -61,6 +61,15 @@ IMPL(Or)
 
 IMPL(Assign)
 
+IMPL(AssignAdd)
+IMPL(AssignSub)
+IMPL(AssignMul)
+IMPL(AssignDiv)
+IMPL(AssignMod)
+IMPL(AssignBitAnd)
+IMPL(AssignBitXor)
+IMPL(AssignBitOr)
+
 IMPL(Type)
 IMPL(TypeName)
 IMPL(TypePointer)

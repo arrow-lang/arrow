@@ -81,14 +81,14 @@ static std::unordered_map<token::Type, std::pair<unsigned, unsigned>> BINARY = {
 
   // Assignment [15]
   {token::Type::Equals,                  { 700, -1}},
-  // {token::Type::Plus_Equals,             { 700, -1}},
-  // {token::Type::Minus_Equals,            { 700, -1}},
-  // {token::Type::Asterisk_Equals,         { 700, -1}},
-  // {token::Type::Slash_Equals,            { 700, -1}},
-  // {token::Type::Percent_Equals,          { 700, -1}},
-  // {token::Type::Ampersand_Equals,        { 700, -1}},
-  // {token::Type::Caret_Equals,            { 700, -1}},
-  // {token::Type::Pipe_Equals,             { 700, -1}},
+  {token::Type::Plus_Equals,             { 700, -1}},
+  {token::Type::Minus_Equals,            { 700, -1}},
+  {token::Type::Asterisk_Equals,         { 700, -1}},
+  {token::Type::Slash_Equals,            { 700, -1}},
+  {token::Type::Percent_Equals,          { 700, -1}},
+  {token::Type::Ampersand_Equals,        { 700, -1}},
+  {token::Type::Caret_Equals,            { 700, -1}},
+  {token::Type::Pipe_Equals,             { 700, -1}},
 };
 
 auto Parser::parse_expression(unsigned power/* = 0*/) -> ptr<ast::Expression> {
@@ -292,6 +292,38 @@ auto Parser::parse_binary_expression(
 
     case token::Type::Equals:
       result = make<ast::Assign>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Plus_Equals:
+      result = make<ast::AssignAdd>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Minus_Equals:
+      result = make<ast::AssignSub>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Asterisk_Equals:
+      result = make<ast::AssignMul>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Slash_Equals:
+      result = make<ast::AssignDiv>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Percent_Equals:
+      result = make<ast::AssignMod>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Ampersand_Equals:
+      result = make<ast::AssignBitAnd>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Caret_Equals:
+      result = make<ast::AssignBitXor>(sp, lhs, rhs);
+      break;
+
+    case token::Type::Pipe_Equals:
+      result = make<ast::AssignBitOr>(sp, lhs, rhs);
       break;
 
     default:

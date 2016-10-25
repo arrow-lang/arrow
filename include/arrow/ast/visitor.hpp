@@ -60,6 +60,14 @@ class Visitor {
   virtual void visit_assign(ptr<ast::Assign> x);
   virtual void visit_expression_statement(ptr<ast::ExpressionStatement> x);
   virtual void visit_transmute(ptr<ast::Transmute> x);
+  virtual void visit_assign_add(ptr<ast::AssignAdd> n);
+  virtual void visit_assign_sub(ptr<ast::AssignSub> n);
+  virtual void visit_assign_mul(ptr<ast::AssignMul> n);
+  virtual void visit_assign_div(ptr<ast::AssignDiv> n);
+  virtual void visit_assign_mod(ptr<ast::AssignMod> n);
+  virtual void visit_assign_bit_or(ptr<ast::AssignBitOr> n);
+  virtual void visit_assign_bit_and(ptr<ast::AssignBitAnd> n);
+  virtual void visit_assign_bit_xor(ptr<ast::AssignBitXor> n);
 
   virtual void visit_unary(ptr<ast::Unary> x);
   virtual void visit_binary(ptr<ast::Binary> x);

@@ -68,6 +68,14 @@ class Print {
   void print_and(ptr<And> n);
   void print_or(ptr<Or> n);
   void print_assign(ptr<Assign> n);
+  void print_assign_add(ptr<AssignAdd> n);
+  void print_assign_sub(ptr<AssignSub> n);
+  void print_assign_mul(ptr<AssignMul> n);
+  void print_assign_div(ptr<AssignDiv> n);
+  void print_assign_mod(ptr<AssignMod> n);
+  void print_assign_bit_or(ptr<AssignBitOr> n);
+  void print_assign_bit_and(ptr<AssignBitAnd> n);
+  void print_assign_bit_xor(ptr<AssignBitXor> n);
 
   void print_type_name(ptr<TypeName>);
   void print_type_pointer(ptr<TypePointer>);

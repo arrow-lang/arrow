@@ -32,6 +32,14 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_div(ptr<ast::Div>);
   ptr<ir::Type> visit_mod(ptr<ast::Mod>);
   ptr<ir::Type> visit_assign(ptr<ast::Assign>);
+  ptr<ir::Type> visit_assign_add(ptr<ast::AssignAdd>);
+  ptr<ir::Type> visit_assign_sub(ptr<ast::AssignSub>);
+  ptr<ir::Type> visit_assign_mul(ptr<ast::AssignMul>);
+  ptr<ir::Type> visit_assign_div(ptr<ast::AssignDiv>);
+  ptr<ir::Type> visit_assign_mod(ptr<ast::AssignMod>);
+  ptr<ir::Type> visit_assign_bit_or(ptr<ast::AssignBitOr>);
+  ptr<ir::Type> visit_assign_bit_and(ptr<ast::AssignBitAnd>);
+  ptr<ir::Type> visit_assign_bit_xor(ptr<ast::AssignBitXor>);
   ptr<ir::Type> visit_call(ptr<ast::Call>);
   ptr<ir::Type> visit_bit_not(ptr<ast::BitNot>);
   ptr<ir::Type> visit_bit_and(ptr<ast::BitAnd>);
@@ -61,6 +69,7 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_transmute(ptr<ast::Transmute>);
 
   ptr<ir::Type> handle_combinator(ptr<ast::Binary>);
+  ptr<ir::Type> handle_assign(ptr<ast::Binary>);
 };
 
 }  // namespace back

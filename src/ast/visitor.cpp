@@ -79,6 +79,14 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(Unit, unit);
     ACCEPT(TypeUnit, type_unit);
     ACCEPT(Transmute, transmute);
+    ACCEPT(AssignAdd, assign_add);
+    ACCEPT(AssignSub, assign_sub);
+    ACCEPT(AssignMul, assign_mul);
+    ACCEPT(AssignDiv, assign_div);
+    ACCEPT(AssignMod, assign_mod);
+    ACCEPT(AssignBitOr, assign_bit_or);
+    ACCEPT(AssignBitAnd, assign_bit_and);
+    ACCEPT(AssignBitXor, assign_bit_xor);
 
     Otherwise() {
       Log::get().error("visitor not implemented for node: {}",
@@ -160,20 +168,28 @@ void Visitor::visit_binary(ptr<ast::Binary> x) {
   accept(x->rhs);
 }
 
-void Visitor::visit_add(ptr<ast::Add> x)                  { visit_binary(x); }
-void Visitor::visit_sub(ptr<ast::Sub> x)                  { visit_binary(x); }
-void Visitor::visit_mul(ptr<ast::Mul> x)                  { visit_binary(x); }
-void Visitor::visit_div(ptr<ast::Div> x)                  { visit_binary(x); }
-void Visitor::visit_mod(ptr<ast::Mod> x)                  { visit_binary(x); }
-void Visitor::visit_eq(ptr<ast::EqualTo> x)               { visit_binary(x); }
-void Visitor::visit_ne(ptr<ast::NotEqualTo> x)            { visit_binary(x); }
-void Visitor::visit_lt(ptr<ast::LessThan> x)              { visit_binary(x); }
-void Visitor::visit_lte(ptr<ast::LessThanOrEqualTo> x)    { visit_binary(x); }
-void Visitor::visit_gte(ptr<ast::GreaterThanOrEqualTo> x) { visit_binary(x); }
-void Visitor::visit_gt(ptr<ast::GreaterThan> x)           { visit_binary(x); }
-void Visitor::visit_bit_and(ptr<ast::BitAnd> x)           { visit_binary(x); }
-void Visitor::visit_bit_xor(ptr<ast::BitXor> x)           { visit_binary(x); }
-void Visitor::visit_bit_or(ptr<ast::BitOr> x)             { visit_binary(x); }
-void Visitor::visit_and(ptr<ast::And> x)                  { visit_binary(x); }
-void Visitor::visit_or(ptr<ast::Or> x)                    { visit_binary(x); }
-void Visitor::visit_assign(ptr<ast::Assign> x)            { visit_binary(x); }
+void Visitor::visit_add(ptr<ast::Add> x)                     { visit_binary(x); }
+void Visitor::visit_sub(ptr<ast::Sub> x)                     { visit_binary(x); }
+void Visitor::visit_mul(ptr<ast::Mul> x)                     { visit_binary(x); }
+void Visitor::visit_div(ptr<ast::Div> x)                     { visit_binary(x); }
+void Visitor::visit_mod(ptr<ast::Mod> x)                     { visit_binary(x); }
+void Visitor::visit_eq(ptr<ast::EqualTo> x)                  { visit_binary(x); }
+void Visitor::visit_ne(ptr<ast::NotEqualTo> x)               { visit_binary(x); }
+void Visitor::visit_lt(ptr<ast::LessThan> x)                 { visit_binary(x); }
+void Visitor::visit_lte(ptr<ast::LessThanOrEqualTo> x)       { visit_binary(x); }
+void Visitor::visit_gte(ptr<ast::GreaterThanOrEqualTo> x)    { visit_binary(x); }
+void Visitor::visit_gt(ptr<ast::GreaterThan> x)              { visit_binary(x); }
+void Visitor::visit_bit_and(ptr<ast::BitAnd> x)              { visit_binary(x); }
+void Visitor::visit_bit_xor(ptr<ast::BitXor> x)              { visit_binary(x); }
+void Visitor::visit_bit_or(ptr<ast::BitOr> x)                { visit_binary(x); }
+void Visitor::visit_and(ptr<ast::And> x)                     { visit_binary(x); }
+void Visitor::visit_or(ptr<ast::Or> x)                       { visit_binary(x); }
+void Visitor::visit_assign(ptr<ast::Assign> x)               { visit_binary(x); }
+void Visitor::visit_assign_add(ptr<ast::AssignAdd> x)        { visit_binary(x); }
+void Visitor::visit_assign_sub(ptr<ast::AssignSub> x)        { visit_binary(x); }
+void Visitor::visit_assign_mul(ptr<ast::AssignMul> x)        { visit_binary(x); }
+void Visitor::visit_assign_div(ptr<ast::AssignDiv> x)        { visit_binary(x); }
+void Visitor::visit_assign_mod(ptr<ast::AssignMod> x)        { visit_binary(x); }
+void Visitor::visit_assign_bit_or(ptr<ast::AssignBitOr> x)   { visit_binary(x); }
+void Visitor::visit_assign_bit_and(ptr<ast::AssignBitAnd> x) { visit_binary(x); }
+void Visitor::visit_assign_bit_xor(ptr<ast::AssignBitXor> x) { visit_binary(x); }

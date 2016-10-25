@@ -2,28 +2,28 @@
 4 + 32 = 10 = 2305 * 3;
 
 // AssignAdd
-// 15 += 3;
+15 += 3;
 
 // AssignSub
-// 400 -= false;
+400 -= false;
 
 // AssignMul
-// 400 *= false;
+400 *= false;
 
 // AssignDiv
-// false /= true;
+false /= true;
 
 // AssignMod
-// 314 %= 593;
+314 %= 593;
 
 // AssignBitAnd
-// 32 &= !34;
+32 &= ~34;
 
 // AssignBitXor
-// 42 ^= !false;
+42 ^= ~false;
 
 // AssignBitOr
-// 24 |= !true;
+24 |= ~true;
 
 // And
 false and not true;

@@ -84,3 +84,35 @@ void Print::print_or(ptr<Or> n) {
 void Print::print_assign(ptr<Assign> n) {
   handle_binary("Assign", n);
 }
+
+void Print::print_assign_add(ptr<AssignAdd> n) {
+  handle_binary("AssignAdd", n);
+}
+
+void Print::print_assign_sub(ptr<AssignSub> n) {
+  handle_binary("AssignSub", n);
+}
+
+void Print::print_assign_mul(ptr<AssignMul> n) {
+  handle_binary("AssignMul", n);
+}
+
+void Print::print_assign_div(ptr<AssignDiv> n) {
+  handle_binary("AssignDiv", n);
+}
+
+void Print::print_assign_mod(ptr<AssignMod> n) {
+  handle_binary("AssignMod", n);
+}
+
+void Print::print_assign_bit_or(ptr<AssignBitOr> n) {
+  handle_binary("AssignBitOr", n);
+}
+
+void Print::print_assign_bit_and(ptr<AssignBitAnd> n) {
+  handle_binary("AssignBitAnd", n);
+}
+
+void Print::print_assign_bit_xor(ptr<AssignBitXor> n) {
+  handle_binary("AssignBitXor", n);
+}

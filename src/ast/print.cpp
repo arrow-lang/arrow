@@ -93,6 +93,14 @@ void Print::print(ptr<Node> node) {
     ACCEPT(And, and);
     ACCEPT(Or, or);
     ACCEPT(Assign, assign);
+    ACCEPT(AssignAdd, assign_add);
+    ACCEPT(AssignSub, assign_sub);
+    ACCEPT(AssignMul, assign_mul);
+    ACCEPT(AssignDiv, assign_div);
+    ACCEPT(AssignMod, assign_mod);
+    ACCEPT(AssignBitOr, assign_bit_or);
+    ACCEPT(AssignBitAnd, assign_bit_and);
+    ACCEPT(AssignBitXor, assign_bit_xor);
 
     ACCEPT(TypeName, type_name);
     ACCEPT(TypePointer, type_pointer);

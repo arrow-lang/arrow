@@ -51,6 +51,15 @@ DEF_BINARY(Or)
 
 DEF_BINARY(Assign)
 
+DEF_BINARY(AssignAdd)
+DEF_BINARY(AssignSub)
+DEF_BINARY(AssignMul)
+DEF_BINARY(AssignDiv)
+DEF_BINARY(AssignMod)
+DEF_BINARY(AssignBitOr)
+DEF_BINARY(AssignBitXor)
+DEF_BINARY(AssignBitAnd)
+
 #undef DEF_BINARY
 
 }  // namespace ast
