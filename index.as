@@ -4,6 +4,8 @@
 // [x] Relational: Pointer
 // [ ] !? Pointer to Unit (what does this do and should it be allowed)
 // [ ] Type alias of a type alias should refer to the canoncial type
+// [x] Function "Objects"
+// [ ] Compound/Augmented Assignment `+=`
 // [x] str is just a name for *int8 (not alias)
 // [x] Implicit cast to type alias from unnamed _literal_ of underlying type
 // [x] Arithmetic of named integer against literal
@@ -17,3 +19,7 @@
 // [x] warning: unreachable code
 // [x] Type cast
 // [x] Function hoisting segfaults compiler in type deduction
+// [x] Parse: TypeFunction
+// [x] Parse: TypeTuple
+// [ ] Parse: Structure
+// [ ] Parse: Augmented Assignment

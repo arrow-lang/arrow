@@ -17,8 +17,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
   Match(*x) {
     ACCEPT(ast::Module, module);
     ACCEPT(ast::Variable, variable);
-    ACCEPT(ast::Function, function);
     ACCEPT(ast::ExternFunction, extern_function);
+    ACCEPT(ast::Function, function);
 
     ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Boolean, bool);

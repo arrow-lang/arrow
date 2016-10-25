@@ -59,7 +59,7 @@ struct Function : Item, Value {
   // Function parameters
   std::vector<ptr<Parameter>> parameters;
 
- private:
+ protected:
   // Module (container)
   ptr<Module> _module;
 
@@ -67,21 +67,14 @@ struct Function : Item, Value {
   LLVMValueRef _handle = nullptr;
 };
 
-struct ExternFunction : Item, Value {
+struct ExternFunction : Function {
   ExternFunction(ptr<ast::ExternFunction> source, ptr<Module> module, std::string name, ptr<TypeExternFunction> type)
-    : Node(source), Item(name), Value(type), _module(module) {
+    : Node(source), Function(source, module, name, type) {
   }
 
   virtual ~ExternFunction() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
-
- private:
-  // Module (container)
-  ptr<Module> _module;
-
-  // Slot
-  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

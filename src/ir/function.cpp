@@ -14,7 +14,7 @@ using arrow::ir::ExternFunction;
 
 LLVMValueRef Function::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    auto type_handle = type->handle(ctx);
+    auto type_handle = LLVMGetElementType(type->handle(ctx));
     _handle = LLVMAddFunction(ctx.mod, name_mangle().c_str(), type_handle);
 
     // Set linkage to private
@@ -89,7 +89,7 @@ std::string Function::name_mangle() const {
 
 LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    auto type_handle = type->handle(ctx);
+    auto type_handle = LLVMGetElementType(type->handle(ctx));
     _handle = LLVMAddFunction(ctx.mod, name.c_str(), type_handle);
   }
 

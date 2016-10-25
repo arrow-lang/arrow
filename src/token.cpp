@@ -126,6 +126,7 @@ std::ostream& arrow::token::operator<<(
   case Type::Comma:                   return os << "`,`";
   case Type::Octothorpe:              return os << "`#`";
 
+  case Type::LeftArrow:               return os << "`->`";
   case Type::Plus_Equals:             return os << "`+=`";
   case Type::Minus_Equals:            return os << "`-=`";
   case Type::Asterisk_Equals:         return os << "`*=`";

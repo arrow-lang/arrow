@@ -1,10 +1,10 @@
 {
   "tag": "Module",
-  "span": "test/parse/function.as:1-11",
+  "span": "test/parse/function.as:1-27",
   "statements": [
     {
       "tag": "Function",
-      "span": "test/parse/function.as:1-2",
+      "span": "test/parse/function.as:4-5",
       "name": "method",
       "result_type": null,
       "parameters": [],
@@ -12,11 +12,11 @@
     },
     {
       "tag": "Function",
-      "span": "test/parse/function.as:4-5",
+      "span": "test/parse/function.as:7-8",
       "name": "method",
       "result_type": {
         "tag": "TypeName",
-        "span": "test/parse/function.as:4:15-20",
+        "span": "test/parse/function.as:7:15-20",
         "name": "int64"
       },
       "parameters": [],
@@ -24,32 +24,103 @@
     },
     {
       "tag": "Function",
-      "span": "test/parse/function.as:10-11",
+      "span": "test/parse/function.as:13-14",
       "name": "method",
       "result_type": null,
       "parameters": [
         {
           "tag": "Parameter",
-          "span": "test/parse/function.as:10:12-20",
+          "span": "test/parse/function.as:13:12-20",
           "name": "a",
           "type": {
             "tag": "TypeName",
-            "span": "test/parse/function.as:10:15-20",
+            "span": "test/parse/function.as:13:15-20",
             "name": "int64"
           }
         },
         {
           "tag": "Parameter",
-          "span": "test/parse/function.as:10:22-30",
+          "span": "test/parse/function.as:13:22-30",
           "name": "b",
           "type": {
             "tag": "TypeName",
-            "span": "test/parse/function.as:10:25-30",
+            "span": "test/parse/function.as:13:25-30",
             "name": "int64"
           }
         }
       ],
       "statements": []
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/function.as:19:1-17",
+      "name": "a",
+      "mutable": false,
+      "type": {
+        "tag": "TypeFunction",
+        "span": "test/parse/function.as:19:8-16",
+        "parameters": [],
+        "result": {
+          "tag": "TypeUnit",
+          "span": "test/parse/function.as:19:14-16"
+        }
+      },
+      "initializer": null
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/function.as:22:1-31",
+      "name": "b",
+      "mutable": false,
+      "type": {
+        "tag": "TypeFunction",
+        "span": "test/parse/function.as:22:8-30",
+        "parameters": [
+          {
+            "tag": "TypeName",
+            "span": "test/parse/function.as:22:9-14",
+            "name": "int32"
+          },
+          {
+            "tag": "TypeName",
+            "span": "test/parse/function.as:22:16-21",
+            "name": "int64"
+          }
+        ],
+        "result": {
+          "tag": "TypeName",
+          "span": "test/parse/function.as:22:26-30",
+          "name": "bool"
+        }
+      },
+      "initializer": null
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/function.as:27:1-56",
+      "name": "c",
+      "mutable": false,
+      "type": {
+        "tag": "TypeFunction",
+        "span": "test/parse/function.as:27:8-55",
+        "parameters": [],
+        "result": {
+          "tag": "TypeFunction",
+          "span": "test/parse/function.as:27:18-55",
+          "parameters": [],
+          "result": {
+            "tag": "TypeFunction",
+            "span": "test/parse/function.as:27:29-55",
+            "parameters": [],
+            "result": {
+              "tag": "TypeName",
+              "span": "test/parse/function.as:27:50-55",
+              "name": "int32"
+            }
+          }
+        }
+      },
+      "initializer": null
     }
   ]
 }

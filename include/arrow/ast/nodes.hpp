@@ -20,6 +20,7 @@
 #include "arrow/ast/nodes/boolean.hpp"
 #include "arrow/ast/nodes/integer.hpp"
 #include "arrow/ast/nodes/real.hpp"
+#include "arrow/ast/nodes/tuple.hpp"
 #include "arrow/ast/nodes/string.hpp"
 #include "arrow/ast/nodes/identifier.hpp"
 #include "arrow/ast/nodes/function.hpp"
@@ -36,5 +37,7 @@
 #include "arrow/ast/nodes/type_pointer.hpp"
 #include "arrow/ast/nodes/type_alias.hpp"
 #include "arrow/ast/nodes/type_unit.hpp"
+#include "arrow/ast/nodes/type_tuple.hpp"
+#include "arrow/ast/nodes/type_function.hpp"
 
 #endif  // ARROW_AST_NODES_H

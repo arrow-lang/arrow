@@ -79,6 +79,7 @@ enum class Type {
   Octothorpe,
 
   // Symbols: 2-character
+  LeftArrow,
   Plus_Equals,
   Minus_Equals,
   Asterisk_Equals,

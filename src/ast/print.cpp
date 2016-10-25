@@ -65,7 +65,9 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Boolean, bool);
     ACCEPT(String, str);
     ACCEPT(Real, real);
+    ACCEPT(Unit, unit);
     ACCEPT(Identifier, id);
+    ACCEPT(Tuple, tuple);
 
     ACCEPT(Identity, identity);
     ACCEPT(Negate, negate);
@@ -95,9 +97,12 @@ void Print::print(ptr<Node> node) {
     ACCEPT(TypeName, type_name);
     ACCEPT(TypePointer, type_pointer);
     ACCEPT(TypeAlias, type_alias);
+    ACCEPT(TypeUnit, type_unit);
+    ACCEPT(TypeTuple, type_tuple);
+    ACCEPT(TypeFunction, type_function);
 
-    ACCEPT(Function, function);
     ACCEPT(ExternFunction, extern_function);
+    ACCEPT(Function, function);
     ACCEPT(Parameter, parameter);
     ACCEPT(Call, call);
     ACCEPT(Argument, argument);
@@ -111,6 +116,8 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Repeat, repeat);
     ACCEPT(Break, break);
     ACCEPT(Continue, continue);
+
+    ACCEPT(Transmute, transmute);
 
     Otherwise() {
       Log::get().error("print not implemented for node: {}",

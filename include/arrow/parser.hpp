@@ -92,11 +92,13 @@ class Parser {
   ptr<ast::Real> parse_real();
   ptr<ast::String> parse_str();
   ptr<ast::Identifier> parse_id();
+  ptr<ast::Expression> parse_tuple();
 
   ptr<ast::Type> parse_type();
   ptr<ast::TypeName> parse_type_name();
   ptr<ast::TypePointer> parse_type_pointer();
   ptr<ast::TypeAlias> parse_type_alias();
+  ptr<ast::Type> parse_type_tuple();
 
   ptr<ast::Function> parse_function();
   ptr<ast::ExternFunction> parse_extern_function();

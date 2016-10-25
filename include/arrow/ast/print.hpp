@@ -42,6 +42,7 @@ class Print {
   void print_bool(ptr<Boolean>);
   void print_str(ptr<String>);
   void print_id(ptr<Identifier>);
+  void print_tuple(ptr<Tuple>);
 
   void print_identity(ptr<Identity>);
   void print_negate(ptr<Negate>);
@@ -67,9 +68,12 @@ class Print {
   void print_and(ptr<And> n);
   void print_or(ptr<Or> n);
   void print_assign(ptr<Assign> n);
+
   void print_type_name(ptr<TypeName>);
   void print_type_pointer(ptr<TypePointer>);
   void print_type_alias(ptr<TypeAlias>);
+  void print_type_tuple(ptr<TypeTuple>);
+  void print_type_function(ptr<TypeFunction>);
 
   void print_function(ptr<Function>);
   void print_extern_function(ptr<ExternFunction>);
@@ -87,6 +91,10 @@ class Print {
   void print_branch(ptr<Branch>);
   void print_break(ptr<Break>);
   void print_continue(ptr<Continue>);
+
+  void print_transmute(ptr<Transmute>);
+  void print_unit(ptr<Unit>);
+  void print_type_unit(ptr<TypeUnit>);
 
   void handle(
     const char* name, ptr<Node> n, std::function<void()> handle);

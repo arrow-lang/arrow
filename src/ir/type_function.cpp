@@ -23,11 +23,11 @@ LLVMTypeRef TypeFunction::handle(GContext& ctx) noexcept {
     }
   }
 
-  return LLVMFunctionType(
+  return LLVMPointerType(LLVMFunctionType(
     result_type_handle,
     param_type_handles.data(),
     param_type_handles.size(),
-    false);
+    false), 0);
 }
 
 LLVMTypeRef TypeExternFunction::handle(GContext& ctx) noexcept {
@@ -41,9 +41,9 @@ LLVMTypeRef TypeExternFunction::handle(GContext& ctx) noexcept {
     param_type_handles.push_back(param->handle(ctx));
   }
 
-  return LLVMFunctionType(
+  return LLVMPointerType(LLVMFunctionType(
     result_type_handle,
     param_type_handles.data(),
     param_type_handles.size(),
-    is_varidac);
+    is_varidac), 0);
 }

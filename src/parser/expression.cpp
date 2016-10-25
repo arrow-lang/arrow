@@ -344,26 +344,8 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   case token::Type::If:
     return parse_conditional(true);
 
-  case token::Type::LeftParenthesis: {
-    // Pop the left parenthesis
-    auto begin_tok = _t.pop();
-
-    // Check for `()` (unit)
-    if (_t.peek()->type == token::Type::RightParenthesis) {
-      auto end_tok = _t.pop();
-
-      return make<ast::Unit>(begin_tok->span.extend(end_tok->span));
-    }
-
-    // Parse nested expression
-    auto expr = parse_expression();
-    if (!expr) return nullptr;
-
-    // Expect the right parenthesis
-    if (!expect(token::Type::RightParenthesis)) return nullptr;
-
-    return expr;
-  } break;
+  case token::Type::LeftParenthesis:
+    return parse_tuple();
 
   case token::Type::LeftBrace:
     return parse_block(false, true);

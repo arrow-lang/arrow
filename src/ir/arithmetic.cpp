@@ -35,11 +35,21 @@ LLVMValueRef Add::handle(GContext &ctx) noexcept {
   if (!_handle) {
     if (type->is_pointer()) {
       // <pointer> + integer
-      auto lhs_handle = lhs->value_of(ctx);
-      auto rhs_handle = rhs->value_of(ctx);
       if (lhs->type->is_pointer() && !rhs->type->is_pointer()) {
+        auto intptr_t = make<ir::TypeInteger>(
+          rhs->type->is_signed(), LLVMPointerSize(ctx.target_data) * 8);
+
+        auto lhs_handle = lhs->value_of(ctx);
+        auto rhs_handle = ir::transmute(rhs, intptr_t)->value_of(ctx);
+
         _handle = LLVMBuildGEP(ctx.irb, lhs_handle, &rhs_handle, 1, "");
       } else if (rhs->type->is_pointer()) {
+        auto intptr_t = make<ir::TypeInteger>(
+          lhs->type->is_signed(), LLVMPointerSize(ctx.target_data) * 8);
+
+        auto lhs_handle = ir::transmute(lhs, intptr_t)->value_of(ctx);
+        auto rhs_handle = rhs->value_of(ctx);
+
         _handle = LLVMBuildGEP(ctx.irb, rhs_handle, &lhs_handle, 1, "");
       }
 
@@ -67,9 +77,13 @@ LLVMValueRef Sub::handle(GContext &ctx) noexcept {
   if (!_handle) {
     if (type->is_pointer()) {
       // <pointer> - integer
-      auto lhs_handle = lhs->value_of(ctx);
-      auto rhs_handle = rhs->value_of(ctx);
       if (lhs->type->is_pointer() && rhs->type->is_integer()) {
+        auto intptr_t = make<ir::TypeInteger>(
+          rhs->type->is_signed(), LLVMPointerSize(ctx.target_data) * 8);
+
+        auto lhs_handle = lhs->value_of(ctx);
+        auto rhs_handle = ir::transmute(rhs, intptr_t)->value_of(ctx);
+
         rhs_handle = LLVMBuildNeg(ctx.irb, rhs_handle, "");
         _handle = LLVMBuildGEP(ctx.irb, lhs_handle, &rhs_handle, 1, "");
 

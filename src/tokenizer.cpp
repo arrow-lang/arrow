@@ -72,6 +72,7 @@ static std::map<vector<char32_t>, arrow::token::Type> symbols = {
   {{'#'}, arrow::token::Type::Octothorpe       },
 
   // 2-character
+  {{'-', '>'}, arrow::token::Type::LeftArrow               },
   {{'+', '='}, arrow::token::Type::Plus_Equals             },
   {{'-', '='}, arrow::token::Type::Minus_Equals            },
   {{'*', '='}, arrow::token::Type::Asterisk_Equals         },
