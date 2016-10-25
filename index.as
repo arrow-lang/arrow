@@ -2,7 +2,7 @@
 // [x] Parse/Build: Pointer Arithmetic
 // [x] Cast: Alias (pointer)
 // [x] Relational: Pointer
-// [ ] !? Pointer to Unit (what does this do and should it be allowed)
+// [ ] Unit should be an empty llvm struct instead of <nothing>
 // [ ] Type alias of a type alias should refer to the canoncial type
 // [x] Function "Objects"
 // [ ] Compound/Augmented Assignment `+=`
@@ -23,3 +23,5 @@
 // [x] Parse: TypeTuple
 // [ ] Parse: Structure
 // [ ] Parse: Augmented Assignment
+// [ ] Struct
+// [ ] Implement (T)
