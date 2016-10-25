@@ -26,6 +26,9 @@ struct Call : Value {
 
   // Arguments to the call
   std::vector<ptr<Value>> arguments;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

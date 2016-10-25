@@ -25,6 +25,9 @@ struct Return : Value {
 
   // Operand that is being returned
   ptr<Value> operand;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

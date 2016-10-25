@@ -39,7 +39,17 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Mul, mul);
     ACCEPT(ast::Div, div);
     ACCEPT(ast::Mod, mod);
+
     ACCEPT(ast::Assign, assign);
+    ACCEPT(ast::AssignAdd, assign_add);
+    ACCEPT(ast::AssignSub, assign_sub);
+    ACCEPT(ast::AssignMul, assign_mul);
+    ACCEPT(ast::AssignDiv, assign_div);
+    ACCEPT(ast::AssignMod, assign_mod);
+    ACCEPT(ast::AssignBitAnd, assign_bit_and);
+    ACCEPT(ast::AssignBitOr, assign_bit_or);
+    ACCEPT(ast::AssignBitXor, assign_bit_xor);
+
     ACCEPT(ast::Call, call);
     ACCEPT(ast::Argument, argument);
     ACCEPT(ast::Return, return);

@@ -52,7 +52,17 @@ ir::Sub::~Sub() noexcept {}
 ir::Mul::~Mul() noexcept {}
 ir::Div::~Div() noexcept {}
 ir::Mod::~Mod() noexcept {}
+
 ir::Assign::~Assign() noexcept {}
+ir::AssignAdd::~AssignAdd() noexcept {}
+ir::AssignSub::~AssignSub() noexcept {}
+ir::AssignMul::~AssignMul() noexcept {}
+ir::AssignDiv::~AssignDiv() noexcept {}
+ir::AssignMod::~AssignMod() noexcept {}
+ir::AssignBitAnd::~AssignBitAnd() noexcept {}
+ir::AssignBitOr::~AssignBitOr() noexcept {}
+ir::AssignBitXor::~AssignBitXor() noexcept {}
+
 ir::Call::~Call() noexcept {}
 ir::Return::~Return() noexcept {}
 

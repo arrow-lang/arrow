@@ -31,6 +31,9 @@ struct Conditional : Value {
   ptr<Value> then;
   ptr<Value> otherwise;
   bool is_expression;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

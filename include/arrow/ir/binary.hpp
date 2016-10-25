@@ -56,6 +56,16 @@ DEF_BINARY(GreaterThanOrEqualTo)
 
 DEF_BINARY(Assign)
 
+DEF_BINARY(AssignAdd)
+DEF_BINARY(AssignSub)
+DEF_BINARY(AssignMul)
+DEF_BINARY(AssignDiv)
+DEF_BINARY(AssignMod)
+
+DEF_BINARY(AssignBitAnd)
+DEF_BINARY(AssignBitOr)
+DEF_BINARY(AssignBitXor)
+
 #undef DEF_BINARY
 
 }  // namespace ir

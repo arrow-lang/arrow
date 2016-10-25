@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 #include <stack>
+#include <functional>
 
 #include "clang.hpp"
 
@@ -43,6 +44,14 @@ class Build : public Pass {
   ptr<ir::Value> handle_div(ptr<ast::Div>);
   ptr<ir::Value> handle_mod(ptr<ast::Mod>);
   ptr<ir::Value> handle_assign(ptr<ast::Assign>);
+  ptr<ir::Value> handle_assign_add(ptr<ast::AssignAdd>);
+  ptr<ir::Value> handle_assign_sub(ptr<ast::AssignSub>);
+  ptr<ir::Value> handle_assign_mul(ptr<ast::AssignMul>);
+  ptr<ir::Value> handle_assign_div(ptr<ast::AssignDiv>);
+  ptr<ir::Value> handle_assign_mod(ptr<ast::AssignMod>);
+  ptr<ir::Value> handle_assign_bit_and(ptr<ast::AssignBitAnd>);
+  ptr<ir::Value> handle_assign_bit_or(ptr<ast::AssignBitOr>);
+  ptr<ir::Value> handle_assign_bit_xor(ptr<ast::AssignBitXor>);
   ptr<ir::Value> handle_call(ptr<ast::Call>);
   ptr<ir::Value> handle_argument(ptr<ast::Argument>);
   ptr<ir::Value> handle_return(ptr<ast::Return>);
@@ -86,6 +95,12 @@ class Build : public Pass {
 
   static CXChildVisitResult _cx_visit(
     CXCursor cursor, CXCursor parent, CXClientData clientData);
+
+  ptr<ir::Value> _assign(
+    ptr<ast::Binary> x,
+    std::function<ptr<ir::Type>(ptr<ir::Value>, ptr<ir::Value>)> deduce,
+    std::function<ptr<ir::Value>(ptr<ir::Type>, ptr<ir::Value>, ptr<ir::Value>)> make
+  );
 
   Context<bool> _expression_c;
 };

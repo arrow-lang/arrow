@@ -25,6 +25,9 @@ struct Repeat : Value {
 
   ptr<Value> condition;
   ptr<Block> body;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 struct Break : Value {
@@ -35,6 +38,9 @@ struct Break : Value {
   virtual ~Break() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 struct Continue : Value {
@@ -45,6 +51,9 @@ struct Continue : Value {
   virtual ~Continue() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
+
+ private:
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir
