@@ -1,16 +1,19 @@
 
 // Function Declaration
 
-def method() {
+def methodA() {
 }
 
-def method(): int64 {
+def methodB(): int64 {
+  return 40;
 }
 
-// def method(): (int64, int64) -> int64 {
-// }
+def methodC(): (int64, int64) -> int64 {
+  return methodD;
+}
 
-def method(a: int64, b: int64) {
+def methodD(a: int64, b: int64): int64 {
+  return methodB();
 }
 
 // Function Pointer/Object

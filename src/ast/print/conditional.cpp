@@ -13,14 +13,8 @@ void Print::print_branch(ptr<Branch> n) {
     _w.Key("condition");
     print(n->condition);
 
-    _w.Key("statements");
-    _w.StartArray();
-
-    for (auto& statement : n->block->statements) {
-      print(statement);
-    }
-
-    _w.EndArray();
+    _w.Key("block");
+    print(n->block);
   });
 }
 
@@ -36,16 +30,6 @@ void Print::print_conditional(ptr<Conditional> n) {
     _w.EndArray();
 
     _w.Key("otherwise");
-    if (n->otherwise) {
-      _w.StartArray();
-
-      for (auto& stmt : n->otherwise->statements) {
-        print(stmt);
-      }
-
-      _w.EndArray();
-    } else {
-      _w.Null();
-    }
+    print(n->otherwise);
   });
 }

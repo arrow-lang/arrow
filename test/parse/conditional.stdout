@@ -14,7 +14,11 @@
             "span": "test/parse/conditional.as:2:4-13",
             "text": "condition"
           },
-          "statements": []
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/conditional.as:2-4",
+            "statements": []
+          }
         },
         {
           "tag": "Branch",
@@ -24,10 +28,18 @@
             "span": "test/parse/conditional.as:4:11-26",
             "text": "other_condition"
           },
-          "statements": []
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/conditional.as:4-6",
+            "statements": []
+          }
         }
       ],
-      "otherwise": []
+      "otherwise": {
+        "tag": "Block",
+        "span": "test/parse/conditional.as:6-8",
+        "statements": []
+      }
     },
     {
       "tag": "Conditional",
@@ -41,7 +53,11 @@
             "span": "test/parse/conditional.as:10:4-13",
             "text": "condition"
           },
-          "statements": []
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/conditional.as:10-12",
+            "statements": []
+          }
         }
       ],
       "otherwise": null
@@ -77,22 +93,30 @@
                 "text": "b"
               }
             },
-            "statements": [
-              {
-                "tag": "Integer",
-                "span": "test/parse/conditional.as:16:3-5",
-                "value": "30"
-              }
-            ]
+            "block": {
+              "tag": "Block",
+              "span": "test/parse/conditional.as:15-17",
+              "statements": [
+                {
+                  "tag": "Integer",
+                  "span": "test/parse/conditional.as:16:3-5",
+                  "value": "30"
+                }
+              ]
+            }
           }
         ],
-        "otherwise": [
-          {
-            "tag": "Integer",
-            "span": "test/parse/conditional.as:18:3-13",
-            "value": "3735928559"
-          }
-        ]
+        "otherwise": {
+          "tag": "Block",
+          "span": "test/parse/conditional.as:17-19",
+          "statements": [
+            {
+              "tag": "Integer",
+              "span": "test/parse/conditional.as:18:3-13",
+              "value": "3735928559"
+            }
+          ]
+        }
       }
     }
   ]

@@ -1,0 +1,26 @@
+{
+  "tag": "Module",
+  "span": "test/parse/alias.as:1-4",
+  "statements": [
+    {
+      "tag": "TypeAlias",
+      "span": "test/parse/alias.as:3:1-19",
+      "name": "c_int",
+      "target": {
+        "tag": "TypeName",
+        "span": "test/parse/alias.as:3:14-19",
+        "name": "int32"
+      }
+    },
+    {
+      "tag": "TypeAlias",
+      "span": "test/parse/alias.as:4:1-22",
+      "name": "c_llong",
+      "target": {
+        "tag": "TypeName",
+        "span": "test/parse/alias.as:4:16-22",
+        "name": "int128"
+      }
+    }
+  ]
+}

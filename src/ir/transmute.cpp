@@ -59,6 +59,8 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
       }
     } else if (src->is_integer() && dst->is_pointer()) {
       _handle = LLVMBuildIntToPtr(ctx.irb, value_handle, dst_handle, "");
+    } else if (src->is_pointer() && dst->is_integer()) {
+      _handle = LLVMBuildPtrToInt(ctx.irb, value_handle, dst_handle, "");
     } else if (src->is_pointer() && dst->is_pointer()) {
       _handle = LLVMBuildBitCast(ctx.irb, value_handle, dst_handle, "");
     } else {

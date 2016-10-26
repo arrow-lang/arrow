@@ -1,0 +1,93 @@
+{
+  "tag": "Module",
+  "span": "test/parse/transmute.as:1-6",
+  "statements": [
+    {
+      "tag": "Variable",
+      "span": "test/parse/transmute.as:3:1-20",
+      "name": "a",
+      "mutable": false,
+      "type": null,
+      "initializer": {
+        "tag": "Transmute",
+        "span": "test/parse/transmute.as:3:11-19",
+        "operand": {
+          "tag": "Integer",
+          "span": "test/parse/transmute.as:3:9-10",
+          "value": "0"
+        },
+        "target": {
+          "tag": "TypePointer",
+          "span": "test/parse/transmute.as:3:14-19",
+          "element": {
+            "tag": "TypeName",
+            "span": "test/parse/transmute.as:3:15-19",
+            "name": "int8"
+          }
+        }
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/transmute.as:4:1-12",
+      "name": "b",
+      "mutable": false,
+      "type": null,
+      "initializer": {
+        "tag": "Integer",
+        "span": "test/parse/transmute.as:4:9-11",
+        "value": "20"
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/transmute.as:5:1-23",
+      "name": "c",
+      "mutable": false,
+      "type": null,
+      "initializer": {
+        "tag": "Transmute",
+        "span": "test/parse/transmute.as:5:12-22",
+        "operand": {
+          "tag": "AddressOf",
+          "span": "test/parse/transmute.as:5:9-11",
+          "operand": {
+            "tag": "Identifier",
+            "span": "test/parse/transmute.as:5:10-11",
+            "text": "x"
+          }
+        },
+        "target": {
+          "tag": "TypePointer",
+          "span": "test/parse/transmute.as:5:15-22",
+          "element": {
+            "tag": "TypeName",
+            "span": "test/parse/transmute.as:5:16-22",
+            "name": "int128"
+          }
+        }
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/transmute.as:6:1-20",
+      "name": "d",
+      "mutable": false,
+      "type": null,
+      "initializer": {
+        "tag": "Transmute",
+        "span": "test/parse/transmute.as:6:11-19",
+        "operand": {
+          "tag": "Identifier",
+          "span": "test/parse/transmute.as:6:9-10",
+          "text": "c"
+        },
+        "target": {
+          "tag": "TypeName",
+          "span": "test/parse/transmute.as:6:14-19",
+          "name": "int64"
+        }
+      }
+    }
+  ]
+}

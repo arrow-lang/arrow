@@ -25,14 +25,8 @@ void Print::print_function(ptr<Function> n) {
 
     _w.EndArray();
 
-    _w.Key("statements");
-    _w.StartArray();
-
-    for (auto& statement : n->block->statements) {
-      print(statement);
-    }
-
-    _w.EndArray();
+    _w.Key("block");
+    print(n->block);
   });
 }
 

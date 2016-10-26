@@ -40,8 +40,11 @@ auto Build::handle_transmute(ptr<ast::Transmute> x) -> ptr<ir::Value> {
   auto type = TypeBuild(_ctx).run(x->target);
   if (!type) return nullptr;
 
-  if (!type->is_pointer()) {
-    Log::get().error(x->target->span, "destination type must be a pointer");
+  if (!(type->is_pointer() || (
+    type->is_integer() && operand->type->is_pointer()
+  ))) {
+    Log::get().error(x->target->span,
+      "destination type must be an integer or pointer");
 
     return nullptr;
   }
