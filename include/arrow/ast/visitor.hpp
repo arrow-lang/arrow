@@ -84,6 +84,7 @@ class Visitor {
   virtual void visit_type_unit(ptr<ast::TypeUnit> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_function(ptr<ast::Function> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_extern_function(ptr<ast::ExternFunction> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_extern_variable(ptr<ast::ExternVariable> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_parameter(ptr<ast::Parameter> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_import(ptr<ast::Import> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_cinclude(ptr<ast::CInclude> x) { /* LCOV_EXCL_LINE */ }

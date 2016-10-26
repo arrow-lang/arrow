@@ -55,6 +55,12 @@ auto Parser::parse_extern_function() -> ptr<ast::ExternFunction> {
   auto begin_tok = expect(token::Type::Extern);
   if (!begin_tok) return nullptr;
 
+  // Check for string (ABI)
+  std::string abi = "cdecl";
+  if (_t.peek()->type == token::Type::String) {
+    abi = parse_str()->value;
+  }
+
   // Expect: `def`
   if (!expect(token::Type::Def)) return nullptr;
 
@@ -63,7 +69,7 @@ auto Parser::parse_extern_function() -> ptr<ast::ExternFunction> {
   if (!id) return nullptr;
 
   // Make: Function
-  auto result = make<ast::ExternFunction>(begin_tok->span, id->text);
+  auto result = make<ast::ExternFunction>(begin_tok->span, id->text, abi);
 
   // Expect: `(`
   if (!expect(token::Type::LeftParenthesis)) return nullptr;

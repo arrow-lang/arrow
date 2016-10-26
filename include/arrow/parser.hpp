@@ -102,6 +102,7 @@ class Parser {
 
   ptr<ast::Function> parse_function();
   ptr<ast::ExternFunction> parse_extern_function();
+  ptr<ast::ExternVariable> parse_extern_variable();
   ptr<ast::Import> parse_import();
   ptr<ast::Parameter> parse_parameter();
 

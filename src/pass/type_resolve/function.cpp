@@ -99,6 +99,6 @@ void TypeResolve::visit_extern_function(ptr<ast::ExternFunction> x) {
   }
 
   // Make: Extern Function Type
-  auto type = make<ir::TypeExternFunction>(x, x->is_varidac, parameters, result);
+  auto type = make<ir::TypeExternFunction>(x, x->is_varidac, x->abi, parameters, result);
   fn->type = type;
 }

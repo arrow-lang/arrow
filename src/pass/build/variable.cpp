@@ -32,3 +32,7 @@ auto Build::handle_variable(ptr<ast::Variable> x) -> ptr<ir::Value> {
 
   return var;
 }
+
+auto Build::handle_extern_variable(ptr<ast::ExternVariable> x) -> ptr<ir::Value> {
+  return _ctx.scope->get<ir::ExternVariable>(x);
+}

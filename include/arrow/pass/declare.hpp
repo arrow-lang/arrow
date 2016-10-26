@@ -26,6 +26,7 @@ class Declare : public Pass, public ast::Visitor {
   void visit_type_alias(ptr<ast::TypeAlias>);
   void visit_function(ptr<ast::Function>);
   void visit_extern_function(ptr<ast::ExternFunction>);
+  void visit_extern_variable(ptr<ast::ExternVariable>);
 };
 
 }  // namespace back

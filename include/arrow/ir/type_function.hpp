@@ -74,10 +74,10 @@ struct TypeFunction : Type {
 };
 
 struct TypeExternFunction : TypeFunction {
-  explicit TypeExternFunction(ptr<ast::Node> source, bool is_varidac, std::vector<ptr<Type>> parameters, ptr<Type> result)
-    : Node(source), TypeFunction(source, parameters, result), is_varidac(is_varidac) {
+  explicit TypeExternFunction(ptr<ast::Node> source, bool is_varidac, std::string abi, std::vector<ptr<Type>> parameters, ptr<Type> result)
+    : Node(source), TypeFunction(source, parameters, result), is_varidac(is_varidac), abi(abi) {
     // Prepend `extern ` to the typename
-    this->name = "extern " + this->name;
+    this->name = "extern \"" + abi + "\" " + this->name;
   }
 
   virtual ~TypeExternFunction() noexcept;
@@ -94,12 +94,16 @@ struct TypeExternFunction : TypeFunction {
     auto other_fn = cast<TypeExternFunction>(other);
     if (!other_fn) return false;
     if (is_varidac != other_fn->is_varidac) return false;
+    if (abi != other_fn->abi) return false;
 
     return true;
   }
 
   // Varidac
   bool is_varidac;
+
+  // ABI
+  std::string abi;
 };
 
 }  // namespace ir

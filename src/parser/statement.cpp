@@ -52,6 +52,13 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
 
   case token::Type::Extern: {
     unsigned peek = 1;
+
+    // Variable ?
+    if (_t.peek(peek)->type == token::Type::Let) {
+      return parse_extern_variable();
+    }
+
+    // Function ?
     if (_t.peek(peek)->type == token::Type::String) peek++;
     if (_t.peek(peek)->type == token::Type::Def) {
       return parse_extern_function();
@@ -60,7 +67,7 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
     // Failed to match extern ..
     _t.pop();
     if (_t.peek()->type == token::Type::String) _t.pop();
-    expect({token::Type::Def});
+    expect({token::Type::Def, token::Type::Let});
     return nullptr;
   }
 

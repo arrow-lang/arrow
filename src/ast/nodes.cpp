@@ -80,6 +80,7 @@ IMPL(TypeTuple)
 
 IMPL(Function)
 IMPL(ExternFunction)
+IMPL(ExternVariable)
 IMPL(Parameter)
 IMPL(Call)
 IMPL(Argument)

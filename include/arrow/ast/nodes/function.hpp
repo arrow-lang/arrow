@@ -57,14 +57,17 @@ struct Function : Statement {
 };
 
 struct ExternFunction : Function {
-  ExternFunction(Span span, std::string name)
-  : Function(span, name), is_varidac(false) {
+  ExternFunction(Span span, std::string name, std::string abi)
+  : Function(span, name), is_varidac(false), abi(abi) {
   }
 
   virtual ~ExternFunction() noexcept;
 
   /// Allows additional, varidac parameters
   bool is_varidac;
+
+  /// Function ABI
+  std::string abi;
 };
 
 }  // namespace ast

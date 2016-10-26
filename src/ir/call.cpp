@@ -19,10 +19,7 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
     if (!op_handle) return nullptr;
 
     // Get reference to parameter types
-    std::vector<ptr<ir::Type>>& params =
-      isa<ir::TypeFunction>(op_type) ?
-      cast<ir::TypeFunction>(op_type)->parameters :
-      cast<ir::TypeExternFunction>(op_type)->parameters;
+    std::vector<ptr<ir::Type>>& params = cast<ir::TypeFunction>(op_type)->parameters;
 
     // Realize argument handles
     std::vector<LLVMValueRef> args;
@@ -61,6 +58,14 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
     }
 
     _handle = LLVMBuildCall(ctx.irb, op_handle, args.data(), args.size(), "");
+
+    // Set calling convention (if external)
+    if (isa<ir::TypeExternFunction>(op_type)) {
+      auto cc = ir::parse_call_conv(source->span, cast<ir::TypeExternFunction>(op_type)->abi);
+      if (cc < 0) return nullptr;
+      LLVMSetInstructionCallConv(_handle, cc);
+    }
+
   }
 
   return _handle;

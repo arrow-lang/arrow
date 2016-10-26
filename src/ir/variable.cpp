@@ -7,6 +7,7 @@
 #include "arrow/generator.hpp"
 
 using arrow::ir::Variable;
+using arrow::ir::ExternVariable;
 
 LLVMValueRef Variable::handle(GContext& ctx) noexcept {
   if (!_handle) {
@@ -55,6 +56,20 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
         LLVMBuildStore(ctx.irb, initializer_handle, _handle);
       }
     }
+  }
+
+  return _handle;
+}
+
+LLVMValueRef ExternVariable::handle(GContext& ctx) noexcept {
+  if (!_handle) {
+    auto type_handle = type->handle(ctx);
+
+    // Add global variable to module
+    _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
+
+    // Set linkage to private
+    LLVMSetLinkage(_handle, LLVMExternalLinkage);
   }
 
   return _handle;

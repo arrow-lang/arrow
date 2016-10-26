@@ -28,8 +28,8 @@ struct Variable : Item, Value {
 
   virtual LLVMValueRef handle(GContext&) noexcept;
 
-   // Initializer
-   ptr<ir::Value> initializer = nullptr;
+  // Initializer
+  ptr<ir::Value> initializer = nullptr;
 
  private:
   // Slot
@@ -37,6 +37,24 @@ struct Variable : Item, Value {
 
   // If this is a global vairable or not
   bool _is_global;
+};
+
+struct ExternVariable : Item, Value {
+  ExternVariable(ptr<ast::ExternVariable> source, std::string name)
+    : Node(source), Item(name), Value(nullptr) {
+  }
+
+  virtual ~ExternVariable() noexcept;
+
+  virtual bool is_addressable() const {
+    return true;
+  }
+
+  virtual LLVMValueRef handle(GContext&) noexcept;
+
+ private:
+  // Slot
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

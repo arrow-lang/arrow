@@ -91,6 +91,12 @@ LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
   if (!_handle) {
     auto type_handle = LLVMGetElementType(type->handle(ctx));
     _handle = LLVMAddFunction(ctx.mod, name.c_str(), type_handle);
+
+    // Set calling convention
+    auto type_f = cast<ir::TypeExternFunction>(type);
+    auto cc = parse_call_conv(source->span, type_f->abi);
+    if (cc < 0) return nullptr;
+    LLVMSetFunctionCallConv(_handle, cc);
   }
 
   return _handle;

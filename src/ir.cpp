@@ -4,6 +4,7 @@
 // See accompanying file LICENSE
 
 #include "arrow/ir.hpp"
+#include "arrow/log.hpp"
 #include "mach7.hpp"
 #include "fmt.hpp"
 
@@ -17,6 +18,7 @@ ir::Variable::~Variable() noexcept { }
 ir::Function::~Function() noexcept { }
 ir::Parameter::~Parameter() noexcept { }
 ir::ExternFunction::~ExternFunction() noexcept { }
+ir::ExternVariable::~ExternVariable() noexcept { }
 
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
@@ -176,4 +178,29 @@ auto arrow::ir::type_canonical(ptr<Type> type) -> ptr<Type> {
 // Transmute shorthand
 auto arrow::ir::transmute(ptr<Value> operand, ptr<Type> type) -> ptr<ir::Value> {
   return make<Transmute>(operand->source, operand, type);
+}
+
+// Parse CC
+int arrow::ir::parse_call_conv(arrow::Span span, std::string ccs) {
+  int cc = -1;
+  if (ccs == "C" || ccs == "cdecl") {
+    cc = LLVMCCallConv;
+  } else if (ccs == "stdcall") {
+    cc = LLVMX86StdcallCallConv;
+  } else if (ccs == "fastcall") {
+    cc = LLVMX86FastcallCallConv;
+  } else if (ccs == "vectorcall") {
+    cc = 80;
+  } else if (ccs == "win64") {
+    cc = 79;
+  } else {
+    Log::get().error(
+      span,
+      "invalid ABI: expected one of [C, cdecl, stdcall, fastcall, "
+      " vectorcall, win64], found `{}`", ccs);
+
+    return -1;
+  }
+
+  return cc;
 }

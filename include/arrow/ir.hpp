@@ -58,6 +58,9 @@ extern ptr<Type> type_canonical(ptr<Type> type);
 // Transmute shorthand
 extern ptr<Value> transmute(ptr<Value> operand, ptr<Type> type);
 
+// Parse CC from String
+extern int parse_call_conv(Span span, std::string ccs);
+
 }  // namespace ir
 }  // namespace arrow
 

@@ -34,3 +34,13 @@ void TypeResolve::visit_variable(ptr<ast::Variable> x) {
     }
   }
 }
+
+void TypeResolve::visit_extern_variable(ptr<ast::ExternVariable> x) {
+  // Get: ExternVariable
+  auto var = _ctx.scope->get<ir::ExternVariable>(x);
+  if (!var) return;
+
+  // Resolve the type annotation (if present)
+  var->type = TypeBuild(_ctx).run(x->type);
+  if (!var->type) return;
+}

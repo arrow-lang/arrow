@@ -23,3 +23,16 @@ void Print::print_variable(ptr<Variable> n) {
     print(n->initializer);
   });
 }
+
+void Print::print_extern_variable(ptr<ExternVariable> n) {
+  handle("ExternVariable", n, [&, this] {
+    _w.Key("name");
+    _w.String(n->name.c_str());
+
+    _w.Key("mutable");
+    _w.Bool(n->is_mutable);
+
+    _w.Key("type");
+    print(n->type);
+  });
+}

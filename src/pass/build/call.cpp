@@ -12,8 +12,9 @@ using arrow::pass::TypeBuild;
 
 auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   // Build: Operand
+  auto error_cnt = Log::get().count(LOG_ERROR);
   auto operand = run(x->operand);
-  if (!operand) {
+  if (!operand && (error_cnt == Log::get().count(LOG_ERROR))) {
     // Is this a type?
     auto operand_t = TypeBuild(_ctx).run(x->operand);
     if (!operand_t) return nullptr;
@@ -32,6 +33,8 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
     if (!value) return nullptr;
 
     return make<ir::Transmute>(x, value, operand_t);
+  } else if (!operand) {
+    return nullptr;
   }
 
   // Assert: Operand is indeed a function
@@ -46,15 +49,15 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
   ptr<ir::Type> result_type = nullptr;
   std::vector<ptr<ir::Type>>* parameter_types;
   bool is_varidac = false;
-  if (isa<ir::TypeFunction>(operand->type)) {
-    result_type = cast<ir::TypeFunction>(operand->type)->result;
-    parameter_types = &(cast<ir::TypeFunction>(operand->type)->parameters);
-  } else if (isa<ir::TypeExternFunction>(operand->type)) {
+  if (isa<ir::TypeExternFunction>(operand->type)) {
     auto fn_t = cast<ir::TypeExternFunction>(operand->type);
 
     result_type = fn_t->result;
     parameter_types = &(fn_t->parameters);
     is_varidac = fn_t->is_varidac;
+  } else if (isa<ir::TypeFunction>(operand->type)) {
+    result_type = cast<ir::TypeFunction>(operand->type)->result;
+    parameter_types = &(cast<ir::TypeFunction>(operand->type)->parameters);
   } else {
     return nullptr;
   }

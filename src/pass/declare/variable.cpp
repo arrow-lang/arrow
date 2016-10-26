@@ -18,3 +18,11 @@ void Declare::visit_variable(ptr<ast::Variable> x) {
   // Visit initializer (if present)
   if (x->initializer) accept(x->initializer);
 }
+
+void Declare::visit_extern_variable(ptr<ast::ExternVariable> x) {
+  // Make: ExternVariable
+  auto item = make<ir::ExternVariable>(x, x->name);
+
+  // Scope: put
+  _ctx.scope->put(x, item, item->name);
+}

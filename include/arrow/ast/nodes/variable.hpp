@@ -44,6 +44,30 @@ struct Variable : Statement {
   bool is_mutable;
 };
 
+/// External Variable declaration.
+struct ExternVariable : Statement {
+  virtual ~ExternVariable() noexcept;
+
+  ExternVariable(
+    Span span,
+    std::string name,
+    ptr<Type> type,
+    bool is_mutable
+  )
+  : Statement(span), name(name), type(type),
+    is_mutable(is_mutable) {
+  }
+
+  /// Name of the variable.
+  std::string name;
+
+  /// Type annotation of the variable (optional).
+  ptr<Type> type;
+
+  /// Mutable
+  bool is_mutable;
+};
+
 }  // namespace ast
 }  // namespace arrow
 

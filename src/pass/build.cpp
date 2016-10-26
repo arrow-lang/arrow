@@ -18,6 +18,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Module, module);
     ACCEPT(ast::Variable, variable);
     ACCEPT(ast::ExternFunction, extern_function);
+    ACCEPT(ast::ExternVariable, extern_variable);
     ACCEPT(ast::Function, function);
 
     ACCEPT(ast::Identifier, id);
