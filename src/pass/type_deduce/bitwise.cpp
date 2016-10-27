@@ -57,3 +57,31 @@ auto TypeDeduce::visit_bit_xor(ptr<ast::BitXor> x) -> ptr<ir::Type> {
 
   return type;
 }
+
+auto TypeDeduce::visit_bit_left_shift(ptr<ast::BitLeftShift> x) -> ptr<ir::Type> {
+  auto lhs = run(x->lhs);
+  auto rhs = run(x->rhs);
+  if (!lhs || !rhs) return nullptr;
+
+  // Must be integer
+  if (!(lhs->is_integer() && rhs->is_integer())) return nullptr;
+
+  // LHS must be >= in size from RHS
+  if (!(lhs->size() == 0 || lhs->size() >= rhs->size())) return nullptr;
+
+  return lhs;
+}
+
+auto TypeDeduce::visit_bit_right_shift(ptr<ast::BitRightShift> x) -> ptr<ir::Type> {
+  auto lhs = run(x->lhs);
+  auto rhs = run(x->rhs);
+  if (!lhs || !rhs) return nullptr;
+
+  // Must be integer
+  if (!(lhs->is_integer() && rhs->is_integer())) return nullptr;
+
+  // LHS must be >= in size from RHS
+  if (!(lhs->size() == 0 || lhs->size() >= rhs->size())) return nullptr;
+
+  return lhs;
+}

@@ -28,20 +28,21 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
       _handle = LLVMBuildFPCast(ctx.irb, value_handle, dst_handle, "");
     } else if (dst->is_integer() && (src->is_integer() || src->is_boolean())) {
       // Integer -> Integer
-      if (src->is_signed() && src->size() > 0) {
-        if (src->size() > dst->size()) {
+      auto src_size = src->size() == 0 ? 64 : src->size();
+      auto dst_size = dst->size() == 0 ? 64 : dst->size();
+
+      if (src->is_signed()) {
+        if (src_size > dst_size) {
           _handle = LLVMBuildTrunc(ctx.irb, value_handle, dst_handle, "");
         } else {
           _handle = LLVMBuildSExt(ctx.irb, value_handle, dst_handle, "");
         }
-      } else if (src->size() > 0) {
-        if (src->size() > dst->size()) {
+      } else {
+        if (src_size > dst_size) {
           _handle = LLVMBuildTrunc(ctx.irb, value_handle, dst_handle, "");
         } else {
           _handle = LLVMBuildZExt(ctx.irb, value_handle, dst_handle, "");
         }
-      } else {
-        _handle = LLVMBuildIntCast(ctx.irb, value_handle, dst_handle, "");
       }
     } else if (dst->is_real() && src->is_integer()) {
       // Integer -> Real

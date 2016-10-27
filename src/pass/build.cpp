@@ -59,6 +59,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::BitAnd, bit_and);
     ACCEPT(ast::BitOr, bit_or);
     ACCEPT(ast::BitXor, bit_xor);
+    ACCEPT(ast::BitLeftShift, bit_left_shift);
+    ACCEPT(ast::BitRightShift, bit_right_shift);
 
     ACCEPT(ast::Not, not);
     ACCEPT(ast::And, and);

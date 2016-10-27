@@ -72,6 +72,8 @@ ir::BitNot::~BitNot() noexcept {}
 ir::BitAnd::~BitAnd() noexcept {}
 ir::BitOr::~BitOr() noexcept {}
 ir::BitXor::~BitXor() noexcept {}
+ir::BitLeftShift::~BitLeftShift() noexcept {}
+ir::BitRightShift::~BitRightShift() noexcept {}
 
 ir::Not::~Not() noexcept {}
 ir::And::~And() noexcept {}

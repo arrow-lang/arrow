@@ -92,6 +92,8 @@ enum class Type {
   ExclamationMark_Equals,
   GreaterThan_Equals,
   LessThan_Equals,
+  GreaterThan_GreaterThan,
+  LessThan_LessThan,
 
   // Symbols: 3-character
   Ellipsis,

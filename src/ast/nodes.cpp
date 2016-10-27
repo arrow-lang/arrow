@@ -45,6 +45,8 @@ IMPL(Mod)
 IMPL(BitOr)
 IMPL(BitXor)
 IMPL(BitAnd)
+IMPL(BitLeftShift)
+IMPL(BitRightShift)
 
 IMPL(Indirect)
 IMPL(AddressOf)

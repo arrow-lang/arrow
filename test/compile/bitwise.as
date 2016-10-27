@@ -83,3 +83,31 @@ i32 ^ 235;
 b ^ true;
 false ^ b;
 false ^ true;
+
+// Left Shift ==================================================================
+
+// Left Shift: Integer + Integer
+i32 << i32;
+u32 << u32;
+
+// Left Shift: Integer + Literal Integer
+i32 << 23;
+3250 << u32;
+
+// // Left Shift: Literal Integer + Literal Integer
+// 235 << 12;
+// 3250 << 41;
+//
+// // Right Shift ==================================================================
+//
+// // Right Shift: Integer + Integer
+// i32 >> i32;
+// u32 >> u32;
+//
+// // Right Shift: Integer + Literal Integer
+// i32 >> 235;
+// 3250 >> u32;
+//
+// // Right Shift: Literal Integer + Literal Integer
+// 235 >> 21;
+// 3250 >> 21;

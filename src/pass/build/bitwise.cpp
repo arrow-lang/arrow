@@ -4,9 +4,11 @@
 // See accompanying file LICENSE
 
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_deduce.hpp"
 #include "arrow/log.hpp"
 
 using arrow::pass::Build;
+using arrow::pass::TypeDeduce;
 
 auto Build::handle_bit_not(ptr<ast::BitNot> x) -> ptr<ir::Value> {
   auto operand = run(x->operand);
@@ -72,4 +74,38 @@ auto Build::handle_bit_xor(ptr<ast::BitXor> x) -> ptr<ir::Value> {
   }
 
   return make<ir::BitXor>(x, type, lhs, rhs);
+}
+
+auto Build::handle_bit_left_shift(ptr<ast::BitLeftShift> x) -> ptr<ir::Value> {
+  auto lhs = run(x->lhs);
+  auto rhs = run(x->rhs);
+  if (!lhs || !rhs) return nullptr;
+
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
+    Log::get().error(x->span,
+      "unsupported operand types for `<<`: `{}` and `{}`",
+      lhs->type->name, rhs->type->name);
+
+    return nullptr;
+  }
+
+  return make<ir::BitLeftShift>(x, type, lhs, rhs);
+}
+
+auto Build::handle_bit_right_shift(ptr<ast::BitRightShift> x) -> ptr<ir::Value> {
+  auto lhs = run(x->lhs);
+  auto rhs = run(x->rhs);
+  if (!lhs || !rhs) return nullptr;
+
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) {
+    Log::get().error(x->span,
+      "unsupported operand types for `>>`: `{}` and `{}`",
+      lhs->type->name, rhs->type->name);
+
+    return nullptr;
+  }
+
+  return make<ir::BitRightShift>(x, type, lhs, rhs);
 }

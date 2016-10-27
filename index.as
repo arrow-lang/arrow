@@ -21,7 +21,8 @@
 // [x] Function hoisting segfaults compiler in type deduction
 // [x] Parse: TypeFunction
 // [x] Parse: TypeTuple
+// [x] Parse: Augmented Assignment
 // [ ] Parse: Structure
-// [ ] Parse: Augmented Assignment
 // [ ] Struct
 // [ ] Implement (T)
+// [ ] Augmented Assignment for `<<=` and `>>=`
