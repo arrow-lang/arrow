@@ -61,6 +61,8 @@ class Build : public Pass {
   ptr<ir::Value> handle_bit_and(ptr<ast::BitAnd>);
   ptr<ir::Value> handle_bit_or(ptr<ast::BitOr>);
   ptr<ir::Value> handle_bit_xor(ptr<ast::BitXor>);
+  ptr<ir::Value> handle_bit_left_shift(ptr<ast::BitLeftShift>);
+  ptr<ir::Value> handle_bit_right_shift(ptr<ast::BitRightShift>);
 
   ptr<ir::Value> handle_not(ptr<ast::Not>);
   ptr<ir::Value> handle_and(ptr<ast::And>);

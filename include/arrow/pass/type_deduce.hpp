@@ -45,6 +45,8 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_bit_and(ptr<ast::BitAnd>);
   ptr<ir::Type> visit_bit_or(ptr<ast::BitOr>);
   ptr<ir::Type> visit_bit_xor(ptr<ast::BitXor>);
+  ptr<ir::Type> visit_bit_left_shift(ptr<ast::BitLeftShift>);
+  ptr<ir::Type> visit_bit_right_shift(ptr<ast::BitRightShift>);
   ptr<ir::Type> visit_not(ptr<ast::Not>);
   ptr<ir::Type> visit_and(ptr<ast::And>);
   ptr<ir::Type> visit_or(ptr<ast::Or>);

@@ -49,6 +49,8 @@ class Visitor {
   virtual void visit_bit_and(ptr<ast::BitAnd> x);
   virtual void visit_bit_xor(ptr<ast::BitXor> x);
   virtual void visit_bit_or(ptr<ast::BitOr> x);
+  virtual void visit_bit_left_shift(ptr<ast::BitLeftShift> x);
+  virtual void visit_bit_right_shift(ptr<ast::BitRightShift> x);
   virtual void visit_gte(ptr<ast::GreaterThanOrEqualTo> x);
   virtual void visit_gt(ptr<ast::GreaterThan> x);
   virtual void visit_lt(ptr<ast::LessThan> x);

@@ -85,6 +85,8 @@ static std::map<vector<char32_t>, arrow::token::Type> symbols = {
   {{'!', '='}, arrow::token::Type::ExclamationMark_Equals  },
   {{'>', '='}, arrow::token::Type::GreaterThan_Equals      },
   {{'<', '='}, arrow::token::Type::LessThan_Equals         },
+  {{'>', '>'}, arrow::token::Type::GreaterThan_GreaterThan },
+  {{'<', '<'}, arrow::token::Type::LessThan_LessThan       },
 
   // 3-character
   {{'.', '.', '.'}, arrow::token::Type::Ellipsis           },

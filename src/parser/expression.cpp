@@ -49,6 +49,10 @@ static std::unordered_map<token::Type, std::pair<unsigned, unsigned>> BINARY = {
   {token::Type::Plus,                    {1800,  1}},
   {token::Type::Minus,                   {1800,  1}},
 
+  // Left And Right Shift [4.5]
+  {token::Type::LessThan_LessThan,       {1750,  1}},
+  {token::Type::GreaterThan_GreaterThan, {1750,  1}},
+
   // Bitwise AND [5]
   {token::Type::Ampersand,               {1700,  1}},
 
@@ -256,6 +260,14 @@ auto Parser::parse_binary_expression(
 
     case token::Type::Pipe:
       result = make<ast::BitOr>(sp, lhs, rhs);
+      break;
+
+    case token::Type::LessThan_LessThan:
+      result = make<ast::BitLeftShift>(sp, lhs, rhs);
+      break;
+
+    case token::Type::GreaterThan_GreaterThan:
+      result = make<ast::BitRightShift>(sp, lhs, rhs);
       break;
 
     case token::Type::GreaterThan_Equals:

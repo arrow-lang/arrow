@@ -38,6 +38,8 @@ DEF_BINARY(Mod)
 DEF_BINARY(BitOr)
 DEF_BINARY(BitXor)
 DEF_BINARY(BitAnd)
+DEF_BINARY(BitLeftShift)
+DEF_BINARY(BitRightShift)
 
 DEF_BINARY(EqualTo)
 DEF_BINARY(NotEqualTo)
