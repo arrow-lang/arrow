@@ -26,3 +26,21 @@
 // [ ] Struct
 // [ ] Implement (T)
 // [ ] Augmented Assignment for `<<=` and `>>=`
+
+
+// [ ] Functions can have generic type parameters `def method[..]`
+// [ ] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
+
+extern def printf(format: str, ...);
+
+def size_of[T](): int64 {
+  return 0;
+  // return int64((0 as *T) - ((0 as *T) + 1));
+}
+
+// printf("?       : %d\n", size_of());
+printf("bool    : %d\n", size_of[bool]());
+
+// printf("int128  : %d\n", size_of[int128]());
+// printf("float32 : %d\n", size_of[float32]());
+// printf("*int    : %d\n", size_of[*int]());

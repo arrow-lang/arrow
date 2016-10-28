@@ -112,6 +112,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(ExternFunction, extern_function);
     ACCEPT(Function, function);
     ACCEPT(Parameter, parameter);
+    ACCEPT(TypeParameter, type_parameter);
     ACCEPT(Call, call);
     ACCEPT(Argument, argument);
 

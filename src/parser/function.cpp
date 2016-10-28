@@ -20,14 +20,28 @@ auto Parser::parse_function() -> ptr<ast::Function> {
   // Make: Function
   auto result = make<ast::Function>(begin_tok->span, id->text);
 
+  // Check for `[` .. `]` to indicate a generic function
+  if (_t.peek()->type == token::Type::LeftBracket) {
+    _t.pop();
+
+    if (!handle_sequence<ast::TypeParameter>(
+      &(result->type_parameters),
+      std::bind(&Parser::parse_type_parameter, this),
+      token::Type::RightBracket
+    )) return nullptr;
+
+    // Expect: `]`
+    if (!expect(token::Type::RightBracket)) return nullptr;
+  }
+
   // Expect: `(`
   if (!expect(token::Type::LeftParenthesis)) return nullptr;
 
   // Parse: parameters
-  handle_sequence<ast::Parameter>(
+  if (!handle_sequence<ast::Parameter>(
     &(result->parameters),
     std::bind(&Parser::parse_parameter, this)
-  );
+  )) return nullptr;
 
   // Expect: `)`
   if (!expect(token::Type::RightParenthesis)) return nullptr;
@@ -138,4 +152,14 @@ auto Parser::parse_parameter() -> ptr<ast::Parameter> {
 
   return make<ast::Parameter>(
     id->span.extend(type->span), id->text, type);
+}
+
+auto Parser::parse_type_parameter() -> ptr<ast::TypeParameter> {
+  // NOTE: This will probably do more eventually ..
+
+  // Parse: identifier (name of param)
+  auto id = parse_id();
+  if (!id) return nullptr;
+
+  return make<ast::TypeParameter>(id->span, id->text);
 }

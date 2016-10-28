@@ -50,9 +50,12 @@ class Parser {
 
   // Handle sequence (call arguments, function params, tuple, etc.)
   template <typename T>
-  bool handle_sequence(std::vector<ptr<T>> *dst, std::function<ptr<T>()> cb) {
+  bool handle_sequence(
+    std::vector<ptr<T>> *dst, std::function<ptr<T>()> cb,
+    token::Type end = token::Type::RightParenthesis
+  ) {
     while (
-      (_t.peek()->type != token::Type::RightParenthesis) &&
+      (_t.peek()->type != end) &&
       (_t.peek()->type != token::Type::End)
     ) {
       // Parse
@@ -105,6 +108,7 @@ class Parser {
   ptr<ast::ExternVariable> parse_extern_variable();
   ptr<ast::Import> parse_import();
   ptr<ast::Parameter> parse_parameter();
+  ptr<ast::TypeParameter> parse_type_parameter();
 
   ptr<ast::Call> parse_call(ptr<ast::Expression>);
   ptr<ast::Argument> parse_argument();

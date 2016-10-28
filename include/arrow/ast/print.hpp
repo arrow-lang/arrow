@@ -87,6 +87,7 @@ class Print {
   void print_extern_function(ptr<ExternFunction>);
   void print_extern_variable(ptr<ExternVariable>);
   void print_parameter(ptr<Parameter>);
+  void print_type_parameter(ptr<TypeParameter>);
 
   void print_import(ptr<Import>);
 

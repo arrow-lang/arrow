@@ -25,6 +25,15 @@ void Print::print_function(ptr<Function> n) {
 
     _w.EndArray();
 
+    _w.Key("type_parameters");
+    _w.StartArray();
+
+    for (auto& param : n->type_parameters) {
+      print(param);
+    }
+
+    _w.EndArray();
+
     _w.Key("block");
     print(n->block);
   });
@@ -56,5 +65,12 @@ void Print::print_parameter(ptr<Parameter> n) {
 
     _w.Key("type");
     print(n->type);
+  });
+}
+
+void Print::print_type_parameter(ptr<TypeParameter> n) {
+  handle("Parameter", n, [&, this] {
+    _w.Key("name");
+    _w.String(n->name.c_str());
   });
 }

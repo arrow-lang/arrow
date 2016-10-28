@@ -35,10 +35,25 @@ struct Parameter : Node {
   ptr<Type> type;
 };
 
+struct TypeParameter : Node {
+  TypeParameter(
+    Span span, std::string name
+  )
+  : Node(span), name(name) {
+  }
+
+  virtual ~TypeParameter() noexcept;
+
+  /// Name of the parameter.
+  std::string name;
+};
+
+// TODO: Make an abstract base as ExternFunction is only a part of function
+
 struct Function : Statement {
   Function(Span span, std::string name)
   : Statement(span), name(name), result_type(nullptr), parameters(),
-    block(nullptr) {
+    type_parameters(), block(nullptr) {
   }
 
   virtual ~Function() noexcept;
@@ -51,6 +66,9 @@ struct Function : Statement {
 
   /// Parameters.
   std::vector<ptr<Parameter>> parameters;
+
+  /// Type Parameters.
+  std::vector<ptr<TypeParameter>> type_parameters;
 
   /// Sequence of statements in the function.
   ptr<Block> block;
