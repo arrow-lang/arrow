@@ -28,8 +28,11 @@
 // [ ] Augmented Assignment for `<<=` and `>>=`
 
 
-// [ ] Functions can have generic type parameters `def method[..]`
-// [ ] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
+// [x] Functions can have generic type parameters `def method[..]`
+// [x] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
+// [ ] TypeDeduce in regards to `Name`
+// [ ] Duplicate instantiate should not create more things
+// [ ] Test!
 
 extern def printf(format: str, ...);
 
