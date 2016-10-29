@@ -383,7 +383,7 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
     return parse_str();
 
   case token::Type::Identifier:
-    return parse_id();
+    return parse_name();
 
   case token::Type::If:
     return parse_conditional(true);

@@ -66,6 +66,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(String, str);
     ACCEPT(Real, real);
     ACCEPT(Unit, unit);
+    ACCEPT(Name, name);
     ACCEPT(Identifier, id);
     ACCEPT(Tuple, tuple);
 

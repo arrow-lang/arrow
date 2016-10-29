@@ -57,6 +57,9 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
   auto fn = _ctx.scope->get<ir::Function>(x);
   if (!fn) return;
 
+  // Scope: Enter
+  auto sb = ir::Scope::enter(fn->block->scope, _ctx);
+
   // Resolve: Result type
   auto result = ir::do_result(_ctx, x);
   if (!result) {
@@ -74,6 +77,9 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
   // Make: Function Type
   auto type = make<ir::TypeFunction>(x, parameters, result);
   fn->type = type;
+
+  // Scope: Exit
+  sb.exit();
 
   // Block
   accept(x->block);

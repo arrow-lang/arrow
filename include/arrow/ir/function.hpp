@@ -12,6 +12,7 @@
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/type_function.hpp"
 #include "arrow/ir/block.hpp"
+#include "arrow/ir/generic.hpp"
 
 namespace arrow {
 namespace ir {
@@ -65,6 +66,20 @@ struct Function : Item, Value {
 
   // Slot
   LLVMValueRef _handle = nullptr;
+};
+
+struct GenericFunction : Item, Generic {
+  GenericFunction(ptr<ast::Function> source, ptr<Module> module, std::string name, std::vector<ptr<GenericTypeParameter>> type_parameters)
+    : Node(source), Item(name), Generic(type_parameters), _module(module) {
+  }
+
+  virtual ~GenericFunction() noexcept;
+
+  virtual ptr<ir::Value> instantiate(GContext&, std::vector<ptr<ast::Type>>&);
+
+ protected:
+  // Module (container)
+  ptr<Module> _module;
 };
 
 struct ExternFunction : Function {

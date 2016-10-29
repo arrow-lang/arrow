@@ -95,6 +95,7 @@ class Parser {
   ptr<ast::Real> parse_real();
   ptr<ast::String> parse_str();
   ptr<ast::Identifier> parse_id();
+  ptr<ast::Name> parse_name();
   ptr<ast::Expression> parse_tuple();
 
   ptr<ast::Type> parse_type();

@@ -76,6 +76,7 @@ class Build : public Pass {
   ptr<ir::Value> handle_ge(ptr<ast::GreaterThanOrEqualTo>);
 
   ptr<ir::Value> handle_id(ptr<ast::Identifier>);
+  ptr<ir::Value> handle_name(ptr<ast::Name>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
   ptr<ir::Value> handle_int(ptr<ast::Integer>);
   ptr<ir::Value> handle_real(ptr<ast::Real>);

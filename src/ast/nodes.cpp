@@ -27,6 +27,7 @@ IMPL(Boolean)
 IMPL(String)
 IMPL(Unit)
 IMPL(Identifier)
+IMPL(Name)
 IMPL(Tuple)
 
 IMPL(Identity)

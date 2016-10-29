@@ -8,6 +8,28 @@
 using arrow::pass::Declare;
 
 void Declare::visit_function(ptr<ast::Function> x) {
+  // Is this function generic ?
+  if (x->type_parameters.size() > 0) {
+    // Yes..
+
+    // Gather type parameters (just names really at this point)
+    std::vector<ptr<ir::GenericTypeParameter>> type_parameters;
+    for (auto const& p : x->type_parameters) {
+      type_parameters.push_back(make<ir::GenericTypeParameter>(
+        p, p->name
+      ));
+    }
+
+    // Make: GenericFunction
+    auto fn = make<ir::GenericFunction>(x, _ctx.modules.back(), x->name,
+      type_parameters);
+
+    // Scope: put
+    _ctx.scope->put(x, fn, fn->name);
+
+    return;
+  }
+
   // Make: Function
   auto fn = make<ir::Function>(x, _ctx.modules.back(), x->name, nullptr);
 

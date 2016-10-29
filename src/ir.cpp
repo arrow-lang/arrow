@@ -20,6 +20,10 @@ ir::Parameter::~Parameter() noexcept { }
 ir::ExternFunction::~ExternFunction() noexcept { }
 ir::ExternVariable::~ExternVariable() noexcept { }
 
+ir::GenericTypeParameter::~GenericTypeParameter() noexcept { }
+ir::GenericFunction::~GenericFunction() noexcept { }
+ir::Generic::~Generic() noexcept { }
+
 ir::Type::~Type() noexcept { }
 ir::TypeInteger::~TypeInteger() noexcept { }
 ir::TypeBoolean::~TypeBoolean() noexcept { }

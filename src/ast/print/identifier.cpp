@@ -14,3 +14,19 @@ void Print::print_id(ptr<Identifier> n) {
     _w.String(n->text.c_str());
   });
 }
+
+void Print::print_name(ptr<Name> n) {
+  handle("Name", n, [&, this] {
+    _w.Key("text");
+    _w.String(n->text.c_str());
+
+    _w.Key("type_arguments");
+    _w.StartArray();
+
+    for (auto& param : n->type_arguments) {
+      print(param);
+    }
+
+    _w.EndArray();
+  });
+}
