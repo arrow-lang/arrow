@@ -33,22 +33,3 @@
 // [ ] TypeDeduce in regards to `Name`
 // [ ] Duplicate instantiate should not create more things
 // [ ] Test!
-
-extern def printf(format: str, ...);
-
-def size_of[T](): int64 {
-  return int64((((0 as *T) + 1) as *int8) - (0 as *int8));
-}
-
-printf("bool    : %d B\n", size_of[bool]());
-printf("int128  : %d B\n", size_of[int128]());
-printf("float32 : %d B\n", size_of[float32]());
-printf("*int    : %d B\n", size_of[*int32]());
-
-def add[T](a: T, b: T): T {
-  return a + b;
-}
-
-let a = 1;
-let b = 2;
-let c = add[int64](a, b);

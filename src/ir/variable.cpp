@@ -48,8 +48,29 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
         }
       }
     } else {
+      // Find the function prelude where the stack allocations reside
+      auto current = LLVMGetInsertBlock(ctx.irb);
+      auto fn_handle = LLVMGetBasicBlockParent(current);
+      auto top = LLVMGetEntryBasicBlock(fn_handle);
+      auto instr = LLVMGetFirstInstruction(top);
+      if (instr != nullptr) {
+        while (
+          (LLVMGetInstructionOpcode(instr) == LLVMAlloca) &&
+          (LLVMGetLastInstruction(top) != instr)
+        ) {
+          instr = LLVMGetNextInstruction(instr);
+        }
+
+        LLVMPositionBuilderBefore(ctx.irb, instr);
+      } else {
+        LLVMPositionBuilderAtEnd(ctx.irb, top);
+      }
+
       // Allocate space on the stack for the local variable
       _handle = LLVMBuildAlloca(ctx.irb, type_handle, name.c_str());
+
+      // Go back
+      LLVMPositionBuilderAtEnd(ctx.irb, current);
 
       // Set initializer (if present)
       if (initializer_handle) {
