@@ -33,3 +33,5 @@
 // [ ] TypeDeduce in regards to `Name`
 // [ ] Duplicate instantiate should not create more things
 // [ ] Test!
+
+// [ ] Error: Use before declare (applies mainly to `let r = r * 2` cases)
