@@ -118,22 +118,23 @@ Generator& Generator::run(ptr<ast::Module> module) {
   // Generate modules
   for (auto& mod : _ctx.modules) mod->handle(_ctx);
 
-  // Declare main
-  // TODO(mehcode): Full (all parameters)
+  // Declare main parameters
   // FIXME(mehcode): Get proper size of C INT here
+  std::vector<LLVMTypeRef> main_params;
+  main_params.push_back(LLVMInt32Type());
+  main_params.push_back(LLVMPointerType(LLVMPointerType(LLVMInt8Type(), 0), 0));
+  main_params.push_back(LLVMPointerType(LLVMPointerType(LLVMInt8Type(), 0), 0));
+
+  // Declare main
   auto main = LLVMAddFunction(_ctx.mod, "main", LLVMFunctionType(
     LLVMInt32Type(),
-    nullptr,
-    0,
+    main_params.data(),
+    main_params.size(),
     false
   ));
 
   LLVMPositionBuilderAtEnd(_ctx.irb,
     LLVMAppendBasicBlock(main, ""));
-
-  // HACK: Call top-level module initializer
-  // auto init = LLVMGetNamedFunction(_ctx.mod, "#init");
-  // LLVMBuildCall(_ctx.irb, init, nullptr, 0, "");
 
   // Call each module initializer (in reverse order for now)
   // TODO(mehcode): Resolve order
@@ -141,10 +142,89 @@ Generator& Generator::run(ptr<ast::Module> module) {
     LLVMBuildCall(_ctx.irb, (*m)->initializer, nullptr, 0, "");
   }
 
+  // HACK: Which module is the top-level module?
   // TODO(mehcode): Call the top-level module main function (if present)
+  auto mod = _ctx.modules.back();
+  auto main_ = mod->block->scope->get("main");
+  if (main_) {
+    auto main_fn = cast<ir::Function>(main_);
+    auto main_t = cast<ir::TypeFunction>(main_fn->type);
+    auto m_ctx = cast<ast::Function>(main_->source);
 
-  // Terminate main
-  LLVMBuildRet(_ctx.irb, LLVMConstInt(LLVMInt32Type(), 0, false));
+    if (!isa<ir::Function>(main_) || isa<ir::ExternFunction>(main_)) {
+      Log::get().error(m_ctx->span, "'main' must be a function");
+      return *this;
+    }
+
+    // Check result
+    if (!(main_t->result->is_unit() || (main_t->result->is_integer() && main_t->result->size() == 32))) {
+      Log::get().error(
+        m_ctx->result_type->span, "result of `main` must be `()` or `int32`");
+    }
+
+    // Check parameters
+    auto pcount = main_t->parameters.size();
+
+    if (pcount > 3) {
+      Log::get().error(
+        m_ctx->span,
+        "too many parameters (%d) for 'main': must be 0, 2, or 3",
+        pcount);
+    }
+
+    if (pcount == 1) {
+      Log::get().error(m_ctx->span,
+        "only one parameter for 'main': must be 0, 2, or 3");
+    }
+
+    if (pcount >= 1) {
+      if (!(main_t->parameters[0]->is_integer() &&
+            main_t->parameters[0]->size() == 32)) {
+        Log::get().error(
+          m_ctx->parameters[0]->span,
+          "first parameter of 'main' (argc) must be of type 'int32'");
+      }
+    }
+
+    if (pcount >= 2) {
+      if (!(main_t->parameters[1]->is_pointer() &&
+            isa<ir::TypeString>(cast<ir::TypePointer>(main_t->parameters[1])->element))) {
+        Log::get().error(
+          m_ctx->parameters[0]->span,
+          "second parameter of 'main' (argv) must be of type '*str'");
+      }
+    }
+
+    if (pcount >= 3) {
+      if (!(main_t->parameters[2]->is_pointer() &&
+            isa<ir::TypeString>(cast<ir::TypePointer>(main_t->parameters[2])->element))) {
+        Log::get().error(
+          m_ctx->parameters[0]->span,
+          "third parameter of 'main' (envrion) must be of type '*str'");
+      }
+    }
+
+    // Build arguments
+    std::vector<LLVMValueRef> arguments;
+    for (unsigned i = 0; i < pcount; ++i) {
+      arguments.push_back(LLVMGetParam(main, i));
+    }
+
+    // Build Call
+    auto res = LLVMBuildCall(_ctx.irb,
+      main_fn->handle(_ctx), arguments.data(), arguments.size(), "");
+
+    if (!main_t->result->is_unit()) {
+      LLVMBuildRet(_ctx.irb, res);
+    }
+  }
+
+  if (Log::get().count(LOG_ERROR) > 0) return *this;
+
+  // Terminate main (if needed)
+  if (!LLVMGetBasicBlockTerminator(LLVMGetInsertBlock(_ctx.irb))) {
+    LLVMBuildRet(_ctx.irb, LLVMConstInt(LLVMInt32Type(), 0, false));
+  }
 
   return *this;
 }

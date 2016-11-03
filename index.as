@@ -27,6 +27,7 @@
 // [ ] Implement (T)
 // [ ] Augmented Assignment for `<<=` and `>>=`
 
+// [ ] Get proper size of C INT in a few places
 
 // [x] Functions can have generic type parameters `def method[..]`
 // [x] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
