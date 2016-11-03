@@ -16,7 +16,7 @@ namespace arrow {
 namespace ir {
 
 struct TypeString : TypePointer {
-  TypeString() : Node(nullptr), TypePointer(nullptr, make<ir::TypeInteger>(false, 8)) {
+  TypeString() : Node(nullptr), TypePointer(nullptr, make<ir::TypeInteger>(true, 8)) {
   }
 
   virtual ~TypeString() noexcept;

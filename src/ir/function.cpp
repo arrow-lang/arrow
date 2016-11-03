@@ -94,7 +94,8 @@ LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
 
     // Set calling convention
     auto type_f = cast<ir::TypeExternFunction>(type);
-    auto cc = parse_call_conv(source->span, type_f->abi);
+    Span nilspan{""};
+    auto cc = parse_call_conv(source ? source->span : nilspan, type_f->abi);
     if (cc < 0) return nullptr;
     LLVMSetFunctionCallConv(_handle, cc);
   }

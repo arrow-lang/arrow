@@ -11,8 +11,6 @@
 #include <stack>
 #include <functional>
 
-#include "clang.hpp"
-
 #include "arrow/pass.hpp"
 #include "arrow/context.hpp"
 
@@ -96,9 +94,6 @@ class Build : public Pass {
   ptr<ir::Value> handle_continue(ptr<ast::Continue>);
 
   ptr<ir::Value> handle_transmute(ptr<ast::Transmute>);
-
-  static CXChildVisitResult _cx_visit(
-    CXCursor cursor, CXCursor parent, CXClientData clientData);
 
   ptr<ir::Value> _assign(
     ptr<ast::Binary> x,
