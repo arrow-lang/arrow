@@ -20,18 +20,18 @@ auto Parser::parse_function() -> ptr<ast::Function> {
   // Make: Function
   auto result = make<ast::Function>(begin_tok->span, id->text);
 
-  // Check for `[` .. `]` to indicate a generic function
-  if (_t.peek()->type == token::Type::LeftBracket) {
+  // Check for `<` .. `>` to indicate a generic function
+  if (_t.peek()->type == token::Type::LessThan) {
     _t.pop();
 
     if (!handle_sequence<ast::TypeParameter>(
       &(result->type_parameters),
       std::bind(&Parser::parse_type_parameter, this),
-      token::Type::RightBracket
+      token::Type::GreaterThan
     )) return nullptr;
 
-    // Expect: `]`
-    if (!expect(token::Type::RightBracket)) return nullptr;
+    // Expect: `>`
+    if (!expect(token::Type::GreaterThan)) return nullptr;
   }
 
   // Expect: `(`
