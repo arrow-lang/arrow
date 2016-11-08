@@ -11,6 +11,6 @@ using arrow::ast::Print;
 void Print::print_type_name(ptr<TypeName> n) {
   handle("TypeName", n, [&, this] {
     _w.Key("name");
-    _w.String(n->name.c_str());
+    print(n->name);
   });
 }

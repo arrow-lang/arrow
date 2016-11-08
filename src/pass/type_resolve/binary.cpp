@@ -10,12 +10,34 @@ using arrow::pass::TypeResolve;
 
 void TypeResolve::visit_binary(ptr<ast::Binary> x) {
   auto type = TypeDeduce(_ctx).run(x);
-  if (!type) { _incomplete = true; return; }
+  if (!type) { _incomplete = true; }
 
-  _type_s.push(type);
+  auto lhs_t = TypeDeduce(_ctx).run(x->lhs);
+  auto rhs_t = TypeDeduce(_ctx).run(x->rhs);
+
+  bool push = false;
+
+  if (rhs_t && (_type_s.size() == 0 || rhs_t->size() != 0)) {
+    _type_s.push(rhs_t);
+    push = true;
+  }
 
   accept(x->lhs);
+
+  if (push) {
+    _type_s.pop();
+    push = false;
+  }
+
+  if (lhs_t && (_type_s.size() == 0 || lhs_t->size() != 0)) {
+    _type_s.push(lhs_t);
+    push = true;
+  }
+
   accept(x->rhs);
 
-  _type_s.pop();
+  if (push) {
+    _type_s.pop();
+    push = false;
+  }
 }

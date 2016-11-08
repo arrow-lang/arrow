@@ -12,15 +12,13 @@ def assert(condition: bool) {
 extern def malloc(size: int64): *int8;
 extern def free(ptr: *int8);
 
-extern def printf(s: str, ...);
-
 def test_simple() {
-  let a: int32 = 1204;
-  let p_a: *int32 = &a;
+  let a = 1204;
+  let p_a = &a;
 
   let b = *p_a;
-  let c: **int32 = &p_a;
-  let d: int32 = **c;
+  let c = &p_a;
+  let d = **c;
 
   *p_a = 320;
   *c = &b;

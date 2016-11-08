@@ -36,16 +36,42 @@ auto Parser::parse_name() -> ptr<ast::Name> {
     ) {
       _t.pop();
 
-      if (!handle_sequence<ast::Type>(
-        &(type_arguments),
-        std::bind(&Parser::parse_type, this),
-        token::Type::GreaterThan
-      )) return nullptr;
+      while (
+        (_t.peek()->type != token::Type::GreaterThan) &&
+        (_t.peek()->type != token::Type::GreaterThan_GreaterThan) &&
+        (_t.peek()->type != token::Type::End)
+      ) {
+        // Parse
+        auto elem = parse_type();
+        if (!elem) return nullptr;
 
-      // Expect: `>`
-      auto end_tok = expect(token::Type::GreaterThan);
-      if (!end_tok) return nullptr;
-      end_span = end_tok->span;
+        type_arguments.push_back(elem);
+
+        // Check for a sequence continuation token
+        auto tok = _t.peek();
+        if (tok->type == token::Type::Comma) {
+          _t.pop();
+          continue;
+        }
+
+        // Done
+        break;
+      }
+
+      // Expect: `>` (or `>>`)
+      if (_t.peek()->type == token::Type::GreaterThan) {
+        auto end_tok = _t.pop();
+        end_span = end_tok->span;
+      } else if (_t.peek()->type == token::Type::GreaterThan_GreaterThan) {
+        auto end_tok = _t.pop();
+        end_span = end_tok->span;
+
+        // Push a `>` token back on the tokenizer
+        _t.push(make<token::Symbol>(token::Type::GreaterThan, end_tok->span));
+      } else {
+        expect(token::Type::GreaterThan);
+        return nullptr;
+      }
     }
   }
 

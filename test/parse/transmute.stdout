@@ -22,7 +22,12 @@
           "element": {
             "tag": "TypeName",
             "span": "test/parse/transmute.as:3:15-19",
-            "name": "int8"
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/transmute.as:3:15-19",
+              "text": "int8",
+              "type_arguments": []
+            }
           }
         }
       }
@@ -52,9 +57,10 @@
           "tag": "AddressOf",
           "span": "test/parse/transmute.as:5:9-11",
           "operand": {
-            "tag": "Identifier",
+            "tag": "Name",
             "span": "test/parse/transmute.as:5:10-11",
-            "text": "x"
+            "text": "x",
+            "type_arguments": []
           }
         },
         "target": {
@@ -63,7 +69,12 @@
           "element": {
             "tag": "TypeName",
             "span": "test/parse/transmute.as:5:16-22",
-            "name": "int128"
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/transmute.as:5:16-22",
+              "text": "int128",
+              "type_arguments": []
+            }
           }
         }
       }
@@ -78,14 +89,20 @@
         "tag": "Transmute",
         "span": "test/parse/transmute.as:6:11-19",
         "operand": {
-          "tag": "Identifier",
+          "tag": "Name",
           "span": "test/parse/transmute.as:6:9-10",
-          "text": "c"
+          "text": "c",
+          "type_arguments": []
         },
         "target": {
           "tag": "TypeName",
           "span": "test/parse/transmute.as:6:14-19",
-          "name": "int64"
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/transmute.as:6:14-19",
+            "text": "int64",
+            "type_arguments": []
+          }
         }
       }
     }

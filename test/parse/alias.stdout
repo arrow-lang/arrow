@@ -9,7 +9,12 @@
       "target": {
         "tag": "TypeName",
         "span": "test/parse/alias.as:3:14-19",
-        "name": "int32"
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/alias.as:3:14-19",
+          "text": "int32",
+          "type_arguments": []
+        }
       }
     },
     {
@@ -19,7 +24,12 @@
       "target": {
         "tag": "TypeName",
         "span": "test/parse/alias.as:4:16-22",
-        "name": "int128"
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/alias.as:4:16-22",
+          "text": "int128",
+          "type_arguments": []
+        }
       }
     }
   ]

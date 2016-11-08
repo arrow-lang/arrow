@@ -18,6 +18,15 @@ void TypeResolve::visit_variable(ptr<ast::Variable> x) {
   if (x->type) {
     var->type = TypeBuild(_ctx).run(x->type);
     if (!var->type) return;
+
+    // Check for (and accept) an initializer expression
+    if (x->initializer) {
+      _type_s.push(var->type);
+
+      accept(x->initializer);
+
+      _type_s.pop();
+    }
   } else {
     // TypeResolve: Record the declaration (and re-initialize the storage)
     _declare.insert(var);
@@ -26,7 +35,11 @@ void TypeResolve::visit_variable(ptr<ast::Variable> x) {
 
     // Check for an initializer expression (and record as an assignment)
     if (x->initializer) {
+      if (var->type) _type_s.push(var->type);
+
       accept(x->initializer);
+
+      if (var->type) _type_s.pop();
 
       // NOTE: If deduction fails; we want to record the null
       auto type = TypeDeduce(_ctx).run(x->initializer);

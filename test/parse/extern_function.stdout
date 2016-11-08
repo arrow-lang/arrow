@@ -16,7 +16,12 @@
       "result_type": {
         "tag": "TypeName",
         "span": "test/parse/extern_function.as:3:22-27",
-        "name": "int64"
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/extern_function.as:3:22-27",
+          "text": "int64",
+          "type_arguments": []
+        }
       },
       "parameters": []
     },
@@ -27,7 +32,12 @@
       "result_type": {
         "tag": "TypeName",
         "span": "test/parse/extern_function.as:5:40-44",
-        "name": "bool"
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/extern_function.as:5:40-44",
+          "text": "bool",
+          "type_arguments": []
+        }
       },
       "parameters": [
         {
@@ -37,7 +47,12 @@
           "type": {
             "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:22-27",
-            "name": "int64"
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/extern_function.as:5:22-27",
+              "text": "int64",
+              "type_arguments": []
+            }
           }
         },
         {
@@ -47,7 +62,12 @@
           "type": {
             "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:32-37",
-            "name": "int64"
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/extern_function.as:5:32-37",
+              "text": "int64",
+              "type_arguments": []
+            }
           }
         }
       ]

@@ -9,19 +9,21 @@
 #include <string>
 
 #include "arrow/ast/nodes/type.hpp"
+#include "arrow/ast/nodes/identifier.hpp"
+#include "arrow/ptr.hpp"
 
 namespace arrow {
 namespace ast {
 
 struct TypeName : Type {
-  TypeName(Span span, std::string name)
+  TypeName(Span span, ptr<ast::Name> name)
     : Type(span), name(name) {
   }
 
   virtual ~TypeName() noexcept;
 
   /// Name of the type.
-  std::string name;
+  ptr<ast::Name> name;
 };
 
 }  // namespace ast

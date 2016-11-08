@@ -135,6 +135,10 @@ Tokenizer::Tokenizer(
   _scanners.push_back(std::bind(&Tokenizer::_scan_identifier, this));
 }
 
+void Tokenizer::push(ptr<Token> token) {
+  _queue.push_front(token);
+}
+
 auto Tokenizer::pop() -> ptr<Token> {
   if (!_read(1)) return nullptr;
 

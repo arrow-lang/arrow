@@ -37,6 +37,10 @@ static auto type_literal_promote(ptr<ir::Type> type) -> ptr<ir::Type> {
 // Type reduction over a vector is done 2 at a time and falls back to
 // the LHS if an inner reduction fails. This method cannot fail.
 static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Type> {
+  if (type_set.size() == 0) {
+    return nullptr;
+  }
+
   ptr<ir::Type> result = type_set[0];
   for (std::size_t i = 1; i < type_set.size(); ++i) {
     if (result == nullptr) result = type_set[i];
@@ -56,8 +60,6 @@ static unsigned MAX_NIL_ITERATIONS = 15;
 void TypeResolve::run(ptr<ast::Node> x) {
   unsigned iteration = 0;
   do {
-    unsigned cnt = 0;
-
     // Reset incomplete flag
     _incomplete = false;
 
@@ -83,12 +85,12 @@ void TypeResolve::run(ptr<ast::Node> x) {
         type_set.push_back(assign.type);
       }
 
-      if (invalid) {
+      if (invalid && use_set.size() == 0) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
       }
 
-      if (type_set.size() == 0) {
+      if (type_set.size() == 0 && use_set.size() == 0) {
         _incomplete = true;
         if (iteration < MAX_NIL_ITERATIONS) continue;
         else break;
@@ -111,22 +113,26 @@ void TypeResolve::run(ptr<ast::Node> x) {
 
       if (invalid) {
         _incomplete = true;
-        if (iteration < MAX_NIL_ITERATIONS) continue;
       }
 
       if (type_set.size() > 0) {
         // Treat the use types as "weak" (assign types win)
         auto temp = type_set_reduce(type_set);
         if (temp) {
-          temp = ir::type_reduce(type, temp);
-          if (temp) {
+          if (type) {
+            temp = ir::type_reduce(type, temp);
+            if (temp) {
+              type = temp;
+            }
+          } else {
             type = temp;
+            iteration = 0;
           }
         }
       }
 
-      if (!item->type) {
-        ++cnt;
+      // if (!item->type || item->type->size() == 0) {
+      if (!item->type) { // || item->type->size() == 0) {
         iteration = 0;
       }
 
@@ -139,9 +145,8 @@ void TypeResolve::run(ptr<ast::Node> x) {
       break;
     }
 
-    if (cnt == 0) {
-      ++iteration;
-    }
+    // Increment iterations
+    iteration += 1;
   } while (_incomplete && (Log::get().count(arrow::LOG_ERROR) == 0));
 
   // Re-iterate through all items and promote any literal types

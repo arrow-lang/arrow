@@ -13,7 +13,7 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   ptr<ir::Value> result = nullptr;
   int i = x->branches.size() - 1;
 
-  // Check if this block is an expression 
+  // Check if this block is an expression
   auto is_expression = x->is_expression || (!_expression_c.empty() && _expression_c.top());
   auto ec = _expression_c.enter(is_expression);
 
@@ -28,43 +28,53 @@ auto Build::handle_conditional(ptr<ast::Conditional> x) -> ptr<ir::Value> {
   auto ctype = TypeDeduce(_ctx).run(x);
   if (!ctype) ctype = nullptr;
 
-  // Type check the branches (if we are an expression)
-  if (is_expression) {
-    auto fail = false;
+  // Type check the branches (if we are an expression) and type check
+  // the condition of the branches (regardless)
+  auto fail = false;
 
-    // Branches
-    for (auto& br : x->branches) {
+  // Branches
+  for (auto& br : x->branches) {
+    auto condition_t = TypeDeduce(_ctx).run(br->condition);
+    if (!condition_t->is_boolean()) {
+      Log::get().error(x->span, "mismatched types: expected `bool`, found `{}`",
+        condition_t->name);
+
+      fail = true;
+    }
+
+    if (is_expression) {
       auto type = TypeDeduce(_ctx).run(br);
 
       // Assignment must be type equivalent
       if (!ir::type_is_assignable(ctype, type)) {
         Log::get().error(
-          br->block->statements[br->block->statements.size() - 1]->span, 
+          br->block->statements[br->block->statements.size() - 1]->span,
           "mismatched types: expected `{}`, found `{}`",
           ctype->name, type->name);
 
         fail = true;
       }
     }
+  }
 
-    // Otherwise
-    if (x->otherwise) {
+  // Otherwise
+  if (x->otherwise) {
+    if (is_expression) {
       auto type = TypeDeduce(_ctx).run(x->otherwise);
 
       // Assignment must be type equivalent
       if (!ir::type_is_assignable(ctype, type)) {
         Log::get().error(
-          x->otherwise->statements[x->otherwise->statements.size() - 1]->span, 
+          x->otherwise->statements[x->otherwise->statements.size() - 1]->span,
           "mismatched types: expected `{}`, found `{}`",
           ctype->name, type->name);
 
         fail = true;
       }
     }
-
-    if (fail) return nullptr;
   }
 
+  if (fail) return nullptr;
 
   do {
   	auto br = x->branches.at(i);

@@ -10,9 +10,10 @@
           "tag": "Branch",
           "span": "test/parse/conditional.as:2-4",
           "condition": {
-            "tag": "Identifier",
+            "tag": "Name",
             "span": "test/parse/conditional.as:2:4-13",
-            "text": "condition"
+            "text": "condition",
+            "type_arguments": []
           },
           "block": {
             "tag": "Block",
@@ -24,9 +25,10 @@
           "tag": "Branch",
           "span": "test/parse/conditional.as:4-6",
           "condition": {
-            "tag": "Identifier",
+            "tag": "Name",
             "span": "test/parse/conditional.as:4:11-26",
-            "text": "other_condition"
+            "text": "other_condition",
+            "type_arguments": []
           },
           "block": {
             "tag": "Block",
@@ -49,9 +51,10 @@
           "tag": "Branch",
           "span": "test/parse/conditional.as:10-12",
           "condition": {
-            "tag": "Identifier",
+            "tag": "Name",
             "span": "test/parse/conditional.as:10:4-13",
-            "text": "condition"
+            "text": "condition",
+            "type_arguments": []
           },
           "block": {
             "tag": "Block",
@@ -70,7 +73,12 @@
       "type": {
         "tag": "TypeName",
         "span": "test/parse/conditional.as:15:11-16",
-        "name": "int32"
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/conditional.as:15:11-16",
+          "text": "int32",
+          "type_arguments": []
+        }
       },
       "initializer": {
         "tag": "Conditional",
@@ -83,14 +91,16 @@
               "tag": "GreaterThan",
               "span": "test/parse/conditional.as:15:24-27",
               "lhs": {
-                "tag": "Identifier",
+                "tag": "Name",
                 "span": "test/parse/conditional.as:15:22-23",
-                "text": "a"
+                "text": "a",
+                "type_arguments": []
               },
               "rhs": {
-                "tag": "Identifier",
+                "tag": "Name",
                 "span": "test/parse/conditional.as:15:26-27",
-                "text": "b"
+                "text": "b",
+                "type_arguments": []
               }
             },
             "block": {

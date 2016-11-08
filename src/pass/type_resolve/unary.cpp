@@ -18,3 +18,31 @@ void TypeResolve::visit_unary(ptr<ast::Unary> x) {
 
   _type_s.pop();
 }
+
+void TypeResolve::visit_address_of(ptr<ast::AddressOf> x) {
+  auto type = TypeDeduce(_ctx).run(x);
+
+  if (type && isa<ir::TypePointer>(type)) {
+    // Resolve to the pointee
+    type = cast<ir::TypePointer>(type)->element;
+  }
+
+  // IF in a context already.. reduce
+  if (_type_s.size() > 0 && isa<ir::TypePointer>(_type_s.top())) {
+    auto tmp = cast<ir::TypePointer>(_type_s.top())->element;
+    if (tmp) {
+      if (type) {
+        tmp = ir::type_reduce(tmp, type);
+        if (tmp) type = tmp;
+      } else {
+        type = tmp;
+      }
+    }
+  }
+
+  if (type) _type_s.push(type);
+
+  accept(x->operand);
+
+  if (type) _type_s.pop();
+}

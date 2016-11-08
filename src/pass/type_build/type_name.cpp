@@ -9,5 +9,5 @@
 using arrow::pass::TypeBuild;
 
 auto TypeBuild::handle_type_name(ptr<ast::TypeName> x) -> ptr<ir::Type> {
-  return handle_id(make<ast::Identifier>(x->span, x->name));
+  return handle_id(x->name);
 }

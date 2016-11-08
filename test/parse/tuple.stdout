@@ -1,0 +1,152 @@
+{
+  "tag": "Module",
+  "span": "test/parse/tuple.as:1-4",
+  "statements": [
+    {
+      "tag": "Variable",
+      "span": "test/parse/tuple.as:1:1-17",
+      "name": "a",
+      "mutable": false,
+      "type": {
+        "tag": "TypeTuple",
+        "span": "test/parse/tuple.as:1:8-16",
+        "elements": [
+          {
+            "tag": "TypeName",
+            "span": "test/parse/tuple.as:1:9-14",
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:1:9-14",
+              "text": "int32",
+              "type_arguments": []
+            }
+          }
+        ]
+      },
+      "initializer": null
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/tuple.as:2:1-36",
+      "name": "b",
+      "mutable": false,
+      "type": {
+        "tag": "TypeTuple",
+        "span": "test/parse/tuple.as:2:8-21",
+        "elements": [
+          {
+            "tag": "TypeName",
+            "span": "test/parse/tuple.as:2:9-13",
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:2:9-13",
+              "text": "bool",
+              "type_arguments": []
+            }
+          },
+          {
+            "tag": "TypeName",
+            "span": "test/parse/tuple.as:2:15-20",
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:2:15-20",
+              "text": "int32",
+              "type_arguments": []
+            }
+          }
+        ]
+      },
+      "initializer": {
+        "tag": "Tuple",
+        "span": "test/parse/tuple.as:2:24-35",
+        "elements": [
+          {
+            "tag": "Boolean",
+            "span": "test/parse/tuple.as:2:25-30",
+            "value": "false"
+          },
+          {
+            "tag": "Integer",
+            "span": "test/parse/tuple.as:2:32-34",
+            "value": "32"
+          }
+        ]
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/tuple.as:3:1-14",
+      "name": "c",
+      "mutable": false,
+      "type": null,
+      "initializer": {
+        "tag": "Tuple",
+        "span": "test/parse/tuple.as:3:9-13",
+        "elements": [
+          {
+            "tag": "Integer",
+            "span": "test/parse/tuple.as:3:10-11",
+            "value": "2"
+          }
+        ]
+      }
+    },
+    {
+      "tag": "Variable",
+      "span": "test/parse/tuple.as:4:1-38",
+      "name": "d",
+      "mutable": false,
+      "type": {
+        "tag": "TypeTuple",
+        "span": "test/parse/tuple.as:4:8-22",
+        "elements": [
+          {
+            "tag": "TypeTuple",
+            "span": "test/parse/tuple.as:4:9-20",
+            "elements": [
+              {
+                "tag": "TypeTuple",
+                "span": "test/parse/tuple.as:4:10-18",
+                "elements": [
+                  {
+                    "tag": "TypeName",
+                    "span": "test/parse/tuple.as:4:11-16",
+                    "name": {
+                      "tag": "Name",
+                      "span": "test/parse/tuple.as:4:11-16",
+                      "text": "int32",
+                      "type_arguments": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "initializer": {
+        "tag": "Tuple",
+        "span": "test/parse/tuple.as:4:25-37",
+        "elements": [
+          {
+            "tag": "Tuple",
+            "span": "test/parse/tuple.as:4:26-35",
+            "elements": [
+              {
+                "tag": "Tuple",
+                "span": "test/parse/tuple.as:4:27-33",
+                "elements": [
+                  {
+                    "tag": "Integer",
+                    "span": "test/parse/tuple.as:4:28-31",
+                    "value": "324"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

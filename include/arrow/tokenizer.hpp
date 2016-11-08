@@ -41,6 +41,9 @@ class Tokenizer {
   /// in the input stream.
   ptr<Token> peek(unsigned offset = 0);
 
+  /// Push (prepend) a token in front of the input stream.
+  void push(ptr<Token> token);
+
   /// Get (consume) the next token in the input stream.
   ptr<Token> pop();
 

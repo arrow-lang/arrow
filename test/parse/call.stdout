@@ -6,9 +6,10 @@
       "tag": "Call",
       "span": "test/parse/call.as:1:7-9",
       "operand": {
-        "tag": "Identifier",
+        "tag": "Name",
         "span": "test/parse/call.as:1:1-7",
-        "text": "method"
+        "text": "method",
+        "type_arguments": []
       },
       "arguments": []
     },
@@ -19,9 +20,10 @@
         "tag": "Call",
         "span": "test/parse/call.as:3:7-9",
         "operand": {
-          "tag": "Identifier",
+          "tag": "Name",
           "span": "test/parse/call.as:3:1-7",
-          "text": "method"
+          "text": "method",
+          "type_arguments": []
         },
         "arguments": []
       },
@@ -50,9 +52,10 @@
       "tag": "Call",
       "span": "test/parse/call.as:5:7-16",
       "operand": {
-        "tag": "Identifier",
+        "tag": "Name",
         "span": "test/parse/call.as:5:1-7",
-        "text": "method"
+        "text": "method",
+        "type_arguments": []
       },
       "arguments": [
         {
