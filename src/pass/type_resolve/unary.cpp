@@ -10,7 +10,7 @@ using arrow::pass::TypeResolve;
 
 void TypeResolve::visit_unary(ptr<ast::Unary> x) {
   auto type = TypeDeduce(_ctx).run(x);
-  if (!type) { _incomplete = true; return; }
+  if (!type) { _incomplete = true; }
 
   _type_s.push(type);
 
@@ -45,4 +45,16 @@ void TypeResolve::visit_address_of(ptr<ast::AddressOf> x) {
   accept(x->operand);
 
   if (type) _type_s.pop();
+}
+
+void TypeResolve::visit_indirect(ptr<ast::Indirect> x) {
+  auto type = TypeDeduce(_ctx).run(x);
+  if (!type) { _incomplete = true; }
+
+  decltype(_type_s) type_s_cp;
+  type_s_cp.swap(_type_s);
+
+  accept(x->operand);
+
+  _type_s.swap(type_s_cp);
 }
