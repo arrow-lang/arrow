@@ -67,7 +67,7 @@ void Declare::visit_import(ptr<ast::Import> x) {
     pathname = fs::canonical(path).string();
   } catch (fs::filesystem_error) {
     Log::get().error(
-      x->span, "no module found for \"%s\"", x->source.c_str());
+      x->span, "no module found for \"{}\"", x->source.c_str());
 
     return;
   }

@@ -82,6 +82,7 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(Continue, continue);
     ACCEPT(Unit, unit);
     ACCEPT(TypeUnit, type_unit);
+    ACCEPT(TypePath, type_path);
     ACCEPT(Transmute, transmute);
     ACCEPT(AssignAdd, assign_add);
     ACCEPT(AssignSub, assign_sub);

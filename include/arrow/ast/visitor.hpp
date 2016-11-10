@@ -82,6 +82,7 @@ class Visitor {
   virtual void visit_id(ptr<ast::Identifier> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_path(ptr<ast::Path> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_name(ptr<ast::TypeName> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_type_path(ptr<ast::TypePath> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_pointer(ptr<ast::TypePointer> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_alias(ptr<ast::TypeAlias> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_unit(ptr<ast::TypeUnit> x) { /* LCOV_EXCL_LINE */ }
