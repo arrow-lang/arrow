@@ -38,6 +38,7 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(String, str);
     ACCEPT(Real, real);
     ACCEPT(Identifier, id);
+    ACCEPT(Path, path);
     ACCEPT(Identity, identity);
     ACCEPT(Negate, negate);
     ACCEPT(BitNot, bit_not);

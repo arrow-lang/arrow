@@ -21,6 +21,8 @@ auto TypeBuild::run(ptr<ast::Node> node) -> ptr<ir::Type> {
     ACCEPT(ast::TypeName, type_name);
     ACCEPT(ast::Identifier, id);
     ACCEPT(ast::TypePointer, type_pointer);
+    ACCEPT(ast::TypePath, type_path);
+    ACCEPT(ast::Path, path);
     ACCEPT(ast::TypeUnit, type_unit);
     ACCEPT(ast::TypeFunction, type_function);
 

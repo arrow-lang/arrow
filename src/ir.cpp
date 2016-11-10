@@ -16,6 +16,7 @@ ir::Module::~Module() noexcept { }
 ir::Block::~Block() noexcept { }
 ir::Variable::~Variable() noexcept { }
 ir::Function::~Function() noexcept { }
+ir::Import::~Import() noexcept { }
 ir::Parameter::~Parameter() noexcept { }
 ir::ExternFunction::~ExternFunction() noexcept { }
 ir::ExternVariable::~ExternVariable() noexcept { }

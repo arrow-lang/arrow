@@ -42,6 +42,7 @@ class Print {
   void print_bool(ptr<Boolean>);
   void print_str(ptr<String>);
   void print_name(ptr<Name>);
+  void print_path(ptr<Path>);
   void print_id(ptr<Identifier>);
   void print_tuple(ptr<Tuple>);
 

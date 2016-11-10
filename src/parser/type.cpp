@@ -11,7 +11,7 @@ using arrow::Parser;
 auto Parser::parse_type() -> ptr<ast::Type> {
   switch (_t.peek()->type) {
   case token::Type::Identifier:
-    return parse_type_name();
+    return parse_type_path();
 
   case token::Type::Asterisk:
     return parse_type_pointer();

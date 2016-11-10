@@ -24,6 +24,7 @@
 #include "arrow/ast/nodes/string.hpp"
 #include "arrow/ast/nodes/identifier.hpp"
 #include "arrow/ast/nodes/name.hpp"
+#include "arrow/ast/nodes/path.hpp"
 #include "arrow/ast/nodes/function.hpp"
 #include "arrow/ast/nodes/call.hpp"
 #include "arrow/ast/nodes/return.hpp"
@@ -35,6 +36,7 @@
 
 #include "arrow/ast/nodes/type.hpp"
 #include "arrow/ast/nodes/type_name.hpp"
+#include "arrow/ast/nodes/type_path.hpp"
 #include "arrow/ast/nodes/type_pointer.hpp"
 #include "arrow/ast/nodes/type_alias.hpp"
 #include "arrow/ast/nodes/type_unit.hpp"

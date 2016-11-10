@@ -89,4 +89,12 @@ void Declare::visit_import(ptr<ast::Import> x) {
 
   // Declare this module item
   Declare(_ctx).run(imp);
+
+  // Get: Module
+  auto impmod = _ctx.scope->get<ir::Module>(imp);
+  if (!impmod) return;
+
+  // Emplace the imported module in scope of the current module
+  auto item = make<ir::Import>(x, impmod);
+  _ctx.scope->put(x, item, impmod->name);
 }

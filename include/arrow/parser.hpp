@@ -100,6 +100,7 @@ class Parser {
 
   ptr<ast::Type> parse_type();
   ptr<ast::TypeName> parse_type_name();
+  ptr<ast::TypePath> parse_type_path();
   ptr<ast::TypePointer> parse_type_pointer();
   ptr<ast::TypeAlias> parse_type_alias();
   ptr<ast::Type> parse_type_tuple();

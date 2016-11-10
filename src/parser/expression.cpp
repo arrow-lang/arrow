@@ -359,6 +359,32 @@ auto Parser::parse_postfix_expression() -> ptr<ast::Expression> {
       if (!op) return nullptr;
 
       continue;
+    } else if (tok->type == token::Type::Period) {
+      _t.pop();
+
+      if (isa<ast::Name>(op)) {
+        // Extend the name into a path
+        auto segment = parse_name();
+        if (!segment) return nullptr;
+
+        auto tmp = make<ast::Path>(op->span.extend(segment->span));
+        tmp->segments.push_back(cast<ast::Name>(op));
+        tmp->segments.push_back(segment);
+        op = tmp;
+      } else if (isa<ast::Path>(op)) {
+        // Extend the path
+        auto segment = parse_name();
+        if (!segment) return nullptr;
+
+        cast<ast::Path>(op)->segments.push_back(segment);
+        op->span = op->span.extend(segment->span);
+      } else {
+        // General member access
+        Log::get().error(tok->span, "not implemented");
+        return nullptr;
+      }
+
+      continue;
     }
 
     break;

@@ -68,6 +68,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(Unit, unit);
     ACCEPT(Name, name);
     ACCEPT(Identifier, id);
+    ACCEPT(Path, path);
     ACCEPT(Tuple, tuple);
 
     ACCEPT(Identity, identity);
