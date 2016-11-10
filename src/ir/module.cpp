@@ -13,7 +13,8 @@ LLVMValueRef Module::handle(GContext& ctx) {
   _initialized = true;
 
   // Declare module initializer
-  initializer = LLVMAddFunction(ctx.mod, "$init", LLVMFunctionType(
+  auto initname = name + "$init";
+  initializer = LLVMAddFunction(ctx.mod, initname.c_str(), LLVMFunctionType(
     LLVMVoidType(),
     nullptr,
     0,

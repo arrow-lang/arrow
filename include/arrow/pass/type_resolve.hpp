@@ -24,6 +24,7 @@ class TypeResolve : public ast::Visitor, public Pass {
   using Pass::Pass;
 
   virtual void run(ptr<ast::Node>);
+  void run_together(std::vector<ptr<ast::Node>>);
 
  private:
   struct Assign { ptr<ir::Type> type; };

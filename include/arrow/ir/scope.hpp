@@ -31,6 +31,7 @@ class ScopeBlock {
 
 class Scope {
  public:
+  static ptr<Scope> top(ptr<Scope> scope);
   static ScopeBlock enter(ptr<Scope> scope, GContext&);
 
   explicit Scope(ptr<Scope> parent)
@@ -38,6 +39,8 @@ class Scope {
   }
 
   ~Scope() noexcept;
+
+  Scope& top();
 
   void put(std::string name, ptr<ir::Node> item);
   void put(ptr<ast::Node> node, ptr<ir::Node> item, std::string name);

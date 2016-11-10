@@ -23,6 +23,7 @@ class Declare : public Pass, public ast::Visitor {
   void visit_module(ptr<ast::Module>);
   void visit_block(ptr<ast::Block>);
   void visit_variable(ptr<ast::Variable>);
+  void visit_import(ptr<ast::Import>);
   void visit_type_alias(ptr<ast::TypeAlias>);
   void visit_function(ptr<ast::Function>);
   void visit_extern_function(ptr<ast::ExternFunction>);

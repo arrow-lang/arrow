@@ -107,12 +107,15 @@ Generator& Generator::run(ptr<ast::Module> module) {
   pass::Declare(_ctx).run(module);
   if (Log::get().count(LOG_ERROR) > 0) return *this;
 
-  // TypeResolve
-  pass::TypeResolve(_ctx).run(module);
+  // TypeResolve (as one)
+  std::vector<ptr<ast::Node>> module_nodes;
+  for (auto& mod : _ctx.modules) module_nodes.push_back(mod->source);
+  pass::TypeResolve(_ctx).run_together(module_nodes);
   if (Log::get().count(LOG_ERROR) > 0) return *this;
 
-  // Build
-  pass::Build(_ctx).run(module);
+  // Build (per module)
+  // pass::Build(_ctx).run(module);
+  for (auto mod : _ctx.modules) pass::Build(_ctx).run(mod->source);
   if (Log::get().count(LOG_ERROR) > 0) return *this;
 
   // Generate modules

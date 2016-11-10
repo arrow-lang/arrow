@@ -14,10 +14,16 @@ void Declare::visit_module(ptr<ast::Module> x) {
   // Add module to modules orderable
   _ctx.modules.push_back(module);
 
+  // Scope (Top): Enter
+  auto sb = ir::Scope::enter(ir::Scope::top(_ctx.scope), _ctx);
+
   // Add module to (top-level) scope
   _ctx.scope->put(x, module, "");
 
   // Block
   accept(x->block);
   module->block = _ctx.scope->get<ir::Block>(x->block);
+
+  // Scope: Exit
+  sb.exit();
 }

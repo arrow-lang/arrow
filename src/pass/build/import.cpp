@@ -9,7 +9,6 @@
 using arrow::pass::Build;
 
 auto Build::handle_import(ptr<ast::Import> x) -> ptr<ir::Value> {
-  Log::get().error(x->span, "not implemented");
-
+  // Do nothing (for now)
   return nullptr;
 }

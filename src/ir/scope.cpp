@@ -70,3 +70,9 @@ auto Scope::enter(ptr<Scope> scope, GContext& ctx) -> ir::ScopeBlock {
 void ScopeBlock::exit() {
   _ctx.scope = _previous;
 }
+
+auto Scope::top(ptr<Scope> scope) -> ptr<Scope> {
+  if (scope->_parent) return top(scope->_parent);
+
+  return scope;
+}

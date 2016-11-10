@@ -57,14 +57,18 @@ static auto type_set_reduce(std::vector<ptr<ir::Type>>& type_set) -> ptr<ir::Typ
 
 static unsigned MAX_NIL_ITERATIONS = 15;
 
-void TypeResolve::run(ptr<ast::Node> x) {
+void TypeResolve::run(ptr<ast::Node> node) {
+  run_together({node});
+}
+
+void TypeResolve::run_together(std::vector<ptr<ast::Node>> nodes) {
   unsigned iteration = 0;
   do {
     // Reset incomplete flag
     _incomplete = false;
 
     // Accept (visit each child expression)
-    accept(x);
+    for (auto& node : nodes) accept(node);
 
     // Enumerate through each discovered declaration
     // Ensure all variables are either annotated or there is enough information
