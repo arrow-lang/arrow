@@ -89,7 +89,9 @@ static std::map<vector<char32_t>, arrow::token::Type> symbols = {
   {{'<', '<'}, arrow::token::Type::LessThan_LessThan       },
 
   // 3-character
-  {{'.', '.', '.'}, arrow::token::Type::Ellipsis           },
+  {{'.', '.', '.'}, arrow::token::Type::Ellipsis                           },
+  {{'<', '<', '='}, arrow::token::Type::LessThan_LessThan_Equals           },
+  {{'>', '>', '='}, arrow::token::Type::GreaterThan_GreaterThan_Equals     },
 };
 
 static bool is_whitespace(uint32_t ch) {

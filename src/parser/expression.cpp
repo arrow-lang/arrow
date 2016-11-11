@@ -41,58 +41,60 @@ static std::unordered_map<token::Type, unsigned> UNARY = {
 // associativity (1 for left-to-right and 0 for right-to-left).
 static std::unordered_map<token::Type, std::pair<unsigned, unsigned>> BINARY = {
   // Multiplication, Division, Remainder [3]
-  {token::Type::Asterisk,                {1900,  1}},
-  {token::Type::Percent,                 {1900,  1}},
-  {token::Type::Slash,                   {1900,  1}},
+  {token::Type::Asterisk,                       {1900,  1}},
+  {token::Type::Percent,                        {1900,  1}},
+  {token::Type::Slash,                          {1900,  1}},
 
   // Addition and subtraction [4]
-  {token::Type::Plus,                    {1800,  1}},
-  {token::Type::Minus,                   {1800,  1}},
+  {token::Type::Plus,                           {1800,  1}},
+  {token::Type::Minus,                          {1800,  1}},
 
   // Left And Right Shift [4.5]
-  {token::Type::LessThan_LessThan,       {1750,  1}},
-  {token::Type::GreaterThan_GreaterThan, {1750,  1}},
+  {token::Type::LessThan_LessThan,              {1750,  1}},
+  {token::Type::GreaterThan_GreaterThan,        {1750,  1}},
 
   // Bitwise AND [5]
-  {token::Type::Ampersand,               {1700,  1}},
+  {token::Type::Ampersand,                      {1700,  1}},
 
   // Bitwise XOR [6]
-  {token::Type::Caret,                   {1600,  1}},
+  {token::Type::Caret,                          {1600,  1}},
 
   // Bitwise OR [7]
-  {token::Type::Pipe,                    {1500,  1}},
+  {token::Type::Pipe,                           {1500,  1}},
 
   // Transmute [7.5]
-  {token::Type::As,                      {1450,  1}},
+  {token::Type::As,                             {1450,  1}},
 
   // Greater than; and, greater than or equal to [8]
-  {token::Type::GreaterThan_Equals,      {1400,  1}},
-  {token::Type::GreaterThan,             {1400,  1}},
+  {token::Type::GreaterThan_Equals,             {1400,  1}},
+  {token::Type::GreaterThan,                    {1400,  1}},
 
   // Less than; and, less than or equal to [8]
-  {token::Type::LessThan,                {1400,  1}},
-  {token::Type::LessThan_Equals,         {1400,  1}},
+  {token::Type::LessThan,                       {1400,  1}},
+  {token::Type::LessThan_Equals,                {1400,  1}},
 
   // Equal to; and, not equal to [10]
-  {token::Type::Equals_Equals,           {1200,  1}},
-  {token::Type::ExclamationMark_Equals,  {1200,  1}},
+  {token::Type::Equals_Equals,                  {1200,  1}},
+  {token::Type::ExclamationMark_Equals,         {1200,  1}},
 
   // do_logical AND [12]
-  {token::Type::And,                     {1000,  1}},
+  {token::Type::And,                            {1000,  1}},
 
   // do_logical OR [13]
-  {token::Type::Or,                      { 900,  1}},
+  {token::Type::Or,                             { 900,  1}},
 
   // Assignment [15]
-  {token::Type::Equals,                  { 700, -1}},
-  {token::Type::Plus_Equals,             { 700, -1}},
-  {token::Type::Minus_Equals,            { 700, -1}},
-  {token::Type::Asterisk_Equals,         { 700, -1}},
-  {token::Type::Slash_Equals,            { 700, -1}},
-  {token::Type::Percent_Equals,          { 700, -1}},
-  {token::Type::Ampersand_Equals,        { 700, -1}},
-  {token::Type::Caret_Equals,            { 700, -1}},
-  {token::Type::Pipe_Equals,             { 700, -1}},
+  {token::Type::Equals,                         { 700, -1}},
+  {token::Type::Plus_Equals,                    { 700, -1}},
+  {token::Type::Minus_Equals,                   { 700, -1}},
+  {token::Type::Asterisk_Equals,                { 700, -1}},
+  {token::Type::Slash_Equals,                   { 700, -1}},
+  {token::Type::Percent_Equals,                 { 700, -1}},
+  {token::Type::Ampersand_Equals,               { 700, -1}},
+  {token::Type::Caret_Equals,                   { 700, -1}},
+  {token::Type::Pipe_Equals,                    { 700, -1}},
+  {token::Type::LessThan_LessThan_Equals,       { 700, -1}},
+  {token::Type::GreaterThan_GreaterThan_Equals, { 700, -1}},
 };
 
 auto Parser::parse_expression(unsigned power/* = 0*/) -> ptr<ast::Expression> {
@@ -336,6 +338,14 @@ auto Parser::parse_binary_expression(
 
     case token::Type::Pipe_Equals:
       result = make<ast::AssignBitOr>(sp, lhs, rhs);
+      break;
+
+    case token::Type::GreaterThan_GreaterThan_Equals:
+      result = make<ast::AssignBitRightShift>(sp, lhs, rhs);
+      break;
+
+    case token::Type::LessThan_LessThan_Equals:
+      result = make<ast::AssignBitLeftShift>(sp, lhs, rhs);
       break;
 
     default:

@@ -70,6 +70,8 @@ class Visitor {
   virtual void visit_assign_bit_or(ptr<ast::AssignBitOr> n);
   virtual void visit_assign_bit_and(ptr<ast::AssignBitAnd> n);
   virtual void visit_assign_bit_xor(ptr<ast::AssignBitXor> n);
+  virtual void visit_assign_bit_left_shift(ptr<ast::AssignBitLeftShift> n);
+  virtual void visit_assign_bit_right_shift(ptr<ast::AssignBitRightShift> n);
 
   virtual void visit_unary(ptr<ast::Unary> x);
   virtual void visit_binary(ptr<ast::Binary> x);

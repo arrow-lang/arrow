@@ -205,3 +205,43 @@ auto Build::handle_assign_bit_xor(ptr<ast::AssignBitXor> x) -> ptr<ir::Value> {
     }
   );
 }
+
+auto Build::handle_assign_bit_left_shift(ptr<ast::AssignBitLeftShift> x) -> ptr<ir::Value> {
+  return _assign(x,
+    [&](auto lhs, auto rhs) -> ptr<ir::Type> {
+      auto type = TypeDeduce(_ctx).run(make<ast::BitLeftShift>(x->span, x->lhs, x->rhs));
+      if (!type) {
+        Log::get().error(x->span,
+          "unsupported operand types for `<<`: `{}` and `{}`",
+          lhs->type->name, rhs->type->name);
+
+        return nullptr;
+      }
+
+      return type;
+    },
+    [&](auto type, auto lhs, auto rhs){
+      return make<ir::AssignBitLeftShift>(x, type, lhs, rhs);
+    }
+  );
+}
+
+auto Build::handle_assign_bit_right_shift(ptr<ast::AssignBitRightShift> x) -> ptr<ir::Value> {
+  return _assign(x,
+    [&](auto lhs, auto rhs) -> ptr<ir::Type> {
+      auto type = TypeDeduce(_ctx).run(make<ast::BitRightShift>(x->span, x->lhs, x->rhs));
+      if (!type) {
+        Log::get().error(x->span,
+          "unsupported operand types for `>>`: `{}` and `{}`",
+          lhs->type->name, rhs->type->name);
+
+        return nullptr;
+      }
+
+      return type;
+    },
+    [&](auto type, auto lhs, auto rhs){
+      return make<ir::AssignBitRightShift>(x, type, lhs, rhs);
+    }
+  );
+}

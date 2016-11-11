@@ -61,6 +61,8 @@ DEF_BINARY(AssignMod)
 DEF_BINARY(AssignBitOr)
 DEF_BINARY(AssignBitXor)
 DEF_BINARY(AssignBitAnd)
+DEF_BINARY(AssignBitLeftShift)
+DEF_BINARY(AssignBitRightShift)
 
 #undef DEF_BINARY
 

@@ -69,6 +69,8 @@ ir::AssignMod::~AssignMod() noexcept {}
 ir::AssignBitAnd::~AssignBitAnd() noexcept {}
 ir::AssignBitOr::~AssignBitOr() noexcept {}
 ir::AssignBitXor::~AssignBitXor() noexcept {}
+ir::AssignBitLeftShift::~AssignBitLeftShift() noexcept {}
+ir::AssignBitRightShift::~AssignBitRightShift() noexcept {}
 
 ir::Call::~Call() noexcept {}
 ir::Return::~Return() noexcept {}

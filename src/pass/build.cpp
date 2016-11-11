@@ -52,6 +52,8 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::AssignBitAnd, assign_bit_and);
     ACCEPT(ast::AssignBitOr, assign_bit_or);
     ACCEPT(ast::AssignBitXor, assign_bit_xor);
+    ACCEPT(ast::AssignBitLeftShift, assign_bit_left_shift);
+    ACCEPT(ast::AssignBitRightShift, assign_bit_right_shift);
 
     ACCEPT(ast::Call, call);
     ACCEPT(ast::Argument, argument);

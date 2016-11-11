@@ -73,6 +73,8 @@ IMPL(AssignMod)
 IMPL(AssignBitAnd)
 IMPL(AssignBitXor)
 IMPL(AssignBitOr)
+IMPL(AssignBitLeftShift)
+IMPL(AssignBitRightShift)
 
 IMPL(Type)
 IMPL(TypeName)

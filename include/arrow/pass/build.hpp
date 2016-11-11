@@ -51,6 +51,9 @@ class Build : public Pass {
   ptr<ir::Value> handle_assign_bit_and(ptr<ast::AssignBitAnd>);
   ptr<ir::Value> handle_assign_bit_or(ptr<ast::AssignBitOr>);
   ptr<ir::Value> handle_assign_bit_xor(ptr<ast::AssignBitXor>);
+  ptr<ir::Value> handle_assign_bit_left_shift(ptr<ast::AssignBitLeftShift>);
+  ptr<ir::Value> handle_assign_bit_right_shift(ptr<ast::AssignBitRightShift>);
+
   ptr<ir::Value> handle_call(ptr<ast::Call>);
   ptr<ir::Value> handle_argument(ptr<ast::Argument>);
   ptr<ir::Value> handle_return(ptr<ast::Return>);

@@ -92,6 +92,8 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(AssignBitOr, assign_bit_or);
     ACCEPT(AssignBitAnd, assign_bit_and);
     ACCEPT(AssignBitXor, assign_bit_xor);
+    ACCEPT(AssignBitLeftShift, assign_bit_left_shift);
+    ACCEPT(AssignBitRightShift, assign_bit_right_shift);
 
     Otherwise() {
       Log::get().error("visitor not implemented for node: {}",
@@ -200,3 +202,5 @@ void Visitor::visit_assign_mod(ptr<ast::AssignMod> x)          { visit_binary(x)
 void Visitor::visit_assign_bit_or(ptr<ast::AssignBitOr> x)     { visit_binary(x); }
 void Visitor::visit_assign_bit_and(ptr<ast::AssignBitAnd> x)   { visit_binary(x); }
 void Visitor::visit_assign_bit_xor(ptr<ast::AssignBitXor> x)   { visit_binary(x); }
+void Visitor::visit_assign_bit_left_shift(ptr<ast::AssignBitLeftShift> x)     { visit_binary(x); }
+void Visitor::visit_assign_bit_right_shift(ptr<ast::AssignBitRightShift> x)   { visit_binary(x); }

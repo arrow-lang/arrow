@@ -26,7 +26,7 @@
 // [ ] Parse: Structure
 // [ ] Struct
 // [ ] Implement (T)
-// [ ] Augmented Assignment for `<<=` and `>>=`
+// [x] Augmented Assignment for `<<=` and `>>=`
 
 // [x] Get proper size of C INT in a few places
 

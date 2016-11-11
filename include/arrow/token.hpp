@@ -97,6 +97,8 @@ enum class Type {
 
   // Symbols: 3-character
   Ellipsis,
+  LessThan_LessThan_Equals,
+  GreaterThan_GreaterThan_Equals,
 };
 
 extern std::ostream &operator<<(std::ostream &os, const Type &type);

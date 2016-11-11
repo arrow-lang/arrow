@@ -15,6 +15,8 @@ using arrow::ir::AssignMod;
 using arrow::ir::AssignBitAnd;
 using arrow::ir::AssignBitOr;
 using arrow::ir::AssignBitXor;
+using arrow::ir::AssignBitLeftShift;
+using arrow::ir::AssignBitRightShift;
 
 LLVMValueRef Assign::handle(GContext &ctx) noexcept {
   if (!_handle) {
@@ -187,6 +189,48 @@ LLVMValueRef AssignBitXor::handle(GContext &ctx) noexcept {
     // BitXor
     auto rhs_handle = transmute(
       make<ir::BitXor>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
+
+    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+
+    // Store
+    LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
+
+    // Value is the RHS
+    _handle = rhs_handle;
+  }
+
+  return _handle;
+}
+
+LLVMValueRef AssignBitLeftShift::handle(GContext &ctx) noexcept {
+  if (!_handle) {
+    auto lhs_value_handle = lhs->value_of(ctx);
+    auto lhs_handle = lhs->address_of(ctx);
+
+    // BitLeftShift
+    auto rhs_handle = transmute(
+      make<ir::BitLeftShift>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
+
+    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+
+    // Store
+    LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
+
+    // Value is the RHS
+    _handle = rhs_handle;
+  }
+
+  return _handle;
+}
+
+LLVMValueRef AssignBitRightShift::handle(GContext &ctx) noexcept {
+  if (!_handle) {
+    auto lhs_value_handle = lhs->value_of(ctx);
+    auto lhs_handle = lhs->address_of(ctx);
+
+    // BitRightShift
+    auto rhs_handle = transmute(
+      make<ir::BitRightShift>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
     if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
 
