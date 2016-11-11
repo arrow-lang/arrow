@@ -77,6 +77,8 @@ extern ptr<Node> resolve_path(GContext&, ptr<ast::Path>, bool silent = true);
 
 // Type of
 inline ptr<Type> type_of(ptr<ir::Node> item) {
+  if (!item) return nullptr;
+
   // Check if we have a type directly
   auto type_item = cast<ir::Type>(item);
   if (type_item) {

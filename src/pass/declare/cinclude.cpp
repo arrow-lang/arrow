@@ -16,12 +16,29 @@ using arrow::ptr;
 using arrow::Span;
 using arrow::Position;
 using arrow::make;
+using arrow::cast;
 using arrow::GContext;
 namespace ir = arrow::ir;
 namespace ast = arrow::ast;
 
+struct CContext {
+  GContext ctx;
+
+  // Cache for realized types
+  std::unordered_map<std::string, ptr<ir::Type>> types;
+};
+
+struct CRecordContext {
+  CContext& cctx;
+
+  // Member results
+  std::vector<ptr<ir::TypeRecordMember>>& members;
+};
+
 CXChildVisitResult cx_visit(
   CXCursor cursor, CXCursor parent, CXClientData clientData);
+
+static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type);
 
 static std::unordered_map<std::string, std::string> _c_typenames = {
   {"unsigned char",      "c_uchar"},
@@ -156,60 +173,70 @@ static std::string _c_typename(CXType c_type) {
   return typename_;
 }
 
-static ptr<ir::Type> _c_type(CXType type) {
-  auto ref = clang_getCanonicalType(type);
-
-  if (ref.kind == CXType_Pointer) {
-    auto pointee = _c_type(clang_getPointeeType(type));
-    if (!pointee) return nullptr;
-
-    return make<ir::TypePointer>(nullptr, pointee);
-  }
-
-  if (ref.kind == CXType_Void) {
-    return make<ir::TypeUnit>();
-  }
-
-  auto typename_ = _c_typename(ref);
-  if (typename_ == "") return nullptr;
-
-  return _c_types[typename_];
-}
-
-static CXChildVisitResult _cx_visit(
+static CXChildVisitResult _cx_record_visit(
   CXCursor cursor, CXCursor parent, CXClientData clientData
 ) {
-  auto ctx = reinterpret_cast<GContext*>(clientData);
+  auto& crctx = *reinterpret_cast<CRecordContext*>(clientData);
+  auto& results = crctx.members;
+
   auto c_kind = clang_getCursorKind(cursor);
   auto c_name = clang_getCString(clang_getCursorSpelling(cursor));
 
-  ptr<ir::Item> item;
+  if (c_kind == CXCursor_FieldDecl) {
+    auto c_type = resolve_c_type(crctx.cctx, clang_getCursorType(cursor));
+    if (!c_type) return CXChildVisit_Break;
 
-  switch (c_kind) {
-  case CXCursor_TypedefDecl: {
-    auto c_type = _c_type(clang_getCursorType(cursor));
-    if (!c_type) break;
+    results.push_back(make<ir::TypeRecordMember>(
+      nullptr, c_name, c_type
+    ));
+  }
 
-    // Make: Alias
-    item = make<ir::TypeAlias>(nullptr, c_name, c_type);
-  } break;
+  return CXChildVisit_Continue;
+}
 
-  case CXCursor_FunctionDecl: {
-    auto ref = clang_getCursorType(cursor);
+static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
+  auto ref = clang_getCanonicalType(type);
 
+  // Check the cache (for a realized type)
+  auto typename_ = std::string(clang_getCString(
+    clang_getTypeSpelling(ref)));
+
+  if (cctx.types.find(typename_) != cctx.types.end()) {
+    return cctx.types[typename_];
+  }
+
+  ptr<ir::Type> result;
+
+  bool continue_ = false;
+
+  // fmt::print("RESULT C TYPE ?= {} ({})\n", typename_, ref.kind);
+
+  if (ref.kind == CXType_Record) {
+    // Record (structure)
+
+    // Determine the unqualified name of this record to use
+    auto decl = clang_getTypeDeclaration(ref);
+    auto kind = clang_getCursorKind(decl);
+    auto declname_ = std::string(clang_getCString(
+      clang_getCursorSpelling(decl)));
+    auto name = declname_.size() == 0 ? typename_ : declname_;
+
+    // NOTE: Unions get expressed as an opaque struct
+    result = make<ir::TypeRecord>(nullptr, name);
+    if (kind == CXCursor_StructDecl) {
+      continue_ = true;
+    }
+  } else if (ref.kind == CXType_FunctionProto) {
     // Do: Result Type
-    auto result = _c_type(clang_getCursorResultType(cursor));
-    if (!result) break;
+    auto result_t = resolve_c_type(cctx, clang_getResultType(ref));
+    if (!result_t) return nullptr;
 
     // Do: Parameters
     std::vector<ptr<ir::Type>> parameters;
     bool failed = false;
     for (auto i = 0; i < clang_getNumArgTypes(ref); ++i) {
-      auto atype = _c_type(clang_getArgType(ref, i));
+      auto atype = resolve_c_type(cctx, clang_getArgType(ref, i));
       if (!atype) {
-        // fmt::print("Argument Type: {}\n", clang_getCString(
-        //   clang_getTypeSpelling(clang_getArgType(ref, i))));
-
         failed = true;
         break;
       }
@@ -217,17 +244,90 @@ static CXChildVisitResult _cx_visit(
       parameters.push_back(atype);
     }
 
-    if (failed) break;
+    if (failed) return nullptr;
 
     // Make: Function Type
     // TODO: ABI
-    ptr<ir::TypeExternFunction> type(new ir::TypeExternFunction(
-      nullptr, clang_isFunctionTypeVariadic(ref),
-      "C", parameters, result));
+    result = make<ir::TypeExternFunction>(
+      nullptr, clang_isFunctionTypeVariadic(ref), "C", parameters, result_t);
+  } else if (ref.kind == CXType_Pointer) {
+    auto cpt = clang_getPointeeType(type);
+    if (clang_getCanonicalType(cpt).kind == CXType_FunctionProto) {
+      // Function Object/Pointer
+      result = resolve_c_type(cctx, cpt);
+
+      // Unwrap into ir::TypeFunction (callbacks)
+      result = make<ir::TypeFunction>(
+        nullptr,
+        cast<ir::TypeExternFunction>(result)->parameters,
+        cast<ir::TypeExternFunction>(result)->result
+      );
+    } else {
+      // Normal Pointer
+      auto pointee = resolve_c_type(cctx, cpt);
+      if (!pointee) return nullptr;
+
+      result = make<ir::TypePointer>(nullptr, pointee);
+    }
+  } else if (ref.kind == CXType_Void) {
+    result = make<ir::TypeUnit>();
+  } else {
+    auto typename_ = _c_typename(ref);
+    if (typename_ == "") return nullptr;
+
+    result = _c_types[typename_];
+  }
+
+  // Cache
+  if (result) cctx.types[typename_] = result;
+
+  // After cache ..
+  if (continue_) {
+    if (ref.kind == CXType_Record) {
+      auto decl = clang_getTypeDeclaration(ref);
+
+      // Visit children of structure
+      CRecordContext crctx = {
+        cctx,
+        cast<ir::TypeRecord>(result)->members
+      };
+
+      if (clang_visitChildren(decl, _cx_record_visit, &crctx) != 0) {
+        // No good.. couldn't resolve whole type
+        // cctx.types.erase(typename_);
+        // result = nullptr;
+      }
+    }
+  }
+
+  return result;
+}
+
+static CXChildVisitResult _cx_visit(
+  CXCursor cursor, CXCursor parent, CXClientData clientData
+) {
+  auto& cctx = *reinterpret_cast<CContext*>(clientData);
+  auto c_kind = clang_getCursorKind(cursor);
+  auto c_name = clang_getCString(clang_getCursorSpelling(cursor));
+
+  ptr<ir::Item> item;
+
+  switch (c_kind) {
+  case CXCursor_TypedefDecl: {
+    auto c_type = resolve_c_type(cctx, clang_getCursorType(cursor));
+    if (!c_type) break;
+
+    // Make: Alias
+    item = c_type;
+  } break;
+
+  case CXCursor_FunctionDecl: {
+    auto type = resolve_c_type(cctx, clang_getCursorType(cursor));
+    if (!type) break;
 
     // Make: External Function
-    item = make<ir::ExternFunction>(nullptr, ctx->modules.back(), c_name,
-      type);
+    item = make<ir::ExternFunction>(nullptr, cctx.ctx.modules.back(), c_name,
+      cast<ir::TypeExternFunction>(type));
   } break;
 
   default:
@@ -236,7 +336,7 @@ static CXChildVisitResult _cx_visit(
 
   if (item) {
     // arrow::Log::get().info("c: {} ({})", c_name, c_kind);
-    ctx->scope->put(c_name, item);
+    cctx.ctx.scope->put(c_name, item);
   } else {
     // arrow::Log::get().warn("unhandled: {} ({})", c_name, c_kind);
   }
@@ -262,8 +362,10 @@ void Declare::visit_cinclude(ptr<ast::CInclude> x) {
     CXTranslationUnit_SkipFunctionBodies);
 
   // Visit!
+  CContext cctx;
+  cctx.ctx = _ctx;
   clang_visitChildren(clang_getTranslationUnitCursor(tu),
-    &_cx_visit, &_ctx);
+    &_cx_visit, &cctx);
 
   // Dispose: clang
   clang_disposeTranslationUnit(tu);

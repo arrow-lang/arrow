@@ -3,8 +3,6 @@
 // [x] Parse/Build: Pointer Arithmetic
 // [x] Cast: Alias (pointer)
 // [x] Relational: Pointer
-// [ ] Unit should be an empty llvm struct instead of <nothing>
-// [ ] Type alias of a type alias should refer to the canoncial type
 // [x] Function "Objects"
 // [x] Compound/Augmented Assignment `+=`
 // [x] str is just a name for *int8 (not alias)
@@ -27,7 +25,6 @@
 // [x] Struct
 // [ ] Implement (T)
 // [x] Augmented Assignment for `<<=` and `>>=`
-// [ ] Generic structures
 
 // [x] Get proper size of C INT in a few places
 
@@ -38,3 +35,10 @@
 // [x] Test!
 
 // [ ] Error: Use before declare (applies mainly to `let r = r * 2` cases)
+
+// [x] C Import -> Structure
+// [x] C Import -> Union (as opaque structure)
+
+// [ ] Unit should be an empty llvm struct instead of <nothing>
+// [ ] Type alias of a type alias should refer to the canoncial type
+// [ ] Generic structures

@@ -174,6 +174,8 @@ bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
 
 // Get canonical type
 auto arrow::ir::type_canonical(ptr<Type> type) -> ptr<Type> {
+  if (!type) return nullptr;
+
   Match(*type) {
     Case(mch::C<ir::TypeAlias>()) {
       auto type_alias = cast<ir::TypeAlias>(type);
