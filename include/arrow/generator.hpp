@@ -29,6 +29,9 @@ struct GContext {
   LLVMTargetMachineRef target;
   LLVMTargetDataRef target_data;
 
+  // Platform/Machine Integer Size (bits)
+  unsigned target_int_size;
+
   // Scope
   ptr<ir::Scope> scope;
 

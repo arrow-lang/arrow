@@ -43,9 +43,8 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
         auto target_t = arg->type;
 
         // Perform C type promotion
-        // FIXME(mehcode): Get proper size of C INT here
-        if ((target_t->is_boolean() || target_t->is_integer()) && target_t->size() < 32) {
-          target_t = make<ir::TypeInteger>(target_t->is_signed(), 32);
+        if ((target_t->is_boolean() || target_t->is_integer()) && target_t->size() < ctx.target_int_size) {
+          target_t = make<ir::TypeInteger>(target_t->is_signed(), ctx.target_int_size);
         } else if (target_t->is_real() && target_t->size() < 64) {
           target_t = make<ir::TypeReal>(64);
         }

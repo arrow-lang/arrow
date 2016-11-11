@@ -3,7 +3,11 @@
 // Distributed under the MIT License
 // See accompanying file LICENSE
 
+#include <string>
+#include <sstream>
+
 #include "fmt.hpp"
+#include "clang.hpp"
 
 #include "arrow/generator.hpp"
 #include "arrow/log.hpp"
@@ -28,6 +32,54 @@ Generator::~Generator() noexcept {
 
   // Dispose of the target machine
   if (_ctx.target) LLVMDisposeTargetMachine(_ctx.target);
+}
+
+static CXChildVisitResult _cx_target_int_size_visit(
+  CXCursor cursor, CXCursor parent, CXClientData clientData
+) {
+  auto c_kind = clang_getCursorKind(cursor);
+  auto c_name = std::string(clang_getCString(clang_getCursorSpelling(cursor)));
+  auto result = reinterpret_cast<unsigned*>(clientData);
+
+  switch (c_kind) {
+  case CXCursor_TypedefDecl: {
+    if (c_name == "c_int") {
+      auto c_type = clang_getCanonicalType(clang_getCursorType(cursor));
+      auto size_bytes = clang_Type_getSizeOf(c_type);
+
+      *result = size_bytes;
+    }
+  } break;
+
+  default:
+    break;
+  }
+
+  return CXChildVisit_Continue;
+}
+
+static unsigned determine_target_int_size() {
+  // Initialize clang
+  auto cx = clang_createIndex(1, 1);
+
+  // Declare C file with single typedef to `int`
+  auto buffer = std::string("typedef int c_int;\n");
+  auto file = CXUnsavedFile{"main.c", buffer.c_str(), buffer.size()};
+
+  auto tu = clang_parseTranslationUnit(cx, "main.c", nullptr, 0, &file, 1,
+    CXTranslationUnit_DetailedPreprocessingRecord |
+    CXTranslationUnit_SkipFunctionBodies);
+
+  // Visit!
+  unsigned result;
+  clang_visitChildren(clang_getTranslationUnitCursor(tu),
+    &_cx_target_int_size_visit, &result);
+
+  // Dispose: clang
+  clang_disposeTranslationUnit(tu);
+  clang_disposeIndex(cx);
+
+  return result * 8;
 }
 
 void Generator::initialize() {
@@ -58,6 +110,9 @@ void Generator::initialize() {
 
   _ctx.target_data = LLVMGetTargetMachineData(_ctx.target);
   LLVMDisposeMessage(triple);
+
+  // Determine the size of C INT and place in context
+  _ctx.target_int_size = determine_target_int_size();
 
   // Initialize top scope
   _ctx.scope = make<ir::Scope>(nullptr);
@@ -122,9 +177,8 @@ Generator& Generator::run(ptr<ast::Module> module) {
   for (auto& mod : _ctx.modules) mod->handle(_ctx);
 
   // Declare main parameters
-  // FIXME(mehcode): Get proper size of C INT here
   std::vector<LLVMTypeRef> main_params;
-  main_params.push_back(LLVMInt32Type());
+  main_params.push_back(LLVMIntType(_ctx.target_int_size));
   main_params.push_back(LLVMPointerType(LLVMPointerType(LLVMInt8Type(), 0), 0));
   main_params.push_back(LLVMPointerType(LLVMPointerType(LLVMInt8Type(), 0), 0));
 
