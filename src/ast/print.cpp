@@ -109,7 +109,10 @@ void Print::print(ptr<Node> node) {
     ACCEPT(TypeAlias, type_alias);
     ACCEPT(TypeUnit, type_unit);
     ACCEPT(TypeTuple, type_tuple);
+    ACCEPT(TypePath, type_path);
     ACCEPT(TypeFunction, type_function);
+    ACCEPT(TypeRecord, type_record);
+    ACCEPT(TypeRecordMember, type_record_member);
 
     ACCEPT(ExternFunction, extern_function);
     ACCEPT(Function, function);

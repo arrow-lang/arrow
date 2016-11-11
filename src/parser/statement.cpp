@@ -34,6 +34,9 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Type:
     return parse_type_alias();
 
+  case token::Type::Struct:
+    return parse_type_record();
+
   case token::Type::If: {
     // Consume IF expression as a statement
     auto expr = parse_conditional();

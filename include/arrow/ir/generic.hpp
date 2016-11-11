@@ -25,16 +25,22 @@ struct GenericTypeParameter : Item {
 
 struct Generic : virtual Node {
   Generic(std::vector<ptr<GenericTypeParameter>> parameters)
-    : Node(nullptr), type_parameters(parameters) {
+    : Node(nullptr), type_parameters(parameters), _cache() {
   }
 
   virtual ~Generic() noexcept;
 
-  /// Instantiate a concrete item
-  virtual ptr<ir::Value> instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments) = 0;
+  /// Instantiate a concrete item (with cache)
+  ptr<ir::Node> instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments);
 
   /// Type Parameters
   std::vector<ptr<GenericTypeParameter>> type_parameters;
+
+ private:
+   /// Instantiate a concrete item
+  virtual ptr<ir::Node> do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments) = 0;
+
+  std::unordered_map<std::string, ptr<ir::Node>> _cache;
 };
 
 }  // namespace ir

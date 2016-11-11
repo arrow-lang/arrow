@@ -42,5 +42,6 @@
 #include "arrow/ast/nodes/type_unit.hpp"
 #include "arrow/ast/nodes/type_tuple.hpp"
 #include "arrow/ast/nodes/type_function.hpp"
+#include "arrow/ast/nodes/type_record.hpp"
 
 #endif  // ARROW_AST_NODES_H

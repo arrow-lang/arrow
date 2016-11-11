@@ -76,7 +76,6 @@ class Build : public Pass {
   ptr<ir::Value> handle_gt(ptr<ast::GreaterThan>);
   ptr<ir::Value> handle_ge(ptr<ast::GreaterThanOrEqualTo>);
 
-  ptr<ir::Value> handle_id(ptr<ast::Identifier>);
   ptr<ir::Value> handle_name(ptr<ast::Name>);
   ptr<ir::Value> handle_path(ptr<ast::Path>);
   ptr<ir::Value> handle_bool(ptr<ast::Boolean>);
@@ -89,6 +88,7 @@ class Build : public Pass {
 
   ptr<ir::Value> handle_import(ptr<ast::Import>);
   ptr<ir::Value> handle_type_alias(ptr<ast::TypeAlias>);
+  ptr<ir::Value> handle_type_record(ptr<ast::TypeRecord>);
 
   ptr<ir::Value> handle_cinclude(ptr<ast::CInclude>);
 

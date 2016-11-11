@@ -28,7 +28,7 @@ auto TypeBuild::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
   return item_t;
 }
 
-auto TypeBuild::handle_path(ptr<ast::Path> x) -> ptr<ir::Type> {
+auto TypeBuild::handle_type_path(ptr<ast::TypePath> x) -> ptr<ir::Type> {
   // No segments ?
   if (x->segments.size() == 0) return nullptr;
 

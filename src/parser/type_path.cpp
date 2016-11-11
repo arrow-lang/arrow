@@ -17,8 +17,7 @@ auto Parser::parse_type_name() -> ptr<ast::TypeName> {
 
 auto Parser::parse_type_path() -> ptr<ast::TypePath> {
   // Parse: Names
-  // TODO: Figure out how to normalize
-  auto path = make<ast::Path>(Span(_t._filename));
+  auto path = make<ast::TypePath>(Span(_t._filename));
   do {
     // Parse: Name
     auto elem = parse_name();
@@ -43,5 +42,5 @@ auto Parser::parse_type_path() -> ptr<ast::TypePath> {
     break;
   } while (true);
 
-  return std::make_shared<ast::TypePath>(path->span, path);
+  return path;
 }

@@ -8,9 +8,12 @@
 
 using arrow::pass::TypeDeduce;
 
-auto TypeDeduce::visit_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
-  auto item = _ctx.scope->get(x->text);
-  if (!item) return nullptr;
+auto TypeDeduce::visit_name(ptr<ast::Name> x) -> ptr<ir::Type> {
+  // TODO: Error when not a type-able expression (eg. module)
+  return ir::type_of(ir::resolve_name(_ctx, x));
+}
 
-  return ir::type_of(item);
+auto TypeDeduce::visit_path(ptr<ast::Path> x) -> ptr<ir::Type> {
+  // TODO: Error when not a type-able expression (eg. module)
+  return ir::type_of(ir::resolve_path(_ctx, x));
 }

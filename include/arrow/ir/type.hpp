@@ -30,6 +30,8 @@ enum TypeTag : unsigned {
   ARROW_TTAG_REAL,
   ARROW_TTAG_STRING,
   ARROW_TTAG_UNIT,
+  ARROW_TTAG_RECORD,
+  ARROW_TTAG_RECORD_MEMBER,
 };
 
 struct Type : Item {

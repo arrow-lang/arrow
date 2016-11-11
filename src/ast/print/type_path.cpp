@@ -8,12 +8,16 @@
 
 using arrow::ast::Print;
 
-void Print::print_path(ptr<Path> n) {
-  handle("Path", n, [&, this] {
-    _w.Key("operand");
-    print(n->operand);
+void Print::print_type_path(ptr<TypePath> n) {
+  handle("TypePath", n, [&, this] {
+    _w.Key("segments");
+    _w.StartArray();
 
-    _w.Key("member");
-    print(n->member);
+    for (auto& s : n->segments) {
+      print(s);
+    }
+
+    _w.EndArray();
   });
+
 }

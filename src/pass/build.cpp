@@ -22,7 +22,6 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
     ACCEPT(ast::Function, function);
 
     ACCEPT(ast::Name, name);
-    ACCEPT(ast::Identifier, id);
     ACCEPT(ast::Path, path);
     ACCEPT(ast::Boolean, bool);
     ACCEPT(ast::Integer, int);
@@ -79,6 +78,7 @@ auto Build::run(ptr<ast::Node> x) -> ptr<ir::Value> {
 
     ACCEPT(ast::Import, import);
     ACCEPT(ast::TypeAlias, type_alias);
+    ACCEPT(ast::TypeRecord, type_record);
 
     ACCEPT(ast::CInclude, cinclude);
 

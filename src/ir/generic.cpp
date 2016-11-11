@@ -11,9 +11,10 @@
 #include "arrow/pass/type_resolve.hpp"
 #include "arrow/pass/type_build.hpp"
 
+using arrow::ir::Generic;
 using arrow::ir::GenericFunction;
 
-auto GenericFunction::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments) -> ptr<Value> {
+auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments) -> ptr<Node> {
   // Realize type arguments
   std::vector<ptr<ir::Type>> type_args;
   for (auto const& type_arg_ast : type_arguments) {
@@ -23,6 +24,24 @@ auto GenericFunction::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& ty
     type_args.push_back(type);
   }
 
+  // Make (cache) name
+  std::stringstream stream;
+  for (auto& a : type_args) {
+    stream << a->name;
+  }
+
+  // Check cache
+  auto cache_key = stream.str();
+  if (_cache.find(cache_key) != _cache.end()) {
+    return _cache[cache_key];
+  }
+
+  // Instantiate
+  _cache[cache_key] = do_instantiate(ctx, type_args);
+  return _cache[cache_key];
+}
+
+auto GenericFunction::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_args) -> ptr<Node> {
   // Build a concrete name for this generic function
   std::stringstream stream;
   stream << "!";

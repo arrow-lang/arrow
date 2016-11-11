@@ -88,6 +88,8 @@ class Visitor {
   virtual void visit_type_pointer(ptr<ast::TypePointer> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_alias(ptr<ast::TypeAlias> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_type_unit(ptr<ast::TypeUnit> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_type_record(ptr<ast::TypeRecord> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_type_record_member(ptr<ast::TypeRecordMember> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_function(ptr<ast::Function> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_extern_function(ptr<ast::ExternFunction> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_extern_variable(ptr<ast::ExternVariable> x) { /* LCOV_EXCL_LINE */ }

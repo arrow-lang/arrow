@@ -75,11 +75,12 @@ struct GenericFunction : Item, Generic {
 
   virtual ~GenericFunction() noexcept;
 
-  virtual ptr<ir::Value> instantiate(GContext&, std::vector<ptr<ast::Type>>&);
-
  protected:
   // Module (container)
   ptr<Module> _module;
+
+ private:
+  virtual ptr<ir::Node> do_instantiate(GContext&, std::vector<ptr<ir::Type>>&);
 };
 
 struct ExternFunction : Function {

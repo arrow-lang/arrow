@@ -80,10 +80,13 @@ class Print {
   void print_assign_bit_xor(ptr<AssignBitXor> n);
 
   void print_type_name(ptr<TypeName>);
+  void print_type_path(ptr<TypePath>);
   void print_type_pointer(ptr<TypePointer>);
   void print_type_alias(ptr<TypeAlias>);
   void print_type_tuple(ptr<TypeTuple>);
   void print_type_function(ptr<TypeFunction>);
+  void print_type_record(ptr<TypeRecord>);
+  void print_type_record_member(ptr<TypeRecordMember>);
 
   void print_function(ptr<Function>);
   void print_extern_function(ptr<ExternFunction>);

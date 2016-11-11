@@ -15,15 +15,17 @@
 namespace arrow {
 namespace ast {
 
+/// A member access operation (commonly referred to as the "dot" operator).
 struct Path : Expression {
-  Path(Span span)
-  : Expression(span), segments() {
+  Path(Span span, ptr<Expression> operand, ptr<Name> member)
+  : Expression(span), operand(operand), member(member) {
   }
 
   virtual ~Path() noexcept;
 
-  // Segments in the path (Names)
-  std::vector<ptr<Name>> segments;
+  ptr<Expression> operand;
+
+  ptr<Name> member;
 };
 
 }  // namespace ast

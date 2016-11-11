@@ -28,6 +28,7 @@
 #include "arrow/ir/type_pointer.hpp"
 #include "arrow/ir/type_alias.hpp"
 #include "arrow/ir/type_unit.hpp"
+#include "arrow/ir/type_record.hpp"
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/unit.hpp"
@@ -41,11 +42,14 @@
 #include "arrow/ir/pointer.hpp"
 #include "arrow/ir/call.hpp"
 #include "arrow/ir/return.hpp"
+#include "arrow/ir/record.hpp"
 
 #include "arrow/ir/scope.hpp"
 
 #include "arrow/ir/conditional.hpp"
 #include "arrow/ir/repeat.hpp"
+
+#include "arrow/generator.hpp"
 
 namespace arrow {
 namespace ir {
@@ -64,6 +68,12 @@ extern ptr<Value> transmute(ptr<Value> operand, ptr<Type> type);
 
 // Parse CC from String
 extern int parse_call_conv(Span span, std::string ccs);
+
+// Resolve NAME expression
+extern ptr<Node> resolve_name(GContext&, ptr<ast::Name>, bool silent = true);
+
+// Resolve PATH expression
+extern ptr<Node> resolve_path(GContext&, ptr<ast::Path>, bool silent = true);
 
 // Type of
 inline ptr<Type> type_of(ptr<ir::Node> item) {

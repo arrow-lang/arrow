@@ -84,6 +84,8 @@ IMPL(TypeAlias)
 IMPL(TypeUnit)
 IMPL(TypeFunction)
 IMPL(TypeTuple)
+IMPL(TypeRecord)
+IMPL(TypeRecordMember)
 
 IMPL(Function)
 IMPL(ExternFunction)

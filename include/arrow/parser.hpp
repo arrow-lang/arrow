@@ -104,6 +104,8 @@ class Parser {
   ptr<ast::TypePointer> parse_type_pointer();
   ptr<ast::TypeAlias> parse_type_alias();
   ptr<ast::Type> parse_type_tuple();
+  ptr<ast::TypeRecord> parse_type_record();
+  ptr<ast::TypeRecordMember> parse_type_record_member();
 
   ptr<ast::Function> parse_function();
   ptr<ast::ExternFunction> parse_extern_function();

@@ -56,7 +56,8 @@ class TypeDeduce : public Pass {
   ptr<ir::Type> visit_le(ptr<ast::LessThanOrEqualTo>);
   ptr<ir::Type> visit_gt(ptr<ast::GreaterThan>);
   ptr<ir::Type> visit_ge(ptr<ast::GreaterThanOrEqualTo>);
-  ptr<ir::Type> visit_id(ptr<ast::Identifier>);
+  ptr<ir::Type> visit_name(ptr<ast::Name>);
+  ptr<ir::Type> visit_path(ptr<ast::Path>);
   ptr<ir::Type> visit_unit(ptr<ast::Unit>);
   ptr<ir::Type> visit_bool(ptr<ast::Boolean>);
   ptr<ir::Type> visit_int(ptr<ast::Integer>);

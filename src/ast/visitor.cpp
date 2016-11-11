@@ -67,6 +67,8 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(TypeName, type_name);
     ACCEPT(TypePointer, type_pointer);
     ACCEPT(TypeAlias, type_alias);
+    ACCEPT(TypeRecord, type_record);
+    ACCEPT(TypeRecordMember, type_record_member);
     ACCEPT(ExternFunction, extern_function);
     ACCEPT(ExternVariable, extern_variable);
     ACCEPT(Function, function);

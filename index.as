@@ -23,17 +23,18 @@
 // [x] Parse: TypeFunction
 // [x] Parse: TypeTuple
 // [x] Parse: Augmented Assignment
-// [ ] Parse: Structure
-// [ ] Struct
+// [x] Parse: Structure
+// [x] Struct
 // [ ] Implement (T)
 // [x] Augmented Assignment for `<<=` and `>>=`
+// [ ] Generic structures
 
 // [x] Get proper size of C INT in a few places
 
 // [x] Functions can have generic type parameters `def method[..]`
 // [x] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
-// [ ] TypeDeduce in regards to `Name`
-// [ ] Duplicate instantiate should not create more things
-// [ ] Test!
+// [x] TypeDeduce in regards to `Name`
+// [x] Duplicate instantiate should not create more things
+// [x] Test!
 
 // [ ] Error: Use before declare (applies mainly to `let r = r * 2` cases)
