@@ -39,6 +39,7 @@
 // [x] C Import -> Structure
 // [x] C Import -> Union (as opaque structure)
 
+// [ ] Structure return from function (direct via compressed integers or sret)
 // [ ] Unit should be an empty llvm struct instead of <nothing>
 // [ ] Type alias of a type alias should refer to the canoncial type
 // [ ] Generic structures
