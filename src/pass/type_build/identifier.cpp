@@ -7,6 +7,10 @@
 #include "arrow/log.hpp"
 
 using arrow::pass::TypeBuild;
+namespace ast = arrow::ast;
+using arrow::ptr;
+using arrow::isa;
+using arrow::cast;
 
 auto TypeBuild::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
   // Does this identifier exist
@@ -26,6 +30,36 @@ auto TypeBuild::handle_id(ptr<ast::Identifier> x) -> ptr<ir::Type> {
   }
 
   return item_t;
+}
+
+static bool expand_path(ptr<ast::Node> node, std::vector<ptr<ast::Name>>& result) {
+  if (isa<ast::Name>(node)) {
+    result.push_back(cast<ast::Name>(node));
+  } else if (isa<ast::Path>(node)) {
+    auto path = cast<ast::Path>(node);
+
+    // Add LHS
+    if (!expand_path(path->operand, result)) return false;
+
+    // ADD RHS
+    result.push_back(path->member);
+  } else {
+    return false;
+  }
+
+  return true;
+}
+
+auto TypeBuild::handle_path(ptr<ast::Path> x) -> ptr<ir::Type> {
+  if (isa<ast::Name>(x->operand)) {
+    // Build ast::TypePath from ast::Path
+    auto result = make<ast::TypePath>(x->span);
+    if (!expand_path(x, result->segments)) return nullptr;
+
+    return handle_type_path(result);
+  }
+
+  return nullptr;
 }
 
 auto TypeBuild::handle_type_path(ptr<ast::TypePath> x) -> ptr<ir::Type> {

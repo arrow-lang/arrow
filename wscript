@@ -82,13 +82,17 @@ def configure(ctx):
         ctx.env.append_unique("CXXFLAGS", "-Wno-unused-parameter")
         ctx.env.append_unique("CXXFLAGS", "-Wno-pragmas")
 
+    # Create configurateion file with PREFIX
+    ctx.define("WAF_PREFIX", ctx.env["PREFIX"])
+    ctx.write_config_header("config.h")
+
 
 def build(ctx):
-    # start_dir = ctx.path.find_dir("lib")
-    # ctx.install_files(
-    #     "${PREFIX}/lib/arrow", start_dir.ant_glob('**/*.as'),
-    #     cwd=start_dir,
-    #     relative_trick=True)
+    start_dir = ctx.path.find_dir("modules")
+    ctx.install_files(
+        "${PREFIX}/lib/arrow/modules", start_dir.ant_glob('**/*.as'),
+        cwd=start_dir,
+        relative_trick=True)
 
     ctx.program(source=ctx.path.ant_glob("src/**/*.cpp"),
                 includes=[
@@ -96,6 +100,7 @@ def build(ctx):
                     "vendor/mach7/code",
                     "vendor/rapidjson/include",
                     "vendor/utfcpp/source",
+                    "build",
                 ],
                 target="arrow",
                 use=["BOOST", "LLVM", "PTHREAD", "DL", "TINFO", "Z", "GMP",
