@@ -1,48 +1,11 @@
-
-// [ ] IR Source should be just a SPAN not the full AST node
-// [x] Parse/Build: Pointer Arithmetic
-// [x] Cast: Alias (pointer)
-// [x] Relational: Pointer
-// [x] Function "Objects"
-// [x] Compound/Augmented Assignment `+=`
-// [x] str is just a name for *int8 (not alias)
-// [x] Implicit cast to type alias from unnamed _literal_ of underlying type
-// [x] Arithmetic of named integer against literal
-// [x] Relational of named integer against literal
-// [x] If Expression
-// [x] UNIT Type / Value
-// [x] DIVERGENT Type / Value
-// [x] Repeat: Break
-// [x] Repeat: Continue
-// [x]   `break` and `continue` are considered divergent (block)
-// [x] warning: unreachable code
-// [x] Type cast
-// [x] Function hoisting segfaults compiler in type deduction
-// [x] Parse: TypeFunction
-// [x] Parse: TypeTuple
-// [x] Parse: Augmented Assignment
-// [x] Parse: Structure
-// [x] Struct
-// [ ] Implement (T)
-// [x] Augmented Assignment for `<<=` and `>>=`
-
-// [x] Get proper size of C INT in a few places
-
-// [x] Functions can have generic type parameters `def method[..]`
-// [x] `Identifier` is wrapped in a `Name` object (that can optionally have type parameters)
-// [x] TypeDeduce in regards to `Name`
-// [x] Duplicate instantiate should not create more things
-// [x] Test!
-
+// [ ] IR -> source :: a SPAN (not the full AST node)
+// [ ] Methods / Member Functions :: `implement T`
 // [ ] Error: Use before declare (applies mainly to `let r = r * 2` cases)
-
-// [x] C Import -> Structure
-// [x] C Import -> Union (as opaque structure)
-
 // [ ] Structure return from function (direct via compressed integers or sret)
+// [ ] `c_void` -> Alias to `()`
 // [ ] Unit should be an empty llvm struct instead of <nothing>
 // [ ] Type alias of a type alias should refer to the canoncial type
-// [ ] Generic structures
-
-import "std";
-std.exit(0);
+// [ ] Generic structures :: `struct Box<T> { }`
+// [ ] `import ".."` cache
+// [ ] `#include ".."` cache
+// [ ] `extern ..` cache
