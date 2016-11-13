@@ -20,14 +20,16 @@
           "tag": "TypePointer",
           "span": "test/parse/transmute.as:3:14-19",
           "element": {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/transmute.as:3:15-19",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/transmute.as:3:15-19",
-              "text": "int8",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/transmute.as:3:15-19",
+                "text": "int8",
+                "type_arguments": []
+              }
+            ]
           }
         }
       }
@@ -67,14 +69,16 @@
           "tag": "TypePointer",
           "span": "test/parse/transmute.as:5:15-22",
           "element": {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/transmute.as:5:16-22",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/transmute.as:5:16-22",
-              "text": "int128",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/transmute.as:5:16-22",
+                "text": "int128",
+                "type_arguments": []
+              }
+            ]
           }
         }
       }
@@ -95,14 +99,16 @@
           "type_arguments": []
         },
         "target": {
-          "tag": "TypeName",
+          "tag": "TypePath",
           "span": "test/parse/transmute.as:6:14-19",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/transmute.as:6:14-19",
-            "text": "int64",
-            "type_arguments": []
-          }
+          "segments": [
+            {
+              "tag": "Name",
+              "span": "test/parse/transmute.as:6:14-19",
+              "text": "int64",
+              "type_arguments": []
+            }
+          ]
         }
       }
     }

@@ -93,7 +93,7 @@ std::ostream& arrow::token::operator<<(
   case Type::Until:                          return os << "`until`";
   case Type::Break:                          return os << "`break`";
   case Type::Continue:                       return os << "`continue`";
-  case Type::Return:                         return os << "`  return`";
+  case Type::Return:                         return os << "`return`";
   case Type::Global:                         return os << "`global`";
   case Type::As:                             return os << "`as`";
   case Type::Struct:                         return os << "`struct`";

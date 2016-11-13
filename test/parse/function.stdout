@@ -20,14 +20,16 @@
       "span": "test/parse/function.as:7-9",
       "name": "methodB",
       "result_type": {
-        "tag": "TypeName",
+        "tag": "TypePath",
         "span": "test/parse/function.as:7:16-21",
-        "name": {
-          "tag": "Name",
-          "span": "test/parse/function.as:7:16-21",
-          "text": "int64",
-          "type_arguments": []
-        }
+        "segments": [
+          {
+            "tag": "Name",
+            "span": "test/parse/function.as:7:16-21",
+            "text": "int64",
+            "type_arguments": []
+          }
+        ]
       },
       "parameters": [],
       "type_parameters": [],
@@ -56,35 +58,41 @@
         "span": "test/parse/function.as:11:16-39",
         "parameters": [
           {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:11:17-22",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:11:17-22",
-              "text": "int64",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:11:17-22",
+                "text": "int64",
+                "type_arguments": []
+              }
+            ]
           },
           {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:11:24-29",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:11:24-29",
-              "text": "int64",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:11:24-29",
+                "text": "int64",
+                "type_arguments": []
+              }
+            ]
           }
         ],
         "result": {
-          "tag": "TypeName",
+          "tag": "TypePath",
           "span": "test/parse/function.as:11:34-39",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/function.as:11:34-39",
-            "text": "int64",
-            "type_arguments": []
-          }
+          "segments": [
+            {
+              "tag": "Name",
+              "span": "test/parse/function.as:11:34-39",
+              "text": "int64",
+              "type_arguments": []
+            }
+          ]
         }
       },
       "parameters": [],
@@ -111,14 +119,16 @@
       "span": "test/parse/function.as:15-17",
       "name": "methodD",
       "result_type": {
-        "tag": "TypeName",
+        "tag": "TypePath",
         "span": "test/parse/function.as:15:34-39",
-        "name": {
-          "tag": "Name",
-          "span": "test/parse/function.as:15:34-39",
-          "text": "int64",
-          "type_arguments": []
-        }
+        "segments": [
+          {
+            "tag": "Name",
+            "span": "test/parse/function.as:15:34-39",
+            "text": "int64",
+            "type_arguments": []
+          }
+        ]
       },
       "parameters": [
         {
@@ -126,14 +136,16 @@
           "span": "test/parse/function.as:15:13-21",
           "name": "a",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:15:16-21",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:15:16-21",
-              "text": "int64",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:15:16-21",
+                "text": "int64",
+                "type_arguments": []
+              }
+            ]
           }
         },
         {
@@ -141,14 +153,16 @@
           "span": "test/parse/function.as:15:23-31",
           "name": "b",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:15:26-31",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:15:26-31",
-              "text": "int64",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:15:26-31",
+                "text": "int64",
+                "type_arguments": []
+              }
+            ]
           }
         }
       ],
@@ -201,35 +215,41 @@
         "span": "test/parse/function.as:25:8-30",
         "parameters": [
           {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:25:9-14",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:25:9-14",
-              "text": "int32",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:25:9-14",
+                "text": "int32",
+                "type_arguments": []
+              }
+            ]
           },
           {
-            "tag": "TypeName",
+            "tag": "TypePath",
             "span": "test/parse/function.as:25:16-21",
-            "name": {
-              "tag": "Name",
-              "span": "test/parse/function.as:25:16-21",
-              "text": "int64",
-              "type_arguments": []
-            }
+            "segments": [
+              {
+                "tag": "Name",
+                "span": "test/parse/function.as:25:16-21",
+                "text": "int64",
+                "type_arguments": []
+              }
+            ]
           }
         ],
         "result": {
-          "tag": "TypeName",
+          "tag": "TypePath",
           "span": "test/parse/function.as:25:26-30",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/function.as:25:26-30",
-            "text": "bool",
-            "type_arguments": []
-          }
+          "segments": [
+            {
+              "tag": "Name",
+              "span": "test/parse/function.as:25:26-30",
+              "text": "bool",
+              "type_arguments": []
+            }
+          ]
         }
       },
       "initializer": null
@@ -252,14 +272,16 @@
             "span": "test/parse/function.as:30:29-55",
             "parameters": [],
             "result": {
-              "tag": "TypeName",
+              "tag": "TypePath",
               "span": "test/parse/function.as:30:50-55",
-              "name": {
-                "tag": "Name",
-                "span": "test/parse/function.as:30:50-55",
-                "text": "int32",
-                "type_arguments": []
-              }
+              "segments": [
+                {
+                  "tag": "Name",
+                  "span": "test/parse/function.as:30:50-55",
+                  "text": "int32",
+                  "type_arguments": []
+                }
+              ]
             }
           }
         }

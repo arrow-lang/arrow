@@ -7,14 +7,16 @@
       "span": "test/parse/alias.as:3:1-19",
       "name": "c_int",
       "target": {
-        "tag": "TypeName",
+        "tag": "TypePath",
         "span": "test/parse/alias.as:3:14-19",
-        "name": {
-          "tag": "Name",
-          "span": "test/parse/alias.as:3:14-19",
-          "text": "int32",
-          "type_arguments": []
-        }
+        "segments": [
+          {
+            "tag": "Name",
+            "span": "test/parse/alias.as:3:14-19",
+            "text": "int32",
+            "type_arguments": []
+          }
+        ]
       }
     },
     {
@@ -22,14 +24,16 @@
       "span": "test/parse/alias.as:4:1-22",
       "name": "c_llong",
       "target": {
-        "tag": "TypeName",
+        "tag": "TypePath",
         "span": "test/parse/alias.as:4:16-22",
-        "name": {
-          "tag": "Name",
-          "span": "test/parse/alias.as:4:16-22",
-          "text": "int128",
-          "type_arguments": []
-        }
+        "segments": [
+          {
+            "tag": "Name",
+            "span": "test/parse/alias.as:4:16-22",
+            "text": "int128",
+            "type_arguments": []
+          }
+        ]
       }
     }
   ]

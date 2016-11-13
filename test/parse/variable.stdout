@@ -8,14 +8,16 @@
       "name": "value",
       "mutable": false,
       "type": {
-        "tag": "TypeName",
+        "tag": "TypePath",
         "span": "test/parse/variable.as:2:12-16",
-        "name": {
-          "tag": "Name",
-          "span": "test/parse/variable.as:2:12-16",
-          "text": "int8",
-          "type_arguments": []
-        }
+        "segments": [
+          {
+            "tag": "Name",
+            "span": "test/parse/variable.as:2:12-16",
+            "text": "int8",
+            "type_arguments": []
+          }
+        ]
       },
       "initializer": {
         "tag": "Integer",
