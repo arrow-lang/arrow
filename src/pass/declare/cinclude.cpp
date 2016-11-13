@@ -251,8 +251,8 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
     result = make<ir::TypeExternFunction>(
       nullptr, clang_isFunctionTypeVariadic(ref), "C", parameters, result_t);
   } else if (ref.kind == CXType_Pointer) {
-    auto cpt = clang_getPointeeType(type);
-    if (clang_getCanonicalType(cpt).kind == CXType_FunctionProto) {
+    auto cpt = clang_getCanonicalType(clang_getPointeeType(type));
+    if (cpt.kind == CXType_FunctionProto) {
       // Function Object/Pointer
       result = resolve_c_type(cctx, cpt);
 
@@ -262,6 +262,9 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
         cast<ir::TypeExternFunction>(result)->parameters,
         cast<ir::TypeExternFunction>(result)->result
       );
+    } else if (cpt.kind == CXType_Void) {
+      // Void Pointer -> *uint8
+      result = make<ir::TypePointer>(nullptr, make<ir::TypeInteger>(false, 8));
     } else {
       // Normal Pointer
       auto pointee = resolve_c_type(cctx, cpt);

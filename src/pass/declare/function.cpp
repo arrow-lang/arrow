@@ -21,7 +21,7 @@ void Declare::visit_function(ptr<ast::Function> x) {
     }
 
     // Make: GenericFunction
-    auto fn = make<ir::GenericFunction>(x, _ctx.modules.back(), x->name,
+    auto fn = make<ir::GenericFunction>(x, _ctx.modules.front(), x->name,
       type_parameters);
 
     // Scope: put
@@ -31,7 +31,7 @@ void Declare::visit_function(ptr<ast::Function> x) {
   }
 
   // Make: Function
-  auto fn = make<ir::Function>(x, _ctx.modules.back(), x->name, nullptr);
+  auto fn = make<ir::Function>(x, _ctx.modules.front(), x->name, nullptr);
 
   // Scope: put
   _ctx.scope->put(x, fn, fn->name);
@@ -74,7 +74,7 @@ void Declare::visit_function(ptr<ast::Function> x) {
 void Declare::visit_extern_function(ptr<ast::ExternFunction> x) {
   // Make: Extern Function
   auto fn = make<ir::ExternFunction>(
-    x, _ctx.modules.back(), x->name, nullptr);
+    x, _ctx.modules.front(), x->name, nullptr);
 
   // Scope: put
   _ctx.scope->put(x, fn, fn->name);

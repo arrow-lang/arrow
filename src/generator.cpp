@@ -201,7 +201,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
 
   // HACK: Which module is the top-level module?
   // TODO(mehcode): Call the top-level module main function (if present)
-  auto mod = _ctx.modules.back();
+  auto mod = _ctx.modules.front();
   auto main_ = mod->block->scope->get("main");
   if (main_) {
     auto main_fn = cast<ir::Function>(main_);
