@@ -12,6 +12,12 @@ void TypeResolve::visit_module(ptr<ast::Module> x) {
   auto module = _ctx.scope->get<ir::Module>(x);
   if (!module) return;
 
+  // Stack: push
+  _ctx.module_s.push(module);
+
   // Block
   accept(x->block);
+
+  // Stack: pop
+  _ctx.module_s.pop();
 }

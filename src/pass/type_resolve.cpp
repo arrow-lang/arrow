@@ -130,7 +130,6 @@ void TypeResolve::run_together(std::vector<ptr<ast::Node>> nodes) {
             }
           } else {
             type = temp;
-            iteration = 0;
           }
         }
       }

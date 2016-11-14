@@ -9,3 +9,5 @@
 // [x] `import ".."` cache
 // [ ] `#include ".."` cache
 // [x] `extern ..` cache
+// [ ] Missing `;` after 1-line function w/return can segfault
+// [ ] let p_cur = *((*c).framebuffer + offset); – segfault if c.framebuffer isn't a thing

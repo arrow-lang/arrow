@@ -12,8 +12,14 @@ auto Build::handle_module(ptr<ast::Module> x) -> ptr<ir::Value> {
   auto module = _ctx.scope->get<ir::Module>(x);
   if (!module) return nullptr;
 
+  // Stack: push
+  _ctx.module_s.push(module);
+
   // Block
   run(x->block);
+
+  // Stack: pop
+  _ctx.module_s.pop();
 
   // Has no value
   return nullptr;

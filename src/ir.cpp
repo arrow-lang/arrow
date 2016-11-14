@@ -283,6 +283,7 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent) -> pt
       // Member access on a value
       auto value = cast<ir::Value>(op);
       auto type = value->type;
+      if (!type) return nullptr;
 
       Match(*type) {
         Case(mch::C<ir::TypeRecord>()) {
