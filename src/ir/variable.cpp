@@ -84,13 +84,17 @@ LLVMValueRef Variable::handle(GContext& ctx) noexcept {
 
 LLVMValueRef ExternVariable::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    auto type_handle = type->handle(ctx);
+    // Attempt to find global first (extern cache)
+    _handle = LLVMGetNamedGlobal(ctx.mod, name.c_str());
+    if (!_handle) {
+      auto type_handle = type->handle(ctx);
 
-    // Add global variable to module
-    _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
+      // Add global variable to module
+      _handle = LLVMAddGlobal(ctx.mod, type_handle, name.c_str());
 
-    // Set linkage to private
-    LLVMSetLinkage(_handle, LLVMExternalLinkage);
+      // Set linkage to private
+      LLVMSetLinkage(_handle, LLVMExternalLinkage);
+    }
   }
 
   return _handle;

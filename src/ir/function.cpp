@@ -89,15 +89,19 @@ std::string Function::name_mangle() const {
 
 LLVMValueRef ExternFunction::handle(GContext& ctx) noexcept {
   if (!_handle) {
-    auto type_handle = LLVMGetElementType(type->handle(ctx));
-    _handle = LLVMAddFunction(ctx.mod, name.c_str(), type_handle);
+    // Attempt to find function first (extern cache)
+    _handle = LLVMGetNamedFunction(ctx.mod, name.c_str());
+    if (!_handle) {
+      auto type_handle = LLVMGetElementType(type->handle(ctx));
+      _handle = LLVMAddFunction(ctx.mod, name.c_str(), type_handle);
 
-    // Set calling convention
-    auto type_f = cast<ir::TypeExternFunction>(type);
-    Span nilspan{""};
-    auto cc = parse_call_conv(source ? source->span : nilspan, type_f->abi);
-    if (cc < 0) return nullptr;
-    LLVMSetFunctionCallConv(_handle, cc);
+      // Set calling convention
+      auto type_f = cast<ir::TypeExternFunction>(type);
+      Span nilspan{""};
+      auto cc = parse_call_conv(source ? source->span : nilspan, type_f->abi);
+      if (cc < 0) return nullptr;
+      LLVMSetFunctionCallConv(_handle, cc);
+    }
   }
 
   return _handle;

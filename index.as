@@ -8,4 +8,4 @@
 // [ ] Generic structures :: `struct Box<T> { }`
 // [x] `import ".."` cache
 // [ ] `#include ".."` cache
-// [ ] `extern ..` cache
+// [x] `extern ..` cache
