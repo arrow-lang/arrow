@@ -8,17 +8,24 @@
 using arrow::pass::Declare;
 
 void Declare::visit_module(ptr<ast::Module> x) {
-  // Make: Module
-  auto module = make<ir::Module>(x, x->name);
+  // Get: Module
+  auto module = _ctx.scope->get<ir::Module>(x);
+  if (!module) {
+    // Make: Module
+    module = make<ir::Module>(x, x->name);
+
+    // Add module to (top-level) scope
+    ir::Scope::top(_ctx.scope)->put(x, module, "");
+  }
 
   // Add module to modules orderable
   _ctx.modules.push_back(module);
 
+  // Stack: push
+  _ctx.module_s.push(module);
+
   // Scope (Top): Enter
   auto sb = ir::Scope::enter(ir::Scope::top(_ctx.scope), _ctx);
-
-  // Add module to (top-level) scope
-  _ctx.scope->put(x, module, "");
 
   // Block
   accept(x->block);
@@ -26,4 +33,7 @@ void Declare::visit_module(ptr<ast::Module> x) {
 
   // Scope: Exit
   sb.exit();
+
+  // Stack: pop
+  _ctx.module_s.pop();
 }

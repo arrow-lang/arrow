@@ -38,6 +38,12 @@ struct GContext {
   // Function stack – which function are we currently processing
   std::stack<ir::Function*> function_s;
 
+  // Module stack – which module are we currently processing
+  std::stack<ptr<ir::Module>> module_s;
+
+  // Module Pathname Cache
+  std::unordered_map<std::string, ptr<ir::Module>> modules_by_pathname;
+
   // Modules
   std::vector<ptr<ir::Module>> modules;
 

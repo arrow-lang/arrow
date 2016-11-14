@@ -16,7 +16,10 @@
 #include "arrow/pass/type_resolve.hpp"
 #include "mach7.hpp"
 
+#include <boost/filesystem.hpp>
+
 using arrow::Generator;
+namespace fs = boost::filesystem;
 
 Generator::Generator()
   : _ctx() {
@@ -157,6 +160,15 @@ Generator& Generator::run(ptr<ast::Module> module) {
   auto data = LLVMCopyStringRepOfTargetData(_ctx.target_data);
   LLVMSetDataLayout(_ctx.mod, data);
   LLVMDisposeMessage(data);
+
+  // Determine absolute path to module
+  auto top_path = fs::canonical(
+    fs::absolute("./" + module->span.filename)).string();
+
+  // Create module item; add to (top-level) scope; cache
+  auto top_module = make<ir::Module>(module, module->name);
+  ir::Scope::top(_ctx.scope)->put(module, top_module, "");
+  _ctx.modules_by_pathname[top_path] = top_module;
 
   // Declare
   pass::Declare(_ctx).run(module);

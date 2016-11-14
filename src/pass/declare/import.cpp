@@ -101,25 +101,40 @@ void Declare::visit_import(ptr<ast::Import> x) {
     r_pathname = x->source;
   }
 
-  // TODO: Check if this has been imported before (by the whole program)
-  // TODO:  -> Check if this is this module
-  // TODO:  -> Check if this has been imported before (by this module)
+  // Check if this has been imported before (by the whole program)
+  auto& current_mod = _ctx.module_s.top();
+  auto ref = _ctx.modules_by_pathname.find(r_path);
+  ptr<ir::Module> r_module;
 
-  // Parse the AST from this file
-  auto input_fs = new std::ifstream(r_path);
-  std::shared_ptr<std::istream> input_stream(input_fs);
-  arrow::Parser parser(input_stream, r_pathname);
-  auto imp = parser.parse();
-  if (!imp) return;
+  if (ref != _ctx.modules_by_pathname.end()) {
+    r_module = ref->second;
 
-  // Declare this module item
-  Declare(_ctx).run(imp);
+    // Check if this is this module
+    if (r_module.get() == current_mod.get()) {
+      // Same module
+      Log::get().error(x->span, "module cannot import self");
+      return;
+    }
 
-  // Get: Module
-  auto impmod = _ctx.scope->get<ir::Module>(imp);
-  if (!impmod) return;
+    // TODO: Check if this has been imported before (by this module) [warn]
+  } else {
+    // Parse the AST from this file
+    auto input_fs = new std::ifstream(r_path);
+    std::shared_ptr<std::istream> input_stream(input_fs);
+    arrow::Parser parser(input_stream, r_pathname);
+    auto imp = parser.parse();
+    if (!imp) return;
+
+    // Create module item; add to (top-level) scope; cache
+    r_module = make<ir::Module>(imp, imp->name);
+    ir::Scope::top(_ctx.scope)->put(imp, r_module, "");
+    _ctx.modules_by_pathname[r_path] = r_module;
+
+    // Declare this module item
+    Declare(_ctx).run(imp);
+  }
 
   // Emplace the imported module in scope of the current module
-  auto item = make<ir::Import>(x, impmod);
-  _ctx.scope->put(x, item, impmod->name);
+  auto item = make<ir::Import>(x, r_module);
+  _ctx.scope->put(x, item, r_module->name);
 }

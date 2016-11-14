@@ -329,7 +329,7 @@ static CXChildVisitResult _cx_visit(
     if (!type) break;
 
     // Make: External Function
-    item = make<ir::ExternFunction>(nullptr, cctx.ctx.modules.back(), c_name,
+    item = make<ir::ExternFunction>(nullptr, cctx.ctx.module_s.top(), c_name,
       cast<ir::TypeExternFunction>(type));
   } break;
 

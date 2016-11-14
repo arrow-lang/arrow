@@ -6,6 +6,6 @@
 // [ ] Unit should be an empty llvm struct instead of <nothing>
 // [ ] Type alias of a type alias should refer to the canoncial type
 // [ ] Generic structures :: `struct Box<T> { }`
-// [ ] `import ".."` cache
+// [x] `import ".."` cache
 // [ ] `#include ".."` cache
 // [ ] `extern ..` cache
