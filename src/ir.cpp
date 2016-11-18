@@ -243,7 +243,7 @@ auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent) ->
 }
 
 // Resolve PATH expression
-auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent) -> ptr<Node> {
+auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool build) -> ptr<Node> {
   // Resolve the path operand
   ptr<ir::Node> op;
   ptr<ir::Type> op_t;
@@ -253,9 +253,15 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent) -> pt
     if (!op) return nullptr;
     op_t = ir::type_of(op);
   } else {
-    // Run the normal builder (if not a name)
-    op_t = pass::TypeDeduce(ctx).run(x->operand);
-    if (!op_t) return nullptr;
+    // Run the normal passes (if not a name)
+    if (build) {
+      op = pass::Build(ctx).run(x->operand);
+      if (!op) return nullptr;
+      op_t = cast<ir::Value>(op)->type;
+    } else {
+      op_t = pass::TypeDeduce(ctx).run(x->operand);
+      if (!op_t) return nullptr;
+    }
   }
 
   ptr<ir::Node> result;
@@ -281,7 +287,7 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent) -> pt
     }
 
     result = tmp;
-  } else {
+  } else if (op_t != nullptr) {
     Match(*op_t) {
       Case(mch::C<ir::TypeRecord>()) {
         auto record = cast<ir::TypeRecord>(op_t);

@@ -73,7 +73,7 @@ extern int parse_call_conv(Span span, std::string ccs);
 extern ptr<Node> resolve_name(GContext&, ptr<ast::Name>, bool silent = true);
 
 // Resolve PATH expression
-extern ptr<Node> resolve_path(GContext&, ptr<ast::Path>, bool silent = true);
+extern ptr<Node> resolve_path(GContext&, ptr<ast::Path>, bool silent = true, bool build = false);
 
 // Type of
 inline ptr<Type> type_of(ptr<ir::Node> item) {

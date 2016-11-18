@@ -9,11 +9,3 @@
 // [x] `import ".."` cache
 // [ ] `#include ".."` cache
 // [x] `extern ..` cache
-// [ ] Missing `;` after 1-line function w/return can segfault
-
-// [ ] integer type resolution: `i` should be the type of `I`
-// let i = 0;
-// while i < 0x10 {
-//   *((*c).V + i) = mmu.read(c, (*c).I + i);
-//   i += 1;
-// }

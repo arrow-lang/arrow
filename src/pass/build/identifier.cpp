@@ -18,5 +18,6 @@ auto Build::handle_name(ptr<ast::Name> x) -> ptr<ir::Value> {
 
 auto Build::handle_path(ptr<ast::Path> x) -> ptr<ir::Value> {
   // TODO: Error when not a value-able expression (eg. module)
-  return cast<ir::Value>(ir::resolve_path(_ctx, x, false));
+  auto r = cast<ir::Value>(ir::resolve_path(_ctx, x, false, true));
+  return r;
 }
