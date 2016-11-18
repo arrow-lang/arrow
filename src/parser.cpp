@@ -63,7 +63,8 @@ auto Parser::expect(
 auto Parser::expect(
   std::vector<token::Type> types, bool consume
 ) -> ptr<token::Token> {
-  auto tok = consume ? _t.pop() : _t.peek();
+  // auto tok = consume ? _t.pop() : _t.peek();
+  auto tok = _t.peek();
 
   if (std::find(types.begin(), types.end(), tok->type) == types.end()) {
     if (types.size() == 1) {
@@ -86,9 +87,11 @@ auto Parser::expect(
       Log::get().error(tok->span, msg.str().c_str());
     }
 
-
     return nullptr;
   }
+
+  // Found; consume
+  if (consume) _t.pop();
 
   return tok;
 }
