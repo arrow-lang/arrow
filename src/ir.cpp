@@ -6,6 +6,7 @@
 #include "arrow/ir.hpp"
 #include "arrow/log.hpp"
 #include "arrow/pass/build.hpp"
+#include "arrow/pass/type_deduce.hpp"
 #include "mach7.hpp"
 #include "fmt.hpp"
 
@@ -245,74 +246,70 @@ auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent) ->
 auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent) -> ptr<Node> {
   // Resolve the path operand
   ptr<ir::Node> op;
+  ptr<ir::Type> op_t;
+
   if (isa<ast::Name>(x->operand)) {
     op = resolve_name(ctx, cast<ast::Name>(x->operand), silent);
     if (!op) return nullptr;
+    op_t = ir::type_of(op);
   } else {
     // Run the normal builder (if not a name)
-    op = pass::Build(ctx).run(x->operand);
-    if (!op) return nullptr;
+    op_t = pass::TypeDeduce(ctx).run(x->operand);
+    if (!op_t) return nullptr;
   }
 
-  // Attempt to access a member of the operand expression
   ptr<ir::Node> result;
-  Match(*op) {
-    Case(mch::C<ir::Import>()) {
-      // Module import .. access inside the module
-      auto import = cast<ir::Import>(op);
-      auto tmp = import->module->block->scope->get(x->member->text);
-      if (!tmp) {
-        if (!silent) {
-          Log::get().error(x->member->span, "module `{}` has no member `{}`",
-            import->name, x->member->text);
-        }
 
-        return nullptr;
+  // Check for a qualified name reference
+  if (op != nullptr && isa<ir::Import>(op)) {
+    // Module import .. access inside the module
+    auto import = cast<ir::Import>(op);
+    auto tmp = import->module->block->scope->get(x->member->text);
+    if (!tmp) {
+      if (!silent) {
+        Log::get().error(x->member->span, "module `{}` has no member `{}`",
+          import->name, x->member->text);
       }
 
-      // If we have a generic item; instantiate
-      if (isa<ir::Generic>(tmp)) {
-        tmp = cast<ir::Generic>(tmp)->instantiate(
-          ctx, x->member->type_arguments);
-      }
+      return nullptr;
+    }
 
-      result = tmp;
-    } break;
+    // If we have a generic item; instantiate
+    if (isa<ir::Generic>(tmp)) {
+      tmp = cast<ir::Generic>(tmp)->instantiate(
+        ctx, x->member->type_arguments);
+    }
 
-    Case(mch::C<ir::Value>()) {
-      // Member access on a value
-      auto value = cast<ir::Value>(op);
-      auto type = value->type;
-      if (!type) return nullptr;
-
-      Match(*type) {
-        Case(mch::C<ir::TypeRecord>()) {
-          auto record = cast<ir::TypeRecord>(type);
-          auto member_index = record->member_index_of(x->member->text);
-          if (member_index < 0) {
-            if (!silent) {
-              Log::get().error(x->member->span, "`{}` has no member `{}`",
-                type->name, x->member->text);
-            }
-
-            return nullptr;
-          }
-
-          result = make<ir::RecordMember>(x->member,
-            record->members[member_index]->type, value, member_index);
-        } break;
-
-        Otherwise() {
+    result = tmp;
+  } else {
+    Match(*op_t) {
+      Case(mch::C<ir::TypeRecord>()) {
+        auto record = cast<ir::TypeRecord>(op_t);
+        auto member_index = record->member_index_of(x->member->text);
+        if (member_index < 0) {
           if (!silent) {
             Log::get().error(x->member->span, "`{}` has no member `{}`",
-              type->name, x->member->text);
+              op_t->name, x->member->text);
           }
 
           return nullptr;
-        } break;
-      } EndMatch
-    } break;
-  } EndMatch
+        }
+
+        result = make<ir::RecordMember>(x->member,
+          record->members[member_index]->type, cast<ir::Value>(op),
+          member_index);
+      } break;
+
+      Otherwise() {
+        if (!silent) {
+          Log::get().error(x->member->span, "`{}` has no member `{}`",
+            op_t->name, x->member->text);
+        }
+
+        return nullptr;
+      } break;
+    } EndMatch
+  }
 
   return result;
 }

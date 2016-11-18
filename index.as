@@ -10,7 +10,6 @@
 // [ ] `#include ".."` cache
 // [x] `extern ..` cache
 // [ ] Missing `;` after 1-line function w/return can segfault
-// [ ] let p_cur = *((*c).framebuffer + offset); – segfault if c.framebuffer isn't a thing
 
 // [ ] integer type resolution: `i` should be the type of `I`
 // let i = 0;
@@ -18,5 +17,3 @@
 //   *((*c).V + i) = mmu.read(c, (*c).I + i);
 //   i += 1;
 // }
-
-// [ ] segault: let _evt = malloc(1000); (malloc doesn't exist)
