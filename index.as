@@ -18,3 +18,5 @@
 //   *((*c).V + i) = mmu.read(c, (*c).I + i);
 //   i += 1;
 // }
+
+// [ ] segault: let _evt = malloc(1000); (malloc doesn't exist)
