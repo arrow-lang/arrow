@@ -231,12 +231,27 @@ static CXChildVisitResult _cx_enum_visit(
   return CXChildVisit_Continue;
 }
 
+static std::string get_c_typename(CXType type) {
+  auto ref = clang_getCanonicalType(type);
+  auto typename_ = std::string(clang_getCString(
+    clang_getTypeSpelling(ref)));
+
+  if (ref.kind == CXType_Record || ref.kind == CXType_Enum) {
+    auto decl = clang_getTypeDeclaration(ref);
+    auto declname_ = std::string(clang_getCString(
+      clang_getCursorSpelling(decl)));
+
+    typename_ = declname_.size() == 0 ? typename_ : declname_;
+  }
+
+  return typename_;
+}
+
 static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
   auto ref = clang_getCanonicalType(type);
 
   // Check the cache (for a realized type)
-  auto typename_ = std::string(clang_getCString(
-    clang_getTypeSpelling(ref)));
+  auto typename_ = get_c_typename(type);
 
   if (cctx.types.find(typename_) != cctx.types.end()) {
     return cctx.types[typename_];
@@ -248,27 +263,17 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
 
   if (ref.kind == CXType_Record) {
     // Record (structure)
-
-    // Determine the unqualified name of this record to use
     auto decl = clang_getTypeDeclaration(ref);
     auto kind = clang_getCursorKind(decl);
-    auto declname_ = std::string(clang_getCString(
-      clang_getCursorSpelling(decl)));
-    auto name = declname_.size() == 0 ? typename_ : declname_;
 
     // NOTE: Unions get expressed as an opaque struct
-    result = make<ir::TypeRecord>(nullptr, name);
+    result = make<ir::TypeRecord>(nullptr, typename_);
     if (kind == CXCursor_StructDecl) {
       continue_ = true;
     }
   } else if (ref.kind == CXType_Enum) {
     // Enum
-
-    // Determine the unqualified name
     auto decl = clang_getTypeDeclaration(ref);
-    auto declname_ = std::string(clang_getCString(
-      clang_getCursorSpelling(decl)));
-    auto name = declname_.size() == 0 ? typename_ : declname_;
 
     // After type resolution .. we need to resolve children
     continue_ = true;
@@ -277,8 +282,8 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
     auto underyling_t = clang_getEnumDeclIntegerType(decl);
     result = resolve_c_type(cctx, underyling_t);
 
-    // Make an alias
-    result = make<ir::TypeAlias>(nullptr, name, result);
+    // TODO: Make an alias (?)
+    // result = make<ir::TypeAlias>(nullptr, name, result);
   } else if (ref.kind == CXType_FunctionProto || ref.kind == CXType_FunctionNoProto) {
     // Do: Result Type
     auto result_t = resolve_c_type(cctx, clang_getResultType(ref));
@@ -390,6 +395,7 @@ static CXChildVisitResult _cx_visit(
     item = c_type;
   } break;
 
+  case CXCursor_UnionDecl:
   case CXCursor_StructDecl:
   case CXCursor_EnumDecl: {
     auto c_type = resolve_c_type(cctx, clang_getCursorType(cursor));
