@@ -31,6 +31,7 @@
 #include "arrow/ir/type_record.hpp"
 
 #include "arrow/ir/value.hpp"
+#include "arrow/ir/constant.hpp"
 #include "arrow/ir/unit.hpp"
 #include "arrow/ir/transmute.hpp"
 #include "arrow/ir/integer.hpp"
@@ -105,6 +106,10 @@ inline ptr<Type> type_of(ptr<ir::Node> item) {
 
     Case(mch::C<ir::ExternFunction>()) {
       return cast<ir::ExternFunction>(item)->type;
+    }
+
+    Case(mch::C<ir::Constant>()) {
+      return cast<ir::Constant>(item)->type;
     }
 
     Case(mch::C<ir::Value>()) {

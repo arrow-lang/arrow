@@ -22,6 +22,7 @@ ir::Import::~Import() noexcept { }
 ir::Parameter::~Parameter() noexcept { }
 ir::ExternFunction::~ExternFunction() noexcept { }
 ir::ExternVariable::~ExternVariable() noexcept { }
+ir::Constant::~Constant() noexcept { }
 
 ir::GenericTypeParameter::~GenericTypeParameter() noexcept { }
 ir::GenericFunction::~GenericFunction() noexcept { }

@@ -35,6 +35,13 @@ struct CRecordContext {
   std::vector<ptr<ir::TypeRecordMember>>& members;
 };
 
+struct CEnumContext {
+  CContext& cctx;
+
+  // Base Type
+  ptr<ir::Type> type;
+};
+
 CXChildVisitResult cx_visit(
   CXCursor cursor, CXCursor parent, CXClientData clientData);
 
@@ -92,6 +99,11 @@ static CXChildVisitResult _ctype_visit(
     case CXType_LongLong:
     case CXType_Int128:
       item = arrow::make<ir::TypeInteger>(true, size_bits);
+      break;
+
+    case CXType_Float:
+    case CXType_Double:
+      item = arrow::make<ir::TypeReal>(size_bits);
       break;
 
     default:
@@ -165,7 +177,6 @@ static std::string _c_typename(CXType c_type) {
   // Determine typename
   auto typename_ = _c_typenames[c_typename];
   if (typename_ == "") {
-    // fmt::print("primitive C type failed to match: {}\n", c_typename);
     return "";
   }
 
@@ -194,6 +205,32 @@ static CXChildVisitResult _cx_record_visit(
   return CXChildVisit_Continue;
 }
 
+static CXChildVisitResult _cx_enum_visit(
+  CXCursor cursor, CXCursor parent, CXClientData clientData
+) {
+  auto& cectx = *reinterpret_cast<CEnumContext*>(clientData);
+
+  auto c_kind = clang_getCursorKind(cursor);
+  auto c_name = clang_getCString(clang_getCursorSpelling(cursor));
+
+  if (c_kind == CXCursor_EnumConstantDecl) {
+    std::stringstream stream;
+    if (cectx.type->is_signed()) {
+      stream << clang_getEnumConstantDeclValue(cursor);
+    } else {
+      stream << clang_getEnumConstantDeclUnsignedValue(cursor);
+    }
+
+    mpz_class value{stream.str(), 10};
+    auto result = make<ir::Constant>(
+      c_name, cectx.type, make<ir::Integer>(nullptr, value));
+
+    cectx.cctx.ctx.scope->put(c_name, result);
+  }
+
+  return CXChildVisit_Continue;
+}
+
 static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
   auto ref = clang_getCanonicalType(type);
 
@@ -208,8 +245,6 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
   ptr<ir::Type> result;
 
   bool continue_ = false;
-
-  // fmt::print("RESULT C TYPE ?= {} ({})\n", typename_, ref.kind);
 
   if (ref.kind == CXType_Record) {
     // Record (structure)
@@ -226,7 +261,25 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
     if (kind == CXCursor_StructDecl) {
       continue_ = true;
     }
-  } else if (ref.kind == CXType_FunctionProto) {
+  } else if (ref.kind == CXType_Enum) {
+    // Enum
+
+    // Determine the unqualified name
+    auto decl = clang_getTypeDeclaration(ref);
+    auto declname_ = std::string(clang_getCString(
+      clang_getCursorSpelling(decl)));
+    auto name = declname_.size() == 0 ? typename_ : declname_;
+
+    // After type resolution .. we need to resolve children
+    continue_ = true;
+
+    // Get the underlying type of this enum and resolve
+    auto underyling_t = clang_getEnumDeclIntegerType(decl);
+    result = resolve_c_type(cctx, underyling_t);
+
+    // Make an alias
+    result = make<ir::TypeAlias>(nullptr, name, result);
+  } else if (ref.kind == CXType_FunctionProto || ref.kind == CXType_FunctionNoProto) {
     // Do: Result Type
     auto result_t = resolve_c_type(cctx, clang_getResultType(ref));
     if (!result_t) return nullptr;
@@ -252,16 +305,18 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
       nullptr, clang_isFunctionTypeVariadic(ref), "C", parameters, result_t);
   } else if (ref.kind == CXType_Pointer) {
     auto cpt = clang_getCanonicalType(clang_getPointeeType(type));
-    if (cpt.kind == CXType_FunctionProto) {
+    if (cpt.kind == CXType_FunctionProto || cpt.kind == CXType_FunctionNoProto) {
       // Function Object/Pointer
       result = resolve_c_type(cctx, cpt);
 
       // Unwrap into ir::TypeFunction (callbacks)
-      result = make<ir::TypeFunction>(
-        nullptr,
-        cast<ir::TypeExternFunction>(result)->parameters,
-        cast<ir::TypeExternFunction>(result)->result
-      );
+      if (result) {
+        result = make<ir::TypeFunction>(
+          nullptr,
+          cast<ir::TypeExternFunction>(result)->parameters,
+          cast<ir::TypeExternFunction>(result)->result
+        );
+      }
     } else if (cpt.kind == CXType_Void) {
       // Void Pointer -> *uint8
       result = make<ir::TypePointer>(nullptr, make<ir::TypeInteger>(false, 8));
@@ -297,8 +352,18 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
 
       if (clang_visitChildren(decl, _cx_record_visit, &crctx) != 0) {
         // No good.. couldn't resolve whole type
-        // cctx.types.erase(typename_);
-        // result = nullptr;
+      }
+    } else if (ref.kind == CXType_Enum) {
+      auto decl = clang_getTypeDeclaration(ref);
+
+      // Visit children of enum
+      CEnumContext cectx = {
+        cctx,
+        result
+      };
+
+      if (clang_visitChildren(decl, _cx_enum_visit, &cectx) != 0) {
+        // No good.. couldn't resolve whole enum
       }
     }
   }
@@ -321,6 +386,15 @@ static CXChildVisitResult _cx_visit(
     if (!c_type) break;
 
     // Make: Alias
+    // TODO: Use TypeAlias (?)
+    item = c_type;
+  } break;
+
+  case CXCursor_StructDecl:
+  case CXCursor_EnumDecl: {
+    auto c_type = resolve_c_type(cctx, clang_getCursorType(cursor));
+    if (!c_type) break;
+
     item = c_type;
   } break;
 
