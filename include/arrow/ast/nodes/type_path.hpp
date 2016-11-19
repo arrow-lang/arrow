@@ -17,14 +17,14 @@ namespace arrow {
 namespace ast {
 
 struct TypePath : Type {
-  TypePath(Span span)
-  : Type(span), segments() {
+  TypePath(Span span, ptr<ast::Path> path)
+    : Type(span), path(path) {
   }
 
   virtual ~TypePath() noexcept;
 
-  // Segments in the path (Names)
-  std::vector<ptr<Name>> segments;
+  /// Path of the type.
+  ptr<ast::Path> path;
 };
 
 }  // namespace ast

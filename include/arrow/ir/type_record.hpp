@@ -11,6 +11,7 @@
 #include <sstream>
 
 #include "arrow/ir/type.hpp"
+#include "arrow/ir/generic.hpp"
 
 namespace arrow {
 namespace ir {
@@ -34,8 +35,8 @@ struct TypeRecordMember : Type {
 };
 
 struct TypeRecord : Type {
-  TypeRecord(ptr<ast::Node> source, std::string name)
-    : Node(source), Type(name), members(), _handle(nullptr) {
+  TypeRecord(ptr<ast::Node> source, std::string name, ptr<Scope> parent_scope)
+    : Node(source), Type(name), scope(make<ir::Scope>(parent_scope)), members(), _handle(nullptr) {
   }
 
   virtual ~TypeRecord() noexcept;
@@ -56,10 +57,28 @@ struct TypeRecord : Type {
     return -1;
   }
 
+  // Scope
+  ptr<Scope> scope;
+
+  // Record Members
   std::vector<ptr<TypeRecordMember>> members;
 
  private:
   LLVMTypeRef _handle;
+};
+
+struct GenericTypeRecord : Item, Generic {
+  GenericTypeRecord(ptr<ast::TypeRecord> source, std::string name, std::vector<ptr<GenericTypeParameter>> type_parameters, ptr<Scope> parent_scope)
+    : Node(source), Item(name), Generic(type_parameters), parent_scope(parent_scope) {
+  }
+
+  virtual ~GenericTypeRecord() noexcept;
+
+ private:
+  virtual ptr<ir::Node> do_instantiate(GContext&, std::vector<ptr<ir::Type>>&);
+
+  // Parent Scope
+  ptr<ir::Scope> parent_scope;
 };
 
 }  // namespace ir

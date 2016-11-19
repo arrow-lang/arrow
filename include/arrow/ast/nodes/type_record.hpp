@@ -31,8 +31,8 @@ struct TypeRecordMember : Statement {
 };
 
 struct TypeRecord : Statement {
-  TypeRecord(Span span, std::string name, std::vector<ptr<TypeRecordMember>> members)
-    : Statement(span), name(name), members(members) {
+  TypeRecord(Span span, std::string name, std::vector<ptr<TypeRecordMember>> members, std::vector<ptr<TypeParameter>> type_parameters)
+    : Statement(span), name(name), members(members), type_parameters(type_parameters) {
   }
 
   virtual ~TypeRecord() noexcept;
@@ -42,6 +42,9 @@ struct TypeRecord : Statement {
 
   /// Members
   std::vector<ptr<TypeRecordMember>> members;
+
+  /// Type Parameters.
+  std::vector<ptr<TypeParameter>> type_parameters;
 };
 
 }  // namespace ast

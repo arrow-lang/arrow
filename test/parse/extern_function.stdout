@@ -14,16 +14,14 @@
       "span": "test/parse/extern_function.as:3:1-27",
       "name": "method",
       "result_type": {
-        "tag": "TypePath",
+        "tag": "TypeName",
         "span": "test/parse/extern_function.as:3:22-27",
-        "segments": [
-          {
-            "tag": "Name",
-            "span": "test/parse/extern_function.as:3:22-27",
-            "text": "int64",
-            "type_arguments": []
-          }
-        ]
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/extern_function.as:3:22-27",
+          "text": "int64",
+          "type_arguments": []
+        }
       },
       "parameters": []
     },
@@ -32,16 +30,14 @@
       "span": "test/parse/extern_function.as:5:1-44",
       "name": "method",
       "result_type": {
-        "tag": "TypePath",
+        "tag": "TypeName",
         "span": "test/parse/extern_function.as:5:40-44",
-        "segments": [
-          {
-            "tag": "Name",
-            "span": "test/parse/extern_function.as:5:40-44",
-            "text": "bool",
-            "type_arguments": []
-          }
-        ]
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/extern_function.as:5:40-44",
+          "text": "bool",
+          "type_arguments": []
+        }
       },
       "parameters": [
         {
@@ -49,16 +45,14 @@
           "span": "test/parse/extern_function.as:5:19-27",
           "name": "a",
           "type": {
-            "tag": "TypePath",
+            "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:22-27",
-            "segments": [
-              {
-                "tag": "Name",
-                "span": "test/parse/extern_function.as:5:22-27",
-                "text": "int64",
-                "type_arguments": []
-              }
-            ]
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/extern_function.as:5:22-27",
+              "text": "int64",
+              "type_arguments": []
+            }
           }
         },
         {
@@ -66,16 +60,14 @@
           "span": "test/parse/extern_function.as:5:29-37",
           "name": "b",
           "type": {
-            "tag": "TypePath",
+            "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:32-37",
-            "segments": [
-              {
-                "tag": "Name",
-                "span": "test/parse/extern_function.as:5:32-37",
-                "text": "int64",
-                "type_arguments": []
-              }
-            ]
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/extern_function.as:5:32-37",
+              "text": "int64",
+              "type_arguments": []
+            }
           }
         }
       ]

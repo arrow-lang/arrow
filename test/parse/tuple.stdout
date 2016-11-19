@@ -12,16 +12,14 @@
         "span": "test/parse/tuple.as:1:8-16",
         "elements": [
           {
-            "tag": "TypePath",
+            "tag": "TypeName",
             "span": "test/parse/tuple.as:1:9-14",
-            "segments": [
-              {
-                "tag": "Name",
-                "span": "test/parse/tuple.as:1:9-14",
-                "text": "int32",
-                "type_arguments": []
-              }
-            ]
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:1:9-14",
+              "text": "int32",
+              "type_arguments": []
+            }
           }
         ]
       },
@@ -37,28 +35,24 @@
         "span": "test/parse/tuple.as:2:8-21",
         "elements": [
           {
-            "tag": "TypePath",
+            "tag": "TypeName",
             "span": "test/parse/tuple.as:2:9-13",
-            "segments": [
-              {
-                "tag": "Name",
-                "span": "test/parse/tuple.as:2:9-13",
-                "text": "bool",
-                "type_arguments": []
-              }
-            ]
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:2:9-13",
+              "text": "bool",
+              "type_arguments": []
+            }
           },
           {
-            "tag": "TypePath",
+            "tag": "TypeName",
             "span": "test/parse/tuple.as:2:15-20",
-            "segments": [
-              {
-                "tag": "Name",
-                "span": "test/parse/tuple.as:2:15-20",
-                "text": "int32",
-                "type_arguments": []
-              }
-            ]
+            "name": {
+              "tag": "Name",
+              "span": "test/parse/tuple.as:2:15-20",
+              "text": "int32",
+              "type_arguments": []
+            }
           }
         ]
       },
@@ -115,16 +109,14 @@
                 "span": "test/parse/tuple.as:4:10-18",
                 "elements": [
                   {
-                    "tag": "TypePath",
+                    "tag": "TypeName",
                     "span": "test/parse/tuple.as:4:11-16",
-                    "segments": [
-                      {
-                        "tag": "Name",
-                        "span": "test/parse/tuple.as:4:11-16",
-                        "text": "int32",
-                        "type_arguments": []
-                      }
-                    ]
+                    "name": {
+                      "tag": "Name",
+                      "span": "test/parse/tuple.as:4:11-16",
+                      "text": "int32",
+                      "type_arguments": []
+                    }
                   }
                 ]
               }

@@ -16,3 +16,8 @@ def assert(condition: bool) {
 def size_of<T>(): uint64 {
   return (((0 as *T) + 1) as *uint8) - ((0 as *T) as *uint8);
 }
+
+// Creates a null pointer.
+def null<T>(): *T {
+  return 0 as *T;
+}

@@ -19,6 +19,19 @@ struct Type : Node {
   virtual ~Type() noexcept;
 };
 
+struct TypeParameter : Node {
+  TypeParameter(
+    Span span, std::string name
+  )
+  : Node(span), name(name) {
+  }
+
+  virtual ~TypeParameter() noexcept;
+
+  /// Name of the parameter.
+  std::string name;
+};
+
 }  // namespace ast
 }  // namespace arrow
 

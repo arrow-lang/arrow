@@ -267,7 +267,7 @@ static ptr<ir::Type> resolve_c_type(CContext& cctx, CXType type) {
     auto kind = clang_getCursorKind(decl);
 
     // NOTE: Unions get expressed as an opaque struct
-    result = make<ir::TypeRecord>(nullptr, typename_);
+    result = make<ir::TypeRecord>(nullptr, typename_, cctx.ctx.scope);
     if (kind == CXCursor_StructDecl) {
       continue_ = true;
     }

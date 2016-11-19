@@ -17,6 +17,21 @@ auto Parser::parse_type_record() -> ptr<ast::TypeRecord> {
   auto id = parse_id();
   if (!id) return nullptr;
 
+  // Check for `<` .. `>` to indicate a generic type
+  std::vector<ptr<ast::TypeParameter>> type_parameters;
+  if (_t.peek()->type == token::Type::LessThan) {
+    _t.pop();
+
+    if (!handle_sequence<ast::TypeParameter>(
+      &(type_parameters),
+      std::bind(&Parser::parse_type_parameter, this),
+      token::Type::GreaterThan
+    )) return nullptr;
+
+    // Expect: `>`
+    if (!expect(token::Type::GreaterThan)) return nullptr;
+  }
+
   // Expect: `{`
   if (!expect(token::Type::LeftBrace)) return nullptr;
 
@@ -50,7 +65,8 @@ auto Parser::parse_type_record() -> ptr<ast::TypeRecord> {
   if (!end_tok) return nullptr;
 
   return std::make_shared<ast::TypeRecord>(
-    begin_tok->span.extend(end_tok->span), id->text, members);
+    begin_tok->span.extend(end_tok->span), id->text, members,
+    type_parameters);
 }
 
 auto Parser::parse_type_record_member() -> ptr<ast::TypeRecordMember> {

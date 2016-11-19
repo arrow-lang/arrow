@@ -13,6 +13,9 @@ void TypeResolve::visit_type_record(ptr<ast::TypeRecord> x) {
   auto record = _ctx.scope->get<ir::TypeRecord>(x);
   if (!record) return;
 
+  // Scope: Enter
+  auto sb = ir::Scope::enter(record->scope, _ctx);
+
   // Enumerate members ..
   record->members.clear();
   for (auto member : x->members) {
@@ -29,4 +32,7 @@ void TypeResolve::visit_type_record(ptr<ast::TypeRecord> x) {
       member_t
     ));
   }
+
+  // Scope: Exit
+  sb.exit();
 }

@@ -71,16 +71,14 @@
       "name": "name",
       "mutable": false,
       "type": {
-        "tag": "TypePath",
+        "tag": "TypeName",
         "span": "test/parse/conditional.as:15:11-16",
-        "segments": [
-          {
-            "tag": "Name",
-            "span": "test/parse/conditional.as:15:11-16",
-            "text": "int32",
-            "type_arguments": []
-          }
-        ]
+        "name": {
+          "tag": "Name",
+          "span": "test/parse/conditional.as:15:11-16",
+          "text": "int32",
+          "type_arguments": []
+        }
       },
       "initializer": {
         "tag": "Conditional",

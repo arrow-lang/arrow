@@ -19,8 +19,9 @@ TypeBuild::TypeBuild(GContext& ctx) : Pass(ctx) {
 auto TypeBuild::run(ptr<ast::Node> node) -> ptr<ir::Type> {
   Match(*node) {
     ACCEPT(ast::TypeName, type_name);
-    ACCEPT(ast::Identifier, id);
+    ACCEPT(ast::Name, name);
     ACCEPT(ast::TypePointer, type_pointer);
+    ACCEPT(ast::TypeName, type_name);
     ACCEPT(ast::TypePath, type_path);
     ACCEPT(ast::Path, path);
     ACCEPT(ast::TypeUnit, type_unit);

@@ -4,43 +4,35 @@
 // See accompanying file LICENSE
 
 #include "arrow/parser.hpp"
+#include "arrow/log.hpp"
 
 using arrow::Parser;
 
-auto Parser::parse_type_name() -> ptr<ast::TypeName> {
+auto Parser::parse_type_path() -> ptr<ast::Type> {
+  ptr<ast::Node> result;
+
   // Parse: Name
-  auto name = parse_name();
-  if (!name) return nullptr;
+  result = parse_name();
+  if (!result) return nullptr;
 
-  return std::make_shared<ast::TypeName>(name->span, name);
-}
-
-auto Parser::parse_type_path() -> ptr<ast::TypePath> {
-  // Parse: Names
-  auto path = make<ast::TypePath>(Span(_t._filename));
-  do {
-    // Parse: Name
-    auto elem = parse_name();
-    if (!elem) return nullptr;
-
-    if (path->segments.size() == 0) {
-      path->span = elem->span;
-    } else {
-      path->span = path->span.extend(elem->span);
-    }
-
-    path->segments.push_back(elem);
-
-    // Check for a sequence continuation token
-    auto tok = _t.peek();
-    if (tok->type == token::Type::Period) {
+  // Check for `.` to indicate a type path
+  if (_t.peek()->type == token::Type::Period) {
+    while (_t.peek()->type == token::Type::Period) {
       _t.pop();
-      continue;
+
+      // Parse: Name (segment)
+      auto name = parse_name();
+      if (!name) return nullptr;
+
+      // Make: Path
+      result = make<ast::Path>(
+        result->span.extend(name->span), cast<ast::Expression>(result), name);
     }
+  } else {
+    // Still a name
+    return make<ast::TypeName>(result->span, cast<ast::Name>(result));
+  }
 
-    // Done
-    break;
-  } while (true);
-
-  return path;
+  // Now a path
+  return make<ast::TypePath>(result->span, cast<ast::Path>(result));
 }

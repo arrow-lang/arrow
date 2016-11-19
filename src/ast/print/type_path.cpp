@@ -10,14 +10,7 @@ using arrow::ast::Print;
 
 void Print::print_type_path(ptr<TypePath> n) {
   handle("TypePath", n, [&, this] {
-    _w.Key("segments");
-    _w.StartArray();
-
-    for (auto& s : n->segments) {
-      print(s);
-    }
-
-    _w.EndArray();
+    _w.Key("path");
+    print(n->path);
   });
-
 }

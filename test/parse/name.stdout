@@ -32,16 +32,14 @@
       "text": "pancake",
       "type_arguments": [
         {
-          "tag": "TypePath",
+          "tag": "TypeName",
           "span": "test/parse/name.as:8:9-14",
-          "segments": [
-            {
-              "tag": "Name",
-              "span": "test/parse/name.as:8:9-14",
-              "text": "int32",
-              "type_arguments": []
-            }
-          ]
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/name.as:8:9-14",
+            "text": "int32",
+            "type_arguments": []
+          }
         }
       ]
     },
@@ -57,28 +55,24 @@
       "text": "pancake",
       "type_arguments": [
         {
-          "tag": "TypePath",
+          "tag": "TypeName",
           "span": "test/parse/name.as:10:9-13",
-          "segments": [
-            {
-              "tag": "Name",
-              "span": "test/parse/name.as:10:9-13",
-              "text": "bool",
-              "type_arguments": []
-            }
-          ]
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/name.as:10:9-13",
+            "text": "bool",
+            "type_arguments": []
+          }
         },
         {
-          "tag": "TypePath",
+          "tag": "TypeName",
           "span": "test/parse/name.as:10:15-22",
-          "segments": [
-            {
-              "tag": "Name",
-              "span": "test/parse/name.as:10:15-22",
-              "text": "float32",
-              "type_arguments": []
-            }
-          ]
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/name.as:10:15-22",
+            "text": "float32",
+            "type_arguments": []
+          }
         }
       ]
     },
@@ -88,29 +82,25 @@
       "text": "pancake",
       "type_arguments": [
         {
-          "tag": "TypePath",
+          "tag": "TypeName",
           "span": "test/parse/name.as:11:9-21",
-          "segments": [
-            {
-              "tag": "Name",
-              "span": "test/parse/name.as:11:9-21",
-              "text": "name",
-              "type_arguments": [
-                {
-                  "tag": "TypePath",
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/name.as:11:9-21",
+            "text": "name",
+            "type_arguments": [
+              {
+                "tag": "TypeName",
+                "span": "test/parse/name.as:11:14-19",
+                "name": {
+                  "tag": "Name",
                   "span": "test/parse/name.as:11:14-19",
-                  "segments": [
-                    {
-                      "tag": "Name",
-                      "span": "test/parse/name.as:11:14-19",
-                      "text": "int32",
-                      "type_arguments": []
-                    }
-                  ]
+                  "text": "int32",
+                  "type_arguments": []
                 }
-              ]
-            }
-          ]
+              }
+            ]
+          }
         }
       ]
     },
@@ -124,41 +114,35 @@
           "span": "test/parse/name.as:12:9-34",
           "parameters": [
             {
-              "tag": "TypePath",
+              "tag": "TypeName",
               "span": "test/parse/name.as:12:10-21",
-              "segments": [
-                {
-                  "tag": "Name",
-                  "span": "test/parse/name.as:12:10-21",
-                  "text": "name",
-                  "type_arguments": [
-                    {
-                      "tag": "TypePath",
+              "name": {
+                "tag": "Name",
+                "span": "test/parse/name.as:12:10-21",
+                "text": "name",
+                "type_arguments": [
+                  {
+                    "tag": "TypeName",
+                    "span": "test/parse/name.as:12:15-20",
+                    "name": {
+                      "tag": "Name",
                       "span": "test/parse/name.as:12:15-20",
-                      "segments": [
-                        {
-                          "tag": "Name",
-                          "span": "test/parse/name.as:12:15-20",
-                          "text": "int32",
-                          "type_arguments": []
-                        }
-                      ]
+                      "text": "int32",
+                      "type_arguments": []
                     }
-                  ]
-                }
-              ]
+                  }
+                ]
+              }
             },
             {
-              "tag": "TypePath",
+              "tag": "TypeName",
               "span": "test/parse/name.as:12:23-27",
-              "segments": [
-                {
-                  "tag": "Name",
-                  "span": "test/parse/name.as:12:23-27",
-                  "text": "bool",
-                  "type_arguments": []
-                }
-              ]
+              "name": {
+                "tag": "Name",
+                "span": "test/parse/name.as:12:23-27",
+                "text": "bool",
+                "type_arguments": []
+              }
             }
           ],
           "result": {
@@ -167,32 +151,28 @@
           }
         },
         {
-          "tag": "TypePath",
+          "tag": "TypeName",
           "span": "test/parse/name.as:12:37-42",
-          "segments": [
-            {
-              "tag": "Name",
-              "span": "test/parse/name.as:12:37-42",
-              "text": "int32",
-              "type_arguments": []
-            }
-          ]
+          "name": {
+            "tag": "Name",
+            "span": "test/parse/name.as:12:37-42",
+            "text": "int32",
+            "type_arguments": []
+          }
         },
         {
           "tag": "TypeTuple",
           "span": "test/parse/name.as:12:45-52",
           "elements": [
             {
-              "tag": "TypePath",
+              "tag": "TypeName",
               "span": "test/parse/name.as:12:46-50",
-              "segments": [
-                {
-                  "tag": "Name",
-                  "span": "test/parse/name.as:12:46-50",
-                  "text": "bool",
-                  "type_arguments": []
-                }
-              ]
+              "name": {
+                "tag": "Name",
+                "span": "test/parse/name.as:12:46-50",
+                "text": "bool",
+                "type_arguments": []
+              }
             }
           ]
         }

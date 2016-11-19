@@ -13,6 +13,15 @@ void Print::print_type_record(ptr<TypeRecord> n) {
     _w.Key("name");
     _w.String(n->name.c_str());
 
+    _w.Key("type_parameters");
+    _w.StartArray();
+
+    for (auto& tparam : n->type_parameters) {
+      print(tparam);
+    }
+
+    _w.EndArray();
+
     _w.Key("members");
     _w.StartArray();
 

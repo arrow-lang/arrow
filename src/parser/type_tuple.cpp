@@ -13,9 +13,11 @@ auto Parser::parse_type_tuple() -> ptr<ast::Type> {
   if (!begin_tok) return nullptr;
 
   bool is_tuple = false;
+  bool is_unit = false;
   std::vector<ptr<ast::Type>> elements;
   if (_t.peek()->type == token::Type::RightParenthesis) {
     // Check for an immediate `)` to signal unit
+    is_unit = true;
     elements.push_back(
       make<ast::TypeUnit>(begin_tok->span.extend(_t.peek()->span)));
   } else {
@@ -51,7 +53,7 @@ auto Parser::parse_type_tuple() -> ptr<ast::Type> {
     _t.pop();
 
     // Remove our unit type (if present) and become 0-parameter
-    if (elements.size() == 1 && !is_tuple) {
+    if (elements.size() == 1 && is_unit) {
       elements.clear();
     }
 

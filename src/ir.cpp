@@ -26,6 +26,7 @@ ir::Constant::~Constant() noexcept { }
 
 ir::GenericTypeParameter::~GenericTypeParameter() noexcept { }
 ir::GenericFunction::~GenericFunction() noexcept { }
+ir::GenericTypeRecord::~GenericTypeRecord() noexcept { }
 ir::Generic::~Generic() noexcept { }
 
 ir::Type::~Type() noexcept { }

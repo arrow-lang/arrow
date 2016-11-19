@@ -35,19 +35,6 @@ struct Parameter : Node {
   ptr<Type> type;
 };
 
-struct TypeParameter : Node {
-  TypeParameter(
-    Span span, std::string name
-  )
-  : Node(span), name(name) {
-  }
-
-  virtual ~TypeParameter() noexcept;
-
-  /// Name of the parameter.
-  std::string name;
-};
-
 // TODO: Make an abstract base as ExternFunction is only a part of function
 
 struct Function : Statement {
