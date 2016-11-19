@@ -71,9 +71,7 @@ std::ostream& arrow::token::operator<<(
 
   case Type::Integer:                        return os << "integer";
   case Type::Real:                           return os << "real";
-  case Type::Symbol:                         return os << "symbol";
   case Type::Identifier:                     return os << "identifier";
-  case Type::Keyword:                        return os << "keyword";
   case Type::String:                         return os << "string";
 
   case Type::And:                            return os << "`and`";
@@ -145,7 +143,9 @@ std::ostream& arrow::token::operator<<(
   case Type::Ellipsis:                       return os << "`...`";
   case Type::LessThan_LessThan_Equals:       return os << "`<<=`";
   case Type::GreaterThan_GreaterThan_Equals: return os << "`>>=`";
-  }
 
-  return os << "?";
+  default:
+    // Do nothing
+    return os;
+  }
 }

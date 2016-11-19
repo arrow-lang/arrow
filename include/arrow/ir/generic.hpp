@@ -31,14 +31,17 @@ struct Generic : virtual Node {
   virtual ~Generic() noexcept;
 
   /// Instantiate a concrete item (with cache)
-  ptr<ir::Node> instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments);
+  ptr<ir::Node> instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments, Span span);
 
   /// Type Parameters
   std::vector<ptr<GenericTypeParameter>> type_parameters;
 
  private:
-   /// Instantiate a concrete item
+  /// Instantiate a concrete item
   virtual ptr<ir::Node> do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments) = 0;
+
+  /// Name
+  virtual std::string get_base_name() = 0;
 
   std::unordered_map<std::string, ptr<ir::Node>> _cache;
 };

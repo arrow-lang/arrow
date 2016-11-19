@@ -1,19 +1,11 @@
-
-// TODO: assert built-in or something
-extern def abort();
-
-def assert(condition: bool) {
-  if not condition {
-    abort();
-  }
-}
+import "std";
 
 def test_while() {
   let counter = 10;
   while counter != 0 {
     counter = counter - 1;
   }
-  assert(counter == 0);
+  std.assert(counter == 0);
 }
 
 def test_while_continue() {
@@ -24,7 +16,7 @@ def test_while_continue() {
     continue;
     foo = 123;
   }
-  assert(foo == 321);
+  std.assert(foo == 321);
 }
 
 def test_while_break() {
@@ -33,7 +25,7 @@ def test_while_break() {
     counter = counter - 1;
     break;
   }
-  assert(counter == 9);
+  std.assert(counter == 9);
 }
 
 def test_while_nested_continue() {
@@ -48,7 +40,7 @@ def test_while_nested_continue() {
       ase = 321;
     }
   }
-  assert(ase == 123);
+  std.assert(ase == 123);
 }
 
 def test_while_nested_break() {
@@ -63,8 +55,8 @@ def test_while_nested_break() {
       ase = 321;
     }
   }
-  assert(ase == 123);
-  assert(foo == 5);
+  std.assert(ase == 123);
+  std.assert(foo == 5);
 }
 
 def main() {

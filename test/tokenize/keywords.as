@@ -21,3 +21,4 @@ global
 as
 struct
 import
+type

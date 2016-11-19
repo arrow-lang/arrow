@@ -1,39 +1,31 @@
-
-// TODO: assert built-in or something
-extern def abort();
-
-def assert(condition: bool) {
-  if not condition {
-    abort();
-  }
-}
+import "std";
 
 def test_assign() {
   let mutable x: int32;
   let y: int32 = x = 10;
   let mutable z: int32;
-  assert(x == 10);
-  assert(y == 10);
+  std.assert(x == 10);
+  std.assert(y == 10);
   z = x = 11;
-  assert(x == 11);
-  assert(z == 11);
+  std.assert(x == 11);
+  std.assert(z == 11);
   z = x = 12;
-  assert(x == 12);
-  assert(z == 12);
+  std.assert(x == 12);
+  std.assert(z == 12);
 }
 
 def test_assign_op() {
   let mutable x: int32 = 0;
   let y: int32 = x += 10;
   let mutable z: int32;
-  assert(x == 10);
-  assert(y == 10);
+  std.assert(x == 10);
+  std.assert(y == 10);
   z = x += 11;
-  assert(x == 21);
-  assert(z == 21);
+  std.assert(x == 21);
+  std.assert(z == 21);
   z = x += 12;
-  assert(x == 33);
-  assert(z == 33);
+  std.assert(x == 33);
+  std.assert(z == 33);
 }
 
 def main() {

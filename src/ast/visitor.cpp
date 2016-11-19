@@ -27,6 +27,10 @@ void Visitor::run(ptr<Node> node) {
     visit_##name(std::dynamic_pointer_cast<type>(node)); break
 
 void Visitor::accept(ptr<ast::Node> node) {
+  // Do nothing if we're an error state
+  // FIXME: revisit
+  if (Log::get().count(arrow::LOG_ERROR) != 0) { return; }
+
   Match(*node) {
     ACCEPT(Module, module);
     ACCEPT(Block, block);

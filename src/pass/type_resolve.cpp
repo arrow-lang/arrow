@@ -64,6 +64,9 @@ void TypeResolve::run(ptr<ast::Node> node) {
 void TypeResolve::run_together(std::vector<ptr<ast::Node>> nodes) {
   unsigned iteration = 0;
   do {
+    // Get out if we've had errors
+    if (Log::get().count(arrow::LOG_ERROR) != 0) { break; }
+
     // Reset incomplete flag
     _incomplete = false;
 

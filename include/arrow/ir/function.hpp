@@ -81,6 +81,10 @@ struct GenericFunction : Item, Generic {
 
  private:
   virtual ptr<ir::Node> do_instantiate(GContext&, std::vector<ptr<ir::Type>>&);
+
+  virtual std::string get_base_name() {
+    return name;
+  }
 };
 
 struct ExternFunction : Function {

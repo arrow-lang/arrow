@@ -1,29 +1,21 @@
-
-// TODO: assert built-in or something
-extern def abort();
-
-def assert(condition: bool) {
-  if not condition {
-    abort();
-  }
-}
+import "std";
 
 let counter = 0;
 
 if false or { counter = counter + 1; true; } {
-  assert(true);
+  std.assert(true);
 }
 
 if true or { counter = counter + 1; false; } {
-  assert(true);
+  std.assert(true);
 }
 
 if false and { counter = counter + 1; true; } {
-  assert(false);
+  std.assert(false);
 }
 
 if true and { counter = counter + 1; true; } {
-  assert(true);
+  std.assert(true);
 }
 
-assert(counter == 2);
+std.assert(counter == 2);

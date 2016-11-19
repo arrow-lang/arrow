@@ -238,7 +238,14 @@ auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent) ->
   // TODO: Error checking here
   if (isa<ir::Generic>(result)) {
     result = cast<ir::Generic>(result)->instantiate(
-      ctx, name->type_arguments);
+      ctx, name->type_arguments, name->span);
+  } else if (name->type_arguments.size() > 0) {
+    // We have type arguments but no generic
+    if (!silent) {
+      Log::get().error(name->span, "expected no type arguments, `{}` is not generic", name->text);
+    }
+
+    return nullptr;
   }
 
   return result;
@@ -266,6 +273,15 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
     }
   }
 
+  if (op_t) {
+    while (op_t->is_pointer()) {
+      op_t = cast<ir::TypePointer>(op_t)->element;
+      if (build) {
+        op = make<ir::Indirect>(op->source, op_t, cast<ir::Value>(op));
+      }
+    }
+  }
+
   ptr<ir::Node> result;
 
   // Check for a qualified name reference
@@ -285,7 +301,7 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
     // If we have a generic item; instantiate
     if (isa<ir::Generic>(tmp)) {
       tmp = cast<ir::Generic>(tmp)->instantiate(
-        ctx, x->member->type_arguments);
+        ctx, x->member->type_arguments, x->span);
     }
 
     result = tmp;

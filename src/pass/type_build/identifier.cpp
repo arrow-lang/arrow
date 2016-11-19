@@ -13,7 +13,7 @@ using arrow::isa;
 using arrow::cast;
 
 auto TypeBuild::handle_name(ptr<ast::Name> x) -> ptr<ir::Type> {
-  return ir::type_of(ir::resolve_name(_ctx, x));
+  return ir::type_of(ir::resolve_name(_ctx, x, false));
 }
 
 auto TypeBuild::handle_type_name(ptr<ast::TypeName> x) -> ptr<ir::Type> {

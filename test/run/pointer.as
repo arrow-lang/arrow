@@ -1,16 +1,5 @@
-
-// TODO: assert built-in or something
-extern def abort();
-
-def assert(condition: bool) {
-  if not condition {
-    abort();
-  }
-}
-
-// TODO: C memory methods should come from cimport
-extern def malloc(size: int64): *int8;
-extern def free(ptr: *int8);
+import "std";
+import "libc";
 
 def test_simple() {
   let a = 1204;
@@ -24,11 +13,11 @@ def test_simple() {
   *c = &b;
   **c = 2301;
 
-  assert(b == 2301);
-  assert(a == 320);
-  assert(c == &p_a);
-  assert(*c == &b);
-  assert(d == 1204);
+  std.assert(b == 2301);
+  std.assert(a == 320);
+  std.assert(c == &p_a);
+  std.assert(*c == &b);
+  std.assert(d == 1204);
 }
 
 def test_relational() {
@@ -38,42 +27,42 @@ def test_relational() {
   let p3a = p2a;
   let b = *p1a;
   let p1b = &b;
-  let m = malloc(10);
+  let m = libc.malloc(10);
 
   // EQ
-  assert(p1a == p2a);
-  assert(p2a == p3a);
+  std.assert(p1a == p2a);
+  std.assert(p2a == p3a);
 
   // NE
-  assert(p1b != p1a);
+  std.assert(p1b != p1a);
 
   // LT
-  assert(m < (m + 1));
-  assert(m + 3 < m + 9);
+  std.assert(m < (m + 1));
+  std.assert(m + 3 < m + 9);
 
   // LE
-  assert(m <= m);
+  std.assert(m <= m);
 
   // LT
-  assert((m + 2) > (m + 1));
-  assert(m + 3 > m - 9);
+  std.assert((m + 2) > (m + 1));
+  std.assert(m + 3 > m - 9);
 
   // LE
-  assert(m >= m);
+  std.assert(m >= m);
 
-  free(m);
+  libc.free(m);
 }
 
 def test_ptrdiff() {
-  let m = malloc(10);
+  let m = libc.malloc(10);
   let v: int128 = 20;
 
-  assert((m - (m + 10)) == -10);
-  assert(((m + 10) - m) == +10);
-  assert(&v - (&v + 1) == -1);
-  assert((&v as *int8) - ((&v + 1) as *int8) == -16);
+  std.assert((m - (m + 10)) == -10);
+  std.assert(((m + 10) - m) == +10);
+  std.assert(&v - (&v + 1) == -1);
+  std.assert((&v as *int8) - ((&v + 1) as *int8) == -16);
 
-  free(m);
+  libc.free(m);
 }
 
 // NOTE: ptr transmute will eventually be non-syntax (eg. `std.ptr.transmute`)
@@ -83,11 +72,27 @@ def test_transmute() {
   let zp = &z as *int8;
   let ip = zp as *bool;
 
-  assert(*ip == false);
+  std.assert(*ip == false);
 
   z = 1;
 
-  assert(*ip == true);
+  std.assert(*ip == true);
+}
+
+struct Point {
+  x: int32;
+  y: int32;
+}
+
+def test_auto_indirect() {
+  let m: Point;
+  m.x = 10;
+
+  let p = &m;
+  p.y = 20;
+
+  std.assert(p.x == 10);
+  std.assert(m.y == 20);
 }
 
 def main() {
@@ -95,6 +100,7 @@ def main() {
   test_relational();
   test_ptrdiff();
   test_transmute();
+  test_auto_indirect();
 }
 
 main();

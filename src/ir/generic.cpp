@@ -18,7 +18,28 @@ using arrow::ir::GenericFunction;
 using arrow::ir::GenericTypeRecord;
 namespace ir = arrow::ir;
 
-auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments) -> ptr<Node> {
+auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments, Span span) -> ptr<Node> {
+  // Check type_parameters against type_arguments
+  if (type_arguments.size() == 0) {
+    // None
+    Log::get().error(span, "use of generic `{}` requires type arguments",
+      get_base_name());
+
+    return nullptr;
+  } else if (type_parameters.size() > type_arguments.size()) {
+    // Too few
+    Log::get().error(span, "too few type arguments, expected {}, have {}",
+      type_parameters.size(), type_arguments.size());
+
+    return nullptr;
+  } else if (type_arguments.size() > type_parameters.size()) {
+    // Too many
+    Log::get().error(span, "too many type arguments, expected {}, have {}",
+      type_parameters.size(), type_arguments.size());
+
+    return nullptr;
+  }
+
   // Realize type arguments
   std::vector<ptr<ir::Type>> type_args;
   for (auto const& type_arg_ast : type_arguments) {
@@ -47,14 +68,15 @@ auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_argum
 
 static std::string make_generic_name(std::string name, std::vector<arrow::ptr<arrow::ir::Type>>& type_args) {
   std::stringstream stream;
-  stream << "!";
   stream << name;
+  stream << "<";
 
-  for (auto& a : type_args) {
-    stream << "!";
-    stream << a->name;
+  for (unsigned i = 0; i < type_args.size(); ++i) {
+    if (i > 0) stream << ",";
+    stream << type_args[i]->name;
   }
 
+  stream << ">";
   return stream.str();
 }
 
@@ -92,6 +114,7 @@ auto GenericFunction::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& 
   auto i = ctx.scope->get<ir::Function>(x);
   if (!i) return nullptr;
   declare_type_parameters(ctx, i->block->scope, type_parameters, type_args);
+
 
   // Resolve
   auto err_cnt = Log::get().count(LOG_ERROR);
