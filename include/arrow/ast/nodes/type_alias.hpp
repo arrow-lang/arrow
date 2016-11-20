@@ -22,7 +22,7 @@ struct TypeAlias : Statement {
 
   virtual ~TypeAlias() noexcept;
 
-  //. Name
+  /// Name
   std::string name;
 
   /// Target

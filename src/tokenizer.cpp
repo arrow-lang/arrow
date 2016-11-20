@@ -42,6 +42,8 @@ static std::unordered_map<std::string, arrow::token::Type> keywords = {
   {"_",         arrow::token::Type::Underscore  },
   {"import",    arrow::token::Type::Import      },
   {"type",      arrow::token::Type::Type        },
+  {"interface", arrow::token::Type::Interface   },
+  {"implement", arrow::token::Type::Implement   },
 };
 
 // Symbols

@@ -10,11 +10,56 @@
 // [x] `import ".."` cache
 // [ ] `#include ".."` cache
 // [x] `extern ..` cache
-// [ ] (I)Resource :: acquire/release
 // [ ] Failed slots should create poison values (so as to not have spurious errors)
 // [x] Auto-dereferencing of pointers during path expressions
-// [ ] Ternary Expressions
 // [x] Generic structures :: `struct Box<T> { }`
-// [ ] Implement
-// [ ] Generic Implement
 // [ ] Directory Import
+
+// [X] Ternary Expressions {1}
+// [-] implement T {2}
+// [-] implement<T> Box<T> {3}
+// [ ] TypeResolve for generic type parameters
+// [ ] Record Literals -- Box{10}
+// [-] Interfaces
+// [ ] Resource Interface
+
+struct Point {
+  x: int64;
+  y: int64;
+}
+
+struct Box<T> {
+  value: T;
+}
+
+interface Resource {
+  def release();
+}
+
+interface Sequence<T> {
+  def length(): uint64;
+}
+
+implement Point {
+  def new() {
+    // [..]
+  }
+}
+
+// implement Resource for Point {
+//   def release(self) {
+//     // [...]
+//   }
+// }
+
+implement<T> Box<T> {
+  // [...]
+}
+
+implement Box<bool> {
+  // [...]
+}
+
+// implement<T> Sequence<T> for Box<T> {
+//   // [...]
+// }

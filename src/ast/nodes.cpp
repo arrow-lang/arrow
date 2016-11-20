@@ -20,6 +20,9 @@ IMPL(Variable)
 IMPL(ExpressionStatement)
 IMPL(Block)
 
+IMPL(Interface)
+IMPL(Implement)
+
 IMPL(Expression)
 IMPL(Integer)
 IMPL(Real)

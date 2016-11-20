@@ -55,83 +55,76 @@ void Print::print(ptr<Node> node) {
   }
 
   Match(*node) {
-    ACCEPT(Module, module);
-    ACCEPT(Variable, variable);
-    ACCEPT(ExpressionStatement, expression_statement);
-    ACCEPT(Return, return);
-    ACCEPT(Block, block);
-
-    ACCEPT(Integer, integer);
-    ACCEPT(Boolean, bool);
-    ACCEPT(String, str);
-    ACCEPT(Real, real);
-    ACCEPT(Unit, unit);
-    ACCEPT(Name, name);
-    ACCEPT(Identifier, id);
-    ACCEPT(Path, path);
-    ACCEPT(Tuple, tuple);
-
-    ACCEPT(Identity, identity);
-    ACCEPT(Negate, negate);
-    ACCEPT(BitNot, bit_not);
-    ACCEPT(Not, not);
-    ACCEPT(Indirect, indirect);
-    ACCEPT(AddressOf, address_of);
-
-    ACCEPT(Mul, mul);
-    ACCEPT(Div, div);
-    ACCEPT(Mod, mod);
     ACCEPT(Add, add);
-    ACCEPT(Sub, sub);
-    ACCEPT(BitAnd, bit_and);
-    ACCEPT(BitXor, bit_xor);
-    ACCEPT(BitOr, bit_or);
-    ACCEPT(GreaterThanOrEqualTo, gte);
-    ACCEPT(GreaterThan, gt);
-    ACCEPT(LessThan, lt);
-    ACCEPT(LessThanOrEqualTo, lte);
-    ACCEPT(EqualTo, eq);
-    ACCEPT(NotEqualTo, ne);
+    ACCEPT(AddressOf, address_of);
     ACCEPT(And, and);
-    ACCEPT(Or, or);
+    ACCEPT(Argument, argument);
     ACCEPT(Assign, assign);
     ACCEPT(AssignAdd, assign_add);
-    ACCEPT(AssignSub, assign_sub);
-    ACCEPT(AssignMul, assign_mul);
+    ACCEPT(AssignBitAnd, assign_bit_and);
+    ACCEPT(AssignBitOr, assign_bit_or);
+    ACCEPT(AssignBitXor, assign_bit_xor);
     ACCEPT(AssignDiv, assign_div);
     ACCEPT(AssignMod, assign_mod);
-    ACCEPT(AssignBitOr, assign_bit_or);
-    ACCEPT(AssignBitAnd, assign_bit_and);
-    ACCEPT(AssignBitXor, assign_bit_xor);
-
-    ACCEPT(TypeName, type_name);
-    ACCEPT(TypePointer, type_pointer);
-    ACCEPT(TypeAlias, type_alias);
-    ACCEPT(TypeUnit, type_unit);
-    ACCEPT(TypeTuple, type_tuple);
-    ACCEPT(TypePath, type_path);
-    ACCEPT(TypeFunction, type_function);
-    ACCEPT(TypeRecord, type_record);
-    ACCEPT(TypeRecordMember, type_record_member);
-
+    ACCEPT(AssignMul, assign_mul);
+    ACCEPT(AssignSub, assign_sub);
+    ACCEPT(BitAnd, bit_and);
+    ACCEPT(BitNot, bit_not);
+    ACCEPT(BitOr, bit_or);
+    ACCEPT(BitXor, bit_xor);
+    ACCEPT(Block, block);
+    ACCEPT(Boolean, bool);
+    ACCEPT(Branch, branch);
+    ACCEPT(Break, break);
+    ACCEPT(Call, call);
+    ACCEPT(CInclude, cinclude);
+    ACCEPT(Conditional, conditional);
+    ACCEPT(Continue, continue);
+    ACCEPT(Div, div);
+    ACCEPT(EqualTo, eq);
+    ACCEPT(ExpressionStatement, expression_statement);
     ACCEPT(ExternFunction, extern_function);
     ACCEPT(Function, function);
-    ACCEPT(Parameter, parameter);
-    ACCEPT(TypeParameter, type_parameter);
-    ACCEPT(Call, call);
-    ACCEPT(Argument, argument);
-
+    ACCEPT(GreaterThan, gt);
+    ACCEPT(GreaterThanOrEqualTo, gte);
+    ACCEPT(Identifier, id);
+    ACCEPT(Identity, identity);
+    ACCEPT(Implement, implement);
     ACCEPT(Import, import);
-
-    ACCEPT(CInclude, cinclude);
-
-    ACCEPT(Branch, branch);
-    ACCEPT(Conditional, conditional);
+    ACCEPT(Indirect, indirect);
+    ACCEPT(Integer, integer);
+    ACCEPT(Interface, interface);
+    ACCEPT(LessThan, lt);
+    ACCEPT(LessThanOrEqualTo, lte);
+    ACCEPT(Mod, mod);
+    ACCEPT(Module, module);
+    ACCEPT(Mul, mul);
+    ACCEPT(Name, name);
+    ACCEPT(Negate, negate);
+    ACCEPT(Not, not);
+    ACCEPT(NotEqualTo, ne);
+    ACCEPT(Or, or);
+    ACCEPT(Parameter, parameter);
+    ACCEPT(Path, path);
+    ACCEPT(Real, real);
     ACCEPT(Repeat, repeat);
-    ACCEPT(Break, break);
-    ACCEPT(Continue, continue);
-
+    ACCEPT(Return, return);
+    ACCEPT(String, str);
+    ACCEPT(Sub, sub);
     ACCEPT(Transmute, transmute);
+    ACCEPT(Tuple, tuple);
+    ACCEPT(TypeAlias, type_alias);
+    ACCEPT(TypeFunction, type_function);
+    ACCEPT(TypeName, type_name);
+    ACCEPT(TypeParameter, type_parameter);
+    ACCEPT(TypePath, type_path);
+    ACCEPT(TypePointer, type_pointer);
+    ACCEPT(TypeRecord, type_record);
+    ACCEPT(TypeRecordMember, type_record_member);
+    ACCEPT(TypeTuple, type_tuple);
+    ACCEPT(TypeUnit, type_unit);
+    ACCEPT(Unit, unit);
+    ACCEPT(Variable, variable);
 
     Otherwise() {
       Log::get().error("print not implemented for node: {}",

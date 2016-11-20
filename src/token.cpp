@@ -98,6 +98,8 @@ std::ostream& arrow::token::operator<<(
   case Type::Underscore:                     return os << "`_`";
   case Type::Import:                         return os << "`import`";
   case Type::Type:                           return os << "`type`";
+  case Type::Implement:                      return os << "`implement`";
+  case Type::Interface:                      return os << "`interface`";
 
   case Type::Plus:                           return os << "`+`";
   case Type::Minus:                          return os << "`-`";

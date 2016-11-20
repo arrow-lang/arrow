@@ -8,7 +8,7 @@
 
 using arrow::Parser;
 
-auto Parser::parse_function() -> ptr<ast::Function> {
+auto Parser::parse_function(bool require_block) -> ptr<ast::Function> {
   // Expect: `def`
   auto begin_tok = expect(token::Type::Def);
   if (!begin_tok) return nullptr;
@@ -54,12 +54,21 @@ auto Parser::parse_function() -> ptr<ast::Function> {
     if (!result->result_type) return nullptr;
   }
 
-  // Parse: block
-  result->block = parse_block(false);
-  if (!result->block) return nullptr;
+  // Check for `{` to indicate a block or force the block
+  if (require_block || _t.peek()->type == token::Type::LeftBrace) {
+    // Parse: block
+    result->block = parse_block(false);
+    if (!result->block) return nullptr;
 
-  // Extend span for whole function
-  result->span = result->span.extend(result->block->span);
+    // Extend span for whole function
+    result->span = result->span.extend(result->block->span);
+  } else {
+    // Check for (and require) a `;`
+    auto tok_end = expect(token::Type::Semicolon);
+    if (!tok_end) return nullptr;
+
+    result->span = result->span.extend(tok_end->span);
+  }
 
   return result;
 }

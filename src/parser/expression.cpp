@@ -77,11 +77,14 @@ static std::unordered_map<token::Type, std::pair<unsigned, unsigned>> BINARY = {
   {token::Type::Equals_Equals,                  {1200,  1}},
   {token::Type::ExclamationMark_Equals,         {1200,  1}},
 
-  // do_logical AND [12]
+  // Logical AND [12]
   {token::Type::And,                            {1000,  1}},
 
-  // do_logical OR [13]
+  // Logical OR [13]
   {token::Type::Or,                             { 900,  1}},
+
+  // Conditional [14]
+  {token::Type::If,                             { 800,  1}},
 
   // Assignment [15]
   {token::Type::Equals,                         { 700, -1}},
@@ -347,6 +350,31 @@ auto Parser::parse_binary_expression(
     case token::Type::LessThan_LessThan_Equals:
       result = make<ast::AssignBitLeftShift>(sp, lhs, rhs);
       break;
+
+    case token::Type::If: {
+      // Conditional (shorthand)
+      auto true_ = lhs;
+      auto condition = rhs;
+
+      // Expect: `else`
+      if (!expect(token::Type::Else)) return *rv = -1, nullptr;
+
+      // Parse the false value of the conditional
+      auto false_ = parse_expression();
+      if (!false_) return *rv = -1, nullptr;
+
+      // Create some 1-statement blocks and trick out a conditional node
+      auto true_block = make<ast::Block>(true_->span, true);
+      true_block->statements.push_back(make<ast::ExpressionStatement>(true_));
+
+      auto false_block = make<ast::Block>(false_->span, true);
+      false_block->statements.push_back(make<ast::ExpressionStatement>(false_));
+
+      result = make<ast::Conditional>(sp.extend(false_->span),
+        std::vector<ptr<ast::Branch>>{
+          make<ast::Branch>(sp, condition, true_block)},
+        false_block, true);
+    } break;
 
     default:
       // unreachable

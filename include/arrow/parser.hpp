@@ -98,6 +98,9 @@ class Parser {
   ptr<ast::Name> parse_name();
   ptr<ast::Expression> parse_tuple();
 
+  ptr<ast::Implement> parse_implement();
+  ptr<ast::Interface> parse_interface();
+
   ptr<ast::Type> parse_type();
   ptr<ast::Type> parse_type_path();
   ptr<ast::TypePointer> parse_type_pointer();
@@ -106,7 +109,7 @@ class Parser {
   ptr<ast::TypeRecord> parse_type_record();
   ptr<ast::TypeRecordMember> parse_type_record_member();
 
-  ptr<ast::Function> parse_function();
+  ptr<ast::Function> parse_function(bool require_block = true);
   ptr<ast::ExternFunction> parse_extern_function();
   ptr<ast::ExternVariable> parse_extern_variable();
   ptr<ast::Import> parse_import();

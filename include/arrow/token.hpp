@@ -51,6 +51,8 @@ enum class Type {
   Underscore,
   Import,
   Type,
+  Implement,
+  Interface,
 
   // Symbols: 1-character
   Plus,

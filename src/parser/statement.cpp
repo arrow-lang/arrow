@@ -16,6 +16,12 @@ auto Parser::parse_statement() -> ptr<ast::Statement> {
   case token::Type::Def:
     return parse_function();
 
+  case token::Type::Interface:
+    return parse_interface();
+
+  case token::Type::Implement:
+    return parse_implement();
+
   case token::Type::Octothorpe:
     return parse_preprocessor();
 
