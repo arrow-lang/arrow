@@ -94,8 +94,8 @@ class Parser {
   ptr<ast::Boolean> parse_bool();
   ptr<ast::Real> parse_real();
   ptr<ast::String> parse_str();
-  ptr<ast::Identifier> parse_id();
-  ptr<ast::Name> parse_name();
+  ptr<ast::Identifier> parse_id(bool allow_self = false);
+  ptr<ast::Name> parse_name(bool allow_self = false);
   ptr<ast::Expression> parse_tuple();
 
   ptr<ast::Implement> parse_implement();
@@ -113,7 +113,7 @@ class Parser {
   ptr<ast::ExternFunction> parse_extern_function();
   ptr<ast::ExternVariable> parse_extern_variable();
   ptr<ast::Import> parse_import();
-  ptr<ast::Parameter> parse_parameter();
+  ptr<ast::Parameter> parse_parameter(bool allow_self = false);
   ptr<ast::TypeParameter> parse_type_parameter();
 
   ptr<ast::Call> parse_call(ptr<ast::Expression>);

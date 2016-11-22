@@ -41,6 +41,7 @@ enum class Type {
   Else,
   Loop,
   While,
+  For,
   Until,
   Break,
   Continue,
@@ -53,6 +54,7 @@ enum class Type {
   Type,
   Implement,
   Interface,
+  Self,
 
   // Symbols: 1-character
   Plus,

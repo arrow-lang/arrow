@@ -23,10 +23,9 @@
         "tag": "TypeName",
         "span": "test/parse/function.as:7:16-21",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/function.as:7:16-21",
-          "text": "int64",
-          "type_arguments": []
+          "text": "int64"
         }
       },
       "parameters": [],
@@ -59,20 +58,18 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:11:17-22",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:11:17-22",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           },
           {
             "tag": "TypeName",
             "span": "test/parse/function.as:11:24-29",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:11:24-29",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         ],
@@ -80,10 +77,9 @@
           "tag": "TypeName",
           "span": "test/parse/function.as:11:34-39",
           "name": {
-            "tag": "Name",
+            "tag": "Identifier",
             "span": "test/parse/function.as:11:34-39",
-            "text": "int64",
-            "type_arguments": []
+            "text": "int64"
           }
         }
       },
@@ -97,10 +93,9 @@
             "tag": "Return",
             "span": "test/parse/function.as:12:3-17",
             "operand": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:12:10-17",
-              "text": "methodD",
-              "type_arguments": []
+              "text": "methodD"
             }
           }
         ]
@@ -114,10 +109,9 @@
         "tag": "TypeName",
         "span": "test/parse/function.as:15:34-39",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/function.as:15:34-39",
-          "text": "int64",
-          "type_arguments": []
+          "text": "int64"
         }
       },
       "parameters": [
@@ -129,10 +123,9 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:15:16-21",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:15:16-21",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         },
@@ -144,10 +137,9 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:15:26-31",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:15:26-31",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         }
@@ -164,10 +156,9 @@
               "tag": "Call",
               "span": "test/parse/function.as:16:17-19",
               "operand": {
-                "tag": "Name",
+                "tag": "Identifier",
                 "span": "test/parse/function.as:16:10-17",
-                "text": "methodB",
-                "type_arguments": []
+                "text": "methodB"
               },
               "arguments": []
             }
@@ -204,20 +195,18 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:25:9-14",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:25:9-14",
-              "text": "int32",
-              "type_arguments": []
+              "text": "int32"
             }
           },
           {
             "tag": "TypeName",
             "span": "test/parse/function.as:25:16-21",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:25:16-21",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         ],
@@ -225,10 +214,9 @@
           "tag": "TypeName",
           "span": "test/parse/function.as:25:26-30",
           "name": {
-            "tag": "Name",
+            "tag": "Identifier",
             "span": "test/parse/function.as:25:26-30",
-            "text": "bool",
-            "type_arguments": []
+            "text": "bool"
           }
         }
       },
@@ -247,10 +235,9 @@
             "tag": "TypeName",
             "span": "test/parse/function.as:30:9-13",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/function.as:30:9-13",
-              "text": "bool",
-              "type_arguments": []
+              "text": "bool"
             }
           }
         ],
@@ -262,10 +249,9 @@
               "tag": "TypeName",
               "span": "test/parse/function.as:30:19-24",
               "name": {
-                "tag": "Name",
+                "tag": "Identifier",
                 "span": "test/parse/function.as:30:19-24",
-                "text": "int32",
-                "type_arguments": []
+                "text": "int32"
               }
             }
           ],
@@ -281,10 +267,9 @@
                     "tag": "TypeName",
                     "span": "test/parse/function.as:30:31-35",
                     "name": {
-                      "tag": "Name",
+                      "tag": "Identifier",
                       "span": "test/parse/function.as:30:31-35",
-                      "text": "bool",
-                      "type_arguments": []
+                      "text": "bool"
                     }
                   }
                 ],
@@ -292,10 +277,9 @@
                   "tag": "TypeName",
                   "span": "test/parse/function.as:30:40-45",
                   "name": {
-                    "tag": "Name",
+                    "tag": "Identifier",
                     "span": "test/parse/function.as:30:40-45",
-                    "text": "int32",
-                    "type_arguments": []
+                    "text": "int32"
                   }
                 }
               }
@@ -304,10 +288,9 @@
               "tag": "TypeName",
               "span": "test/parse/function.as:30:50-55",
               "name": {
-                "tag": "Name",
+                "tag": "Identifier",
                 "span": "test/parse/function.as:30:50-55",
-                "text": "int32",
-                "type_arguments": []
+                "text": "int32"
               }
             }
           }

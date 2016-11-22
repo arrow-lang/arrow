@@ -22,44 +22,4 @@
 // [ ] Record Literals -- Box{10}
 // [-] Interfaces
 // [ ] Resource Interface
-
-struct Point {
-  x: int64;
-  y: int64;
-}
-
-struct Box<T> {
-  value: T;
-}
-
-interface Resource {
-  def release();
-}
-
-interface Sequence<T> {
-  def length(): uint64;
-}
-
-implement Point {
-  def new() {
-    // [..]
-  }
-}
-
-// implement Resource for Point {
-//   def release(self) {
-//     // [...]
-//   }
-// }
-
-implement<T> Box<T> {
-  // [...]
-}
-
-implement Box<bool> {
-  // [...]
-}
-
-// implement<T> Sequence<T> for Box<T> {
-//   // [...]
-// }
+// [ ] uintx / intx -> pointer-sized

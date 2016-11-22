@@ -30,6 +30,7 @@ static std::unordered_map<std::string, arrow::token::Type> keywords = {
   {"if",        arrow::token::Type::If          },
   {"unless",    arrow::token::Type::Unless      },
   {"else",      arrow::token::Type::Else        },
+  {"for",       arrow::token::Type::For         },
   {"loop",      arrow::token::Type::Loop        },
   {"while",     arrow::token::Type::While       },
   {"until",     arrow::token::Type::Until       },
@@ -44,6 +45,7 @@ static std::unordered_map<std::string, arrow::token::Type> keywords = {
   {"type",      arrow::token::Type::Type        },
   {"interface", arrow::token::Type::Interface   },
   {"implement", arrow::token::Type::Implement   },
+  {"self",      arrow::token::Type::Self        },
 };
 
 // Symbols

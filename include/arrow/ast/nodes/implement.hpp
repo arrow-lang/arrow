@@ -17,14 +17,17 @@ namespace arrow {
 namespace ast {
 
 struct Implement : Statement {
-  Implement(Span span, ptr<Name> target, std::vector<ptr<ast::TypeParameter>> type_parameters, std::vector<ptr<Function>> functions)
-    : Statement(span), target(target), type_parameters(type_parameters), functions(functions) {
+  Implement(Span span, ptr<Name> target, ptr<Name> interface, std::vector<ptr<ast::TypeParameter>> type_parameters, std::vector<ptr<Function>> functions)
+    : Statement(span), target(target), interface(interface), type_parameters(type_parameters), functions(functions) {
   }
 
   virtual ~Implement() noexcept;
 
   /// Target
   ptr<Name> target;
+
+  /// Interface
+  ptr<Name> interface;
 
   /// Type Parameters
   std::vector<ptr<TypeParameter>> type_parameters;

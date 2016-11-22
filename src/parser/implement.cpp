@@ -32,6 +32,18 @@ auto Parser::parse_implement() -> ptr<ast::Implement> {
   auto target = parse_name();
   if (!target) return nullptr;
 
+  // Check for `for` to indicate an interface implement
+  ptr<ast::Name> interface;
+  if (_t.peek()->type == token::Type::For) {
+    _t.pop();
+
+    auto temp = parse_name();
+    if (!temp) return nullptr;
+
+    interface = target;
+    target = temp;
+  }
+
   // Expect: `{`
   if (!expect(token::Type::LeftBrace)) return nullptr;
 
@@ -52,5 +64,6 @@ auto Parser::parse_implement() -> ptr<ast::Implement> {
   if (!tok_end) return nullptr;
 
   return std::make_shared<ast::Implement>(
-    tok_begin->span.extend(tok_end->span), target, type_parameters, functions);
+    tok_begin->span.extend(tok_end->span), target, interface,
+    type_parameters, functions);
 }

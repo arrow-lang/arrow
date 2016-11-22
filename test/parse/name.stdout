@@ -3,180 +3,49 @@
   "span": "test/parse/name.as:1-12",
   "statements": [
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:2:1-8",
-      "text": "tuesday",
-      "type_arguments": []
+      "text": "tuesday"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:3:1-8",
-      "text": "pancake",
-      "type_arguments": []
+      "text": "pancake"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:4:1-8",
-      "text": "main_30",
-      "type_arguments": []
+      "text": "main_30"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:5:1-10",
-      "text": "__hello__",
-      "type_arguments": []
+      "text": "__hello__"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:8:1-15",
-      "text": "pancake",
-      "type_arguments": [
-        {
-          "tag": "TypeName",
-          "span": "test/parse/name.as:8:9-14",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/name.as:8:9-14",
-            "text": "int32",
-            "type_arguments": []
-          }
-        }
-      ]
+      "text": "pancake"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:9:1-10",
-      "text": "pancake",
-      "type_arguments": []
+      "text": "pancake"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:10:1-23",
-      "text": "pancake",
-      "type_arguments": [
-        {
-          "tag": "TypeName",
-          "span": "test/parse/name.as:10:9-13",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/name.as:10:9-13",
-            "text": "bool",
-            "type_arguments": []
-          }
-        },
-        {
-          "tag": "TypeName",
-          "span": "test/parse/name.as:10:15-22",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/name.as:10:15-22",
-            "text": "float32",
-            "type_arguments": []
-          }
-        }
-      ]
+      "text": "pancake"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:11:1-21",
-      "text": "pancake",
-      "type_arguments": [
-        {
-          "tag": "TypeName",
-          "span": "test/parse/name.as:11:9-21",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/name.as:11:9-21",
-            "text": "name",
-            "type_arguments": [
-              {
-                "tag": "TypeName",
-                "span": "test/parse/name.as:11:14-19",
-                "name": {
-                  "tag": "Name",
-                  "span": "test/parse/name.as:11:14-19",
-                  "text": "int32",
-                  "type_arguments": []
-                }
-              }
-            ]
-          }
-        }
-      ]
+      "text": "pancake"
     },
     {
-      "tag": "Name",
+      "tag": "Identifier",
       "span": "test/parse/name.as:12:1-53",
-      "text": "pancake",
-      "type_arguments": [
-        {
-          "tag": "TypeFunction",
-          "span": "test/parse/name.as:12:9-34",
-          "parameters": [
-            {
-              "tag": "TypeName",
-              "span": "test/parse/name.as:12:10-21",
-              "name": {
-                "tag": "Name",
-                "span": "test/parse/name.as:12:10-21",
-                "text": "name",
-                "type_arguments": [
-                  {
-                    "tag": "TypeName",
-                    "span": "test/parse/name.as:12:15-20",
-                    "name": {
-                      "tag": "Name",
-                      "span": "test/parse/name.as:12:15-20",
-                      "text": "int32",
-                      "type_arguments": []
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "tag": "TypeName",
-              "span": "test/parse/name.as:12:23-27",
-              "name": {
-                "tag": "Name",
-                "span": "test/parse/name.as:12:23-27",
-                "text": "bool",
-                "type_arguments": []
-              }
-            }
-          ],
-          "result": {
-            "tag": "TypeUnit",
-            "span": "test/parse/name.as:12:32-34"
-          }
-        },
-        {
-          "tag": "TypeName",
-          "span": "test/parse/name.as:12:37-42",
-          "name": {
-            "tag": "Name",
-            "span": "test/parse/name.as:12:37-42",
-            "text": "int32",
-            "type_arguments": []
-          }
-        },
-        {
-          "tag": "TypeTuple",
-          "span": "test/parse/name.as:12:45-52",
-          "elements": [
-            {
-              "tag": "TypeName",
-              "span": "test/parse/name.as:12:46-50",
-              "name": {
-                "tag": "Name",
-                "span": "test/parse/name.as:12:46-50",
-                "text": "bool",
-                "type_arguments": []
-              }
-            }
-          ]
-        }
-      ]
+      "text": "pancake"
     }
   ]
 }

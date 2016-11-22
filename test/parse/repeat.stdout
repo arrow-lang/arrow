@@ -6,10 +6,9 @@
       "tag": "Repeat",
       "span": "test/parse/repeat.as:2-5",
       "condition": {
-        "tag": "Name",
+        "tag": "Identifier",
         "span": "test/parse/repeat.as:2:7-16",
-        "text": "condition",
-        "type_arguments": []
+        "text": "condition"
       },
       "statements": [
         {

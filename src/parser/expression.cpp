@@ -434,6 +434,9 @@ auto Parser::parse_primary_expression() -> ptr<ast::Expression> {
   case token::Type::Identifier:
     return parse_name();
 
+  case token::Type::Self:
+    return parse_name(/*allow_self: */true);
+
   case token::Type::If:
     return parse_conditional(true);
 

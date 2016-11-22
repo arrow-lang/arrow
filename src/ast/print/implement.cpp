@@ -22,6 +22,9 @@ void Print::print_implement(ptr<Implement> n) {
     _w.Key("target");
     print(n->target);
 
+    _w.Key("interface");
+    print(n->interface);
+
     _w.Key("functions");
     _w.StartArray();
 

@@ -15,10 +15,9 @@
             "tag": "TypeName",
             "span": "test/parse/tuple.as:1:9-14",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/tuple.as:1:9-14",
-              "text": "int32",
-              "type_arguments": []
+              "text": "int32"
             }
           }
         ]
@@ -38,20 +37,18 @@
             "tag": "TypeName",
             "span": "test/parse/tuple.as:2:9-13",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/tuple.as:2:9-13",
-              "text": "bool",
-              "type_arguments": []
+              "text": "bool"
             }
           },
           {
             "tag": "TypeName",
             "span": "test/parse/tuple.as:2:15-20",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/tuple.as:2:15-20",
-              "text": "int32",
-              "type_arguments": []
+              "text": "int32"
             }
           }
         ]
@@ -112,10 +109,9 @@
                     "tag": "TypeName",
                     "span": "test/parse/tuple.as:4:11-16",
                     "name": {
-                      "tag": "Name",
+                      "tag": "Identifier",
                       "span": "test/parse/tuple.as:4:11-16",
-                      "text": "int32",
-                      "type_arguments": []
+                      "text": "int32"
                     }
                   }
                 ]

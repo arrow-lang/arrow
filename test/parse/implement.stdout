@@ -1,0 +1,307 @@
+{
+  "tag": "Module",
+  "span": "test/parse/implement.as:1-40",
+  "statements": [
+    {
+      "tag": "Import",
+      "span": "test/parse/implement.as:1:1-21",
+      "source": "./interface",
+      "alias": ""
+    },
+    {
+      "tag": "TypeRecord",
+      "span": "test/parse/implement.as:3-5",
+      "name": "Cell",
+      "type_parameters": [],
+      "members": [
+        {
+          "tag": "TypeRecordMember",
+          "span": "test/parse/implement.as:4:3-13",
+          "name": "value",
+          "type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:4:10-13",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:4:10-13",
+              "text": "str"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tag": "TypeRecord",
+      "span": "test/parse/implement.as:7-9",
+      "name": "Box",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:7:12-13",
+          "name": "T"
+        }
+      ],
+      "members": [
+        {
+          "tag": "TypeRecordMember",
+          "span": "test/parse/implement.as:8:3-11",
+          "name": "value",
+          "type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:8:10-11",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:8:10-11",
+              "text": "T"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tag": "TypeRecord",
+      "span": "test/parse/implement.as:11-14",
+      "name": "Pair",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:11:13-14",
+          "name": "T"
+        },
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:11:16-17",
+          "name": "U"
+        }
+      ],
+      "members": [
+        {
+          "tag": "TypeRecordMember",
+          "span": "test/parse/implement.as:12:3-11",
+          "name": "first",
+          "type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:12:10-11",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:12:10-11",
+              "text": "T"
+            }
+          }
+        },
+        {
+          "tag": "TypeRecordMember",
+          "span": "test/parse/implement.as:13:3-12",
+          "name": "second",
+          "type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:13:11-12",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:13:11-12",
+              "text": "U"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Implement",
+      "span": "test/parse/implement.as:16-20",
+      "type_parameters": [],
+      "target": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:16:11-15",
+        "text": "Cell"
+      },
+      "interface": null,
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/implement.as:17-19",
+          "name": "row",
+          "result_type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:17:14-17",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:17:14-17",
+              "text": "Row"
+            }
+          },
+          "parameters": [],
+          "type_parameters": [],
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/implement.as:17-19",
+            "statements": []
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Implement",
+      "span": "test/parse/implement.as:22-26",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:22:11-12",
+          "name": "T"
+        }
+      ],
+      "target": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:22:14-20",
+        "text": "Box"
+      },
+      "interface": null,
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/implement.as:23-25",
+          "name": "unwrap",
+          "result_type": {
+            "tag": "TypeName",
+            "span": "test/parse/implement.as:23:21-22",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/implement.as:23:21-22",
+              "text": "T"
+            }
+          },
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/implement.as:23:14-18",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/implement.as:23:14-18",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/implement.as:23:14-18",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/implement.as:23-25",
+            "statements": [
+              {
+                "tag": "Return",
+                "span": "test/parse/implement.as:24:5-22",
+                "operand": {
+                  "tag": "Path",
+                  "span": "test/parse/implement.as:24:12-22",
+                  "operand": {
+                    "tag": "Identifier",
+                    "span": "test/parse/implement.as:24:12-16",
+                    "text": "self"
+                  },
+                  "member": {
+                    "tag": "Identifier",
+                    "span": "test/parse/implement.as:24:17-22",
+                    "text": "value"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Implement",
+      "span": "test/parse/implement.as:28-30",
+      "type_parameters": [],
+      "target": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:28:11-32",
+        "text": "Pair"
+      },
+      "interface": null,
+      "functions": []
+    },
+    {
+      "tag": "Implement",
+      "span": "test/parse/implement.as:32-34",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:32:11-12",
+          "name": "T"
+        },
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:32:14-15",
+          "name": "U"
+        }
+      ],
+      "target": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:32:33-39",
+        "text": "Box"
+      },
+      "interface": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:32:17-28",
+        "text": "Sequence"
+      },
+      "functions": []
+    },
+    {
+      "tag": "Implement",
+      "span": "test/parse/implement.as:36-40",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/implement.as:36:11-12",
+          "name": "T"
+        }
+      ],
+      "target": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:36:27-33",
+        "text": "Box"
+      },
+      "interface": {
+        "tag": "Identifier",
+        "span": "test/parse/implement.as:36:14-22",
+        "text": "Resource"
+      },
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/implement.as:37-39",
+          "name": "release",
+          "result_type": null,
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/implement.as:37:15-19",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/implement.as:37:15-19",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/implement.as:37:15-19",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/implement.as:37-39",
+            "statements": []
+          }
+        }
+      ]
+    }
+  ]
+}

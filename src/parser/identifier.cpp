@@ -8,7 +8,13 @@
 
 using arrow::Parser;
 
-auto Parser::parse_id() -> ptr<ast::Identifier> {
+auto Parser::parse_id(bool allow_self) -> ptr<ast::Identifier> {
+  // Check for "self";
+  // `self` is parsed as an identifier when alowed
+  if (allow_self && _t.peek()->type == token::Type::Self) {
+    return make<ast::Identifier>(_t.pop()->span, "self");
+  }
+
   // Expect: integer
   auto tok = expect<token::Identifier>(token::Type::Identifier);
   if (!tok) return nullptr;
@@ -16,9 +22,9 @@ auto Parser::parse_id() -> ptr<ast::Identifier> {
   return std::make_shared<ast::Identifier>(tok->span, tok->text);
 }
 
-auto Parser::parse_name() -> ptr<ast::Name> {
+auto Parser::parse_name(bool allow_self) -> ptr<ast::Name> {
   // Parse: identifier
-  auto id = parse_id();
+  auto id = parse_id(allow_self);
   if (!id) return nullptr;
 
   // Check for `<..>` (type arguments)

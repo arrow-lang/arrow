@@ -17,10 +17,9 @@
         "tag": "TypeName",
         "span": "test/parse/extern_function.as:3:22-27",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/extern_function.as:3:22-27",
-          "text": "int64",
-          "type_arguments": []
+          "text": "int64"
         }
       },
       "parameters": []
@@ -33,10 +32,9 @@
         "tag": "TypeName",
         "span": "test/parse/extern_function.as:5:40-44",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/extern_function.as:5:40-44",
-          "text": "bool",
-          "type_arguments": []
+          "text": "bool"
         }
       },
       "parameters": [
@@ -48,10 +46,9 @@
             "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:22-27",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/extern_function.as:5:22-27",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         },
@@ -63,10 +60,9 @@
             "tag": "TypeName",
             "span": "test/parse/extern_function.as:5:32-37",
             "name": {
-              "tag": "Name",
+              "tag": "Identifier",
               "span": "test/parse/extern_function.as:5:32-37",
-              "text": "int64",
-              "type_arguments": []
+              "text": "int64"
             }
           }
         }

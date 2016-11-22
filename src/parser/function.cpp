@@ -40,7 +40,7 @@ auto Parser::parse_function(bool require_block) -> ptr<ast::Function> {
   // Parse: parameters
   if (!handle_sequence<ast::Parameter>(
     &(result->parameters),
-    std::bind(&Parser::parse_parameter, this)
+    std::bind(&Parser::parse_parameter, this, true)
   )) return nullptr;
 
   // Expect: `)`
@@ -147,7 +147,17 @@ auto Parser::parse_extern_function() -> ptr<ast::ExternFunction> {
   return result;
 }
 
-auto Parser::parse_parameter() -> ptr<ast::Parameter> {
+auto Parser::parse_parameter(bool allow_self) -> ptr<ast::Parameter> {
+  // Check for `self`
+  if (allow_self && _t.peek()->type == token::Type::Self) {
+    auto tok = _t.pop();
+
+    return make<ast::Parameter>(
+      tok->span, "self",
+      make<ast::TypeName>(tok->span,
+        make<ast::Name>(tok->span, "Self", std::vector<ptr<ast::Type>>())));
+  }
+
   // Parse: identifier (name of param)
   auto id = parse_id();
   if (!id) return nullptr;

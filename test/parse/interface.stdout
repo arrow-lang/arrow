@@ -1,0 +1,200 @@
+{
+  "tag": "Module",
+  "span": "test/parse/interface.as:1-18",
+  "statements": [
+    {
+      "tag": "Interface",
+      "span": "test/parse/interface.as:1-9",
+      "type_parameters": [],
+      "name": "Resource",
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/interface.as:2-4",
+          "name": "acquire",
+          "result_type": null,
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:2:15-19",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/interface.as:2:15-19",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/interface.as:2:15-19",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/interface.as:2-4",
+            "statements": []
+          }
+        },
+        {
+          "tag": "Function",
+          "span": "test/parse/interface.as:6-8",
+          "name": "release",
+          "result_type": null,
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:6:15-19",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/interface.as:6:15-19",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/interface.as:6:15-19",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": {
+            "tag": "Block",
+            "span": "test/parse/interface.as:6-8",
+            "statements": []
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Interface",
+      "span": "test/parse/interface.as:11-14",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/interface.as:11:20-21",
+          "name": "T"
+        }
+      ],
+      "name": "Sequence",
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/interface.as:12:3-25",
+          "name": "size",
+          "result_type": {
+            "tag": "TypeName",
+            "span": "test/parse/interface.as:12:19-24",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/interface.as:12:19-24",
+              "text": "uintx"
+            }
+          },
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:12:12-16",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/interface.as:12:12-16",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/interface.as:12:12-16",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": null
+        },
+        {
+          "tag": "Function",
+          "span": "test/parse/interface.as:13:3-31",
+          "name": "iter",
+          "result_type": {
+            "tag": "TypeName",
+            "span": "test/parse/interface.as:13:19-30",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/interface.as:13:19-30",
+              "text": "Iterator"
+            }
+          },
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:13:12-16",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/interface.as:13:12-16",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/interface.as:13:12-16",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [],
+          "block": null
+        }
+      ]
+    },
+    {
+      "tag": "Interface",
+      "span": "test/parse/interface.as:16-18",
+      "type_parameters": [
+        {
+          "tag": "Parameter",
+          "span": "test/parse/interface.as:16:15-16",
+          "name": "T"
+        }
+      ],
+      "name": "Box",
+      "functions": [
+        {
+          "tag": "Function",
+          "span": "test/parse/interface.as:17:3-23",
+          "name": "get",
+          "result_type": {
+            "tag": "TypeName",
+            "span": "test/parse/interface.as:17:21-22",
+            "name": {
+              "tag": "Identifier",
+              "span": "test/parse/interface.as:17:21-22",
+              "text": "U"
+            }
+          },
+          "parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:17:14-18",
+              "name": "self",
+              "type": {
+                "tag": "TypeName",
+                "span": "test/parse/interface.as:17:14-18",
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/interface.as:17:14-18",
+                  "text": "Self"
+                }
+              }
+            }
+          ],
+          "type_parameters": [
+            {
+              "tag": "Parameter",
+              "span": "test/parse/interface.as:17:11-12",
+              "name": "U"
+            }
+          ],
+          "block": null
+        }
+      ]
+    }
+  ]
+}

@@ -10,10 +10,9 @@
         "tag": "TypeName",
         "span": "test/parse/alias.as:3:14-19",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/alias.as:3:14-19",
-          "text": "int32",
-          "type_arguments": []
+          "text": "int32"
         }
       }
     },
@@ -25,10 +24,9 @@
         "tag": "TypeName",
         "span": "test/parse/alias.as:4:16-22",
         "name": {
-          "tag": "Name",
+          "tag": "Identifier",
           "span": "test/parse/alias.as:4:16-22",
-          "text": "int128",
-          "type_arguments": []
+          "text": "int128"
         }
       }
     }

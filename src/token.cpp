@@ -88,6 +88,7 @@ std::ostream& arrow::token::operator<<(
   case Type::Else:                           return os << "`else`";
   case Type::Loop:                           return os << "`loop`";
   case Type::While:                          return os << "`while`";
+  case Type::For:                            return os << "`for`";
   case Type::Until:                          return os << "`until`";
   case Type::Break:                          return os << "`break`";
   case Type::Continue:                       return os << "`continue`";
@@ -100,6 +101,7 @@ std::ostream& arrow::token::operator<<(
   case Type::Type:                           return os << "`type`";
   case Type::Implement:                      return os << "`implement`";
   case Type::Interface:                      return os << "`interface`";
+  case Type::Self:                           return os << "`self`";
 
   case Type::Plus:                           return os << "`+`";
   case Type::Minus:                          return os << "`-`";
