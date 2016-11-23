@@ -27,3 +27,5 @@
 
 // [ ] Error on duplicate method names
 // [ ] Error on method names conflicting with record member names
+// [ ] Error on impl not in same module
+// [ ] Error on impl not on user-defined-type
