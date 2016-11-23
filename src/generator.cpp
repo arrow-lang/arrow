@@ -166,7 +166,7 @@ Generator& Generator::run(ptr<ast::Module> module) {
     fs::absolute("./" + module->span.filename)).string();
 
   // Create module item; add to (top-level) scope; cache
-  auto top_module = make<ir::Module>(module, module->name);
+  auto top_module = make<ir::Module>(module, module->name, "");
   ir::Scope::top(_ctx.scope)->put(module, top_module, "");
   _ctx.modules_by_pathname[top_path] = top_module;
 

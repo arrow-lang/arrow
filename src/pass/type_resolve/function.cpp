@@ -26,7 +26,7 @@ static ptr<ir::Type> do_result(GContext& ctx, ptr<ast::Function> x) {
   return result;
 }
 
-static bool do_parameters(GContext& ctx, ptr<ast::Function> x, ptr<ir::Function> fn, std::vector<ptr<Type>> *parameters) {
+static bool do_parameters(GContext& ctx, ptr<ast::Function> x, std::vector<ptr<Type>> *parameters) {
   // Resolve: Parameter types
   for (std::size_t i = 0; i < x->parameters.size(); ++i) {
     auto param = x->parameters[i];
@@ -38,12 +38,6 @@ static bool do_parameters(GContext& ctx, ptr<ast::Function> x, ptr<ir::Function>
 
     // Push parameter type to function type
     parameters->push_back(param_type);
-
-    // Mark parameter on function item
-    // HACK: There are no parameters for extern functions
-    if (fn->parameters.size() > i) {
-      fn->parameters[i]->type = param_type;
-    }
   }
 
   return true;
@@ -69,9 +63,16 @@ void TypeResolve::visit_function(ptr<ast::Function> x) {
 
   // Resolve: Parameter types
   std::vector<ptr<ir::Type>> parameters;
-  if (!ir::do_parameters(_ctx, x, fn, &parameters)) {
+  if (!ir::do_parameters(_ctx, x, &parameters)) {
     _incomplete = true;
     return;
+  }
+
+  // Mark parameter on function item
+  for (unsigned i = 0; i < parameters.size(); ++i) {
+    if (fn->parameters.size() > i) {
+      fn->parameters[i]->type = parameters[i];
+    }
   }
 
   // Make: Function Type
@@ -99,7 +100,7 @@ void TypeResolve::visit_extern_function(ptr<ast::ExternFunction> x) {
 
   // Resolve: Parameter types
   std::vector<ptr<ir::Type>> parameters;
-  if (!ir::do_parameters(_ctx, x, fn, &parameters)) {
+  if (!ir::do_parameters(_ctx, x, &parameters)) {
     _incomplete = true;
     return;
   }

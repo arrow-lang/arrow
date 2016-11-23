@@ -8,6 +8,12 @@
 using arrow::pass::Declare;
 
 void Declare::visit_function(ptr<ast::Function> x) {
+  // Function Name
+  std::string namespace_ = "";
+  if (_ctx.ns.size() > 0) {
+    namespace_ = _ctx.ns.front();
+  }
+
   // Is this function generic ?
   if (x->type_parameters.size() > 0) {
     // Yes..
@@ -22,7 +28,7 @@ void Declare::visit_function(ptr<ast::Function> x) {
 
     // Make: GenericFunction
     auto fn = make<ir::GenericFunction>(x, _ctx.module_s.top(), x->name,
-      type_parameters);
+      type_parameters, namespace_);
 
     // Scope: put
     _ctx.scope->put(x, fn, fn->name);
@@ -31,7 +37,8 @@ void Declare::visit_function(ptr<ast::Function> x) {
   }
 
   // Make: Function
-  auto fn = make<ir::Function>(x, _ctx.module_s.top(), x->name, nullptr);
+  auto fn = make<ir::Function>(x,
+    _ctx.module_s.top(), x->name, nullptr, namespace_);
 
   // Scope: put
   _ctx.scope->put(x, fn, fn->name);

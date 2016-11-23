@@ -31,7 +31,8 @@ auto Parser::parse() -> ptr<ast::Module> {
   if (!block) return nullptr;
 
   // Make
-  auto mod = std::make_shared<ast::Module>(block->span, stem, block);
+  auto mod = std::make_shared<ast::Module>(block->span, stem, block,
+    _t._filename);
 
   // // Attempt to match statements until the end of the stream
   // while (!_t.empty()) {

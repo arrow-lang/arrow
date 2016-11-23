@@ -51,6 +51,7 @@ class TypeResolve : public ast::Visitor, public Pass {
   void visit_indirect(ptr<ast::Indirect>);
   void visit_type_alias(ptr<ast::TypeAlias>);
   void visit_type_record(ptr<ast::TypeRecord>);
+  void visit_implement(ptr<ast::Implement>);
 };
 
 }  // namespace back

@@ -78,7 +78,7 @@ void Declare::visit_import(ptr<ast::Import> x) {
 
     // Relativize the filename from the CWD
     boost::filesystem::path full_path(boost::filesystem::current_path());
-    r_pathname = relativeTo(full_path, r_path).string();
+    r_pathname = "./" + relativeTo(full_path, r_path).string();
   } else {
     // Absolute: Build path based on {PREFIX}
     auto base_dir = fs::path(WAF_PREFIX).append("lib/arrow/modules");
@@ -126,7 +126,7 @@ void Declare::visit_import(ptr<ast::Import> x) {
     if (!imp) return;
 
     // Create module item; add to (top-level) scope; cache
-    r_module = make<ir::Module>(imp, imp->name);
+    r_module = make<ir::Module>(imp, imp->name, fs::change_extension(r_pathname, "").string());
     ir::Scope::top(_ctx.scope)->put(imp, r_module, "");
     _ctx.modules_by_pathname[r_path] = r_module;
 

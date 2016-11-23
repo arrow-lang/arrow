@@ -49,6 +49,15 @@ struct GContext {
 
   // Loop Frame Stack (<condition>, <merge>)
   std::stack<std::pair<LLVMBasicBlockRef, LLVMBasicBlockRef>> loop_s;
+
+  // Implementation Registry
+  std::unordered_map<ir::Type*, std::vector<ptr<ir::Implement>>> impl;
+
+  // Generic Implementation Registry
+  std::vector<ptr<ir::GenericImplement>> impl_g;
+
+  // Namespace
+  std::deque<std::string> ns;
 };
 
 // Takes IR as input and will "generate" LLVM IR

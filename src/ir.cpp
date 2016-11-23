@@ -7,103 +7,102 @@
 #include "arrow/log.hpp"
 #include "arrow/pass/build.hpp"
 #include "arrow/pass/type_deduce.hpp"
+#include "arrow/pass/type_build.hpp"
 #include "mach7.hpp"
 #include "fmt.hpp"
 
+#define IMPL(N) \
+  ir::N::~N() noexcept { }
+
+using namespace arrow;
 namespace ir = arrow::ir;
+namespace ast = arrow::ast;
 
-ir::Node::~Node() noexcept { }
-ir::Item::~Item() noexcept { }
-ir::Module::~Module() noexcept { }
-ir::Block::~Block() noexcept { }
-ir::Variable::~Variable() noexcept { }
-ir::Function::~Function() noexcept { }
-ir::Import::~Import() noexcept { }
-ir::Parameter::~Parameter() noexcept { }
-ir::ExternFunction::~ExternFunction() noexcept { }
-ir::ExternVariable::~ExternVariable() noexcept { }
-ir::Constant::~Constant() noexcept { }
-
-ir::GenericTypeParameter::~GenericTypeParameter() noexcept { }
-ir::GenericFunction::~GenericFunction() noexcept { }
-ir::GenericTypeRecord::~GenericTypeRecord() noexcept { }
-ir::Generic::~Generic() noexcept { }
-
-ir::Type::~Type() noexcept { }
-ir::TypeInteger::~TypeInteger() noexcept { }
-ir::TypeBoolean::~TypeBoolean() noexcept { }
-ir::TypeReal::~TypeReal() noexcept { }
-ir::TypeLiteralInteger::~TypeLiteralInteger() noexcept { }
-ir::TypeLiteralReal::~TypeLiteralReal() noexcept { }
-ir::TypeFunction::~TypeFunction() noexcept { }
-ir::TypeExternFunction::~TypeExternFunction() noexcept { }
-ir::TypeString::~TypeString() noexcept { }
-ir::TypePointer::~TypePointer() noexcept { }
-ir::TypeAlias::~TypeAlias() noexcept { }
-ir::TypeUnit::~TypeUnit() noexcept { }
-ir::TypeDivergent::~TypeDivergent() noexcept { }
-ir::TypeRecord::~TypeRecord() noexcept { }
-ir::TypeRecordMember::~TypeRecordMember() noexcept { }
-
-ir::Value::~Value() noexcept { }
-ir::Unit::~Unit() noexcept { }
-ir::Transmute::~Transmute() noexcept { }
-ir::Integer::~Integer() noexcept { }
-ir::Real::~Real() noexcept { }
-ir::String::~String() noexcept { }
-ir::Boolean::~Boolean() noexcept { }
-ir::RecordMember::~RecordMember() noexcept { }
-
-ir::AddressOf::~AddressOf() noexcept {}
-ir::Indirect::~Indirect() noexcept {}
-
-ir::Unary::~Unary() noexcept {}
-ir::Negate::~Negate() noexcept {}
-
-ir::Binary::~Binary() noexcept {}
-ir::Add::~Add() noexcept {}
-ir::Sub::~Sub() noexcept {}
-ir::Mul::~Mul() noexcept {}
-ir::Div::~Div() noexcept {}
-ir::Mod::~Mod() noexcept {}
-
-ir::Assign::~Assign() noexcept {}
-ir::AssignAdd::~AssignAdd() noexcept {}
-ir::AssignSub::~AssignSub() noexcept {}
-ir::AssignMul::~AssignMul() noexcept {}
-ir::AssignDiv::~AssignDiv() noexcept {}
-ir::AssignMod::~AssignMod() noexcept {}
-ir::AssignBitAnd::~AssignBitAnd() noexcept {}
-ir::AssignBitOr::~AssignBitOr() noexcept {}
-ir::AssignBitXor::~AssignBitXor() noexcept {}
-ir::AssignBitLeftShift::~AssignBitLeftShift() noexcept {}
-ir::AssignBitRightShift::~AssignBitRightShift() noexcept {}
-
-ir::Call::~Call() noexcept {}
-ir::Return::~Return() noexcept {}
-
-ir::BitNot::~BitNot() noexcept {}
-ir::BitAnd::~BitAnd() noexcept {}
-ir::BitOr::~BitOr() noexcept {}
-ir::BitXor::~BitXor() noexcept {}
-ir::BitLeftShift::~BitLeftShift() noexcept {}
-ir::BitRightShift::~BitRightShift() noexcept {}
-
-ir::Not::~Not() noexcept {}
-ir::And::~And() noexcept {}
-ir::Or::~Or() noexcept {}
-
-ir::Repeat::~Repeat() noexcept {}
-ir::Conditional::~Conditional() noexcept {}
-ir::Break::~Break() noexcept {}
-ir::Continue::~Continue() noexcept {}
-
-ir::EqualTo::~EqualTo() noexcept {}
-ir::NotEqualTo::~NotEqualTo() noexcept {}
-ir::LessThan::~LessThan() noexcept {}
-ir::LessThanOrEqualTo::~LessThanOrEqualTo() noexcept {}
-ir::GreaterThan::~GreaterThan() noexcept {}
-ir::GreaterThanOrEqualTo::~GreaterThanOrEqualTo() noexcept {}
+IMPL(Add)
+IMPL(AddressOf)
+IMPL(And)
+IMPL(Assign)
+IMPL(AssignAdd)
+IMPL(AssignBitAnd)
+IMPL(AssignBitLeftShift)
+IMPL(AssignBitOr)
+IMPL(AssignBitRightShift)
+IMPL(AssignBitXor)
+IMPL(AssignDiv)
+IMPL(AssignMod)
+IMPL(AssignMul)
+IMPL(AssignSub)
+IMPL(Binary)
+IMPL(BitAnd)
+IMPL(BitLeftShift)
+IMPL(BitNot)
+IMPL(BitOr)
+IMPL(BitRightShift)
+IMPL(BitXor)
+IMPL(Block)
+IMPL(Boolean)
+IMPL(Break)
+IMPL(Call)
+IMPL(Conditional)
+IMPL(Constant)
+IMPL(Continue)
+IMPL(Div)
+IMPL(EqualTo)
+IMPL(ExternFunction)
+IMPL(ExternVariable)
+IMPL(IFunction)
+IMPL(Function)
+IMPL(Generic)
+IMPL(GenericFunction)
+IMPL(GenericTypeParameter)
+IMPL(GenericTypeRecord)
+IMPL(GenericImplement)
+IMPL(GenericInstantiation)
+IMPL(GreaterThan)
+IMPL(GreaterThanOrEqualTo)
+IMPL(Implement)
+IMPL(Import)
+IMPL(Indirect)
+IMPL(Integer)
+IMPL(Item)
+IMPL(LessThan)
+IMPL(LessThanOrEqualTo)
+IMPL(Mod)
+IMPL(Module)
+IMPL(Mul)
+IMPL(Negate)
+IMPL(Node)
+IMPL(Not)
+IMPL(Method)
+IMPL(NotEqualTo)
+IMPL(Or)
+IMPL(Parameter)
+IMPL(Real)
+IMPL(RecordMember)
+IMPL(Repeat)
+IMPL(Return)
+IMPL(String)
+IMPL(Sub)
+IMPL(Transmute)
+IMPL(Type)
+IMPL(TypeAlias)
+IMPL(TypeBoolean)
+IMPL(TypeDivergent)
+IMPL(TypeExternFunction)
+IMPL(TypeFunction)
+IMPL(TypeInteger)
+IMPL(TypeLiteralInteger)
+IMPL(TypeLiteralReal)
+IMPL(TypePointer)
+IMPL(TypeReal)
+IMPL(TypeRecord)
+IMPL(TypeRecordMember)
+IMPL(TypeString)
+IMPL(TypeUnit)
+IMPL(Unary)
+IMPL(Unit)
+IMPL(Value)
+IMPL(Variable)
 
 // Reduce 2 types following simple rules
 arrow::ptr<ir::Type> arrow::ir::type_reduce(ptr<ir::Type> a, ptr<ir::Type> b) {
@@ -224,7 +223,7 @@ int arrow::ir::parse_call_conv(arrow::Span span, std::string ccs) {
 }
 
 // Resolve NAME expression (into value)
-auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent) -> ptr<Node> {
+auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent, bool instantiate_generic) -> ptr<Node> {
   // Check for existance in-scope
   if (!ctx.scope->contains(name->text)) {
     if (!silent) Log::get().error(name->span, "unresolved name `{}`", name->text);
@@ -236,19 +235,93 @@ auto arrow::ir::resolve_name(GContext& ctx, ptr<ast::Name> name, bool silent) ->
 
   // If we have a generic item; instantiate
   // TODO: Error checking here
-  if (isa<ir::Generic>(result)) {
-    result = cast<ir::Generic>(result)->instantiate(
-      ctx, name->type_arguments, name->span);
-  } else if (name->type_arguments.size() > 0) {
-    // We have type arguments but no generic
-    if (!silent) {
-      Log::get().error(name->span, "expected no type arguments, `{}` is not generic", name->text);
-    }
+  if (instantiate_generic) {
+    if (isa<ir::Generic>(result)) {
+      result = cast<ir::Generic>(result)->instantiate(
+        ctx, name->type_arguments, name->span);
+    } else if (name->type_arguments.size() > 0) {
+      // We have type arguments but no generic
+      if (!silent) {
+        Log::get().error(name->span, "expected no type arguments, `{}` is not generic", name->text);
+      }
 
-    return nullptr;
+      return nullptr;
+    }
   }
 
   return result;
+}
+
+static bool generic_match(
+  GContext& ctx,
+  ptr<ir::Type> type,
+  ptr<ast::Name> name,
+  std::vector<ptr<ir::GenericTypeParameter>> type_parameters,
+  std::unordered_map<std::string, ptr<ir::Type>>& result
+) {
+  if (!isa<ir::GenericInstantiation>(type)) {
+    // Not instnatiated from a generic template
+
+    // Only way this can match is if `name` is a single generic type
+    // identifier
+
+    for (auto& tp : type_parameters) {
+      if (tp->name == name->text) {
+        if (result.find(name->text) == result.end()) {
+          result[name->text] = type;
+        } else if (!result[name->text]->is_equal(type)) {
+          return false;
+        }
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  auto generic_i = cast<ir::GenericInstantiation>(type);
+  auto target = ir::resolve_name(ctx, name, false, false);
+
+  // Check for a match at base
+  if (generic_i->base_generic != target.get()) return false;
+  if (generic_i->type_arguments.size() != name->type_arguments.size()) return false;
+
+  // Check for type arguments matches
+  for (unsigned i = 0; i < generic_i->type_arguments.size(); ++i) {
+    auto nta = name->type_arguments[i];
+
+    if (isa<ast::TypeName>(nta)) {
+      auto name = cast<ast::TypeName>(nta)->name;
+      if (generic_match(
+        ctx, generic_i->type_arguments[i], name, type_parameters, result)) {
+        // Pass
+        continue;
+      }
+    }
+
+    auto name_a_t = pass::TypeBuild(ctx, true).run(name->type_arguments[i]);
+    if (!name_a_t) return false;
+    if (!name_a_t->is_equal(generic_i->type_arguments[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+static ptr<ir::Node> resolve_implement(ptr<ir::Implement> impl, ptr<ast::Path> x, ptr<ir::Node> op) {
+  auto fn = impl->scope->get<ir::Function>(x->member->text);
+  if (fn) {
+    // Do we have a self ?
+    if (fn->has_self() && isa<ir::Value>(op)) {
+      return make<ir::Method>(fn, cast<ir::Value>(op));
+    } else {
+      return fn;
+    }
+  }
+
+  return nullptr;
 }
 
 // Resolve PATH expression
@@ -261,7 +334,13 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
     op = resolve_name(ctx, cast<ast::Name>(x->operand), silent);
     if (!op) return nullptr;
     op_t = ir::type_of(op);
-  } else {
+  } else if (isa<ast::Path>(x->operand)) {
+    op = resolve_path(ctx, cast<ast::Path>(x->operand), silent);
+    if (!op) return nullptr;
+    op_t = ir::type_of(op);
+  }
+
+  if (!op_t) {
     // Run the normal passes (if not a name)
     if (build) {
       op = pass::Build(ctx).run(x->operand);
@@ -310,29 +389,50 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
       Case(mch::C<ir::TypeRecord>()) {
         auto record = cast<ir::TypeRecord>(op_t);
         auto member_index = record->member_index_of(x->member->text);
-        if (member_index < 0) {
-          if (!silent) {
-            Log::get().error(x->member->span, "`{}` has no member `{}`",
-              op_t->name, x->member->text);
-          }
-
-          return nullptr;
+        if (member_index >= 0) {
+          result = make<ir::RecordMember>(x->member,
+            record->members[member_index]->type, cast<ir::Value>(op),
+            member_index);
         }
-
-        result = make<ir::RecordMember>(x->member,
-          record->members[member_index]->type, cast<ir::Value>(op),
-          member_index);
-      } break;
-
-      Otherwise() {
-        if (!silent) {
-          Log::get().error(x->member->span, "`{}` has no member `{}`",
-            op_t->name, x->member->text);
-        }
-
-        return nullptr;
       } break;
     } EndMatch
+  }
+
+  if (!result && op_t) {
+    // Check implementation registry
+    for (auto& impl : ctx.impl[op_t.get()]) {
+      result = resolve_implement(impl, x, op);
+      if (result) break;
+    }
+
+    if (!result) {
+      // Check generic implementation registry
+      for (auto impl_g_it = ctx.impl_g.rbegin(); impl_g_it != ctx.impl_g.rend(); ++impl_g_it) {
+        auto& impl_g = *impl_g_it;
+
+        // Do we have the same number of type arguments
+        auto const& impl = cast<ast::Implement>(impl_g->source);
+        std::unordered_map<std::string, ptr<ir::Type>> result_t;
+        if (generic_match(ctx, op_t, impl->target, impl_g->type_parameters, result_t)) {
+          // Build type arguments to instantiate implementation
+          std::vector<ptr<ir::Type>> type_a;
+          for (auto type_param : impl_g->type_parameters) {
+            type_a.push_back(result_t[type_param->name]);
+          }
+
+          // Instantiate Implementation
+          auto impl_i = cast<ir::Implement>(impl_g->instantiate(ctx, type_a, x->span));
+          result = resolve_implement(impl_i, x, op);
+        }
+
+        if (result) break;
+      }
+    }
+  }
+
+  if (!result && !silent) {
+    Log::get().error(x->member->span, "`{}` has no member `{}`",
+      op_t->name, x->member->text);
   }
 
   return result;

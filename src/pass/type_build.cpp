@@ -9,7 +9,7 @@
 
 using arrow::pass::TypeBuild;
 
-TypeBuild::TypeBuild(GContext& ctx) : Pass(ctx) {
+TypeBuild::TypeBuild(GContext& ctx, bool silent) : Pass(ctx), _silent(silent) {
 }
 
 #define ACCEPT(type, name) \

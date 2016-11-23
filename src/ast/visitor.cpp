@@ -83,6 +83,8 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(CInclude, cinclude);
     ACCEPT(Branch, branch);
     ACCEPT(Conditional, conditional);
+    ACCEPT(Implement, implement);
+    ACCEPT(Interface, interface);
     ACCEPT(Repeat, repeat);
     ACCEPT(Break, break);
     ACCEPT(Continue, continue);
@@ -102,7 +104,7 @@ void Visitor::accept(ptr<ast::Node> node) {
     ACCEPT(AssignBitRightShift, assign_bit_right_shift);
 
     Otherwise() {
-      Log::get().error("visitor not implemented for node: {}",
+      Log::get().error(node->span, "visitor not implemented for node: {}",
         typeid(*node).name());
     }
   } EndMatch

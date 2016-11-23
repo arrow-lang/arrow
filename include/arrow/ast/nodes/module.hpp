@@ -17,8 +17,8 @@ namespace arrow {
 namespace ast {
 
 struct Module : Statement {
-  Module(Span span, std::string name, ptr<Block> block)
-  : Statement(span), name(name), block(block) {
+  Module(Span span, std::string name, ptr<Block> block, std::string filename)
+  : Statement(span), name(name), block(block), filename(filename) {
   }
 
   virtual ~Module() noexcept;
@@ -30,6 +30,9 @@ struct Module : Statement {
 
   /// A module is made up of 0..n statements.
   ptr<Block> block;
+
+  /// Filename
+  std::string filename;
 };
 
 }  // namespace ast

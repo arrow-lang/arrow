@@ -10,13 +10,7 @@ using arrow::pass::Declare;
 void Declare::visit_module(ptr<ast::Module> x) {
   // Get: Module
   auto module = _ctx.scope->get<ir::Module>(x);
-  if (!module) {
-    // Make: Module
-    module = make<ir::Module>(x, x->name);
-
-    // Add module to (top-level) scope
-    ir::Scope::top(_ctx.scope)->put(x, module, "");
-  }
+  if (!module) return;
 
   // Add module to modules orderable
   _ctx.modules.push_back(module);

@@ -64,9 +64,11 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
 
   // Make: Call
   auto item = make<ir::Call>(x, operand, result_type);
+  auto operand_fn = cast<ir::IFunction>(operand);
 
   // Build: Arguments
-  unsigned param_index = 0;
+  unsigned param_index = isa<ir::Method>(operand_fn) ? 1 : 0;
+  unsigned param_sz = parameter_types->size() + (isa<ir::Method>(operand_fn) ? -1 : 0);
   for (auto& argument : x->arguments) {
     auto arg = run(argument);
     if (!arg) return nullptr;
@@ -86,7 +88,7 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
       // Error: too many parameters
       Log::get().error(x->span,
         "too many arguments to function call, expected {}, have {}",
-        parameter_types->size(), x->arguments.size());
+        param_sz, x->arguments.size());
 
       return nullptr;
     }
@@ -98,7 +100,7 @@ auto Build::handle_call(ptr<ast::Call> x) -> ptr<ir::Value> {
     // Error: too few parameters
     Log::get().error(x->span,
       "too few arguments to function call, expected {}, have {}",
-      parameter_types->size(), x->arguments.size());
+      param_sz, x->arguments.size());
 
     return nullptr;
   }

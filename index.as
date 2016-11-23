@@ -16,10 +16,14 @@
 // [ ] Directory Import
 
 // [X] Ternary Expressions {1}
-// [-] implement T {2}
-// [-] implement<T> Box<T> {3}
+// [x] implement T {2}
+// [x] implement<T> Box<T> {3}
 // [ ] TypeResolve for generic type parameters
 // [ ] Record Literals -- Box{10}
 // [-] Interfaces
 // [ ] Resource Interface
 // [ ] uintx / intx -> pointer-sized
+// [ ] byte -> uint8
+
+// [ ] Error on duplicate method names
+// [ ] Error on method names conflicting with record member names

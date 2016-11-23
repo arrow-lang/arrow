@@ -16,9 +16,10 @@ using arrow::ptr;
 using arrow::GContext;
 using arrow::ir::GenericFunction;
 using arrow::ir::GenericTypeRecord;
+using arrow::ir::GenericImplement;
 namespace ir = arrow::ir;
 
-auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments, Span span) -> ptr<Node> {
+auto Generic::instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments, Span span) -> ptr<Node> {
   // Check type_parameters against type_arguments
   if (type_arguments.size() == 0) {
     // None
@@ -40,18 +41,9 @@ auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_argum
     return nullptr;
   }
 
-  // Realize type arguments
-  std::vector<ptr<ir::Type>> type_args;
-  for (auto const& type_arg_ast : type_arguments) {
-    auto type = pass::TypeBuild(ctx).run(type_arg_ast);
-    if (!type) return nullptr;
-
-    type_args.push_back(type);
-  }
-
   // Make (cache) name
   std::stringstream stream;
-  for (auto& a : type_args) {
+  for (auto& a : type_arguments) {
     stream << a->name;
   }
 
@@ -62,8 +54,21 @@ auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_argum
   }
 
   // Instantiate
-  _cache[cache_key] = do_instantiate(ctx, type_args);
+  _cache[cache_key] = do_instantiate(ctx, type_arguments);
   return _cache[cache_key];
+}
+
+auto Generic::instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments, Span span) -> ptr<Node> {
+  // Realize type arguments
+  std::vector<ptr<ir::Type>> type_args;
+  for (auto const& type_arg_ast : type_arguments) {
+    auto type = pass::TypeBuild(ctx).run(type_arg_ast);
+    if (!type) return nullptr;
+
+    type_args.push_back(type);
+  }
+
+  return instantiate(ctx, type_args, span);
 }
 
 static std::string make_generic_name(std::string name, std::vector<arrow::ptr<arrow::ir::Type>>& type_args) {
@@ -115,7 +120,6 @@ auto GenericFunction::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& 
   if (!i) return nullptr;
   declare_type_parameters(ctx, i->block->scope, type_parameters, type_args);
 
-
   // Resolve
   auto err_cnt = Log::get().count(LOG_ERROR);
   pass::TypeResolve(ctx).run(x);
@@ -147,6 +151,44 @@ auto GenericTypeRecord::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>
   auto err_cnt = Log::get().count(LOG_ERROR);
   pass::TypeResolve(ctx).run(x);
   if (Log::get().count(LOG_ERROR) != err_cnt) return nullptr;
+
+  // Mark instantiation with base information
+  i->base_generic = this;
+  i->type_arguments = type_args;
+
+  return i;
+}
+
+auto GenericImplement::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_args) -> ptr<Node> {
+  // Make a non-generic AST
+  auto src = cast<ast::Implement>(source);
+  auto x = make<ast::Implement>(src->span, src->target, src->interface,
+    std::vector<ptr<ast::TypeParameter>>(), src->functions);
+
+  // Add new type-parameter scope
+  auto scope = make<ir::Scope>(parent_scope);
+  auto sb = ir::Scope::enter(scope, ctx);
+
+  // Declare
+  declare_type_parameters(ctx, scope, type_parameters, type_args);
+  pass::Declare(ctx).run(x);
+
+  // Declare: Type Parameters
+  auto i = ctx.scope->get<ir::Implement>(x);
+  if (!i) return nullptr;
+
+  // Resolve
+  auto err_cnt = Log::get().count(LOG_ERROR);
+  pass::TypeResolve(ctx).run(x);
+  if (Log::get().count(LOG_ERROR) != err_cnt) return nullptr;
+
+  // Build
+  err_cnt = Log::get().count(LOG_ERROR);
+  pass::Build(ctx).run(x);
+  if (Log::get().count(LOG_ERROR) != err_cnt) return nullptr;
+
+  // Leave: Type-parameter scope
+  sb.exit();
 
   return i;
 }

@@ -18,8 +18,8 @@ namespace arrow {
 namespace ir {
 
 struct Module : Item {
-  Module(ptr<ast::Module> source, std::string name)
-    : Node(source), Item(name), block(nullptr), initializer(nullptr), _initialized(false) {
+  Module(ptr<ast::Module> source, std::string name, std::string filename)
+    : Node(source), Item(name), block(nullptr), initializer(nullptr), filename(filename), _initialized(false) {
   }
 
   virtual ~Module() noexcept;
@@ -31,6 +31,9 @@ struct Module : Item {
 
   // Reference to LLVM Initializer
   LLVMValueRef initializer;
+
+  // Filename
+  std::string filename;
 
  private:
   bool _initialized;

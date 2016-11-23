@@ -34,7 +34,7 @@ struct TypeRecordMember : Type {
   ptr<Type> type;
 };
 
-struct TypeRecord : Type {
+struct TypeRecord : Type, GenericInstantiation {
   TypeRecord(ptr<ast::Node> source, std::string name, ptr<Scope> parent_scope)
     : Node(source), Type(name), scope(make<ir::Scope>(parent_scope)), members(), _handle(nullptr) {
   }

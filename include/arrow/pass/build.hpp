@@ -30,6 +30,7 @@ class Build : public Pass {
   ptr<ir::Value> handle_function(ptr<ast::Function>);
   ptr<ir::Value> handle_extern_function(ptr<ast::ExternFunction>);
   ptr<ir::Value> handle_extern_variable(ptr<ast::ExternVariable>);
+  ptr<ir::Value> handle_implement(ptr<ast::Implement>);
 
   ptr<ir::Value> handle_indirect(ptr<ast::Indirect>);
   ptr<ir::Value> handle_address_of(ptr<ast::AddressOf>);

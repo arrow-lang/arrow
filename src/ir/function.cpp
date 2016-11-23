@@ -5,6 +5,8 @@
 
 #include <sstream>
 
+#include <boost/algorithm/string/replace.hpp>
+
 #include "arrow/ir.hpp"
 #include "arrow/log.hpp"
 #include "arrow/generator.hpp"
@@ -64,14 +66,30 @@ LLVMValueRef Function::handle(GContext& ctx) noexcept {
   return _handle;
 }
 
+// FIXME: Use a general name mangling scheme
 std::string Function::name_mangle() const {
   // Encode the signature
 
   auto type_f = cast<TypeFunction>(type);
 
   std::stringstream stream;
-  stream << _module->name;
-  stream << "_";
+
+  if (_module->filename.size() > 0) {
+    std::string filename_s = _module->filename;
+    boost::replace_all(filename_s, "./", ".");
+    boost::replace_all(filename_s, ".\\", ".");
+    boost::replace_all(filename_s, "/", ".");
+    boost::replace_all(filename_s, "\\", ".");
+
+    stream << filename_s;
+    stream << ":";
+  }
+
+  if (_namespace.size() > 0) {
+    stream << _namespace;
+    stream << "_";
+  }
+
   stream << name;
 
   for (auto& param : type_f->parameters) {

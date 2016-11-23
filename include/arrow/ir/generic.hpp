@@ -32,18 +32,32 @@ struct Generic : virtual Node {
 
   /// Instantiate a concrete item (with cache)
   ptr<ir::Node> instantiate(GContext& ctx, std::vector<ptr<ast::Type>>& type_arguments, Span span);
+  ptr<ir::Node> instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments, Span span);
 
   /// Type Parameters
   std::vector<ptr<GenericTypeParameter>> type_parameters;
+
+  /// Name
+  virtual std::string get_base_name() = 0;
 
  private:
   /// Instantiate a concrete item
   virtual ptr<ir::Node> do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments) = 0;
 
-  /// Name
-  virtual std::string get_base_name() = 0;
-
   std::unordered_map<std::string, ptr<ir::Node>> _cache;
+};
+
+struct GenericInstantiation : virtual Node {
+  GenericInstantiation() : Node(nullptr) {
+  }
+
+  virtual ~GenericInstantiation() noexcept;
+
+  // Source (base) generic
+  ir::Generic* base_generic;
+
+  // Type arguments (used to instantiate)
+  std::vector<ptr<Type>> type_arguments;
 };
 
 }  // namespace ir

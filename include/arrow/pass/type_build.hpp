@@ -17,7 +17,7 @@ namespace pass {
 
 class TypeBuild : public Pass {
  public:
-  TypeBuild(GContext& ctx);
+  TypeBuild(GContext& ctx, bool silent = false);
 
   ptr<ir::Type> run(ptr<ast::Node>);
 
@@ -29,6 +29,8 @@ class TypeBuild : public Pass {
   ptr<ir::TypePointer> handle_type_pointer(ptr<ast::TypePointer>);
   ptr<ir::Type> handle_type_unit(ptr<ast::TypeUnit>);
   ptr<ir::TypeFunction> handle_type_function(ptr<ast::TypeFunction>);
+
+  bool _silent;
 };
 
 }  // namespace back

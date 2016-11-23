@@ -42,14 +42,25 @@ struct Parameter : Item, Value {
   LLVMValueRef _handle = nullptr;
 };
 
-struct Function : Item, Value {
-  Function(ptr<ast::Function> source, ptr<Module> module, std::string name, ptr<TypeFunction> type)
-    : Node(source), Item(name), Value(type), block(nullptr), parameters(), _module(module) {
+struct IFunction {
+  virtual ~IFunction() noexcept;
+  virtual LLVMValueRef invoke(GContext& ctx, std::vector<ptr<Value>>& arguments) = 0;
+};
+
+struct Function : Item, Value, IFunction {
+  Function(ptr<ast::Function> source, ptr<Module> module, std::string name, ptr<TypeFunction> type, std::string namespace_)
+    : Node(source), Item(name), Value(type), block(nullptr), parameters(), _module(module), _namespace(namespace_) {
   }
 
   virtual ~Function() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
+
+  bool has_self() const {
+    if (parameters.size() < 1) return false;
+
+    return parameters[0]->name == "self";
+  }
 
   // Get mangled name (for linking and loading)
   std::string name_mangle() const;
@@ -60,17 +71,42 @@ struct Function : Item, Value {
   // Function parameters
   std::vector<ptr<Parameter>> parameters;
 
+  virtual LLVMValueRef invoke(GContext& ctx, std::vector<ptr<Value>>& arguments);
+
  protected:
   // Module (container)
   ptr<Module> _module;
+
+  // Namespace
+  std::string _namespace;
 
   // Slot
   LLVMValueRef _handle = nullptr;
 };
 
+struct Method : Value, IFunction {
+  Method(ptr<Function> function, ptr<Value> self)
+    : Node(function->source), Value(function->type), _function(function), _self(self) {
+  }
+
+  virtual ~Method() noexcept;
+
+  virtual LLVMValueRef handle(GContext&) noexcept {
+    Log::get().error("not implemented: method closure");
+
+    return nullptr;
+  }
+
+  virtual LLVMValueRef invoke(GContext& ctx, std::vector<ptr<Value>>& arguments);
+
+ private:
+  ptr<Function> _function;
+  ptr<Value> _self;
+};
+
 struct GenericFunction : Item, Generic {
-  GenericFunction(ptr<ast::Function> source, ptr<Module> module, std::string name, std::vector<ptr<GenericTypeParameter>> type_parameters)
-    : Node(source), Item(name), Generic(type_parameters), _module(module) {
+  GenericFunction(ptr<ast::Function> source, ptr<Module> module, std::string name, std::vector<ptr<GenericTypeParameter>> type_parameters, std::string namespace_)
+    : Node(source), Item(name), Generic(type_parameters), _module(module), _namespace(namespace_) {
   }
 
   virtual ~GenericFunction() noexcept;
@@ -78,6 +114,9 @@ struct GenericFunction : Item, Generic {
  protected:
   // Module (container)
   ptr<Module> _module;
+
+  // Namespace
+  std::string _namespace;
 
  private:
   virtual ptr<ir::Node> do_instantiate(GContext&, std::vector<ptr<ir::Type>>&);
@@ -87,14 +126,26 @@ struct GenericFunction : Item, Generic {
   }
 };
 
-struct ExternFunction : Function {
+struct ExternFunction : Item, Value, IFunction {
   ExternFunction(ptr<ast::ExternFunction> source, ptr<Module> module, std::string name, ptr<TypeExternFunction> type)
-    : Node(source), Function(source, module, name, type) {
+    : Node(source), Item(name), Value(type), _module(module) {
   }
 
   virtual ~ExternFunction() noexcept;
 
   virtual LLVMValueRef handle(GContext&) noexcept;
+
+  virtual LLVMValueRef invoke(GContext& ctx, std::vector<ptr<Value>>& arguments);
+
+  // Function parameters
+  std::vector<ptr<Parameter>> parameters;
+
+ protected:
+  // Module (container)
+  ptr<Module> _module;
+
+  // Slot
+  LLVMValueRef _handle = nullptr;
 };
 
 }  // namespace ir

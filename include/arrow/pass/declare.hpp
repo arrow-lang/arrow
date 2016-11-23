@@ -30,6 +30,7 @@ class Declare : public Pass, public ast::Visitor {
   void visit_cinclude(ptr<ast::CInclude>);
   void visit_extern_variable(ptr<ast::ExternVariable>);
   void visit_type_record(ptr<ast::TypeRecord>);
+  void visit_implement(ptr<ast::Implement>);
 };
 
 }  // namespace back

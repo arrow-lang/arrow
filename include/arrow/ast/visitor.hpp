@@ -99,6 +99,8 @@ class Visitor {
   virtual void visit_break(ptr<ast::Break> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_continue(ptr<ast::Continue> x) { /* LCOV_EXCL_LINE */ }
   virtual void visit_unit(ptr<ast::Unit> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_implement(ptr<ast::Implement> x) { /* LCOV_EXCL_LINE */ }
+  virtual void visit_interface(ptr<ast::Interface> x) { /* LCOV_EXCL_LINE */ }
 };
 
 }  // namespace ast

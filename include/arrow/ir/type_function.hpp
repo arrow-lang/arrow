@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "arrow/ir/type.hpp"
+#include "arrow/ir/generic.hpp"
 
 namespace arrow {
 namespace ir {

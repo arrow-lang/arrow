@@ -16,6 +16,7 @@
 #include "arrow/ir/variable.hpp"
 #include "arrow/ir/function.hpp"
 #include "arrow/ir/import.hpp"
+#include "arrow/ir/implement.hpp"
 
 #include "arrow/ir/type.hpp"
 #include "arrow/ir/type_integer.hpp"
@@ -71,7 +72,7 @@ extern ptr<Value> transmute(ptr<Value> operand, ptr<Type> type);
 extern int parse_call_conv(Span span, std::string ccs);
 
 // Resolve NAME expression
-extern ptr<Node> resolve_name(GContext&, ptr<ast::Name>, bool silent = true);
+extern ptr<Node> resolve_name(GContext&, ptr<ast::Name>, bool silent = true, bool instantiate_generic = true);
 
 // Resolve PATH expression
 extern ptr<Node> resolve_path(GContext&, ptr<ast::Path>, bool silent = true, bool build = false);
