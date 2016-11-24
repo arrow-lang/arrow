@@ -180,6 +180,9 @@ bool Tokenizer::_read(unsigned count) {
   // Check if we are at a single-line comment and consume it.
   if (_consume_line_comment()) { return _read(count); }
 
+  // Check if we are at a block comment and consume it.
+  if (_consume_block_comment()) { return _read(count); }
+
   // Check for and consume the end-of-line character.
   // TODO(mehcode): Insert a semicolon token into the queue if the
   //                situation demands it
@@ -236,6 +239,30 @@ bool Tokenizer::_consume_line_comment() {
   }
 
   return in_comment;
+}
+
+bool Tokenizer::_consume_block_comment() {
+  // Check for `/*`
+  if (_file.peek(0) == '/' and _file.peek(1) == '*') {
+    _file.pop();
+    _file.pop();
+
+    for (;;) {
+      if (_file.peek(0) == '*' and _file.peek(1) == '/') {
+        // No more comment
+        _file.pop();
+        _file.pop();
+
+        break;
+      }
+
+      _file.pop();
+    }
+
+    return true;
+  }
+
+  return false;
 }
 
 void Tokenizer::_consume_number(std::stringstream& ss, unsigned base) {

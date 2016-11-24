@@ -53,6 +53,7 @@ class Tokenizer {
   bool _read(unsigned offset);
 
   bool _consume_line_comment();
+  bool _consume_block_comment();
   void _consume_number(std::stringstream& ss, unsigned base);
 
   ptr<Token> _scan_numeric();
