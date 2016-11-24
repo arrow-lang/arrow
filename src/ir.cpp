@@ -334,6 +334,10 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
     op = resolve_name(ctx, cast<ast::Name>(x->operand), silent);
     if (!op) return nullptr;
     op_t = ir::type_of(op);
+  } else if (isa<ast::Path>(x->operand)) {
+    op = resolve_path(ctx, cast<ast::Path>(x->operand), silent, build);
+    if (!op) return nullptr;
+    op_t = ir::type_of(op);
   } else {
     // Run the normal passes (if not a name)
     if (build) {
