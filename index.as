@@ -25,6 +25,10 @@
 // [ ] uintx / intx -> pointer-sized
 // [ ] byte -> uint8
 
+// [ ] Sequence failure (fix parsing after error)
+
+// [ ] Namespace (allow for structs/functions inside function)
+
 // [ ] Error on duplicate method names
 // [ ] Error on method names conflicting with record member names
 // [ ] Error on impl not in same module
