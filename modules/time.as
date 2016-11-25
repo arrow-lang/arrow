@@ -8,11 +8,25 @@ import "libc";
 /// as an int64 nanosecond count.
 type Duration = int64;
 
+/// Common durations.
+///
+/// To count the integral number of units in a duration, divide:
+///   time.Now() / time.Second
+///
+/// To convert an integral number of units to a duration, multiply:
+///   3 * time.Minute
+let Nanosecond = Duration(1);
+let Microsecond = Nanosecond * 1000;
+let Millisecond = Microsecond * 1000;
+let Second = Millisecond * 1000;
+let Minute = Second * 60;
+let Hour = Minute * 60;
+
 implement Duration {
   /// Returns the duration as a floating point number of seconds.
   def Seconds(self): float64 {
-    let s = int64(self) / 1_000_000_000;
-    let ns = int64(self) % 1_000_000_000;
+    let s = self / Second;
+    let ns = self % Second;
 
     return float64(s) + float64(ns) * 1e-9;
   }
@@ -31,7 +45,7 @@ implement Time {
   /// Returns the duration between two points in time.
   def Sub(self, u: Time): Duration {
     let d: int64 = 0;
-    d += (self._sec - u._sec) * 1_000_000_000;
+    d += (self._sec - u._sec) * int64(Second);
     d += self._nsec - u._nsec;
 
     // FIXME: Handle over/under-flow
