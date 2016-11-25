@@ -26,6 +26,18 @@ struct TypeAlias : Type {
     return ARROW_TTAG_ALIAS;
   }
 
+  virtual unsigned size() const noexcept {
+    return target->size();
+  }
+
+  virtual bool is_integer() const noexcept {
+    return target->is_integer();
+  }
+
+  virtual bool is_real() const noexcept {
+    return target->is_real();
+  }
+
   virtual LLVMTypeRef handle(GContext& ctx) noexcept {
     return target->handle(ctx);
   }
