@@ -96,6 +96,7 @@ IMPL(TypeLiteralReal)
 IMPL(TypePointer)
 IMPL(TypeReal)
 IMPL(TypeRecord)
+IMPL(TypeReference)
 IMPL(TypeRecordMember)
 IMPL(TypeString)
 IMPL(TypeUnit)
@@ -106,6 +107,10 @@ IMPL(Variable)
 
 // Reduce 2 types following simple rules
 arrow::ptr<ir::Type> arrow::ir::type_reduce(ptr<ir::Type> a, ptr<ir::Type> b) {
+  // Dereference both types
+  if (a->is_reference()) a = a->get_element();
+  if (b->is_reference()) b = b->get_element();
+
   // Same type
   if (a->is_equal(b)) return a;
 
@@ -149,6 +154,10 @@ arrow::ptr<ir::Type> arrow::ir::type_reduce(ptr<ir::Type> a, ptr<ir::Type> b) {
 
 // Check if type RHS is assignable to type LHS
 bool arrow::ir::type_is_assignable(ptr<ir::Type> lhs, ptr<ir::Type> rhs) {
+  // Dereference both types
+  if (lhs->is_reference()) lhs = lhs->get_element();
+  if (rhs->is_reference()) rhs = rhs->get_element();
+
   return (
     // Nil
     (lhs && rhs) && (
@@ -182,6 +191,11 @@ auto arrow::ir::type_canonical(ptr<Type> type) -> ptr<Type> {
     Case(mch::C<ir::TypeAlias>()) {
       auto type_alias = cast<ir::TypeAlias>(type);
       return type_alias->target;
+    }
+
+    Case(mch::C<ir::TypeReference>()) {
+      auto type_ref = cast<ir::TypeReference>(type);
+      return type_ref->element;
     }
 
     Otherwise() {
@@ -351,8 +365,8 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
   }
 
   if (op_t) {
-    while (op_t->is_pointer()) {
-      op_t = cast<ir::TypePointer>(op_t)->element;
+    while (op_t->is_pointer() || op_t->is_reference()) {
+      op_t = op_t->get_element();
       if (build) {
         op = make<ir::Indirect>(op->source, op_t, cast<ir::Value>(op));
       }

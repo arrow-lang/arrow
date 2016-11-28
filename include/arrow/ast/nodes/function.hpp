@@ -12,6 +12,7 @@
 #include "arrow/ptr.hpp"
 #include "arrow/ast/nodes/statement.hpp"
 #include "arrow/ast/nodes/type.hpp"
+#include "arrow/ast/nodes/type_function.hpp"
 #include "arrow/ast/nodes/expression.hpp"
 #include "arrow/ast/nodes/block.hpp"
 
@@ -20,7 +21,7 @@ namespace ast {
 
 struct Parameter : Node {
   Parameter(
-    Span span, std::string name, ptr<Type> type
+    Span span, std::string name, ptr<TypeFunctionParameter> type
   )
   : Node(span), name(name), type(type) {
   }
@@ -32,7 +33,7 @@ struct Parameter : Node {
   std::string name;
 
   /// Type annotation of the parameter (required).
-  ptr<Type> type;
+  ptr<TypeFunctionParameter> type;
 };
 
 // TODO: Make an abstract base as ExternFunction is only a part of function

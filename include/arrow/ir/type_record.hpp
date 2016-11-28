@@ -45,6 +45,10 @@ struct TypeRecord : Type, GenericInstantiation {
     return ARROW_TTAG_RECORD;
   }
 
+  virtual bool is_record() const noexcept {
+    return true;
+  }
+
   virtual LLVMTypeRef handle(GContext& ctx) noexcept;
 
   int member_index_of(const std::string& text) {

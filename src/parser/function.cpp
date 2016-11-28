@@ -147,15 +147,24 @@ auto Parser::parse_extern_function() -> ptr<ast::ExternFunction> {
   return result;
 }
 
-auto Parser::parse_parameter(bool allow_self) -> ptr<ast::Parameter> {
+auto Parser::parse_parameter(bool native) -> ptr<ast::Parameter> {
+  // Check for `mutable`
+  bool is_mutable = false;
+  if (native && _t.peek()->type == token::Type::Mutable) {
+    _t.pop();
+    is_mutable = true;
+  }
+
   // Check for `self`
-  if (allow_self && _t.peek()->type == token::Type::Self) {
+  if (native && (_t.peek(0)->type == token::Type::Self)) {
     auto tok = _t.pop();
+
+    auto param_t = make<ast::TypeName>(tok->span,
+      make<ast::Name>(tok->span, "Self", std::vector<ptr<ast::Type>>()));
 
     return make<ast::Parameter>(
       tok->span, "self",
-      make<ast::TypeName>(tok->span,
-        make<ast::Name>(tok->span, "Self", std::vector<ptr<ast::Type>>())));
+      make<ast::TypeFunctionParameter>(tok->span, param_t, is_mutable));
   }
 
   // Parse: identifier (name of param)
@@ -170,7 +179,8 @@ auto Parser::parse_parameter(bool allow_self) -> ptr<ast::Parameter> {
   if (!type) return nullptr;
 
   return make<ast::Parameter>(
-    id->span.extend(type->span), id->text, type);
+    id->span.extend(type->span), id->text,
+    make<ast::TypeFunctionParameter>(type->span, type, is_mutable));
 }
 
 auto Parser::parse_type_parameter() -> ptr<ast::TypeParameter> {

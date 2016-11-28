@@ -9,6 +9,7 @@
 #include "llvm.hpp"
 #include "arrow/ptr.hpp"
 #include "arrow/ir/node.hpp"
+#include "arrow/ir/type.hpp"
 
 namespace arrow {
 
@@ -16,11 +17,9 @@ struct GContext;
 
 namespace ir {
 
-struct Type;
-
 struct Value : virtual Node {
   explicit Value(ptr<Type> type)
-  : Node(nullptr), type(type) {
+  : Node(nullptr), type(type ? (type->is_reference() ? type->get_element() : type) : nullptr) {
   }
 
   virtual ~Value() noexcept;

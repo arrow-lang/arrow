@@ -20,7 +20,10 @@ using arrow::ir::AssignBitRightShift;
 
 LLVMValueRef Assign::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
+
     auto rhs_handle = transmute(rhs, lhs->type)->value_of(ctx);
     if (!lhs_handle || !rhs_handle) return nullptr;
 
@@ -36,14 +39,15 @@ LLVMValueRef Assign::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignAdd::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // Add
     auto rhs_handle = transmute(
       make<ir::Add>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -57,14 +61,15 @@ LLVMValueRef AssignAdd::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignSub::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // Sub
     auto rhs_handle = transmute(
       make<ir::Sub>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -78,14 +83,15 @@ LLVMValueRef AssignSub::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignMul::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // Mul
     auto rhs_handle = transmute(
       make<ir::Mul>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -99,14 +105,15 @@ LLVMValueRef AssignMul::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignDiv::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // Div
     auto rhs_handle = transmute(
       make<ir::Div>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -120,14 +127,15 @@ LLVMValueRef AssignDiv::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignMod::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // Mod
     auto rhs_handle = transmute(
       make<ir::Mod>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -141,14 +149,15 @@ LLVMValueRef AssignMod::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignBitAnd::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // BitAnd
     auto rhs_handle = transmute(
       make<ir::BitAnd>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -162,14 +171,15 @@ LLVMValueRef AssignBitAnd::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignBitOr::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // BitOr
     auto rhs_handle = transmute(
       make<ir::BitOr>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -183,14 +193,15 @@ LLVMValueRef AssignBitOr::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignBitXor::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // BitXor
     auto rhs_handle = transmute(
       make<ir::BitXor>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -204,14 +215,15 @@ LLVMValueRef AssignBitXor::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignBitLeftShift::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // BitLeftShift
     auto rhs_handle = transmute(
       make<ir::BitLeftShift>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);
@@ -225,14 +237,15 @@ LLVMValueRef AssignBitLeftShift::handle(GContext &ctx) noexcept {
 
 LLVMValueRef AssignBitRightShift::handle(GContext &ctx) noexcept {
   if (!_handle) {
-    auto lhs_value_handle = lhs->value_of(ctx);
-    auto lhs_handle = lhs->address_of(ctx);
+    LLVMValueRef lhs_handle = nullptr;
+    if (lhs->type->is_reference()) lhs_handle = LLVMBuildLoad(ctx.irb, lhs->handle(ctx), "");
+    else lhs_handle = lhs->address_of(ctx);
 
     // BitRightShift
     auto rhs_handle = transmute(
       make<ir::BitRightShift>(source, type, lhs, rhs), lhs->type)->value_of(ctx);
 
-    if (!lhs_value_handle || !lhs_handle || !rhs_handle) return nullptr;
+    if (!lhs_handle || !rhs_handle) return nullptr;
 
     // Store
     LLVMBuildStore(ctx.irb, rhs_handle, lhs_handle);

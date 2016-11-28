@@ -15,7 +15,9 @@ LLVMValueRef Transmute::handle(GContext& ctx) noexcept {
   if (!_handle) {
     auto src = ir::type_canonical(value->type);
     auto dst = ir::type_canonical(type);
-    auto dst_handle = type->handle(ctx);
+    auto dst_handle = dst->handle(ctx);
+
+    // fmt::print("transmute {} ({}) -> {} ({})\n", src->name, src->size(), dst->name, dst->size());
 
     auto value_handle = value->value_of(ctx);
     if (!value_handle) return nullptr;

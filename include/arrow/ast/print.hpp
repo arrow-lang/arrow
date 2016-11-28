@@ -102,6 +102,7 @@ class Print {
   void print_type_unit(ptr<TypeUnit>);
   void print_unit(ptr<Unit>);
   void print_variable(ptr<Variable>);
+  void print_type_function_parameter(ptr<TypeFunctionParameter>);
 
   void handle(
     const char* name, ptr<Node> n, std::function<void()> handle);

@@ -26,6 +26,7 @@ class TypeBuild : public Pass {
   ptr<ir::Type> handle_type_path(ptr<ast::TypePath>);
   ptr<ir::Type> handle_name(ptr<ast::Name>);
   ptr<ir::Type> handle_path(ptr<ast::Path>);
+  ptr<ir::Type> handle_type_function_parameter(ptr<ast::TypeFunctionParameter>);
   ptr<ir::TypePointer> handle_type_pointer(ptr<ast::TypePointer>);
   ptr<ir::Type> handle_type_unit(ptr<ast::TypeUnit>);
   ptr<ir::TypeFunction> handle_type_function(ptr<ast::TypeFunction>);

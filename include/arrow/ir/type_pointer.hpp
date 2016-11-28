@@ -30,6 +30,10 @@ struct TypePointer : Type {
     return LLVMPointerType(element->handle(ctx), 0);
   }
 
+  virtual ptr<Type> get_element() const {
+    return element;
+  }
+
   virtual bool is_pointer() const {
     return true;
   }

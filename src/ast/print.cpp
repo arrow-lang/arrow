@@ -125,6 +125,7 @@ void Print::print(ptr<Node> node) {
     ACCEPT(TypeUnit, type_unit);
     ACCEPT(Unit, unit);
     ACCEPT(Variable, variable);
+    ACCEPT(TypeFunctionParameter, type_function_parameter);
 
     Otherwise() {
       Log::get().error("print not implemented for node: {}",

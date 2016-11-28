@@ -19,13 +19,18 @@
               "span": "test/parse/interface.as:2:15-19",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/interface.as:2:15-19",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/interface.as:2:15-19",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/interface.as:2:15-19",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],
@@ -47,13 +52,18 @@
               "span": "test/parse/interface.as:6:15-19",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/interface.as:6:15-19",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/interface.as:6:15-19",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/interface.as:6:15-19",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],
@@ -97,13 +107,18 @@
               "span": "test/parse/interface.as:12:12-16",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/interface.as:12:12-16",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/interface.as:12:12-16",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/interface.as:12:12-16",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],
@@ -129,13 +144,18 @@
               "span": "test/parse/interface.as:13:12-16",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/interface.as:13:12-16",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/interface.as:13:12-16",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/interface.as:13:12-16",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],
@@ -175,13 +195,18 @@
               "span": "test/parse/interface.as:17:14-18",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/interface.as:17:14-18",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/interface.as:17:14-18",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/interface.as:17:14-18",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],

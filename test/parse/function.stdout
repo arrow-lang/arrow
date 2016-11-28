@@ -55,22 +55,32 @@
         "span": "test/parse/function.as:11:16-39",
         "parameters": [
           {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:11:17-22",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:11:17-22",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:11:17-22",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           },
           {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:11:24-29",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:11:24-29",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:11:24-29",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         ],
         "result": {
@@ -120,13 +130,18 @@
           "span": "test/parse/function.as:15:13-21",
           "name": "a",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:15:16-21",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:15:16-21",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:15:16-21",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         },
         {
@@ -134,13 +149,18 @@
           "span": "test/parse/function.as:15:23-31",
           "name": "b",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:15:26-31",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:15:26-31",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:15:26-31",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         }
       ],
@@ -192,22 +212,32 @@
         "span": "test/parse/function.as:25:8-30",
         "parameters": [
           {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:25:9-14",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:25:9-14",
-              "text": "int32"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:25:9-14",
+                "text": "int32"
+              }
+            },
+            "is_mutable": false
           },
           {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:25:16-21",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:25:16-21",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:25:16-21",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         ],
         "result": {
@@ -232,13 +262,18 @@
         "span": "test/parse/function.as:30:8-55",
         "parameters": [
           {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/function.as:30:9-13",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/function.as:30:9-13",
-              "text": "bool"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/function.as:30:9-13",
+                "text": "bool"
+              }
+            },
+            "is_mutable": false
           }
         ],
         "result": {
@@ -246,13 +281,18 @@
           "span": "test/parse/function.as:30:18-55",
           "parameters": [
             {
-              "tag": "TypeName",
+              "tag": "TypeFunctionParameter",
               "span": "test/parse/function.as:30:19-24",
-              "name": {
-                "tag": "Identifier",
+              "type": {
+                "tag": "TypeName",
                 "span": "test/parse/function.as:30:19-24",
-                "text": "int32"
-              }
+                "name": {
+                  "tag": "Identifier",
+                  "span": "test/parse/function.as:30:19-24",
+                  "text": "int32"
+                }
+              },
+              "is_mutable": false
             }
           ],
           "result": {
@@ -260,28 +300,38 @@
             "span": "test/parse/function.as:30:29-55",
             "parameters": [
               {
-                "tag": "TypeFunction",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/function.as:30:30-45",
-                "parameters": [
-                  {
+                "type": {
+                  "tag": "TypeFunction",
+                  "span": "test/parse/function.as:30:30-45",
+                  "parameters": [
+                    {
+                      "tag": "TypeFunctionParameter",
+                      "span": "test/parse/function.as:30:31-35",
+                      "type": {
+                        "tag": "TypeName",
+                        "span": "test/parse/function.as:30:31-35",
+                        "name": {
+                          "tag": "Identifier",
+                          "span": "test/parse/function.as:30:31-35",
+                          "text": "bool"
+                        }
+                      },
+                      "is_mutable": false
+                    }
+                  ],
+                  "result": {
                     "tag": "TypeName",
-                    "span": "test/parse/function.as:30:31-35",
+                    "span": "test/parse/function.as:30:40-45",
                     "name": {
                       "tag": "Identifier",
-                      "span": "test/parse/function.as:30:31-35",
-                      "text": "bool"
+                      "span": "test/parse/function.as:30:40-45",
+                      "text": "int32"
                     }
                   }
-                ],
-                "result": {
-                  "tag": "TypeName",
-                  "span": "test/parse/function.as:30:40-45",
-                  "name": {
-                    "tag": "Identifier",
-                    "span": "test/parse/function.as:30:40-45",
-                    "text": "int32"
-                  }
-                }
+                },
+                "is_mutable": false
               }
             ],
             "result": {

@@ -32,6 +32,7 @@ enum TypeTag : unsigned {
   ARROW_TTAG_UNIT,
   ARROW_TTAG_RECORD,
   ARROW_TTAG_RECORD_MEMBER,
+  ARROW_TTAG_REFERENCE,
 };
 
 struct Type : Item {
@@ -87,6 +88,18 @@ struct Type : Item {
 
   virtual bool is_function() const {
     return false;
+  }
+
+  virtual bool is_record() const noexcept {
+    return false;
+  }
+
+  virtual bool is_reference() const noexcept {
+    return false;
+  }
+
+  virtual ptr<Type> get_element() const {
+    return nullptr;
   }
 };
 

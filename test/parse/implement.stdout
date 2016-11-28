@@ -175,13 +175,18 @@
               "span": "test/parse/implement.as:23:14-18",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/implement.as:23:14-18",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/implement.as:23:14-18",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/implement.as:23:14-18",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],
@@ -284,13 +289,18 @@
               "span": "test/parse/implement.as:37:15-19",
               "name": "self",
               "type": {
-                "tag": "TypeName",
+                "tag": "TypeFunctionParameter",
                 "span": "test/parse/implement.as:37:15-19",
-                "name": {
-                  "tag": "Identifier",
+                "type": {
+                  "tag": "TypeName",
                   "span": "test/parse/implement.as:37:15-19",
-                  "text": "Self"
-                }
+                  "name": {
+                    "tag": "Identifier",
+                    "span": "test/parse/implement.as:37:15-19",
+                    "text": "Self"
+                  }
+                },
+                "is_mutable": false
               }
             }
           ],

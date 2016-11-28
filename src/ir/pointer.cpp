@@ -11,6 +11,7 @@ using arrow::ir::Indirect;
 using arrow::ir::AddressOf;
 
 LLVMValueRef Indirect::handle(GContext& ctx) noexcept {
+  if (operand->type->is_reference()) return LLVMBuildLoad(ctx.irb, operand->handle(ctx), "");
   return operand->value_of(ctx);
 }
 

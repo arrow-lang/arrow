@@ -32,7 +32,16 @@ LLVMValueRef Call::handle(GContext &ctx) noexcept {
       unsigned arg_i = 0;
       for (; arg_i < arguments.size() && arg_i < op_t->parameters.size(); ++arg_i) {
         auto arg_type = op_t->parameters.at(arg_i);
-        auto arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
+        LLVMValueRef arg_handle = nullptr;
+        if (arg_type->is_reference()) {
+          if (arguments[arg_i]->type->is_reference()) {
+            arg_handle = LLVMBuildLoad(ctx.irb, arguments[arg_i]->handle(ctx), "");
+          } else {
+            arg_handle = arguments[arg_i]->address_of(ctx);
+          }
+        } else {
+          arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
+        }
         if (!arg_handle) return nullptr;
 
         // Unit-typed arguments do not materialize
@@ -62,7 +71,16 @@ LLVMValueRef Function::invoke(GContext& ctx, std::vector<ptr<Value>>& arguments)
   unsigned arg_i = 0;
   for (; arg_i < arguments.size() && arg_i < op_t->parameters.size(); ++arg_i) {
     auto arg_type = op_t->parameters.at(arg_i);
-    auto arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
+    LLVMValueRef arg_handle = nullptr;
+    if (arg_type->is_reference()) {
+      if (arguments[arg_i]->type->is_reference()) {
+        arg_handle = LLVMBuildLoad(ctx.irb, arguments[arg_i]->handle(ctx), "");
+      } else {
+        arg_handle = arguments[arg_i]->address_of(ctx);
+      }
+    } else {
+      arg_handle = Transmute(arguments[arg_i]->source, arguments[arg_i], arg_type).value_of(ctx);
+    }
     if (!arg_handle) return nullptr;
 
     // Unit-typed arguments do not materialize

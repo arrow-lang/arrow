@@ -138,13 +138,18 @@
           "span": "test/parse/generic.as:8:15-23",
           "name": "param",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/generic.as:8:22-23",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/generic.as:8:22-23",
-              "text": "T"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/generic.as:8:22-23",
+                "text": "T"
+              }
+            },
+            "is_mutable": false
           }
         }
       ],

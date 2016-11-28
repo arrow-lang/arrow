@@ -43,13 +43,18 @@
           "span": "test/parse/extern_function.as:5:19-27",
           "name": "a",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/extern_function.as:5:22-27",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/extern_function.as:5:22-27",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/extern_function.as:5:22-27",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         },
         {
@@ -57,13 +62,18 @@
           "span": "test/parse/extern_function.as:5:29-37",
           "name": "b",
           "type": {
-            "tag": "TypeName",
+            "tag": "TypeFunctionParameter",
             "span": "test/parse/extern_function.as:5:32-37",
-            "name": {
-              "tag": "Identifier",
+            "type": {
+              "tag": "TypeName",
               "span": "test/parse/extern_function.as:5:32-37",
-              "text": "int64"
-            }
+              "name": {
+                "tag": "Identifier",
+                "span": "test/parse/extern_function.as:5:32-37",
+                "text": "int64"
+              }
+            },
+            "is_mutable": false
           }
         }
       ]

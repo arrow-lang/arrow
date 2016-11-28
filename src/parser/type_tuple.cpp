@@ -60,9 +60,21 @@ auto Parser::parse_type_tuple() -> ptr<ast::Type> {
     auto result = parse_type();
     if (!result) return nullptr;
 
+    // Convert elements to type-function-parameters
+    // FIXME: Right now a type function literal does not support mutable
+    //        parameter types
+    std::vector<ptr<ast::TypeFunctionParameter>> params;
+    for (auto element : elements) {
+      params.push_back(make<ast::TypeFunctionParameter>(
+        element->span,
+        element,
+        false
+      ));
+    }
+
     return make<ast::TypeFunction>(
       begin_tok->span.extend(result->span),
-      elements,
+      params,
       result
     );
   }

@@ -23,3 +23,13 @@ void Print::print_type_function(ptr<TypeFunction> n) {
     print(n->result);
   });
 }
+
+void Print::print_type_function_parameter(ptr<TypeFunctionParameter> n) {
+  handle("TypeFunctionParameter", n, [&, this] {
+    _w.Key("type");
+    print(n->type);
+
+    _w.Key("is_mutable");
+    _w.Bool(n->is_mutable);
+  });
+}

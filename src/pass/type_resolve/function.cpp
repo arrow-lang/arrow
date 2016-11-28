@@ -26,7 +26,7 @@ static ptr<ir::Type> do_result(GContext& ctx, ptr<ast::Function> x) {
   return result;
 }
 
-static bool do_parameters(GContext& ctx, ptr<ast::Function> x, std::vector<ptr<Type>> *parameters) {
+static bool do_parameters(GContext& ctx, ptr<ast::Function> x, std::vector<ptr<Type>> *parameters, bool is_native = true) {
   // Resolve: Parameter types
   for (std::size_t i = 0; i < x->parameters.size(); ++i) {
     auto param = x->parameters[i];
@@ -34,6 +34,11 @@ static bool do_parameters(GContext& ctx, ptr<ast::Function> x, std::vector<ptr<T
     auto param_type = TypeBuild(ctx).run(param->type);
     if (!param_type) {
       return false;
+    }
+
+    // If parameter type is a structure; pass-by-reference
+    if (is_native && param_type->is_record()) {
+      param_type = make<ir::TypeReference>(param_type->source, param_type);
     }
 
     // Push parameter type to function type
@@ -100,7 +105,7 @@ void TypeResolve::visit_extern_function(ptr<ast::ExternFunction> x) {
 
   // Resolve: Parameter types
   std::vector<ptr<ir::Type>> parameters;
-  if (!ir::do_parameters(_ctx, x, &parameters)) {
+  if (!ir::do_parameters(_ctx, x, &parameters, false)) {
     _incomplete = true;
     return;
   }

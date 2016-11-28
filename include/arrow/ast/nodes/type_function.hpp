@@ -15,15 +15,27 @@
 namespace arrow {
 namespace ast {
 
+struct TypeFunctionParameter : Node {
+  TypeFunctionParameter(Span span, ptr<Type> type, bool is_mutable)
+    : Node(span), type(type), is_mutable(is_mutable) {
+  }
+
+  /// Type (of parameter)
+  ptr<Type> type;
+
+  /// Mutable
+  bool is_mutable;
+};
+
 struct TypeFunction : Type {
-  TypeFunction(Span span, std::vector<ptr<Type>> parameters, ptr<Type> result)
+  TypeFunction(Span span, std::vector<ptr<TypeFunctionParameter>> parameters, ptr<Type> result)
     : Type(span), parameters(parameters), result(result) {
   }
 
   virtual ~TypeFunction() noexcept;
 
   /// Elements
-  std::vector<ptr<Type>> parameters;
+  std::vector<ptr<TypeFunctionParameter>> parameters;
 
   /// Result
   ptr<Type> result;

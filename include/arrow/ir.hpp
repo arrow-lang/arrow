@@ -30,6 +30,7 @@
 #include "arrow/ir/type_alias.hpp"
 #include "arrow/ir/type_unit.hpp"
 #include "arrow/ir/type_record.hpp"
+#include "arrow/ir/type_reference.hpp"
 
 #include "arrow/ir/value.hpp"
 #include "arrow/ir/constant.hpp"

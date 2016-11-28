@@ -113,7 +113,7 @@ class Parser {
   ptr<ast::ExternFunction> parse_extern_function();
   ptr<ast::ExternVariable> parse_extern_variable();
   ptr<ast::Import> parse_import();
-  ptr<ast::Parameter> parse_parameter(bool allow_self = false);
+  ptr<ast::Parameter> parse_parameter(bool native = false);
   ptr<ast::TypeParameter> parse_type_parameter();
 
   ptr<ast::Call> parse_call(ptr<ast::Expression>);

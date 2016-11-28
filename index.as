@@ -24,8 +24,9 @@
 // [ ] Resource Interface
 // [ ] uintx / intx -> pointer-sized
 // [ ] byte -> uint8
-
+// [ ] c typedef should come across as a strong type alias
 // [ ] Sequence failure (fix parsing after error)
+// [ ] Records must be passed by-reference
 
 // [ ] Namespace (allow for structs/functions inside function)
 
@@ -33,3 +34,5 @@
 // [ ] Error on method names conflicting with record member names
 // [ ] Error on impl not in same module
 // [ ] Error on impl not on user-defined-type
+
+// [x] Hidden References and Mutable Parameters

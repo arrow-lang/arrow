@@ -9,11 +9,17 @@
 using arrow::ir::Value;
 
 LLVMValueRef Value::value_of(GContext& ctx) noexcept {
-  if (is_addressable()) {
-    return LLVMBuildLoad(ctx.irb, handle(ctx), "");
+  auto res = handle(ctx);
+
+  if (type->is_reference()) {
+    res = LLVMBuildLoad(ctx.irb, res, "");
   }
 
-  return handle(ctx);
+  if (is_addressable()) {
+    res = LLVMBuildLoad(ctx.irb, res, "");
+  }
+
+  return res;
 }
 
 LLVMValueRef Value::address_of(GContext& ctx) noexcept {
