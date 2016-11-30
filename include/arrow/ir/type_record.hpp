@@ -74,15 +74,15 @@ struct GenericTypeRecord : Item, Generic {
 
   virtual ~GenericTypeRecord() noexcept;
 
+  // Parent Scope
+  ptr<ir::Scope> parent_scope;
+
  private:
   virtual ptr<ir::Node> do_instantiate(GContext&, std::vector<ptr<ir::Type>>&);
 
   virtual std::string get_base_name() {
     return name;
   }
-
-  // Parent Scope
-  ptr<ir::Scope> parent_scope;
 };
 
 }  // namespace ir

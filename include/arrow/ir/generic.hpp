@@ -40,6 +40,9 @@ struct Generic : virtual Node {
   /// Name
   virtual std::string get_base_name() = 0;
 
+ protected:
+  void update_cache(std::vector<ptr<ir::Type>>& type_arguments, ptr<Node> node);
+
  private:
   /// Instantiate a concrete item
   virtual ptr<ir::Node> do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments) = 0;

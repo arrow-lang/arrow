@@ -19,6 +19,17 @@ using arrow::ir::GenericTypeRecord;
 using arrow::ir::GenericImplement;
 namespace ir = arrow::ir;
 
+void Generic::update_cache(std::vector<ptr<ir::Type>>& type_arguments, ptr<Node> node) {
+  // Make (cache) name
+  std::stringstream stream;
+  for (auto& a : type_arguments) {
+    stream << a->name;
+  }
+
+  auto cache_key = stream.str();
+  _cache[cache_key] = node;
+}
+
 auto Generic::instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& type_arguments, Span span) -> ptr<Node> {
   // Check type_parameters against type_arguments
   if (type_arguments.size() == 0) {
@@ -118,6 +129,7 @@ auto GenericFunction::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>& 
   // Declare: Type Parameters
   auto i = ctx.scope->get<ir::Function>(x);
   if (!i) return nullptr;
+  update_cache(type_args, i);
   declare_type_parameters(ctx, i->block->scope, type_parameters, type_args);
 
   // Resolve
@@ -145,6 +157,7 @@ auto GenericTypeRecord::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>
   // Declare: Type Parameters
   auto i = ctx.scope->get<ir::TypeRecord>(x);
   if (!i) return nullptr;
+  update_cache(type_args, i);
   declare_type_parameters(ctx, i->scope, type_parameters, type_args);
 
   // Resolve
@@ -176,6 +189,7 @@ auto GenericImplement::do_instantiate(GContext& ctx, std::vector<ptr<ir::Type>>&
   // Declare: Type Parameters
   auto i = ctx.scope->get<ir::Implement>(x);
   if (!i) return nullptr;
+  update_cache(type_args, i);
 
   // Resolve
   auto err_cnt = Log::get().count(LOG_ERROR);
