@@ -48,9 +48,11 @@ implement<T> Vector<T> {
     self.Reserve(self.capacity + 1);
 
     // Move element into the container
-    let offset = self.size * std.size_of<T>();
-    libc.memcpy((self.data + offset) as *uint8, &element as *uint8,
-      std.size_of<T>());
+    // BUG(arrow): I think the reason why memcpy doesn't work is the same
+    //             reason you can't take the address of a by-ref struct
+    *(self.data + self.size) = element;
+    // libc.memcpy((self.data + self.size) as *uint8, &element as *uint8,
+    //   std.size_of<T>());
 
     // Increment size to keep track of element insertion
     self.size += 1;

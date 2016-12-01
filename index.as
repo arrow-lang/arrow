@@ -36,3 +36,44 @@
 // [ ] Error on impl not on user-defined-type
 
 // [x] Hidden References and Mutable Parameters
+
+// [ ] Function return should become address-able
+
+// import "libc";
+import "vec";
+import "./test";
+
+struct Point {
+  x: test.Box;
+  y: int32;
+}
+
+// struct Record {
+//   v: vec.Vector<Point>;
+// }
+
+// def get(): Point {
+//   let p: Point;
+//   return p;
+// }
+
+// implement Point {
+//   def get(self): int64 {
+//   }
+// }
+
+def main() {
+  let p: Point;
+  let v = *(p.x.a + 30);
+
+  // let apx = get().x;
+  // let r: Record;
+  // r.v = vec.Vector<Point>.New();
+  // let p: Point;
+  // p.x = 230;
+  // p.y = 40;
+  // r.v.Push(p);
+  //
+  // // let ap = r.v.Get(0);
+  // let apx = r.v.Get(0).x;
+}

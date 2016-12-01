@@ -273,28 +273,29 @@ static bool generic_match(
   std::vector<ptr<ir::GenericTypeParameter>> type_parameters,
   std::unordered_map<std::string, ptr<ir::Type>>& result
 ) {
-  if (!isa<ir::GenericInstantiation>(type)) {
-    // Not instnatiated from a generic template
+  // Nil type?
+  if (!type) return false;
 
-    // Only way this can match is if `name` is a single generic type
-    // identifier
-
-    for (auto& tp : type_parameters) {
-      if (tp->name == name->text) {
-        if (result.find(name->text) == result.end()) {
-          result[name->text] = type;
-        } else if (!result[name->text]->is_equal(type)) {
-          return false;
-        }
-
-        return true;
+  // Check trivial match (T == *)
+  for (auto& tp : type_parameters) {
+    if (tp->name == name->text) {
+      if (result.find(name->text) == result.end()) {
+        result[name->text] = type;
+      } else if (!result[name->text]->is_equal(type)) {
+        return false;
       }
-    }
 
+      return true;
+    }
+  }
+
+  // Not instnatiated from a generic template; we're done here
+  if (!type || !isa<ir::GenericInstantiation>(type)) {
     return false;
   }
 
   auto generic_i = cast<ir::GenericInstantiation>(type);
+  if (!generic_i->base_generic) return false;
 
   ptr<ir::Scope> generic_scope;
   auto generic_impl = dynamic_cast<ir::GenericImplement*>(generic_i->base_generic);
@@ -304,11 +305,13 @@ static bool generic_match(
     generic_scope = generic_impl->parent_scope;
   } else if (generic_rec) {
     generic_scope = generic_rec->parent_scope;
+  } else {
+    return false;
   }
 
   auto sb = ir::Scope::enter(generic_scope, ctx);
 
-  auto target = ir::resolve_name(ctx, name, false, false);
+  auto target = ir::resolve_name(ctx, name, true, false);
   if (!target) return false;
 
   // Check for a match at base
@@ -370,6 +373,7 @@ auto arrow::ir::resolve_path(GContext& ctx, ptr<ast::Path> x, bool silent, bool 
     op_t = ir::type_of(op);
   } else {
     // Run the normal passes (if not a name)
+
     if (build) {
       op = pass::Build(ctx).run(x->operand);
       if (!op) return nullptr;

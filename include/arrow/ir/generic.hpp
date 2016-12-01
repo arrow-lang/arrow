@@ -57,7 +57,7 @@ struct GenericInstantiation : virtual Node {
   virtual ~GenericInstantiation() noexcept;
 
   // Source (base) generic
-  ir::Generic* base_generic;
+  ir::Generic* base_generic = nullptr;
 
   // Type arguments (used to instantiate)
   std::vector<ptr<Type>> type_arguments;
