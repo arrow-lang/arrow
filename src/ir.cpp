@@ -295,7 +295,21 @@ static bool generic_match(
   }
 
   auto generic_i = cast<ir::GenericInstantiation>(type);
+
+  ptr<ir::Scope> generic_scope;
+  auto generic_impl = dynamic_cast<ir::GenericImplement*>(generic_i->base_generic);
+  auto generic_rec = dynamic_cast<ir::GenericTypeRecord*>(generic_i->base_generic);
+
+  if (generic_impl) {
+    generic_scope = generic_impl->parent_scope;
+  } else if (generic_rec) {
+    generic_scope = generic_rec->parent_scope;
+  }
+
+  auto sb = ir::Scope::enter(generic_scope, ctx);
+
   auto target = ir::resolve_name(ctx, name, false, false);
+  if (!target) return false;
 
   // Check for a match at base
   if (generic_i->base_generic != target.get()) return false;
@@ -320,6 +334,8 @@ static bool generic_match(
       return false;
     }
   }
+
+  sb.exit();
 
   return true;
 }
