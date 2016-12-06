@@ -15,8 +15,6 @@
   arrow::ir::N::~N() noexcept { }
 
 using namespace arrow;
-namespace ir = arrow::ir;
-namespace ast = arrow::ast;
 
 IMPL(Add)
 IMPL(AddressOf)
