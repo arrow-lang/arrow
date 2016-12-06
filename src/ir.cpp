@@ -12,7 +12,7 @@
 #include "fmt.hpp"
 
 #define IMPL(N) \
-  ir::N::~N() noexcept { }
+  arrow::ir::N::~N() noexcept { }
 
 using namespace arrow;
 namespace ir = arrow::ir;
